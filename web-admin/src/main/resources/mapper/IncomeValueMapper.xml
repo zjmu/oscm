@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.IncomeValueMapper">
+
+    <resultMap id="myMapper" type="edu.jmu.oscm.model.IncomeValue">
+        <id property="id" column="id"/>
+        <id property="incomeId" column="income_id"/>
+        <id property="year" column="year"/>
+        <id property="month" column="month"/>
+        <id property="monthAmount" column="month_amount"/>
+        <id property="yearAmount" column="year_amount"/>
+        <id property="createDate" column="create_date"/>
+    </resultMap>
+
+    <insert id="addIncomeValue" parameterType="java.util.List">
+        insert into ad_income_value(income_id,year,month,moth_amount,year_amount,create_date,create_date)
+        values
+        <foreach collection="list" item="incomeValue" separator=",">
+            (#{incomeValue.incomeId},#{incomeValue.year},#{incomeValue.month},#{incomeValue.monthAmount},
+             #{incomeValue.yearAmount},#{incomeValue.createDate})
+        </foreach>
+    </insert>
+
+    <select id="findByDate" resultMap="myMapper">
+        select * from ad_income_value where date like concat(#{date},'%')
+    </select>
+    <delete id="deleteAll">
+        delete  from ad_income_value
+    </delete>
+</mapper>

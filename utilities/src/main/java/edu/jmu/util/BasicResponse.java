@@ -58,4 +58,32 @@ public class BasicResponse<T> {
      */
     @ApiModelProperty(value = "异常信息", name = "exception")
     private String exception;
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public void setException(String exception) {
+        this.exception = exception;
+    }
 }

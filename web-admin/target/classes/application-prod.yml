@@ -1,10 +1,8 @@
 spring:
-  cache:
-    type: simple
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/aderi?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/oscm?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: 123456
+    password: Jmu@2018@db
     driver-class-name: com.mysql.jdbc.Driver
 debug: true
 logging:
