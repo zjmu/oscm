@@ -1,13 +1,16 @@
 package edu.jmu.oscm.controller;
 
 import edu.jmu.oscm.mapper.BalanceStructMapper;
+import edu.jmu.oscm.mapper.BalanceValueMapper;
 import edu.jmu.oscm.mapper.myUserMapper;
 import edu.jmu.oscm.model.BalanceStruct;
+import edu.jmu.oscm.model.BalanceValue;
 import edu.jmu.oscm.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +23,9 @@ public class test {
     private myUserMapper userMapper;
 
     @Autowired
+    private BalanceValueMapper balanceValueMapper;
+
+    @Autowired
     private BalanceStructMapper balanceStructMapper;
 
     @RequestMapping("/test")
@@ -27,26 +33,37 @@ public class test {
         return "hello";
     }
 
-    @RequestMapping("/mybatis")
-    public String mybatis(){
+    @RequestMapping("/add")
+    public String add(){
+        BalanceValue balanceValue = new BalanceValue();
 
-        List<User> allUser = userMapper.queryAllUser();
+        balanceValue.setId(1);
+        balanceValue.setItem_id(1);
+        balanceValue.setYear("2016");
+        balanceValue.setMonth("12");
+        balanceValue.setBegin_balance(new BigDecimal(2));
+        balanceValue.setEnd_balance(new BigDecimal(2));
+        balanceValue.setCreate_date(new Timestamp(new Date().getTime()));
 
-        for (User user : allUser) {
-            System.out.println(user.toString());
+        Boolean result = balanceValueMapper.insertValue(balanceValue);
+
+        if(result){
+            System.out.println("success");
+        }else{
+            System.out.println("error");
         }
 
-        return "hello";
+        return "success";
     }
 
     @RequestMapping("/selectAll")
     public String selectAll() {
 
-        List<BalanceStruct> balanceStructArrayList = balanceStructMapper.getAllStruct();
+        List<BalanceValue> balanceValues = balanceValueMapper.getAllValue();
 
-        if(balanceStructArrayList!=null){
-            for (BalanceStruct balanceStruct : balanceStructArrayList) {
-                System.out.println(balanceStruct.toString());
+        if(balanceValues!=null){
+            for (BalanceValue balanceValue : balanceValues) {
+                System.out.println(balanceValue.toString());
             }
         }
 
@@ -55,10 +72,10 @@ public class test {
 
     @RequestMapping("/select")
     public String select(){
-        BalanceStruct balanceStruct = balanceStructMapper.selectById(1);
+        BalanceValue balanceValue = balanceValueMapper.selectById(1);
 
-        if(balanceStruct!=null){
-            System.out.println(balanceStruct.toString());
+        if(balanceValue!=null){
+            System.out.println(balanceValue.toString());
         }else{
             System.out.println("error");
         }
