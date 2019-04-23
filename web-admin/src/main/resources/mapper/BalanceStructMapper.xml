@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.BalanceStructMapper">
+    <resultMap id="balanceStructMapper" type="edu.jmu.oscm.model.BalanceStruct">
+        <id column="item_id" property="item_id"/>
+        <result column="name" property="name"/>
+        <result column="item_code" property="item_code"/>
+        <result column="line" property="line"/>
+        <result column="type_id" property="type_id"/>
+        <result column="category" property="category"/>
+        <result column="begin_forum" property="begin_forum"/>
+        <result column="end_forum" property="end_forum"/>
+        <result column="create_date" property="create_date"/>
+    </resultMap>
+
+<!--    item_code暂时不用-->
+    <insert id="insertStruct" parameterType="edu.jmu.oscm.model.BalanceStruct">
+        insert into ad_balance_struct (item_id, name, line, type_id, category, begin_forum, end_forum, create_date)
+        values (#{item_id},#{name},#{line},#{type_id},#{category},#{begin_forum},#{end_forum},#{create_date})
+    </insert>
+
+    <insert id="insertStructs" parameterType="java.util.List">
+        insert into ad_balance_struct (item_id, name,  line, type_id, category, begin_forum, end_forum, create_date)
+        values
+        <foreach collection="list" item="balanceStruct" separator=",">
+            (#{balanceStruct.item_id},#{balanceStruct.name},#{balanceStruct.line},#{balanceStruct.type_id},#{balanceStruct.category},#{balanceStruct.begin_forum},#{balanceStruct.end_forum},#{balanceStruct.create_date})
+        </foreach>
+    </insert>
+
+    <select id="selectById" parameterType="int" resultMap="balanceStructMapper">
+        select * FROM ad_balance_struct WHERE item_id = (#{id})
+    </select>
+
+    <select id="getAllStruct" resultMap="balanceStructMapper">
+        SELECT * FROM ad_balance_struct
+    </select>
+
+    <delete id="deleteAll" parameterType="java.util.List">
+        DELETE FROM ad_balance_struct WHERE item_id!=0
+    </delete>
+
+</mapper>
