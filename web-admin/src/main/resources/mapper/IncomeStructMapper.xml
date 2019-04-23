@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.IncomeStructMapper">
+
+    <resultMap id="myMapper" type="edu.jmu.oscm.model.IncomeStruct">
+        <id property="incomeId" column="income_id"/>
+        <id property="name" column="name"/>
+        <id property="incomeCode" column="income_code"/>
+        <id property="line" column="line"/>
+        <id property="direction" column="direction"/>
+        <id property="monthForum" column="month_forum"/>
+        <id property="yearForum" column="year_forum"/>
+    </resultMap>
+
+    <insert id="add" parameterType="list">
+        update ad_income_struct set income_id = income_id + #{num} where income_id >= #{incomeStruct.get(0).getIncomeId}
+        insert into ad_income_struct(income_id, name, income_code, line, direction, month_forum, year_forum)
+        values
+        <foreach collection="list" item="incomeSturct"  separator=",">
+            (#{incomeStruct.incomeId},#{incomeStruct.name},#{incomeStruct.incomeCode},#{incomeStruct.line},
+            #{incomeStruct.direction},#{incomeStruct.monthForum},#{incomeStruct.yearForum})
+        </foreach>
+    </insert>
+
+    <insert id="addAll">
+        insert into ad_income_struct(income_id, name, income_code, line, direction, month_forum, year_forum)
+        values
+        <foreach collection="list" item="incomeSturct"  separator=",">
+            (#{incomeStruct.incomeId},#{incomeStruct.name},#{incomeStruct.incomeCode},#{incomeStruct.line},
+            #{incomeStruct.direction},#{incomeStruct.monthForum},#{incomeStruct.yearForum})
+        </foreach>
+    </insert>
+
+    <update id="updateById" parameterType="integer">
+        update ad_income_struct set income_id = incomd_id - 1 where income_id > #{incomeId}
+    </update>
+
+    <delete id="delete">
+        delete from ad_income_value where income_id = #{incomeId}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from ad_income_struct
+    </delete>
+
+    <select id="find" resultMap="myMapper">
+        select * from ad_income_struct
+    </select>
+
+    <select id="searchMaxId" resultType="integer">
+        select max(income_id) from ad_income_struct
+    </select>
+</mapper>

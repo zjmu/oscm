@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.CredenceMapper">
+
+    <resultMap id="myMapper" type="edu.jmu.oscm.model.Credence">
+        <id property="credenceId" column="credence_id"/>
+        <id property="credenceNo" column="credence_no"/>
+        <id property="substract" column="substract"/>
+        <id property="departmentId" column="department_id"/>
+        <id property="subjectId" column="subject_id"/>
+        <id property="subjectName" column="subject_name"/>
+        <id property="borrowMoney" column="borrow_money"/>
+        <id property="lendMoney" column="lend_money"/>
+        <id property="employeeId" column="employee_name"/>
+        <id property="employeeName" column="employee_name"/>
+        <id property="happenData" column="happen_data"/>
+    </resultMap>
+
+    <insert id="addCredence" parameterType="edu.jmu.oscm.model.Credence">
+        insert into ad_credence(credence_no,substract,department_id,subject_id,borrow_money,lend_money,employee_id,happen_date)
+        values(#{credenceNo},#{substract},#{departmentId},#{subjectId},#{borrowMoney},#{lendMoney},#{employeeId},#{happenDate})
+    </insert>
+
+    <insert id="addCredences" parameterType="java.util.List">
+        insert into ad_credence(credence_no,substract,department_id,subject_id,borrow_money,lend_money,employee_id,happen_date)
+        values
+        <foreach collection="list" item="credence" separator=",">
+            (#{credence.credenceNo},#{credence.substract},#{credence.departmentId},#{credence.subjectId},#{credence.borrowMoney},#{credence.lendMoney},
+            #{credence.employeeId},#{credence.happenDate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteCredence" parameterType ="Integer">
+        delete from ad_credence where credence_id=#{credence_id}
+    </delete>
+    <delete id="deleteCredenceByDate" parameterType="String">
+        delete from ad_credence where happen_date like concat(#{happenDate},'%')
+    </delete>
+    <delete id="deleteAll" >
+        DELETE from  ad_credence
+    </delete>
+
+    <select id="findByID" parameterType="Integer" resultMap="myMapper">
+        select * from ad_credence where credence_id=#{credence_id}
+    </select>
+
+    <select id="findByLike" parameterType="String" resultMap="myMapper">
+        select * from ad_credence where happen_date  like  concat(#{happenDate},'%')
+    </select>
+    <select id="findAll" resultMap="myMapper">
+        select * from ad_credence
+    </select>
+
+    <select id="findBorrowLend" resultMap="myMapper">
+        select *  from  ad_credence where subject_id=#{subject_id} and happen_date like concat(#{happen_date},'%')
+    </select>
+
+    <select id="findBorrowLendLike" resultMap="myMapper">
+        select *  from  ad_credence where subject_id like concat(#{subject_id},'%') and happen_date like concat(#{happen_date},'%')
+    </select>
+</mapper>

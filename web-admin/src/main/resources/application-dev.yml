@@ -2,10 +2,10 @@ spring:
   cache:
     type: simple
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/aderi?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/aderi?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: root
-    driver-class-name: org.mariadb.jdbc.Driver
+    password: Jmu@2018@db
+    driver-class-name: com.mysql.jdbc.Driver
 debug: true
 logging:
   level:
