@@ -1,0 +1,20 @@
+{
+  "name": "资金优化管理系统API文档",
+  "version": "0.0.1",
+  "description": "资金优化管理系统API文档",
+  "title": "资金优化管理系统API",
+  "url": "http://oscm.xmiss.top/oscm_new",
+  "sampleUrl": "http://oscm.xmiss.top/oscm_new",
+  "header": {
+    "title": "Overview",
+    "filename": "header.md"
+  },
+  "footer": {
+    "title": "Copyright",
+    "filename": "footer.md"
+  },
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  }
+}

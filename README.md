@@ -5,3 +5,4 @@
 - `2019-03-08` 创建demo数据库，运行data目录下脚本初始化数据库
 - `2019-03-08` 编写《学习任务》文档
 - `2019-03-08` 编写《Java开发准备》文档
+- `2019-04-23` 在web-admin模块的main目录下执行apidoc -i java -o resources/static/apidoc命令，生成apidoc接口文档

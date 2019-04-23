@@ -26,6 +26,24 @@ public class OrderController {
     @Autowired
     private OrderMapper orderMapper;
 
+    /**
+     * 查询所有订单记录
+     *
+     * @api {GET} /orders 查询订单信息
+     * @apiName queryAll 查询订单信息
+     * @apiGroup api
+     * @apiParamExample {json} Request_Example:
+     * GET: /orders
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"查询订单成功","data":[{"id":1,"name":"order1","goodsNum":1},{"id":2,"name":"order2","goodsNum":2}]}
+     */
     @GetMapping("/orders")
     public BasicResponse<List<Order>> queryAll() {
         return BusinessWrapper.wrap(response -> {
