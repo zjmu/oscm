@@ -3,6 +3,7 @@ package edu.jmu.oscm;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -10,9 +11,9 @@ import org.springframework.context.annotation.ComponentScan;
  * @author guantianmin
  * @date 2019/3/4 11:20
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @EnableCaching
-@ComponentScan(basePackages = {"edu.jmu.security", "edu.jmu.oscm"})
+//@ComponentScan(basePackages = {"edu.jmu.security", "edu.jmu.oscm"})
 @MapperScan(basePackages = {"edu.jmu.security.mapper", "edu.jmu.oscm.mapper"})
 public class OscmApplication {
 
