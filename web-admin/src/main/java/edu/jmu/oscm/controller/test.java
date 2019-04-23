@@ -39,8 +39,8 @@ public class test {
         return "hello";
     }
 
-    @RequestMapping("/select")
-    public String select() {
+    @RequestMapping("/selectAll")
+    public String selectAll() {
 
         List<BalanceStruct> balanceStructArrayList = balanceStructMapper.getAllStruct();
 
@@ -48,6 +48,19 @@ public class test {
             for (BalanceStruct balanceStruct : balanceStructArrayList) {
                 System.out.println(balanceStruct.toString());
             }
+        }
+
+        return "hello";
+    }
+
+    @RequestMapping("/select")
+    public String select(){
+        BalanceStruct balanceStruct = balanceStructMapper.selectById(1);
+
+        if(balanceStruct!=null){
+            System.out.println(balanceStruct.toString());
+        }else{
+            System.out.println("error");
         }
 
         return "hello";

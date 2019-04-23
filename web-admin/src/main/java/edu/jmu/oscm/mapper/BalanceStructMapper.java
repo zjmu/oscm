@@ -3,7 +3,6 @@ package edu.jmu.oscm.mapper;
 import edu.jmu.oscm.model.BalanceStruct;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +15,12 @@ import java.util.List;
 public interface BalanceStructMapper {
 
     /**
-     * 清空资产负债表
+     * 清空
      * @return
      */
     Boolean deleteAll();
+
+
 
     /**
      * 增加一条
@@ -28,6 +29,16 @@ public interface BalanceStructMapper {
      */
     Boolean insertStruct(BalanceStruct balanceStruct);
 
+
+    /**
+     * 根据id查找一条
+     * @param id
+     * @return
+     */
+    BalanceStruct selectById(int id);
+
+
+
     /**
      * 查找所有记录
      * @return
@@ -35,10 +46,12 @@ public interface BalanceStructMapper {
     List<BalanceStruct> getAllStruct();
 
 
+
+
     /**
      * 批量增加
-     * @param arrayBalanceStruct
+     * @param balanceStructList
      * @return
      */
-    Boolean insertStructs(List<BalanceStruct> arrayBalanceStruct);
+    Boolean insertStructs(List<BalanceStruct> balanceStructList);
 }

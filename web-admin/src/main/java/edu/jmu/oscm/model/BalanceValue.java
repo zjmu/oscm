@@ -1,5 +1,7 @@
 package edu.jmu.oscm.model;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -10,6 +12,7 @@ import java.sql.Timestamp;
  * @email zhangyuxin2009@126.com
  */
 
+@Data
 public class BalanceValue {
     // 项目ID
     private int id;

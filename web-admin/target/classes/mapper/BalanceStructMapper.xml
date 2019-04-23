@@ -27,6 +27,10 @@
         </foreach>
     </insert>
 
+    <select id="selectById" parameterType="int" resultMap="balanceStructMapper">
+        select * FROM ad_balance_struct WHERE item_id = (#{id})
+    </select>
+
     <select id="getAllStruct" resultMap="balanceStructMapper">
         SELECT * FROM ad_balance_struct
     </select>
@@ -34,5 +38,5 @@
     <delete id="deleteAll" parameterType="java.util.List">
         DELETE FROM ad_balance_struct WHERE item_id!=0
     </delete>
-    
+
 </mapper>

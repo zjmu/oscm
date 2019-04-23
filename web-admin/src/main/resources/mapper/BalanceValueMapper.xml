@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.jmu.oscm.mapper.BalanceStructMapper">
-    <resultMap id="orderMapper" type="edu.jmu.oscm.model.Order">
+<mapper namespace="edu.jmu.oscm.mapper.BalanceValueMapper">
+    <resultMap id="balanceValueMapper" type="edu.jmu.oscm.model.BalanceValue">
         <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="goods_num" property="goodsNum"/>
+        <result column="item_id" property="item_id"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="begin_balance" property="begin_balance"/>
+        <result column="end_balance" property="end_balance"/>
+        <result column="create_date" property="create_date"/>
     </resultMap>
-<!--    <select id="queryAllUser" resultMap="orderMapper">-->
-<!--        SELECT username, password-->
-<!--        FROM user-->
-<!--    </select>-->
+
+    <insert id="insertValue" parameterType="edu.jmu.oscm.model.BalanceValue">
+        insert into ad_balance_value (id, item_id, year, month, begin_balance, end_balance, create_date)
+        values (#{id},#{item_id},#{year},#{month},#{begin_balance},#{end_balance},#{create_date})
+    </insert>
+
+    <insert id="insertValues" parameterType="java.util.List">
+        insert into ad_balance_value (id, item_id, year, month, begin_balance, end_balance, create_date)
+        values
+        <foreach collection="list" item="balanceValue" separator=",">
+            (#{balanceValue.id},#{balanceValue.item_id},#{balanceValue.year},#{balanceValue.month},#{balanceValue.begin_balance},#{balanceValue.end_balance},#{balanceValue.create_date})
+        </foreach>
+    </insert>
+
+    <select id="selectById" parameterType="int" resultMap="balanceValueMapper">
+        select * FROM ad_balance_value WHERE id = (#{id})
+    </select>
+
+    <select id="getAllValue" resultMap="balanceValueMapper">
+        SELECT * FROM ad_balance_value
+    </select>
+
+    <delete id="deleteAll" parameterType="java.util.List">
+        DELETE FROM ad_balance_value WHERE id!=0
+    </delete>
+
 </mapper>
