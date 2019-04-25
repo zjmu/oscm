@@ -32,6 +32,24 @@ public class IncomeController {
     @Autowired
     private IncomeService incomeService;
 
+    /**
+     * 计算并生成损益表
+     *
+     * @api {GET} /incomes/2018-07 计算损益表的年月金额
+     * @apiName getIncome 计算并生成损益表
+     * @apiGroup api
+     * @apiParamExample {json} Request_Example:
+     * GET: /incomes
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"查询成功","data":[{"id":0,"income_id":1,"year":2018,"month":07,"month_amount":19888,"year_amount":89998,"create_date":2019-04-18}]}
+     */
     @GetMapping("/incomes")
     public BasicResponse<List<IncomeValue>> getIncome() {
 
@@ -44,6 +62,24 @@ public class IncomeController {
         }, logger);
     }
 
+     /**
+     * 对损益表结构的增删改
+     *
+     * @api {GET} /update 修改损益表结构
+     * @apiName update
+     * @apiGroup api
+     * @apiParamExample {json} Request_Example:
+     * GET: /orders
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"修改成功","data"}
+     */
     @GetMapping("/update")
     public BasicResponse<String> update(@RequestBody List<IncomeStruct> incomeStruct){
 
