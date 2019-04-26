@@ -59,14 +59,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!--  mariaDB-->
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>2.4.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -131,5 +124,6 @@
     <modules>
         <module>spring-security-jwt</module>
         <module>utilities</module>
+        <module>web-admin</module>
     </modules>
 </project>

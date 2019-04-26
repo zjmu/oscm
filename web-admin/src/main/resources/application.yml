@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: prod
 jwt:
   header: Authorization
   secret: mySecret
