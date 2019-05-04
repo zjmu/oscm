@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.ImprovementPlanMapper">
+    <resultMap id="improvementPlanMapper" type="edu.jmu.oscm.model.ImprovementPlan">
+        <id column="id" property="id"/>
+        <result column="REPORT_ITEM_ID" property="report_item_id"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="ok" property="ok"/>
+        <result column="plan" property="plan"/>
+        <result column="remark" property="remark"/>
+        <result column="date" property="date"/>
+    </resultMap>
+    <insert id="insertImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
+         insert into ad_improvement_plan (report_item_id,year,month,ok,plan,remark,date)
+        values (#{report_item_id},#{year},#{month},#{ok},#{plan},#{remark},#{date})
+
+    </insert>
+    <update id="updateImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
+        UPDATE ad_improvement_plan SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , ok = #{ok} , plan = #{plan} , remark =#{remark} ,date =#{date}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteAll">
+         DELETE FROM ad_improvement_plan WHERE id!=0
+    </delete>
+
+    <delete id="deleteById" parameterType="int">
+        delete from ad_improvement_plan where id = (#{id})
+    </delete>
+    
+    <select id="selectImprovementPlanById" parameterType="int" resultMap="improvementPlanMapper">
+        select  * from ad_improvement_plan where id = #{id}
+    </select>
+
+    <select id="getAllImprovementPlan" resultMap="improvementPlanMapper">
+        select * from ad_improvement_plan
+    </select>
+
+
+</mapper>
