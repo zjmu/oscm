@@ -440,6 +440,226 @@
     ]
   },
   {
+    "type": "Post",
+    "url": "/addReduceTarget",
+    "title": "添加一条项目降低目标设置",
+    "name": "addReduceTarget_____________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "{\n\"report_item_id\":1,\n\"year\":\"2018\",\n\"year_percent\":0,\n\"year_value\":5525.02,\n\"last_year_value\":0,\n\"asset_or_debt\":1\n}\nPOST: /addReduceTarget\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"添加一条记录成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/addReduceTarget"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/deleteReduceTarget",
+    "title": "删除指定项目降低目标设置",
+    "name": "deleteReduceTarget_____________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目降低目标设置id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /deleteReduceTarget?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"根据id删除一条记录成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteReduceTarget"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryReduceTarget?id=",
+    "title": "查询指定项目降低目标设置表",
+    "name": "queryReduceTarget______________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目降低目标设置id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryReduceTarget?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"根据ID查询一条记录成功\",\n\"data\":{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryReduceTarget?id="
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryReduceTargets",
+    "title": "查询所有项目降低目标设置",
+    "name": "queryReduceTargets_____________",
+    "group": "ReduceTargets",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryReduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\"data\":[\n{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true},\n{\"id\":209,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":1000,\"last_year_value\":,\n  \"jan\":83.3333,\"feb\":583.3333,\"mar\":83.3333,\"apr\":83.3333,\"may\":83.3333,\"jun\":83.3333,\n  \"jul\":83.3333,\"aug\":83.3333,\"sept\":83.3333,\"oct\":83.3333,\"nov\":83.3333,\"dec\":83.3333,\n  \"asset_or_debt\":true}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTargets",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryReduceTargets"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/updateReduceTarget",
+    "title": "更改指定项目降低目标设置",
+    "name": "updateReduceTarget_____________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "{\n\"id\":238,\n\"year_value\":635184.7500\n}\nPOST: /updateReduceTarget\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更新提升和改善计划表成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/updateReduceTarget"
+      }
+    ]
+  },
+  {
+    "type": "Post",
+    "url": "/updateReduceTargets",
+    "title": "批量更改项目降低目标设置",
+    "name": "updateReduceTargets_____________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "[\n{\"id\":237,\"year_value\":5000},\n{\"id\":238,\"year_value\":5000},\n{\"id\":239,\"year_value\":5000}\n]\nPOST: /updateReduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量更新成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/updateReduceTargets"
+      }
+    ]
+  },
+  {
     "type": "GET",
     "url": "/incomes/2018-07",
     "title": "计算损益表的年月金额",
