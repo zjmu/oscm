@@ -1,5 +1,265 @@
 define({ "api": [
   {
+    "type": "Post",
+    "url": "/createBalanceTargetValue",
+    "title": "插入上月余额与目标降低值表信息",
+    "name": "createBalanceTargetValue________________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "{\n \"reportItemId\":2,\n \"year\":2019,\n \"month\":3,\n \"lastMonthBalance\":45,\n \"planMonthTargetValue\":65,\n \"planTotalReduceValue\":85,\n \"actualMonthTargetValue\":98,\n \"actualTotalReduceValue\":98,\n \"monthIncrementalValue\":78,\n \"totalIncrementalValue\":78,\n \"monthReward\":25,\n \"totalReward\":12,\n \"date\":\"2019-05-06\"\n}\nPOST: /createBalanceTargetValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"增加记录成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/createBalanceTargetValue"
+      }
+    ]
+  },
+  {
+    "type": "Post",
+    "url": "/createMoreBalanceTargetValue",
+    "title": "批量插入上月余额与目标降低值表信息",
+    "name": "createMoreBalanceTargetValue__________________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "[\n{\n \"reportItemId\":2,\n \"year\":2019,\n \"month\":3,\n \"lastMonthBalance\":45,\n \"planMonthTargetValue\":65,\n \"planTotalReduceValue\":85,\n \"actualMonthTargetValue\":98,\n \"actualTotalReduceValue\":98,\n \"monthIncrementalValue\":78,\n \"totalIncrementalValue\":78,\n \"monthReward\":25,\n \"totalReward\":12,\n \"date\":\"2019-05-06\"\n},\n{\n \"reportItemId\":3,\n \"year\":2019,\n \"month\":5,\n \"lastMonthBalance\":845,\n \"planMonthTargetValue\":165,\n \"planTotalReduceValue\":85,\n \"actualMonthTargetValue\":988,\n \"actualTotalReduceValue\":98,\n \"monthIncrementalValue\":78,\n \"totalIncrementalValue\":78,\n \"monthReward\":25,\n \"totalReward\":12,\n \"date\":\"2019-05-06\"\n}\n]\nPOST: /createMoreBalanceTargetValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量增加记录成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/createMoreBalanceTargetValue"
+      }
+    ]
+  },
+  {
+    "type": "Delete",
+    "url": "/deleteAllBalanceTargetValue",
+    "title": "删除所有上月余额与目标降低值表信息",
+    "name": "deleteAllBalanceTargetValue__________________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "Delete: /deleteAllBalanceTargetValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"清空数据成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteAllBalanceTargetValue"
+      }
+    ]
+  },
+  {
+    "type": "Delete",
+    "url": "/deleteBalanceTargetValue?id=",
+    "title": "删除指定上月余额与目标降低值表信息",
+    "name": "deleteBalanceTargetValue__________________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定要删除的上月余额与目标降低值表记录id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "Delete: /deleteBalanceTargetValue?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除数据成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteBalanceTargetValue?id="
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryAllBalanceTargetValue",
+    "title": "查询所有上月余额与目标降低值",
+    "name": "queryAllBalanceTargetValue_______________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryAllBalanceTargetValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[\n{\"id\":11,\"reportItemId\":2,\"year\":\"2019\",\"month\":\"5\",\"lastMonthBalance\":45.0000,\"planMonthTargetValue\":65.0000,\n\"planTotalReduceValue\":85.0000,\"actualMonthTargetValue\":7500.0000,\"actualTotalReduceValue\":98.0000,\"monthIncrementalValue\":78.0000,\n\"totalIncrementalValue\":99999.0000,\"monthReward\":25.0000,\"totalReward\":12.0000,\"date\":\"2019-05-06 00:00:00.0\"},\n{\"id\":12,\"reportItemId\":3,\"year\":\"2019\",\"month\":\"4\",\"lastMonthBalance\":405.0000,\"planMonthTargetValue\":605.0000,\n\"planTotalReduceValue\":85.0000,\"actualMonthTargetValue\":7500.0000,\"actualTotalReduceValue\":98.0000,\"monthIncrementalValue\":708.0000,\n\"totalIncrementalValue\":999.0000,\"monthReward\":25.0000,\"totalReward\":12.0000,\"date\":\"2019-05-06 00:00:00.0\"}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryAllBalanceTargetValue"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryBalanceTargetValue?year=&month=",
+    "title": "根据年月查询上月余额与目标降低值表",
+    "name": "queryBalanceTargetValue__________________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定上月余额与目标降低值表year值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定上月余额与目标降低值表month值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryBalanceTargetValue?year= & month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[{\"id\":11,\"reportItemId\":2,\"year\":\"2019\",\"month\":\"5\",\"lastMonthBalance\":45.0000,\"planMonthTargetValue\":65.0000,\n\"planTotalReduceValue\":85.0000,\"actualMonthTargetValue\":7500.0000,\"actualTotalReduceValue\":98.0000,\"monthIncrementalValue\":78.0000,\n\"totalIncrementalValue\":99999.0000,\"monthReward\":25.0000,\"totalReward\":12.0000,\"date\":\"2019-05-06 00:00:00.0\"}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryBalanceTargetValue?year=&month="
+      }
+    ]
+  },
+  {
+    "type": "Put",
+    "url": "/updateBalanceTargetValue",
+    "title": "更新上月余额与目标降低值表信息",
+    "name": "updateBalanceTargetValue________________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "{\n \"id\":1,\n \"reportItemId\":3,\n \"year\":2019,\n \"month\":5,\n \"lastMonthBalance\":45,\n \"planMonthTargetValue\":98,\n \"planTotalReduceValue\":85,\n \"actualMonthTargetValue\":98,\n \"actualTotalReduceValue\":9888,\n \"monthIncrementalValue\":78,\n \"totalIncrementalValue\":768,\n \"monthReward\":25,\n \"totalReward\":12,\n \"date\":\"2019-05-06\"\n}\nPUT: /updateBalanceTargetValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"修改数据成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/updateBalanceTargetValue"
+      }
+    ]
+  },
+  {
     "type": "GET",
     "url": "/deleteAllImprovementPlan",
     "title": "删除所有提升和改善计划表信息",
@@ -661,39 +921,6 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/incomes/2018-07",
-    "title": "计算损益表的年月金额",
-    "name": "getIncome_________",
-    "group": "api",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /incomes\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询成功\",\"data\":[{\"id\":0,\"income_id\":1,\"year\":2018,\"month\":07,\"month_amount\":19888,\"year_amount\":89998,\"create_date\":2019-04-18}]}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/IncomeController.java",
-    "groupTitle": "api",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/incomes/2018-07"
-      }
-    ]
-  },
-  {
-    "type": "GET",
     "url": "/orders",
     "title": "查询订单信息",
     "name": "queryAll_______",
@@ -722,39 +949,6 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/orders"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/update",
-    "title": "修改损益表结构",
-    "name": "update",
-    "group": "api",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /orders\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"修改成功\",\"data\"}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/IncomeController.java",
-    "groupTitle": "api",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/update"
       }
     ]
   }

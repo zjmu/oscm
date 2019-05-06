@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 public class ImprovementPlanController {
-    private static final Logger logger = LoggerFactory.getLogger(IncomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ImprovementPlanController.class);
 
     @Autowired
     private ImprovementPlanMapper improvementPlanMapper;

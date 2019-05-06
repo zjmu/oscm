@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 public class MonthReportController {
-    private static final Logger logger = LoggerFactory.getLogger(IncomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MonthReportController.class);
 
     @Autowired
     private MonthReportMapper monthReportMapper;
