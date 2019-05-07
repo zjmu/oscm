@@ -14,18 +14,18 @@
         <result column="deficiency" property="deficiency"/>
         <result column="evaluate" property="evaluate"/>
         <result column="remark" property="remark"/>
-        <result column="date" property="date"/>
+        <result column="create_date" property="create_date"/>
     </resultMap>
     <insert id="insertMonthReport" parameterType="edu.jmu.oscm.model.MonthReport">
    insert into ad_month_report (report_item_id,year,month,target,value,difference,measure,
-   experience,deficiency,evaluate,remark,date)
+   experience,deficiency,evaluate,remark,create_date)
         values (#{report_item_id},#{year},#{month},#{target},#{value},#{difference},
-        #{measure},#{experience},#{deficiency},#{evaluate},#{remark},#{date})
+        #{measure},#{experience},#{deficiency},#{evaluate},#{remark},#{create_date})
 
     </insert>
     <update id="updateMonthReport" parameterType="edu.jmu.oscm.model.MonthReport">
         UPDATE ad_month_report SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , target = #{target}, value = #{value},difference = #{difference},
-        measure = #{measure},experience = #{experience},deficiency = #{deficiency},evaluate = #{evaluate}, remark =#{remark} ,date =#{date}
+        measure = #{measure},experience = #{experience},deficiency = #{deficiency},evaluate = #{evaluate}, remark =#{remark} ,create_date =#{create_date}
         WHERE id = #{id}
     </update>
     <delete id="deleteAll">
