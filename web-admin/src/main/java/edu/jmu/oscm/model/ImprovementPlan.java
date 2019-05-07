@@ -3,6 +3,7 @@ import lombok.Data;
 
 import java.math.BigInteger;
 
+import java.sql.Timestamp;
 @Data
 public class ImprovementPlan {
 
@@ -28,7 +29,7 @@ public class ImprovementPlan {
     private String remark;
 
     //日期
-    private String date;
+    private Timestamp create_date;
 
     public int getId() {
         return id;
@@ -86,12 +87,12 @@ public class ImprovementPlan {
         this.remark = remark;
     }
 
-    public String getDate() {
-        return date;
+    public Timestamp getCreate_date() {
+        return create_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreate_date(Timestamp create_date) {
+        this.create_date = create_date;
     }
 
     @Override
@@ -104,7 +105,7 @@ public class ImprovementPlan {
                 ", ok=" + ok +
                 ", plan='" + plan + '\'' +
                 ", remark='" + remark + '\'' +
-                ", date='" + date + '\'' +
+                ", date='" + create_date + '\'' +
                 '}';
     }
 }

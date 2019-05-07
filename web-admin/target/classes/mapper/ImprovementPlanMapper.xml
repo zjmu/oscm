@@ -9,15 +9,15 @@
         <result column="ok" property="ok"/>
         <result column="plan" property="plan"/>
         <result column="remark" property="remark"/>
-        <result column="date" property="date"/>
+        <result column="create_date" property="create_date"/>
     </resultMap>
     <insert id="insertImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
-         insert into ad_improvement_plan (report_item_id,year,month,ok,plan,remark,date)
-        values (#{report_item_id},#{year},#{month},#{ok},#{plan},#{remark},#{date})
+         insert into ad_improvement_plan (report_item_id,year,month,ok,plan,remark,create_date)
+        values (#{report_item_id},#{year},#{month},#{ok},#{plan},#{remark},#{create_date})
 
     </insert>
     <update id="updateImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
-        UPDATE ad_improvement_plan SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , ok = #{ok} , plan = #{plan} , remark =#{remark} ,date =#{date}
+        UPDATE ad_improvement_plan SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , ok = #{ok} , plan = #{plan} , remark =#{remark} ,create_date =#{create_date}
         WHERE id = #{id}
     </update>
 
