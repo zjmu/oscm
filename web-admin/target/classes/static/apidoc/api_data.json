@@ -660,16 +660,16 @@
     ]
   },
   {
-    "type": "GET",
-    "url": "/incomes/2018-07",
-    "title": "计算损益表的年月金额",
-    "name": "getIncome_________",
-    "group": "api",
+    "type": "Post",
+    "url": "/createValueCreation",
+    "title": "插入流动资金占用成本管控增创价值表信息",
+    "name": "createValueCreation____________________",
+    "group": "ValueCreation",
     "parameter": {
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /incomes\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n \"id\":3,\n \"reportItemId\":46,\n \"year\":2018,\n \"month\":7,\n \"lowerTarget\":27.0,\n \"totalLowerTarget\":36.1,\n \"realLowerTarget\":15.2,\n \"realTotalLowerTarget\":68.2,\n \"difference\":28.0,\n \"date\":\"2019-05-05\"\n}\nPOST: /createValueCreation\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -678,17 +678,211 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询成功\",\"data\":[{\"id\":0,\"income_id\":1,\"year\":2018,\"month\":07,\"month_amount\":19888,\"year_amount\":89998,\"create_date\":2019-04-18}]}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"增加记录成功\",\"data\":true}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/IncomeController.java",
-    "groupTitle": "api",
+    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
+    "groupTitle": "ValueCreation",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/incomes/2018-07"
+        "url": "http://oscm.xmiss.top/oscm_new/createValueCreation"
+      }
+    ]
+  },
+  {
+    "type": "Delete",
+    "url": "/deleteAllValueCreation",
+    "title": "删除所有流动资金占用成本管控增创价值表信息",
+    "name": "deleteAllValueCreation______________________",
+    "group": "ValueCreation",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "Delete: /deleteAllValueCreation\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"清空数据成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
+    "groupTitle": "ValueCreation",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteAllValueCreation"
+      }
+    ]
+  },
+  {
+    "type": "Delete",
+    "url": "/deleteValueCreation?id=",
+    "title": "删除指定流动资金占用成本管控增创价值表信息",
+    "name": "deleteValueCreation______________________",
+    "group": "ValueCreation",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定要删除的流动资金占用成本管控增创价值表记录id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "Delete: /deleteValueCreation?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除数据成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
+    "groupTitle": "ValueCreation",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteValueCreation?id="
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryAllValueCreation",
+    "title": "查询所有流动资金占用成本管控增创价值",
+    "name": "queryAllValueCreation___________________",
+    "group": "ValueCreation",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryAllValueCreation\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"code\": 0,\"message\": \"查询数据成功\",\"data\": [\n{id\": 1,\"reportItemId\": 1,\"year\": \"2018\",\"month\": \"9\",\"lowerTarget\": 74564,\n \"totalLowerTarget\": 311313,\"realLowerTarget\": 877878,\"realTotalLowerTarget\": 32323,\n \"difference\": 4545,date\": \"2019-05-06\" },\n{\"id\": 2,\"reportItemId\": 1,\"year\": \"2019\",\"month\": \"1\",\"lowerTarget\": 12121,\n \"totalLowerTarget\": 4545,\"realLowerTarget\": 45454,\"realTotalLowerTarget\": 87878,\n \"difference\": 542112,\"date\": \"2019-05-04\" }]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
+    "groupTitle": "ValueCreation",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryAllValueCreation"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryValueCreation?year=&month=",
+    "title": "根据年月查询流动资金占用成本管控增创价值",
+    "name": "queryValueCreation_____________________",
+    "group": "ValueCreation",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定流动资金占用成本管控增创价值表year值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定流动资金占用成本管控增创价值表month值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryValueCreation?year= & month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[{\n\"id\":2,\"reportItemId\":1,\"year\":\"2019\",\"month\":\"1\",\"lowerTarget\":12121.0000,\"totalLowerTarget\":4545.0000,\n\"realLowerTarget\":45454.0000,\"realTotalLowerTarget\":87878.0000,\"difference\":542112.0000,\"date\":\"2019-05-04\"}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
+    "groupTitle": "ValueCreation",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryValueCreation?year=&month="
+      }
+    ]
+  },
+  {
+    "type": "Put",
+    "url": "/updateValueCreation",
+    "title": "更新流动资金占用成本管控增创价值表信息",
+    "name": "updateValueCreation____________________",
+    "group": "ValueCreation",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "{\n \"id\":1,\n \"reportItemId\":23,\n \"year\":2014,\n \"month\":5,\n \"lowerTarget\":25.0,\n \"totalLowerTarget\":16.1,\n \"realLowerTarget\":17.2,\n \"realTotalLowerTarget\":18.2,\n \"difference\":23.0,\n \"date\":\"2019-05-05\"\n}\nPUT: /updateValueCreation\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"修改数据成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
+    "groupTitle": "ValueCreation",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/updateValueCreation"
       }
     ]
   },
@@ -722,39 +916,6 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/orders"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/update",
-    "title": "修改损益表结构",
-    "name": "update",
-    "group": "api",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /orders\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"修改成功\",\"data\"}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/IncomeController.java",
-    "groupTitle": "api",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/update"
       }
     ]
   }

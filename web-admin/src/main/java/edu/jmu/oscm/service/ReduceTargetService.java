@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -19,6 +20,9 @@ public class ReduceTargetService {
     }
 
     public Boolean add(ReduceTarget reduceTarget){
+        /*获取系统当前时间*/
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        reduceTarget.setCreate_date(d);
         ReduceTarget rt = caculateAverage(reduceTarget);
         return reduceTargetMapper.add(rt);
     }

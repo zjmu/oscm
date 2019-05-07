@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 
 @Data
 public class ReduceTarget {
@@ -26,6 +27,7 @@ public class ReduceTarget {
     private BigDecimal nov;
     private BigDecimal dec;
     private Boolean asset_or_debt;
+    private Timestamp create_date;
 
     public int getId() {
         return id;
@@ -177,5 +179,13 @@ public class ReduceTarget {
 
     public void setAsset_or_debt(Boolean asset_or_debt) {
         this.asset_or_debt = asset_or_debt;
+    }
+
+    public Timestamp getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Timestamp create_date) {
+        this.create_date = create_date;
     }
 }
