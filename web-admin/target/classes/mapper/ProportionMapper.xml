@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.ProportionMapper">
+    <resultMap id="ProportionMapper" type="edu.jmu.oscm.model.Proportion">
+        <id column="id" property="id"/>
+        <result column="REPORT_ITEM_ID" property="report_item_id"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="proportion" property="proportion"/>
+        <result column="accumulate_proportion" property="accumulate_proportion"/>
+        <result column="asset_or_debt" property="asset_or_debt"/>
+        <result column="create_date" property="date"/>
+    </resultMap>
+
+    <insert id="insertProportion" parameterType="edu.jmu.oscm.model.Proportion">
+        INSERT INTO ad_item_proportion(report_item_id,year,month,proportion,accumulate_proportion,asset_or_debt,create_date)
+        values (#{report_item_id},#{year},#{month},#{proportion},#{accumulate_proportion},#{asset_or_debt},#{create_date})
+    </insert>
+
+    <delete id="deleteById">
+        delete from ad_item_proportion where id = (#{id})
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM ad_item_proportion WHERE id!=0
+    </delete>
+
+    <select id="getAllProportion" resultMap="ProportionMapper">
+        select * from ad_item_proportion
+    </select>
+
+    <select id="selectProportionById" resultMap="ProportionMapper">
+        select * from ad_item_proportion where id = #{id}
+    </select>
+
+    <select id="selectProportionByYearAndMonth" resultMap="ProportionMapper">
+        select * from ad_item_proportion where year = #{year} and month = #{month}
+    </select>
+
+
+</mapper>
