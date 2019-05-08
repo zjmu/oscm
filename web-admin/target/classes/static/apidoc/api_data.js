@@ -1,6 +1,6 @@
 define({ "api": [
   {
-    "type": "GET",
+    "type": "DELETE",
     "url": "/deleteAllImprovementPlan",
     "title": "删除所有提升和改善计划表信息",
     "name": "deleteAllImprovementPlan_______________",
@@ -9,7 +9,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /deleteAllImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /deleteAllImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -33,7 +33,7 @@ define({ "api": [
     ]
   },
   {
-    "type": "GET",
+    "type": "DELETE",
     "url": "/deleteImprovementPlanById",
     "title": "删除指定提升和改善计划表信息",
     "name": "deleteImprovementPlanById_______________",
@@ -53,7 +53,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /deleteImprovementPlanById\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /deleteImprovementPlanById?id=1\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -95,7 +95,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\"data\":[\n{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"ok\":1,\"plan\":\"1\",\"remark\":\"1\",\"date\":\"2019-01\"},{\n\"id\":2,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"ok\":1,\"plan\":\"1\",\"remark\":\"1\",\"date\":\"2019-01\"}]}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\n\"data\":[\n         {\n             \"id\":1,\n             \"report_item_id\":0,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"},\n         {\n             \"id\":2,\n             \"report_item_id\":0,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n           }\n      ]}",
           "type": "json"
         }
       ]
@@ -110,16 +110,69 @@ define({ "api": [
     ]
   },
   {
-    "type": "Post",
+    "type": "POST",
     "url": "/insertImprovementPlan",
     "title": "插入提升和改善计划表信息",
     "name": "insertImprovementPlan_______________",
     "group": "ImprovementPlan",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "bigint",
+            "optional": false,
+            "field": "report_item_id",
+            "description": "<p>报告条目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "ok",
+            "description": "<p>完成情况</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "plan",
+            "description": "<p>改善计划</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "remark",
+            "description": "<p>备注</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Timestamp",
+            "optional": false,
+            "field": "create_date",
+            "description": "<p>创建时间</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"date\":\"2019-01\"\n }\nPOST: /insertImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /insertImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -172,7 +225,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找指定提升和改善计划表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"ok\":1,\"plan\":\"1\",\"remark\":\"1\",\"date\":\"2019-01\"}}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定提升和改善计划表成功\",\n\"data\":{\"id\":1,\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"}}",
           "type": "json"
         }
       ]
@@ -187,16 +240,76 @@ define({ "api": [
     ]
   },
   {
-    "type": "Post",
+    "type": "PUT",
     "url": "/updateImprovementPlan",
     "title": "更新指定提升和改善计划表信息",
     "name": "updateImprovementPlan_______________",
     "group": "ImprovementPlan",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>提升和改善计划表id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "bigint",
+            "optional": false,
+            "field": "report_item_id",
+            "description": "<p>报告条目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "ok",
+            "description": "<p>完成情况</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "plan",
+            "description": "<p>改善计划</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "remark",
+            "description": "<p>备注</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Timestamp",
+            "optional": false,
+            "field": "create_date",
+            "description": "<p>创建时间</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n \"id\":1,\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"date\":\"2019-01\"\n }\nPOST: /updateImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n \"id\":1,\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /updateImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -220,16 +333,16 @@ define({ "api": [
     ]
   },
   {
-    "type": "GET",
+    "type": "DELETE",
     "url": "/deleteAllMonthReport",
-    "title": "删除所有月度总结报告表信息",
-    "name": "deleteAllMonthReport______________",
+    "title": "删除所有流动资金成本管控情况月度总结情况报告表信息",
+    "name": "deleteAllMonthReport__________________________",
     "group": "MonthReport",
     "parameter": {
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /deleteAllMonthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /deleteAllMonthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -238,7 +351,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除所有月度总结报告表成功\"}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\n     \"code\":0,\n     \"message\":\"删除所有流动资金成本管控情况月度总结情况报告表成功\"\n}",
           "type": "json"
         }
       ]
@@ -253,10 +366,10 @@ define({ "api": [
     ]
   },
   {
-    "type": "GET",
+    "type": "DELETE",
     "url": "/deleteMonthReportById?id=",
-    "title": "删除指定月度总结报告表信息",
-    "name": "deleteMonthReportById______________",
+    "title": "删除指定流动资金成本管控情况月度总结情况报告表信息",
+    "name": "deleteMonthReportById__________________________",
     "group": "MonthReport",
     "parameter": {
       "fields": {
@@ -266,14 +379,14 @@ define({ "api": [
             "type": "int",
             "optional": false,
             "field": "id",
-            "description": "<p>指定 月度总结报告表记录id</p>"
+            "description": "<p>指定 流动资金成本管控情况月度总结情况报告表记录id</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /deleteMonthReportById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /deleteMonthReportById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -282,7 +395,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除指定月度总结报告表成功\"}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\n     \"code\":0,\n     \"message\":\"删除指定流动资金成本管控情况月度总结情况报告表成功\"\n}",
           "type": "json"
         }
       ]
@@ -299,8 +412,8 @@ define({ "api": [
   {
     "type": "GET",
     "url": "/getAllMonthReport",
-    "title": "查询所有月度总结报告表信息",
-    "name": "getAllMonthReport______________",
+    "title": "查询所有流动资金成本管控情况月度总结情况报告表信息",
+    "name": "getAllMonthReport__________________________",
     "group": "MonthReport",
     "parameter": {
       "examples": [
@@ -315,7 +428,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询所有月度总结报告表成功\",\"data\":[\n{\"id\":1,\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"date\":\"2019-01-01\"},\n{\"id\":2,\n\"report_item_id\":0,\n\"year\":\"2019\",\n \"month\":\"5\",\"\n \"target\":1000.1,\n \"value\":2000.1,\n \"difference\":3000.1,\n \"measure\":\"1111\",\n \"experience\":\"111\",\n \"deficiency\":\"111\",\n \"evaluate\":\"111\",\n \"remark\":\"111\",\n \"date\":\"2019-01-01\"}]}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询所有流动资金成本管控情况月度总结情况报告表成功\",\"data\":\n[\n    {\n     \"id\":1,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00-01\"\n     },\n    {\n     \"id\":2,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n     }\n ]\n }",
           "type": "json"
         }
       ]
@@ -330,16 +443,104 @@ define({ "api": [
     ]
   },
   {
-    "type": "Post",
+    "type": "POST",
     "url": "/insertMonthReport",
-    "title": "插入月度总结报告表信息",
-    "name": "insertMonthReport______________",
+    "title": "插入流动资金成本管控情况月度总结情况报告表信息",
+    "name": "insertMonthReport__________________________",
     "group": "MonthReport",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "bigint",
+            "optional": false,
+            "field": "report_item_id",
+            "description": "<p>报告条目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "target",
+            "description": "<p>目标值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "value",
+            "description": "<p>末余额</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "difference",
+            "description": "<p>偏差值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "measure",
+            "description": "<p>本期主要管控措施</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "experience",
+            "description": "<p>经验</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deficiency",
+            "description": "<p>不足</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "evaluate",
+            "description": "<p>考核人评价</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "remark",
+            "description": "<p>备注</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Timestamp",
+            "optional": false,
+            "field": "create_date",
+            "description": "<p>创建时间</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"date\":\"2019-01-01\"\n }\nPOST: /insertMonthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /insertMonthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -348,7 +549,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"插入月度总结报告表成功\"}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"插入流动资金成本管控情况月度总结情况报告表成功\"}",
           "type": "json"
         }
       ]
@@ -365,8 +566,8 @@ define({ "api": [
   {
     "type": "GET",
     "url": "/selectMonthReportById?id=",
-    "title": "查询指定月度总结报告表信息",
-    "name": "selectMonthReportById______________",
+    "title": "查询指定流动资金成本管控情况月度总结情况报告表信息",
+    "name": "selectMonthReportById__________________________",
     "group": "MonthReport",
     "parameter": {
       "fields": {
@@ -376,7 +577,7 @@ define({ "api": [
             "type": "int",
             "optional": false,
             "field": "id",
-            "description": "<p>指定月度总结报告表记录id</p>"
+            "description": "<p>指定流动资金成本管控情况月度总结情况报告表记录id</p>"
           }
         ]
       },
@@ -392,7 +593,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找指定月度总结报告表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"ok\":1,\"plan\":\"1\",\"remark\":\"1\",\"date\":\"2019-01\"}}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{\"id\":1,\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"}\n}",
           "type": "json"
         }
       ]
@@ -407,25 +608,120 @@ define({ "api": [
     ]
   },
   {
-    "type": "Post",
+    "type": "PUT",
     "url": "/updateMonthReport",
-    "title": "更新指定月度总结报告表信息",
-    "name": "updateMonthReport______________",
-    "group": "MonthReport",
+    "title": "更新指定流动资金成本管控情况月度总结情况报告表信息",
+    "name": "updateMonthReport__________________________",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>流动资金成本管控情况月度总结情况报告表id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "bigint",
+            "optional": false,
+            "field": "report_item_id",
+            "description": "<p>报告条目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "target",
+            "description": "<p>目标值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "value",
+            "description": "<p>末余额</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "difference",
+            "description": "<p>偏差值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "measure",
+            "description": "<p>本期主要管控措施</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "experience",
+            "description": "<p>经验</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deficiency",
+            "description": "<p>不足</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "evaluate",
+            "description": "<p>考核人评价</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "remark",
+            "description": "<p>备注</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Timestamp",
+            "optional": false,
+            "field": "create_date",
+            "description": "<p>创建时间</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n\"id\":1,\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"date\":\"2019-01-01\"\n }\nPOST: /updateMonthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n\"id\":1,\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"create_date\":\"2019-01-01 00:00:00\"\n }\nPUT /updateMonthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
     },
+    "group": "MonthReport",
     "success": {
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更新月度总结报告表成功\"}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更新流动资金成本管控情况月度总结情况报告表成功\"}",
           "type": "json"
         }
       ]
@@ -440,12 +736,58 @@ define({ "api": [
     ]
   },
   {
-    "type": "Post",
+    "type": "POST",
     "url": "/addReduceTarget",
     "title": "添加一条项目降低目标设置",
     "name": "addReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "report_item_id",
+            "description": "<p>报告条目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Double",
+            "optional": false,
+            "field": "year_percent",
+            "description": "<p>年度百分比，单位%</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "year_value",
+            "description": "<p>计算后的年目标值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "last_year_value",
+            "description": "<p>去年实际降低额</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "asset_or_debt",
+            "description": "<p>资产或负债，0资产  1负债</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
@@ -473,7 +815,7 @@ define({ "api": [
     ]
   },
   {
-    "type": "GET",
+    "type": "DELETE",
     "url": "/deleteReduceTarget",
     "title": "删除指定项目降低目标设置",
     "name": "deleteReduceTarget_____________",
@@ -493,7 +835,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /deleteReduceTarget?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /deleteReduceTarget?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -519,8 +861,8 @@ define({ "api": [
   {
     "type": "GET",
     "url": "/queryReduceTarget?id=",
-    "title": "查询指定项目降低目标设置表",
-    "name": "queryReduceTarget______________",
+    "title": "查询指定项目降低目标设置",
+    "name": "queryReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -565,7 +907,7 @@ define({ "api": [
     "url": "/queryReduceTargets",
     "title": "查询所有项目降低目标设置",
     "name": "queryReduceTargets_____________",
-    "group": "ReduceTargets",
+    "group": "ReduceTarget",
     "parameter": {
       "examples": [
         {
@@ -579,14 +921,14 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\"data\":[\n{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true},\n{\"id\":209,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":1000,\"last_year_value\":,\n  \"jan\":83.3333,\"feb\":583.3333,\"mar\":83.3333,\"apr\":83.3333,\"may\":83.3333,\"jun\":83.3333,\n  \"jul\":83.3333,\"aug\":83.3333,\"sept\":83.3333,\"oct\":83.3333,\"nov\":83.3333,\"dec\":83.3333,\n  \"asset_or_debt\":true}]\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\"data\":[\n{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true,\"create_date\":\"2019-05-06T09:46:35.000+0000\"},\n{\"id\":209,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":1000,\"last_year_value\":,\n  \"jan\":83.3333,\"feb\":583.3333,\"mar\":83.3333,\"apr\":83.3333,\"may\":83.3333,\"jun\":83.3333,\n  \"jul\":83.3333,\"aug\":83.3333,\"sept\":83.3333,\"oct\":83.3333,\"nov\":83.3333,\"dec\":83.3333,\n  \"asset_or_debt\":true}]\n}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
     "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
-    "groupTitle": "ReduceTargets",
+    "groupTitle": "ReduceTarget",
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/queryReduceTargets"
@@ -594,16 +936,34 @@ define({ "api": [
     ]
   },
   {
-    "type": "post",
+    "type": "PUT",
     "url": "/updateReduceTarget",
     "title": "更改指定项目降低目标设置",
     "name": "updateReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目降低目标设置id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "year_value",
+            "description": "<p>计算后的年目标值</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n\"id\":238,\n\"year_value\":635184.7500\n}\nPOST: /updateReduceTarget\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n\"id\":238,\n\"year_value\":635184.7500\n}\nPUT: /updateReduceTarget\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -627,16 +987,34 @@ define({ "api": [
     ]
   },
   {
-    "type": "Post",
+    "type": "PUT",
     "url": "/updateReduceTargets",
     "title": "批量更改项目降低目标设置",
     "name": "updateReduceTargets_____________",
     "group": "ReduceTarget",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目降低目标设置id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "year_value",
+            "description": "<p>计算后的年目标值</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "[\n{\"id\":237,\"year_value\":5000},\n{\"id\":238,\"year_value\":5000},\n{\"id\":239,\"year_value\":5000}\n]\nPOST: /updateReduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "[\n{\"id\":237,\"year_value\":5000},\n{\"id\":238,\"year_value\":5000},\n{\"id\":239,\"year_value\":5000}\n]\nPUT: /updateReduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]

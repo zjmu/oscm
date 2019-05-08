@@ -112,16 +112,20 @@
         </where>
     </update>
 
-    <delete id="deleteByID" parameterType="Integer" >
+    <delete id="deleteByID" parameterType="integer" >
         DELETE FROM ad_item_reduce_target
         WHERE id = #{id}
     </delete>
-
+    <delete id="deleteAll">
+        DELETE
+        FROM ad_item_reduce_target
+        WHERE 1 = 1
+    </delete>
     <select id="queryAll" resultType="edu.jmu.oscm.model.ReduceTarget">
         SELECT *
         from ad_item_reduce_target
     </select>
-    <select id="queryByID" resultType="edu.jmu.oscm.model.ReduceTarget" parameterType="Integer">
+    <select id="queryByID" resultType="edu.jmu.oscm.model.ReduceTarget" parameterType="integer">
         SELECT *
         FROM ad_item_reduce_target
         WHERE id = #{id}
