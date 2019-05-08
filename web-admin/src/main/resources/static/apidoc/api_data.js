@@ -736,12 +736,58 @@ define({ "api": [
     ]
   },
   {
-    "type": "Post",
+    "type": "POST",
     "url": "/addReduceTarget",
     "title": "添加一条项目降低目标设置",
     "name": "addReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "report_item_id",
+            "description": "<p>报告条目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Double",
+            "optional": false,
+            "field": "year_percent",
+            "description": "<p>年度百分比，单位%</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "year_value",
+            "description": "<p>计算后的年目标值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "last_year_value",
+            "description": "<p>去年实际降低额</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "asset_or_debt",
+            "description": "<p>资产或负债，0资产  1负债</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
@@ -769,7 +815,7 @@ define({ "api": [
     ]
   },
   {
-    "type": "GET",
+    "type": "DELETE",
     "url": "/deleteReduceTarget",
     "title": "删除指定项目降低目标设置",
     "name": "deleteReduceTarget_____________",
@@ -789,7 +835,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /deleteReduceTarget?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /deleteReduceTarget?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -815,8 +861,8 @@ define({ "api": [
   {
     "type": "GET",
     "url": "/queryReduceTarget?id=",
-    "title": "查询指定项目降低目标设置表",
-    "name": "queryReduceTarget______________",
+    "title": "查询指定项目降低目标设置",
+    "name": "queryReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -861,7 +907,7 @@ define({ "api": [
     "url": "/queryReduceTargets",
     "title": "查询所有项目降低目标设置",
     "name": "queryReduceTargets_____________",
-    "group": "ReduceTargets",
+    "group": "ReduceTarget",
     "parameter": {
       "examples": [
         {
@@ -875,14 +921,14 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\"data\":[\n{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true},\n{\"id\":209,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":1000,\"last_year_value\":,\n  \"jan\":83.3333,\"feb\":583.3333,\"mar\":83.3333,\"apr\":83.3333,\"may\":83.3333,\"jun\":83.3333,\n  \"jul\":83.3333,\"aug\":83.3333,\"sept\":83.3333,\"oct\":83.3333,\"nov\":83.3333,\"dec\":83.3333,\n  \"asset_or_debt\":true}]\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\"data\":[\n{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true,\"create_date\":\"2019-05-06T09:46:35.000+0000\"},\n{\"id\":209,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":1000,\"last_year_value\":,\n  \"jan\":83.3333,\"feb\":583.3333,\"mar\":83.3333,\"apr\":83.3333,\"may\":83.3333,\"jun\":83.3333,\n  \"jul\":83.3333,\"aug\":83.3333,\"sept\":83.3333,\"oct\":83.3333,\"nov\":83.3333,\"dec\":83.3333,\n  \"asset_or_debt\":true}]\n}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
     "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
-    "groupTitle": "ReduceTargets",
+    "groupTitle": "ReduceTarget",
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/queryReduceTargets"
@@ -890,16 +936,34 @@ define({ "api": [
     ]
   },
   {
-    "type": "post",
+    "type": "PUT",
     "url": "/updateReduceTarget",
     "title": "更改指定项目降低目标设置",
     "name": "updateReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目降低目标设置id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "year_value",
+            "description": "<p>计算后的年目标值</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n\"id\":238,\n\"year_value\":635184.7500\n}\nPOST: /updateReduceTarget\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n\"id\":238,\n\"year_value\":635184.7500\n}\nPUT: /updateReduceTarget\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -923,16 +987,34 @@ define({ "api": [
     ]
   },
   {
-    "type": "Post",
+    "type": "PUT",
     "url": "/updateReduceTargets",
     "title": "批量更改项目降低目标设置",
     "name": "updateReduceTargets_____________",
     "group": "ReduceTarget",
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目降低目标设置id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "year_value",
+            "description": "<p>计算后的年目标值</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "[\n{\"id\":237,\"year_value\":5000},\n{\"id\":238,\"year_value\":5000},\n{\"id\":239,\"year_value\":5000}\n]\nPOST: /updateReduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "[\n{\"id\":237,\"year_value\":5000},\n{\"id\":238,\"year_value\":5000},\n{\"id\":239,\"year_value\":5000}\n]\nPUT: /updateReduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
