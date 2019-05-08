@@ -22,11 +22,12 @@
         <result column="nov" property="nov"/>
         <result column="dec" property="dec"/>
         <result column="asset_or_debt" property="asset_or_debt"/>
+        <result column="create_date" property="create_date"/>
     </resultMap>
 
    <insert id="add" parameterType="edu.jmu.oscm.model.ReduceTarget" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO ad_item_reduce_target (REPORT_ITEM_ID, `year`, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt)
-        VALUE (#{report_item_id}, #{year}, #{year_percent}, #{year_value}, #{last_year_value}, #{jan},#{feb}, #{mar}, #{apr}, #{may}, #{jun},#{jul}, #{aug}, #{sept}, #{oct}, #{nov}, #{dec}, #{asset_or_debt})
+        INSERT INTO ad_item_reduce_target (REPORT_ITEM_ID, `year`, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt, create_date)
+        VALUE (#{report_item_id}, #{year}, #{year_percent}, #{year_value}, #{last_year_value}, #{jan},#{feb}, #{mar}, #{apr}, #{may}, #{jun},#{jul}, #{aug}, #{sept}, #{oct}, #{nov}, #{dec}, #{asset_or_debt}, #{create_date})
     </insert>
 
     <update id="update" parameterType="edu.jmu.oscm.model.ReduceTarget">

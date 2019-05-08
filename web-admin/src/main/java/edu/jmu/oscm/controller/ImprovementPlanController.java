@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 public class ImprovementPlanController {
-    private static final Logger logger = LoggerFactory.getLogger(IncomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ImprovementPlanController.class);
 
     @Autowired
     private ImprovementPlanMapper improvementPlanMapper;
@@ -37,8 +37,16 @@ public class ImprovementPlanController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"查找指定提升和改善计划表成功",
-     * "data":{"id":1,"report_item_id":0,"year":"2019","month":"5","ok":1,"plan":"1","remark":"1","date":"2019-01"}}
+     * {"code":0,
+     * "message":"查找指定提升和改善计划表成功",
+     * "data":{"id":1,
+     * "report_item_id":0,
+     * "year":"2019",
+     * "month":"5",
+     * "ok":1,
+     * "plan":"1",
+     * "remark":"1",
+     * "create_date":"2019-01-01 00:00:00"}}
      */
     @GetMapping("/selectImprovementPlanById")
     public BasicResponse<ImprovementPlan> selectImprovementPlanById(@RequestParam("id") int id) {
@@ -63,9 +71,28 @@ public class ImprovementPlanController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"查询提升和改善计划表成功","data":[
-     * {"id":1,"report_item_id":0,"year":"2019","month":"5","ok":1,"plan":"1","remark":"1","date":"2019-01"},{
-     *"id":2,"report_item_id":0,"year":"2019","month":"5","ok":1,"plan":"1","remark":"1","date":"2019-01"}]}
+     * {"code":0,"message":"查询提升和改善计划表成功",
+     * "data":[
+     *          {
+     *              "id":1,
+     *              "report_item_id":0,
+     *              "year":"2019",
+     *              "month":"5",
+     *              "ok":1,
+     *              "plan":"1",
+     *              "remark":"1",
+     *              "create_date":"2019-01-01 00:00:00"},
+     *          {
+     *              "id":2,
+     *              "report_item_id":0,
+     *              "year":"2019",
+     *              "month":"5",
+     *              "ok":1,
+     *              "plan":"1",
+     *              "remark":"1",
+     *              "create_date":"2019-01-01 00:00:00"
+     *            }
+     *       ]}
      */
     @GetMapping("/getAllImprovementPlan")
     public BasicResponse<List<ImprovementPlan>> getAllImprovementPlan() {
@@ -80,12 +107,12 @@ public class ImprovementPlanController {
     /**
      * 删除指定提升和改善计划表记录
      *
-     * @api {GET} /deleteImprovementPlanById 删除指定提升和改善计划表信息
+     * @api {DELETE} /deleteImprovementPlanById 删除指定提升和改善计划表信息
      * @apiName deleteImprovementPlanById 删除指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 指定提升和改善计划表记录id
      * @apiParamExample {json} Request_Example:
-     * GET: /deleteImprovementPlanById
+     * DELETE: /deleteImprovementPlanById?id=1
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -96,7 +123,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"删除指定提升和改善计划表成功"}
      */
-    @GetMapping("/deleteImprovementPlanById")
+    @DeleteMapping("/deleteImprovementPlanById")
     public BasicResponse<Boolean> deleteImprovementPlanById(@RequestParam("id") int id) {
         return BusinessWrapper.wrap(response -> {
             boolean flag = improvementPlanMapper.deleteById(id);
@@ -107,11 +134,11 @@ public class ImprovementPlanController {
     /**
      * 删除所有提升和改善计划表记录
      *
-     * @api {GET} /deleteAllImprovementPlan 删除所有提升和改善计划表信息
+     * @api {DELETE} /deleteAllImprovementPlan 删除所有提升和改善计划表信息
      * @apiName deleteAllImprovementPlan 删除所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParamExample {json} Request_Example:
-     * GET: /deleteAllImprovementPlan
+     * DELETE: /deleteAllImprovementPlan
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -122,7 +149,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"删除所有提升和改善计划表成功"}
      */
-    @GetMapping("/deleteAllImprovementPlan")
+    @DeleteMapping("/deleteAllImprovementPlan")
     public BasicResponse<Boolean>  deleteAllImprovementPlan()
     {
         return BusinessWrapper.wrap(response -> {
@@ -134,9 +161,16 @@ public class ImprovementPlanController {
     /**
      * 插入提升和改善计划表记录
      *
-     * @api {Post} /insertImprovementPlan 插入提升和改善计划表信息
+     * @api {POST} /insertImprovementPlan 插入提升和改善计划表信息
      * @apiName insertImprovementPlan 插入所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
+     * @apiParam {bigint} report_item_id 报告条目id
+     * @apiParam {String} year 年度
+     * @apiParam {String} month 月份
+     * @apiParam {int} ok 完成情况
+     * @apiParam {String} plan 改善计划
+     * @apiParam {String} remark 备注
+     * @apiParam {Timestamp} create_date 创建时间
      * @apiParamExample {json} Request_Example:
      * {
      *  "report_item_id":0,
@@ -145,7 +179,7 @@ public class ImprovementPlanController {
      *  "ok":1,
      *  "plan":"1",
      *  "remark":"1",
-     *  "date":"2019-01"
+     *  "create_date":"2019-01-01 00:00:00"
      *  }
      * POST: /insertImprovementPlan
      * <p>
@@ -170,9 +204,17 @@ public class ImprovementPlanController {
     /**
      * 更新指定提升和改善计划表记录
      *
-     * @api {Post} /updateImprovementPlan 更新指定提升和改善计划表信息
+     * @api {PUT} /updateImprovementPlan 更新指定提升和改善计划表信息
      * @apiName updateImprovementPlan 更新指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
+     * @apiParam {int} id 提升和改善计划表id
+     * @apiParam {bigint} report_item_id 报告条目id
+     * @apiParam {String} year 年度
+     * @apiParam {String} month 月份
+     * @apiParam {int} ok 完成情况
+     * @apiParam {String} plan 改善计划
+     * @apiParam {String} remark 备注
+     * @apiParam {Timestamp} create_date 创建时间
      * @apiParamExample {json} Request_Example:
      * {
      *  "id":1,
@@ -182,7 +224,7 @@ public class ImprovementPlanController {
      *  "ok":1,
      *  "plan":"1",
      *  "remark":"1",
-     *  "date":"2019-01"
+     *  "create_date":"2019-01-01 00:00:00"
      *  }
      * POST: /updateImprovementPlan
      * <p>
@@ -195,7 +237,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"更新提升和改善计划表成功"}
      */
-    @PostMapping("/updateImprovementPlan")
+    @PutMapping("/updateImprovementPlan")
     public BasicResponse<Boolean> updateImprovementPlan(@RequestBody  ImprovementPlan improvementPlan){
         return BusinessWrapper.wrap(response -> {
             System.out.println(improvementPlan.toString());
