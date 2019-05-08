@@ -23,4 +23,68 @@ public class Proportion {
     private String accumulate_proportion;
     private Boolean asset_or_debt;
     private String date;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public BigInteger getReport_item_id() {
+        return report_item_id;
+    }
+
+    public void setReport_item_id(BigInteger report_item_id) {
+        this.report_item_id = report_item_id;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getProportion() {
+        return proportion;
+    }
+
+    public void setProportion(String proportion) {
+        this.proportion = proportion;
+    }
+
+    public String getAccumulate_proportion() {
+        return accumulate_proportion;
+    }
+
+    public void setAccumulate_proportion(String accumulate_proportion) {
+        this.accumulate_proportion = accumulate_proportion;
+    }
+
+    public Boolean getAsset_or_debt() {
+        return asset_or_debt;
+    }
+
+    public void setAsset_or_debt(Boolean asset_or_debt) {
+        this.asset_or_debt = asset_or_debt;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

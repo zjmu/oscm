@@ -33,7 +33,7 @@ public class ProportionController {
      * @apiGroup Proportion
      * @apiParam {int} id 指定项目占比表记录id
      * @apiParamExample {json} Request_Example:
-     * GET: /deleteImprovementPlanById?id=
+     * GET: /selectProportionById?id=
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -49,18 +49,78 @@ public class ProportionController {
     public BasicResponse<Proportion> selectProportionById(@RequestParam("id") int id) {
         return BusinessWrapper.wrap(response -> {
             Proportion proportion = proportionMapper.selectProportionById(id);
-            ResponseUtil.set(response, 0, "查找项目占比表成功",proportion);
+            ResponseUtil.set(response, 0, "查找项目占比表成功", proportion);
         }, logger);
     }
 
+    /**
+     * 查找项目占比表成功
+     *
+     * @api {GET} /selectProportionByYearAndMonth?year=year&&month=month  查询指定项目占比
+     * @apiName selectProportionById 查询项目占比信息
+     * @apiGroup Proportion
+     * @apiParam {String} year 指定项目占比表年
+     * @apiParam {String} month 指定项目占比表月
+     * @apiParamExample {json} Request_Example:
+     * GET: /selectProportionByYearAndMonth?year=&&month=
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"查找项目占比表成功",
+     * "data":{"id":1,"report_item_id":0,"year":"2019","month":"5","proportion":0.0,"accumulate_proportion":"1.0","asset_or_debt":"0","create_date":"2019-01"}}
+     */
     @GetMapping("/selectProportionByYearAndMonth")
-    public BasicResponse<List<Proportion>> selectProportionByYearAndMonth(@RequestParam("year") String year,@RequestParam("month") String month) {
+    public BasicResponse<List<Proportion>> selectProportionByYearAndMonth(@RequestParam("year") String year, @RequestParam("month") String month) {
         return BusinessWrapper.wrap(response -> {
-            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonth(year,month);
-            ResponseUtil.set(response, 0, "查找项目占比表成功",proportions);
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonth(year, month);
+            ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
         }, logger);
     }
 
+    /**
+     * 查找所有项目占比表记录
+     *
+     * @api {GET} /getAllProportion 查找所有项目占比表记录
+     * @apiName getAllProportion 查找所有项目占比表记录
+     * @apiGroup getAllProportion
+     * @apiParamExample {json} Request_Example:
+     * GET: /getAllProportion
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"查找所有项目占比表记录成功",
+     * "data":[
+     * {
+     * "id":143,
+     * "report_item_id":0,
+     * "year":"",
+     * "month":"",
+     * "proportion":0.6196991,
+     * "accumulate_proportion":0.6196991,
+     * "asset_or_debt":0,
+     * "create_date":"2019-01-01 00:00:00"},
+     * {
+     * "id":146,
+     * "report_item_id":0,
+     * "year":"",
+     * "month":"",
+     * "proportion":0,
+     * "accumulate_proportion":0.75356704,
+     * "asset_or_debt":0,
+     * "create_date":"2019-01-01 00:00:00"
+     * }
+     * ]}
+     */
     @GetMapping("/getAllProportion")
     public BasicResponse<List<Proportion>> getAllProportion() {
         return BusinessWrapper.wrap(response -> {
@@ -69,6 +129,25 @@ public class ProportionController {
         }, logger);
     }
 
+    /**
+     * 删除指定项目占比表记录
+     *
+     * @api {DELETE} /deleteProportionById 删除指定项目占比表记录
+     * @apiName deleteImprovementPlanById 删除指定项目占比表记录
+     * @apiGroup deleteProportionById
+     * @apiParam {int} id 删除指定项目占比表记录id
+     * @apiParamExample {json} Request_Example:
+     * DELETE: /deleteProportionById?id=1
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"删除指定项目占比表记录成功"}
+     */
     @GetMapping("/deleteProportionById")
     public BasicResponse<Boolean> deleteProportionById(@RequestParam("id") int id) {
         return BusinessWrapper.wrap(response -> {
@@ -77,20 +156,75 @@ public class ProportionController {
         }, logger);
     }
 
+    /**
+     * 删除所有项目占比表记录
+     *
+     * @api {DELETE} /deleteAllProportion 删除所有项目占比表记录
+     * @apiName deleteAllProportion 删除所有项目占比表记录
+     * @apiGroup deleteAllProportion
+     * @apiParamExample {json} Request_Example:
+     * DELETE: /deleteAllProportion
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"删除所有项目占比表记录"}
+     */
     @GetMapping("/deleteAllProportion")
-    public BasicResponse<Boolean>  deleteAllProportion()
-    {
+    public BasicResponse<Boolean> deleteAllProportion() {
         return BusinessWrapper.wrap(response -> {
             boolean flag = proportionMapper.deleteAll();
             ResponseUtil.set(response, 0, "删除所有项目占比表成功");
         }, logger);
     }
 
+    /**
+     * 插入项目占比表记录
+     *
+     * @api {POST} /insertProportion 插入项目占比表
+     * @apiName insertProportion 插入项目占比表
+     * @apiGroup insertProportion
+     * @apiParam {bigint} report_item_id 报告条目id
+     * @apiParam {String} year 年度
+     * @apiParam {String} month 月份
+     * @apiParam {String} proportion 比例
+     * @apiParam {String} accumulate_proportion 累计比例
+     * @apiParam {Boolean} asset_or_debt 资产或负债
+     * @apiParam {Timestamp} create_date 创建时间
+     * @apiParamExample {json} Request_Example:
+     * {
+     * "report_item_id":0,
+     * "year":"",
+     * "month":"",
+     * "proportion":0,
+     * "accumulate_proportion":0.75356704,
+     * "asset_or_debt":0,
+     * "create_date":"2019-01-01 00:00:00"
+     * }
+     * POST: /insertImprovementPlan
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"插入项目占比表成功"}
+     */
     @PostMapping("/insertProportion")
-    public BasicResponse<Boolean> insertProportion(@RequestBody Proportion proportion){
+    public BasicResponse<Boolean> insertProportion(@RequestBody Proportion proportion) {
         return BusinessWrapper.wrap(response -> {
             boolean flag = proportionMapper.insertProportion(proportion);
-            ResponseUtil.set(response, 0, "插入项目占比表成功");
+            if (flag) {
+                ResponseUtil.set(response, 0, "插入项目占比表成功");
+            } else {
+                ResponseUtil.set(response, 100, "插入项目占比表失败");
+            }
         }, logger);
     }
 
