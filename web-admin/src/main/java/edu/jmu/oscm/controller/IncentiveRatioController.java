@@ -206,7 +206,7 @@ public class IncentiveRatioController {
      *          "incentive_ratio":35.03,
      *          "max_limit":35.03
      * }
-     * POST: /updateIncentiveRatio
+     * PUT: /updateIncentiveRatio
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -228,8 +228,8 @@ public class IncentiveRatioController {
     /**
      * 批量更改部门奖励比例成功
      *
-     * @api {PUT} /updateIncentiveRatios 更改指定部门奖励比例成功
-     * @apiName updateIncentiveRatios 更改指定部门奖励比例成功
+     * @api {PUT} /updateIncentiveRatios 批量更改指定部门奖励比例成功
+     * @apiName updateIncentiveRatios 批量更改指定部门奖励比例成功
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParam {String} year 年份（每年一月，设置）
@@ -253,7 +253,7 @@ public class IncentiveRatioController {
      *          "max_limit":45.04
      *      }
      * ]
-     * POST: /updateIncentiveRatios
+     * PUT: /updateIncentiveRatios
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
