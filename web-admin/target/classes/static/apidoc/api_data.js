@@ -333,6 +333,369 @@ define({ "api": [
     ]
   },
   {
+    "type": "POST",
+    "url": "/addIncentiveRatio",
+    "title": "添加一条部门奖励比例成功",
+    "name": "addIncentiveRatio_____________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年份（每年一月，设置）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "interest_rate",
+            "description": "<p>利率</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "incentive_ratio",
+            "description": "<p>奖励比例</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "max_limit",
+            "description": "<p>大额资金限制</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "{\n         \"year\":\"2019\",\n         \"interest_rate\":35.03,\n         \"incentive_ratio\":35.03,\n         \"max_limit\":35.03\n}\nPOST: /addIncentiveRatio\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"添加一条部门奖励比例成功\", \"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/addIncentiveRatio"
+      }
+    ]
+  },
+  {
+    "type": "DELETE",
+    "url": "/deleteIncentiveRatio?id=",
+    "title": "删除指定部门奖励比例",
+    "name": "deleteIncentiveRatio___________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定部门奖励比例id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "DELETE: /deleteIncentiveRatio?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除指定部门奖励比例成功\", \"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteIncentiveRatio?id="
+      }
+    ]
+  },
+  {
+    "type": "DELETE",
+    "url": "/deleteIncentiveRatios",
+    "title": "删除所有部门奖励比例",
+    "name": "deleteIncentiveRatios___________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "DELETE: /deleteIncentiveRatios\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除所有部门奖励比例成功\", \"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteIncentiveRatios"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryIncentiveRatio?id=",
+    "title": "查询指定部门奖励比例",
+    "name": "queryIncentiveRatio___________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定部门奖励比例id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryIncentiveRatio?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n(\"code\":0, \"message\":\"查询指定部门奖励比例成功\",\n\"data\":{\n         \"id\":200,\n         \"year\":\"2018\",\n         \"interest_rate\":15.01,\n         \"incentive_ratio\":15.01,\n         \"max_limit\":15.01,\n         \"create_date\":2019-05-08T11:20:12.000+0000\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryIncentiveRatio?id="
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryIncentiveRatios",
+    "title": "查询所有部门奖励比例",
+    "name": "queryIncentiveRatios___________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryIncentiveRatios\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n(\"code\":0, \"message\":\"查询所有部门奖励比例成功\",\n\"data\":[\n     {\n         \"id\":200,\n         \"year\":\"2018\",\n         \"interest_rate\":15.01,\n         \"incentive_ratio\":15.01,\n         \"max_limit\":15.01,\n         \"create_date\":2019-05-08T11:20:12.000+0000\n     },\n     {\n         \"id\":201,\n         \"year\":\"2019\",\n         \"interest_rate\":25.02,\n         \"incentive_ratio\":25.02,\n         \"max_limit\":25.02,\n         \"create_date\":2019-05-08T11:20:36.000+0000\n     }\n])",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryIncentiveRatios"
+      }
+    ]
+  },
+  {
+    "type": "PUT",
+    "url": "/updateIncentiveRatio",
+    "title": "更改指定部门奖励比例成功",
+    "name": "updateIncentiveRatio_____________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定部门奖励比例id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年份（每年一月，设置）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "interest_rate",
+            "description": "<p>利率</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "incentive_ratio",
+            "description": "<p>奖励比例</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "max_limit",
+            "description": "<p>大额资金限制</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "{\n         \"id\":200,\n         \"year\":\"2019\",\n         \"interest_rate\":35.03,\n         \"incentive_ratio\":35.03,\n         \"max_limit\":35.03\n}\nPUT: /updateIncentiveRatio\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改指定部门奖励比例成功\", \"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/updateIncentiveRatio"
+      }
+    ]
+  },
+  {
+    "type": "PUT",
+    "url": "/updateIncentiveRatios",
+    "title": "批量更改指定部门奖励比例成功",
+    "name": "updateIncentiveRatios_______________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定部门奖励比例id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年份（每年一月，设置）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "interest_rate",
+            "description": "<p>利率</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "incentive_ratio",
+            "description": "<p>奖励比例</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "max_limit",
+            "description": "<p>大额资金限制</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "[\n     {\n         \"id\":200,\n         \"year\":\"2019\",\n         \"interest_rate\":35.03,\n         \"incentive_ratio\":35.03,\n         \"max_limit\":35.03\n     },\n     {\n         \"id\":201,\n         \"year\":\"2019\",\n         \"interest_rate\":45.04,\n         \"incentive_ratio\":45.04,\n         \"max_limit\":45.04\n     }\n]\nPUT: /updateIncentiveRatios\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量更改部门奖励比例成功\", \"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/updateIncentiveRatios"
+      }
+    ]
+  },
+  {
     "type": "DELETE",
     "url": "/deleteAllMonthReport",
     "title": "删除所有流动资金成本管控情况月度总结情况报告表信息",
@@ -736,6 +1099,50 @@ define({ "api": [
     ]
   },
   {
+    "type": "GET",
+    "url": "/selectProportionById?id=",
+    "title": "查询指定项目占比",
+    "name": "selectProportionById_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目占比表记录id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /deleteImprovementPlanById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
+      }
+    ]
+  },
+  {
     "type": "POST",
     "url": "/addReduceTarget",
     "title": "添加一条项目降低目标设置",
@@ -800,7 +1207,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"添加一条记录成功\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"添加一条项目降低目标设置\",\"data\":true}",
           "type": "json"
         }
       ]
@@ -844,7 +1251,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"根据id删除一条记录成功\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"根据id删除一条指定项目降低目标设置成功\",\"data\":true}",
           "type": "json"
         }
       ]
@@ -855,6 +1262,39 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/deleteReduceTarget"
+      }
+    ]
+  },
+  {
+    "type": "DELETE",
+    "url": "/deleteReduceTargets",
+    "title": "删除所有项目降低目标设置",
+    "name": "deleteReduceTargets_____________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "DELETE: /deleteReduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除所有项目降低目标设置\", \"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteReduceTargets"
       }
     ]
   },
@@ -888,7 +1328,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"根据ID查询一条记录成功\",\n\"data\":{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true}\n}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询指定项目降低目标设置\",\n\"data\":{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true}\n}",
           "type": "json"
         }
       ]
@@ -921,7 +1361,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\"data\":[\n{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true,\"create_date\":\"2019-05-06T09:46:35.000+0000\"},\n{\"id\":209,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":1000,\"last_year_value\":,\n  \"jan\":83.3333,\"feb\":583.3333,\"mar\":83.3333,\"apr\":83.3333,\"may\":83.3333,\"jun\":83.3333,\n  \"jul\":83.3333,\"aug\":83.3333,\"sept\":83.3333,\"oct\":83.3333,\"nov\":83.3333,\"dec\":83.3333,\n  \"asset_or_debt\":true}]\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询所有项目降低目标设置成功\",\"data\":[\n{\"id\":208,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":635184.75,\"last_year_value\":,\n  \"jan\":52932.062,\"feb\":52932.062,\"mar\":52932.062,\"apr\":52932.062,\"may\":52932.062,\"jun\":52932.062,\n  \"jul\":52932.062,\"aug\":52932.062,\"sept\":52932.062,\"oct\":52932.062,\"nov\":52932.062,\"dec\":52932.062,\n  \"asset_or_debt\":true,\"create_date\":\"2019-05-06T09:46:35.000+0000\"},\n{\"id\":209,\"report_item_id\":0,\"year\":\"\",\"year_percent\":0,\"year_value\":1000,\"last_year_value\":,\n  \"jan\":83.3333,\"feb\":583.3333,\"mar\":83.3333,\"apr\":83.3333,\"may\":83.3333,\"jun\":83.3333,\n  \"jul\":83.3333,\"aug\":83.3333,\"sept\":83.3333,\"oct\":83.3333,\"nov\":83.3333,\"dec\":83.3333,\n  \"asset_or_debt\":true}]\n}",
           "type": "json"
         }
       ]
@@ -972,7 +1412,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更新提升和改善计划表成功\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改指定项目降低目标设置\",\"data\":true}",
           "type": "json"
         }
       ]
@@ -1023,7 +1463,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量更新成功\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量更改项目降低目标设置成功\",\"data\":true}",
           "type": "json"
         }
       ]

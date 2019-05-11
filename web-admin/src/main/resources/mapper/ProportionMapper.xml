@@ -9,7 +9,7 @@
         <result column="proportion" property="proportion"/>
         <result column="accumulate_proportion" property="accumulate_proportion"/>
         <result column="asset_or_debt" property="asset_or_debt"/>
-        <result column="create_date" property="date"/>
+        <result column="create_date" property="create_date"/>
     </resultMap>
 
     <insert id="insertProportion" parameterType="edu.jmu.oscm.model.Proportion">

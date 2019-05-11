@@ -12,17 +12,17 @@
         <result column="realLowerTarget" property="realLowerTarget"/>
         <result column="realTotalLowerTarget" property="realTotalLowerTarget"/>
         <result column="difference" property="difference"/>
-        <result column="date" property="date"/>
+        <result column="create_date" property="create_date"/>
     </resultMap>
 
     <insert id="insert" parameterType="edu.jmu.oscm.model.ValueCreation">
         INSERT ad_value_creation VALUES (#{id},#{reportItemId},#{year},#{month},#{lowerTarget},
-        #{totalLowerTarget},#{realLowerTarget},#{realTotalLowerTarget},#{difference},#{date})
+        #{totalLowerTarget},#{realLowerTarget},#{realTotalLowerTarget},#{difference},#{create_date})
     </insert>
 
     <update id="update" parameterType="edu.jmu.oscm.model.ValueCreation">
         UPDATE ad_value_creation SET REPORT_ITEM_ID=#{reportItemId},year=#{year},month=#{month},lowerTarget=#{lowerTarget},
-        totalLowerTarget=#{totalLowerTarget},realLowerTarget=#{realLowerTarget},realTotalLowerTarget=#{realTotalLowerTarget},difference=#{difference},date=#{date}
+        totalLowerTarget=#{totalLowerTarget},realLowerTarget=#{realLowerTarget},realTotalLowerTarget=#{realTotalLowerTarget},difference=#{difference},create_date=#{create_date}
         WHERE id=#{id}
     </update>
 

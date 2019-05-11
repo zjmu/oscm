@@ -22,7 +22,7 @@
     </insert>
 
     <select id="findByDate" resultMap="myMapper">
-        select * from ad_income_value where date like concat(#{date},'%')
+        select * from ad_income_value where create_date like concat(#{create_date},'%')
     </select>
     <delete id="deleteAll">
         delete  from ad_income_value

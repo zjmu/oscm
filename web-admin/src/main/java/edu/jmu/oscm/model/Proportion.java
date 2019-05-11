@@ -3,7 +3,6 @@ package edu.jmu.oscm.model;
 import lombok.Data;
 
 import java.math.BigInteger;
-import java.sql.Timestamp;
 
 /**
  * @author zyx
@@ -22,7 +21,7 @@ public class Proportion {
     private String proportion;
     private String accumulate_proportion;
     private Boolean asset_or_debt;
-    private String date;
+    private String create_date;
 
     public int getId() {
         return id;
@@ -80,11 +79,11 @@ public class Proportion {
         this.asset_or_debt = asset_or_debt;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreate_date() {
+        return create_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreate_date(String create_date) {
+        this.create_date = create_date;
     }
 }
