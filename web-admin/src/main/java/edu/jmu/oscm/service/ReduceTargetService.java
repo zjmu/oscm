@@ -31,6 +31,10 @@ public class ReduceTargetService {
         return reduceTargetMapper.deleteByID(id);
     }
 
+    public Boolean deleteAll(){
+        return reduceTargetMapper.deleteAll();
+    }
+
     public ReduceTarget queryByID(int id){
         return reduceTargetMapper.queryByID(id);
     }

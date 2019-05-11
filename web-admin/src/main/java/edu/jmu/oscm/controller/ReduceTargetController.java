@@ -38,7 +38,7 @@ public class ReduceTargetController {
      * <p>
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
-     * {"code":0,"message":"查询提升和改善计划表成功","data":[
+     * {"code":0,"message":"查询所有项目降低目标设置成功","data":[
      * {"id":208,"report_item_id":0,"year":"","year_percent":0,"year_value":635184.75,"last_year_value":,
      *   "jan":52932.062,"feb":52932.062,"mar":52932.062,"apr":52932.062,"may":52932.062,"jun":52932.062,
      *   "jul":52932.062,"aug":52932.062,"sept":52932.062,"oct":52932.062,"nov":52932.062,"dec":52932.062,
@@ -54,7 +54,7 @@ public class ReduceTargetController {
     public BasicResponse<List<ReduceTarget>> queryAll(){
         return BusinessWrapper.wrap(response -> {
             List<ReduceTarget> reduceTargets = reduceTargetService.queryAll();
-            ResponseUtil.set(response,0,"查询成功",reduceTargets);
+            ResponseUtil.set(response,0,"查询所有项目降低目标设置成功",reduceTargets);
         }, logger);
     }
 
@@ -84,7 +84,7 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"根据ID查询一条记录成功",
+     * {"code":0,"message":"查询指定项目降低目标设置",
      * "data":{"id":208,"report_item_id":0,"year":"","year_percent":0,"year_value":635184.75,"last_year_value":,
      *   "jan":52932.062,"feb":52932.062,"mar":52932.062,"apr":52932.062,"may":52932.062,"jun":52932.062,
      *   "jul":52932.062,"aug":52932.062,"sept":52932.062,"oct":52932.062,"nov":52932.062,"dec":52932.062,
@@ -95,7 +95,7 @@ public class ReduceTargetController {
     public BasicResponse<ReduceTarget> queryByID(@RequestParam("id") int id){
         return BusinessWrapper.wrap(response ->{
             ReduceTarget rt =  reduceTargetService.queryByID(id);
-            ResponseUtil.set(response,0,"根据ID查询一条记录成功",rt);
+            ResponseUtil.set(response,0,"查询指定项目降低目标设置",rt);
         }, logger);
     }
 
@@ -129,13 +129,13 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"添加一条记录成功","data":true}
+     * {"code":0,"message":"添加一条项目降低目标设置","data":true}
      * */
     @PostMapping("/addReduceTarget")
     public BasicResponse<Boolean> add(@RequestBody ReduceTarget reduceTarget){
         return BusinessWrapper.wrap(response -> {
             Boolean flag = reduceTargetService.add(reduceTarget);
-            ResponseUtil.set(response,0,"添加一条记录成功",flag);
+            ResponseUtil.set(response,0,"添加一条项目降低目标设置",flag);
         }, logger);
     }
 
@@ -157,15 +157,43 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"根据id删除一条记录成功","data":true}
+     * {"code":0,"message":"根据id删除一条指定项目降低目标设置成功","data":true}
      * */
     @DeleteMapping("/deleteReduceTarget")
     public BasicResponse<Boolean> deleteByID(@RequestParam("id") int id){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.deleteByID(id);
-            ResponseUtil.set(response,0,"根据id删除一条记录成功",flag);
+            ResponseUtil.set(response,0,"根据id删除一条指定项目降低目标设置成功",flag);
         }, logger);
     }
+
+
+    /**
+     * 删除所有项目降低目标设置
+     *
+     * @api {DELETE} /deleteReduceTargets 删除所有项目降低目标设置
+     * @apiName deleteReduceTargets 删除所有项目降低目标设置
+     * @apiGroup ReduceTarget
+     * @apiParamExample {json} Request_Example:
+     * DELETE: /deleteReduceTargets
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"删除所有项目降低目标设置", "data":true}
+     */
+    @DeleteMapping("/deleteReduceTargets")
+    public BasicResponse<Boolean> deleteAll(){
+        return BusinessWrapper.wrap(response->{
+            Boolean flag = reduceTargetService.deleteAll();
+            ResponseUtil.set(response,0,"删除所有项目降低目标设置",flag);
+        },logger);
+    }
+
 
     /**
      * 更改指定项目降低目标设置
@@ -188,19 +216,18 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"更新提升和改善计划表成功","data":true}
+     * {"code":0,"message":"更改指定项目降低目标设置","data":true}
      * */
     @PutMapping("/updateReduceTarget")
     public BasicResponse<Boolean> update(@RequestBody ReduceTarget reduceTarget){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.update(reduceTarget);
-            ResponseUtil.set(response,0,"更新一条数据成功",flag);
+            ResponseUtil.set(response,0,"更改指定项目降低目标设置",flag);
         }, logger);
     }
 
     /**
      * 批量更改项目降低目标设置
-     *
      *
      * @api {PUT} /updateReduceTargets 批量更改项目降低目标设置
      * @apiName updateReduceTargets 批量更改项目降低目标设置
@@ -222,13 +249,13 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"批量更新成功","data":true}
+     * {"code":0,"message":"批量更改项目降低目标设置成功","data":true}
      */
     @PutMapping("/updateReduceTargets")
     public BasicResponse<Boolean> updates(@RequestBody List<ReduceTarget> reduceTargets){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.updates(reduceTargets);
-            ResponseUtil.set(response, 0 ,"批量更新成功",flag);
+            ResponseUtil.set(response, 0 ,"批量更改项目降低目标设置成功",flag);
         }, logger);
     }
 }
