@@ -47,4 +47,12 @@ public interface ProportionMapper {
      * @return
      */
     List<Proportion> getAllProportion();
+
+
+    /**
+     * 级联查找相关记录
+     * @return
+     */
+    List<Proportion> selectProportionAndReportItemInstanceByYearAndMonth(String year, String month);
+
 }

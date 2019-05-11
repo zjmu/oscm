@@ -228,4 +228,35 @@ public class ProportionController {
         }, logger);
     }
 
+    /**
+     * 查找项目占比表成功
+     *
+     * @api {GET} /selectProportionAndReport?year=year&&month=month  查询指定项目占比
+     * @apiName selectProportionAndReport 查询项目占比信息
+     * @apiGroup Proportion
+     * @apiParam {String} year 指定项目占比表年
+     * @apiParam {String} month 指定项目占比表月
+     * @apiParamExample {json} Request_Example:
+     * GET: /selectProportionByYearAndMonth?year=&&month=
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"查找项目占比表成功",
+     * "data":{"id":1,"report_item_id":0,"year":"2019","month":"5","proportion":0.0,"accumulate_proportion":"1.0","asset_or_debt":"0","create_date":"2019-01"}}
+     */
+    @GetMapping("/selectProportionAndReport")
+    public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month) {
+        return BusinessWrapper.wrap(response -> {
+            List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
+            System.out.println(proportions);
+            ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
+        }, logger);
+    }
+
+
 }

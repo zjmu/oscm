@@ -23,6 +23,8 @@ public class Proportion {
     private Boolean asset_or_debt;
     private String create_date;
 
+    private ReportItemInstance reportItemInstance;
+
     public int getId() {
         return id;
     }
@@ -85,5 +87,13 @@ public class Proportion {
 
     public void setCreate_date(String create_date) {
         this.create_date = create_date;
+    }
+
+    public ReportItemInstance getReportItemInstance() {
+        return reportItemInstance;
+    }
+
+    public void setReportItemInstance(ReportItemInstance reportItemInstance) {
+        this.reportItemInstance = reportItemInstance;
     }
 }

@@ -12,6 +12,34 @@
         <result column="create_date" property="create_date"/>
     </resultMap>
 
+    <resultMap id="ProportionAndReportItemInstanceMapper" type="edu.jmu.oscm.model.Proportion">
+        <id column="id" property="id"/>
+        <result column="REPORT_ITEM_ID" property="report_item_id"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="proportion" property="proportion"/>
+        <result column="accumulate_proportion" property="accumulate_proportion"/>
+        <result column="asset_or_debt" property="asset_or_debt"/>
+        <result column="create_date" property="create_date"/>
+        <association property="reportItemInstance" javaType="edu.jmu.oscm.model.ReportItemInstance">
+            <id column="ID" property="ID"/>
+            <result column="REPORT_ITEM_ID" property="REPORT_ITEM_ID"/>
+            <result column="REPORT_CODE" property="REPORT_CODE"/>
+            <result column="REPORT_NAME" property="REPORT_NAME"/>
+            <result column="OBJECT_TYPE" property="OBJECT_TYPE"/>
+            <result column="OBJECT_ID" property="OBJECT_ID"/>
+            <result column="ITEM_CODE" property="ITEM_CODE"/>
+            <result column="ITEM_NAME" property="ITEM_NAME"/>
+            <result column="ORDER_NUM" property="ORDER_NUM"/>
+            <result column="YEAR" property="YEAR"/>
+            <result column="MONTH" property="MONTH"/>
+            <result column="BEGIN_VALUE" property="BEGIN_VALUE"/>
+            <result column="VALUE" property="VALUE"/>
+            <result column="END_VALUE" property="END_VALUE"/>
+            <result column="MODIFY_TIME" property="MODIFY_TIME"/>
+        </association>
+    </resultMap>
+
     <insert id="insertProportion" parameterType="edu.jmu.oscm.model.Proportion">
         INSERT INTO ad_item_proportion(report_item_id,year,month,proportion,accumulate_proportion,asset_or_debt,create_date)
         values (#{report_item_id},#{year},#{month},#{proportion},#{accumulate_proportion},#{asset_or_debt},#{create_date})
@@ -37,5 +65,9 @@
         select * from ad_item_proportion where year = #{year} and month = #{month}
     </select>
 
+    <select id="selectProportionAndReportItemInstanceByYearAndMonth" resultMap="ProportionAndReportItemInstanceMapper">
+        select * from ad_item_proportion proportion,report_item_instance report where proportion.year = #{year} and proportion.month = #{month}
+            and proportion.year = report.year and proportion.month = report.month and proportion.REPORT_ITEM_ID = report.REPORT_ITEM_ID
+    </select>
 
 </mapper>
