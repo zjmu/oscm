@@ -24,30 +24,6 @@ import java.util.Map;
 @RestController
 public class ProportionController {
 
-    public class table{
-        private List<item> itemList;
-        private String total;
-
-        table(){
-            total = "";
-        }
-    }
-
-    class item{
-        private String itemName;
-        private String endValue;
-        private String proportion;
-        private String accumulate_proportion;
-
-        public item(String itemName, String endValue, String proportion, String accumulate_proportion) {
-            this.itemName = itemName;
-            this.endValue = endValue;
-            this.proportion = proportion;
-            this.accumulate_proportion = accumulate_proportion;
-        }
-    }
-
-
     private static final Logger logger = LoggerFactory.getLogger(Proportion.class);
 
     @Autowired
