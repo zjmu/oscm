@@ -2,15 +2,18 @@ package edu.jmu.oscm.controller;
 
 import edu.jmu.oscm.mapper.ProportionMapper;
 import edu.jmu.oscm.model.Proportion;
+import edu.jmu.oscm.service.ProportionService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zyx
@@ -20,10 +23,38 @@ import java.util.List;
 
 @RestController
 public class ProportionController {
+
+    public class table{
+        private List<item> itemList;
+        private String total;
+
+        table(){
+            total = "";
+        }
+    }
+
+    class item{
+        private String itemName;
+        private String endValue;
+        private String proportion;
+        private String accumulate_proportion;
+
+        public item(String itemName, String endValue, String proportion, String accumulate_proportion) {
+            this.itemName = itemName;
+            this.endValue = endValue;
+            this.proportion = proportion;
+            this.accumulate_proportion = accumulate_proportion;
+        }
+    }
+
+
     private static final Logger logger = LoggerFactory.getLogger(Proportion.class);
 
     @Autowired
     private ProportionMapper proportionMapper;
+
+    @Autowired
+    private ProportionService proportionService;
 
     /**
      * 查找项目占比表成功
@@ -231,7 +262,7 @@ public class ProportionController {
     /**
      * 查找项目占比表成功
      *
-     * @api {GET} /selectProportionAndReport?year=year&&month=month  查询指定项目占比
+     * @api {GET} /selectProportionAndReport?year=year&&month=month&&type=type  查询指定项目占比
      * @apiName selectProportionAndReport 查询项目占比信息
      * @apiGroup Proportion
      * @apiParam {String} year 指定项目占比表年
@@ -250,11 +281,13 @@ public class ProportionController {
      * "data":{"id":1,"report_item_id":0,"year":"2019","month":"5","proportion":0.0,"accumulate_proportion":"1.0","asset_or_debt":"0","create_date":"2019-01"}}
      */
     @GetMapping("/selectProportionAndReport")
-    public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month) {
+    public BasicResponse<Map<String,Object>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("type")Boolean type) {
         return BusinessWrapper.wrap(response -> {
             List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
-            System.out.println(proportions);
-            ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
+
+            Map<String,Object> map = proportionService.getListByType(proportions,type);
+
+            ResponseUtil.set(response, 0, "查找项目占比表成功", map);
         }, logger);
     }
 
