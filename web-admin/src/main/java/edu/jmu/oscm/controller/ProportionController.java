@@ -262,13 +262,14 @@ public class ProportionController {
     /**
      * 查找项目占比表成功
      *
-     * @api {GET} /selectProportionAndReport?year=year&&month=month&&type=type  查询指定项目占比
+     * @api {GET} /selectProportionAndReport?year=year&&month=month&&type=type  查询指定项目占比（资产和负债）
      * @apiName selectProportionAndReport 查询项目占比信息
      * @apiGroup Proportion
      * @apiParam {String} year 指定项目占比表年
      * @apiParam {String} month 指定项目占比表月
+     * @apiParam {Boolean} type 查询指定项目占比（资产和负债）
      * @apiParamExample {json} Request_Example:
-     * GET: /selectProportionByYearAndMonth?year=&&month=
+     * GET: /selectProportionAndReport?year=year&&month=month&&type=type
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -278,7 +279,7 @@ public class ProportionController {
      * HTTP/1.1 200 OK
      * <p>
      * {"code":0,"message":"查找项目占比表成功",
-     * "data":{"id":1,"report_item_id":0,"year":"2019","month":"5","proportion":0.0,"accumulate_proportion":"1.0","asset_or_debt":"0","create_date":"2019-01"}}
+     * "data":{}
      */
     @GetMapping("/selectProportionAndReport")
     public BasicResponse<Map<String,Object>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("type")Boolean type) {
