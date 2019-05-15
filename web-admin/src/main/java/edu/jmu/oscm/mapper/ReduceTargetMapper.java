@@ -54,4 +54,6 @@ public interface ReduceTargetMapper {
      * @return true or false
      * */
     Boolean updates(List<ReduceTarget> reduceTargets);
+
+    Boolean updateMonth(ReduceTarget reduceTarget);
 }

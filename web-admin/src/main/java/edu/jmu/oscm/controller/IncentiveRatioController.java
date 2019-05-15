@@ -22,11 +22,11 @@ public class IncentiveRatioController {
     /**
      * 查询所有部门奖励比例
      *
-     * @api {GET} /queryIncentiveRatios  查询所有部门奖励比例
-     * @apiName queryIncentiveRatios 查询所有部门奖励比例
+     * @api {GET} /incentiveRatios  查询所有部门奖励比例
+     * @apiName incentiveRatios 查询所有部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParamExample {json} Request_Example:
-     * GET: /queryIncentiveRatios
+     * GET: /incentiveRatios
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -40,22 +40,22 @@ public class IncentiveRatioController {
      *      {
      *          "id":200,
      *          "year":"2018",
-     *          "interest_rate":15.01,
-     *          "incentive_ratio":15.01,
-     *          "max_limit":15.01,
-     *          "create_date":2019-05-08T11:20:12.000+0000
+     *          "interest_rate":10.01,
+     *          "incentive_ratio":12.01,
+     *          "max_limit":15.02,
+     *          "create_date":2019-05-09T13:14:48.000+0000
      *      },
      *      {
      *          "id":201,
-     *          "year":"2019",
-     *          "interest_rate":25.02,
-     *          "incentive_ratio":25.02,
-     *          "max_limit":25.02,
-     *          "create_date":2019-05-08T11:20:36.000+0000
+     *          "year":"2018",
+     *          "interest_rate":12.55,
+     *          "incentive_ratio":14,
+     *          "max_limit":18.1,
+     *          "create_date":2019-05-09T13:15:01.000+0000
      *      }
      * ])
      * */
-    @GetMapping("/queryIncentiveRatios")
+    @GetMapping("/incentiveRatios")
     public BasicResponse<List<IncentiveRatio>> queryAll(){
         return BusinessWrapper.wrap(response -> {
             List<IncentiveRatio> incentiveRatios = incentiveRatioService.queryAll();
@@ -66,12 +66,12 @@ public class IncentiveRatioController {
     /**
      * 查询指定部门奖励比例
      *
-     * @api {GET} /queryIncentiveRatio?id=  查询指定部门奖励比例
-     * @apiName queryIncentiveRatio 查询指定部门奖励比例
+     * @api {GET} /incentiveRatio?id=  查询指定部门奖励比例
+     * @apiName incentiveRatio 查询指定部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParamExample {json} Request_Example:
-     * GET: /queryIncentiveRatio?id=
+     * GET: /incentiveRatio?id=200
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -84,13 +84,13 @@ public class IncentiveRatioController {
      * "data":{
      *          "id":200,
      *          "year":"2018",
-     *          "interest_rate":15.01,
-     *          "incentive_ratio":15.01,
-     *          "max_limit":15.01,
-     *          "create_date":2019-05-08T11:20:12.000+0000
-     * }
+     *          "interest_rate":10.01,
+     *          "incentive_ratio":12.01,
+     *          "max_limit":15.02,
+     *          "create_date":2019-05-09T13:14:48.000+0000
+     *      }
      * */
-    @GetMapping("/queryIncentiveRatio")
+    @GetMapping("/incentiveRatio")
     public BasicResponse<IncentiveRatio> queryByID(@RequestParam("id") int id){
         return BusinessWrapper.wrap(response ->{
             IncentiveRatio incentiveRatio = incentiveRatioService.queryByID(id);
@@ -101,8 +101,8 @@ public class IncentiveRatioController {
     /**
      * 添加一条部门奖励比例
      *
-     * @api {POST} /addIncentiveRatio 添加一条部门奖励比例成功
-     * @apiName addIncentiveRatio 添加一条部门奖励比例成功
+     * @api {POST} /incentiveRatio 添加一条部门奖励比例
+     * @apiName incentiveRatio 添加一条部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {String} year 年份（每年一月，设置）
      * @apiParam {BigDecimal} interest_rate 利率
@@ -115,7 +115,7 @@ public class IncentiveRatioController {
      *          "incentive_ratio":35.03,
      *          "max_limit":35.03
      * }
-     * POST: /addIncentiveRatio
+     * POST: /incentiveRatio
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -126,7 +126,7 @@ public class IncentiveRatioController {
      * <p>
      * {"code":0,"message":"添加一条部门奖励比例成功", "data":true}
      */
-    @PostMapping("/addIncentiveRatio")
+    @PostMapping("/incentiveRatio")
     public BasicResponse<Boolean> add(@RequestBody IncentiveRatio incentiveRatio){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = incentiveRatioService.add(incentiveRatio);
@@ -137,12 +137,12 @@ public class IncentiveRatioController {
     /**
      * 删除指定部门奖励比例
      *
-     * @api {DELETE} /deleteIncentiveRatio?id= 删除指定部门奖励比例
-     * @apiName deleteIncentiveRatio 删除指定部门奖励比例
+     * @api {DELETE} /incentiveRatio?id= 删除指定部门奖励比例
+     * @apiName incentiveRatio 删除指定部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParamExample {json} Request_Example:
-     * DELETE: /deleteIncentiveRatio?id=
+     * DELETE: /incentiveRatio?id=211
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -153,7 +153,7 @@ public class IncentiveRatioController {
      * <p>
      * {"code":0,"message":"删除指定部门奖励比例成功", "data":true}
      */
-    @DeleteMapping("/deleteIncentiveRatio")
+    @DeleteMapping("/incentiveRatio")
     public BasicResponse<Boolean> deleteByID(@RequestParam("id") int id){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = incentiveRatioService.deleteByID(id);
@@ -164,11 +164,11 @@ public class IncentiveRatioController {
     /**
      * 删除所有部门奖励比例
      *
-     * @api {DELETE} /deleteIncentiveRatios 删除所有部门奖励比例
-     * @apiName deleteIncentiveRatios 删除所有部门奖励比例
+     * @api {DELETE} /incentiveRatios 删除所有部门奖励比例
+     * @apiName incentiveRatios 删除所有部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParamExample {json} Request_Example:
-     * DELETE: /deleteIncentiveRatios
+     * DELETE: /incentiveRatios
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -179,7 +179,7 @@ public class IncentiveRatioController {
      * <p>
      * {"code":0,"message":"删除所有部门奖励比例成功", "data":true}
      */
-    @DeleteMapping("/deleteIncentiveRatios")
+    @DeleteMapping("/incentiveRatios")
     public BasicResponse<Boolean> deleteAll(){
         return BusinessWrapper.wrap(response->{
             Boolean flag = incentiveRatioService.deleteAll();
@@ -188,10 +188,10 @@ public class IncentiveRatioController {
     }
 
     /**
-     * 更改指定部门奖励比例成功
+     * 更改指定部门奖励比例
      *
-     * @api {PUT} /updateIncentiveRatio 更改指定部门奖励比例成功
-     * @apiName updateIncentiveRatio 更改指定部门奖励比例成功
+     * @api {PUT} /incentiveRatio 更改指定部门奖励比例
+     * @apiName incentiveRatio 更改指定部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParam {String} year 年份（每年一月，设置）
@@ -206,7 +206,7 @@ public class IncentiveRatioController {
      *          "incentive_ratio":35.03,
      *          "max_limit":35.03
      * }
-     * PUT: /updateIncentiveRatio
+     * PUT: /incentiveRatio
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -217,7 +217,7 @@ public class IncentiveRatioController {
      * <p>
      * {"code":0,"message":"更改指定部门奖励比例成功", "data":true}
      */
-    @PutMapping("/updateIncentiveRatio")
+    @PutMapping("/incentiveRatio")
     public BasicResponse<Boolean> update(@RequestBody IncentiveRatio incentiveRatio){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = incentiveRatioService.update(incentiveRatio);
@@ -226,10 +226,10 @@ public class IncentiveRatioController {
     }
 
     /**
-     * 批量更改部门奖励比例成功
+     * 批量更改部门奖励比例
      *
-     * @api {PUT} /updateIncentiveRatios 批量更改指定部门奖励比例成功
-     * @apiName updateIncentiveRatios 批量更改指定部门奖励比例成功
+     * @api {PUT} /incentiveRatios 批量更改指定部门奖励比例
+     * @apiName incentiveRatios 批量更改指定部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParam {String} year 年份（每年一月，设置）
@@ -253,7 +253,7 @@ public class IncentiveRatioController {
      *          "max_limit":45.04
      *      }
      * ]
-     * PUT: /updateIncentiveRatios
+     * PUT: /incentiveRatios
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -264,7 +264,7 @@ public class IncentiveRatioController {
      * <p>
      * {"code":0,"message":"批量更改部门奖励比例成功", "data":true}
      */
-    @PutMapping("/updateIncentiveRatios")
+    @PutMapping("/incentiveRatios")
     public BasicResponse<Boolean> updates(@RequestBody List<IncentiveRatio> incentiveRatios){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = incentiveRatioService.updates(incentiveRatios);
