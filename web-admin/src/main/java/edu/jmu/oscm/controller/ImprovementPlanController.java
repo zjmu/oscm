@@ -46,9 +46,18 @@ public class ImprovementPlanController {
      * "ok":1,
      * "plan":"1",
      * "remark":"1",
-     * "create_date":"2019-01-01 00:00:00"}}
+     * "create_date":"2019-01-01 00:00:00"
+     * "item":{
+     *          "item_code"="短期投资"
+     *          "item_name"="短期投资"
+     *          "calc_expr="1101-1102"
+     *          "calc_explain"="短期投资-短期投资跌价准备"
+     *          "state"="1"
+     *          "modify_time"= "2019-04-28 09:59:00"
+     *          }
+     * }}
      */
-    @GetMapping("/selectImprovementPlanById")
+    @GetMapping("/improvementPlan")
     public BasicResponse<ImprovementPlan> selectImprovementPlanById(@RequestParam("id") int id) {
         return BusinessWrapper.wrap(response -> {
             ImprovementPlan improvementPlan = improvementPlanMapper.selectImprovementPlanById(id);
@@ -81,7 +90,16 @@ public class ImprovementPlanController {
      *              "ok":1,
      *              "plan":"1",
      *              "remark":"1",
-     *              "create_date":"2019-01-01 00:00:00"},
+     *              "create_date":"2019-01-01 00:00:00"
+     *              "item":{
+     *                       "item_code"="短期投资"
+     *                      "item_name"="短期投资"
+     *                      "calc_expr="1101-1102"
+     *                      "calc_explain"="短期投资-短期投资跌价准备"
+     *                      "state"="1"
+     *                      "modify_time"= "2019-04-28 09:59:00"
+     *          }
+     *              },
      *          {
      *              "id":2,
      *              "report_item_id":0,
@@ -91,10 +109,18 @@ public class ImprovementPlanController {
      *              "plan":"1",
      *              "remark":"1",
      *              "create_date":"2019-01-01 00:00:00"
+     *              "item":{
+     *                      "item_code"="短期投资"
+     *                      "item_name"="短期投资"
+     *                      "calc_expr="1101-1102"
+     *                      "calc_explain"="短期投资-短期投资跌价准备"
+     *                      "state"="1"
+     *                      "modify_time"= "2019-04-28 09:59:00"
+     *          }
      *            }
      *       ]}
      */
-    @GetMapping("/getAllImprovementPlan")
+    @GetMapping("/improvementPlans")
     public BasicResponse<List<ImprovementPlan>> getAllImprovementPlan() {
         return BusinessWrapper.wrap(response -> {
             List<ImprovementPlan> improvementPlans = improvementPlanMapper.getAllImprovementPlan();
@@ -123,13 +149,14 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"删除指定提升和改善计划表成功"}
      */
-    @DeleteMapping("/deleteImprovementPlanById")
+    @DeleteMapping("/improvementPlan")
     public BasicResponse<Boolean> deleteImprovementPlanById(@RequestParam("id") int id) {
         return BusinessWrapper.wrap(response -> {
             boolean flag = improvementPlanMapper.deleteById(id);
             ResponseUtil.set(response, 0, "删除指定提升和改善计划表成功");
         }, logger);
     }
+
 
     /**
      * 删除所有提升和改善计划表记录
@@ -149,7 +176,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"删除所有提升和改善计划表成功"}
      */
-    @DeleteMapping("/deleteAllImprovementPlan")
+    @DeleteMapping("/improvementPlans")
     public BasicResponse<Boolean>  deleteAllImprovementPlan()
     {
         return BusinessWrapper.wrap(response -> {
@@ -192,7 +219,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"插入提升和改善计划表成功"}
      */
-    @PostMapping("/insertImprovementPlan")
+    @PostMapping("/improvementPlan")
     public BasicResponse<Boolean> insertImprovementPlan(@RequestBody  ImprovementPlan improvementPlan){
         return BusinessWrapper.wrap(response -> {
             System.out.println(improvementPlan.toString());
@@ -200,6 +227,7 @@ public class ImprovementPlanController {
             ResponseUtil.set(response, 0, "插入提升和改善计划表成功");
         }, logger);
     }
+
 
     /**
      * 更新指定提升和改善计划表记录
@@ -237,7 +265,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"更新提升和改善计划表成功"}
      */
-    @PutMapping("/updateImprovementPlan")
+    @PutMapping("/improvementPlan")
     public BasicResponse<Boolean> updateImprovementPlan(@RequestBody  ImprovementPlan improvementPlan){
         return BusinessWrapper.wrap(response -> {
             System.out.println(improvementPlan.toString());
