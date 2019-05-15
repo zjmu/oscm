@@ -1100,6 +1100,64 @@
   },
   {
     "type": "GET",
+    "url": "/selectProportionAndReport?year=year&&month=month&&type=type",
+    "title": "查询指定项目占比（资产和负债）",
+    "name": "selectProportionAndReport_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定项目占比表年</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定项目占比表月</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "type",
+            "description": "<p>查询指定项目占比（资产和负债）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /selectProportionAndReport?year=year&&month=month&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionAndReport?year=year&&month=month&&type=type"
+      }
+    ]
+  },
+  {
+    "type": "GET",
     "url": "/selectProportionById?id=",
     "title": "查询指定项目占比",
     "name": "selectProportionById_________",
@@ -1119,7 +1177,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /deleteImprovementPlanById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /selectProportionById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1139,6 +1197,57 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/selectProportionByYearAndMonth?year=year&&month=month",
+    "title": "查询指定项目占比",
+    "name": "selectProportionById_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定项目占比表年</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定项目占比表月</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /selectProportionByYearAndMonth?year=&&month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionByYearAndMonth?year=year&&month=month"
       }
     ]
   },
@@ -1478,16 +1587,16 @@
     ]
   },
   {
-    "type": "Post",
-    "url": "/createValueCreation",
-    "title": "插入流动资金占用成本管控增创价值表信息",
-    "name": "createValueCreation____________________",
-    "group": "ValueCreation",
+    "type": "GET",
+    "url": "/getAllReportItemInstance",
+    "title": "查询所有reportItemInstance",
+    "name": "getAllReportItemInstance___reportItemInstance__",
+    "group": "ReportItemInstance",
     "parameter": {
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n \"id\":3,\n \"reportItemId\":46,\n \"year\":2018,\n \"month\":7,\n \"lowerTarget\":27.0,\n \"totalLowerTarget\":36.1,\n \"realLowerTarget\":15.2,\n \"realTotalLowerTarget\":68.2,\n \"difference\":28.0,\n \"date\":\"2019-05-05\"\n}\nPOST: /createValueCreation\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /getAllReportItemInstance\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1496,108 +1605,31 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"增加记录成功\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找reportItemInstance表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
-    "groupTitle": "ValueCreation",
+    "filename": "java/edu/jmu/oscm/controller/ReportItemInstanceMapperController.java",
+    "groupTitle": "ReportItemInstance",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/createValueCreation"
-      }
-    ]
-  },
-  {
-    "type": "Delete",
-    "url": "/deleteAllValueCreation",
-    "title": "删除所有流动资金占用成本管控增创价值表信息",
-    "name": "deleteAllValueCreation______________________",
-    "group": "ValueCreation",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "Delete: /deleteAllValueCreation\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"清空数据成功\",\"data\":true}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
-    "groupTitle": "ValueCreation",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/deleteAllValueCreation"
-      }
-    ]
-  },
-  {
-    "type": "Delete",
-    "url": "/deleteValueCreation?id=",
-    "title": "删除指定流动资金占用成本管控增创价值表信息",
-    "name": "deleteValueCreation______________________",
-    "group": "ValueCreation",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Integer",
-            "optional": false,
-            "field": "id",
-            "description": "<p>指定要删除的流动资金占用成本管控增创价值表记录id</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "Delete: /deleteValueCreation?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除数据成功\",\"data\":true}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
-    "groupTitle": "ValueCreation",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/deleteValueCreation?id="
+        "url": "http://oscm.xmiss.top/oscm_new/getAllReportItemInstance"
       }
     ]
   },
   {
     "type": "GET",
-    "url": "/queryAllValueCreation",
-    "title": "查询所有流动资金占用成本管控增创价值",
-    "name": "queryAllValueCreation___________________",
-    "group": "ValueCreation",
+    "url": "/selectReportItemInstanceByYearAndMonth",
+    "title": "查询指定年月的reportItemInstance",
+    "name": "selectReportItemInstanceByYearAndMonth___reportItemInstance__",
+    "group": "ReportItemInstance",
     "parameter": {
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /queryAllValueCreation\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /getAllReportItemInstance\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1606,101 +1638,17 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\": 0,\"message\": \"查询数据成功\",\"data\": [\n{id\": 1,\"reportItemId\": 1,\"year\": \"2018\",\"month\": \"9\",\"lowerTarget\": 74564,\n \"totalLowerTarget\": 311313,\"realLowerTarget\": 877878,\"realTotalLowerTarget\": 32323,\n \"difference\": 4545,date\": \"2019-05-06\" },\n{\"id\": 2,\"reportItemId\": 1,\"year\": \"2019\",\"month\": \"1\",\"lowerTarget\": 12121,\n \"totalLowerTarget\": 4545,\"realLowerTarget\": 45454,\"realTotalLowerTarget\": 87878,\n \"difference\": 542112,\"date\": \"2019-05-04\" }]\n}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找reportItemInstance表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
-    "groupTitle": "ValueCreation",
+    "filename": "java/edu/jmu/oscm/controller/ReportItemInstanceMapperController.java",
+    "groupTitle": "ReportItemInstance",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/queryAllValueCreation"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/queryValueCreation?year=&month=",
-    "title": "根据年月查询流动资金占用成本管控增创价值",
-    "name": "queryValueCreation_____________________",
-    "group": "ValueCreation",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>指定流动资金占用成本管控增创价值表year值</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>指定流动资金占用成本管控增创价值表month值</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /queryValueCreation?year= & month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[{\n\"id\":2,\"reportItemId\":1,\"year\":\"2019\",\"month\":\"1\",\"lowerTarget\":12121.0000,\"totalLowerTarget\":4545.0000,\n\"realLowerTarget\":45454.0000,\"realTotalLowerTarget\":87878.0000,\"difference\":542112.0000,\"date\":\"2019-05-04\"}]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
-    "groupTitle": "ValueCreation",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/queryValueCreation?year=&month="
-      }
-    ]
-  },
-  {
-    "type": "Put",
-    "url": "/updateValueCreation",
-    "title": "更新流动资金占用成本管控增创价值表信息",
-    "name": "updateValueCreation____________________",
-    "group": "ValueCreation",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "{\n \"id\":1,\n \"reportItemId\":23,\n \"year\":2014,\n \"month\":5,\n \"lowerTarget\":25.0,\n \"totalLowerTarget\":16.1,\n \"realLowerTarget\":17.2,\n \"realTotalLowerTarget\":18.2,\n \"difference\":23.0,\n \"date\":\"2019-05-05\"\n}\nPUT: /updateValueCreation\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"修改数据成功\",\"data\":true}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ValueCreationController.java",
-    "groupTitle": "ValueCreation",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/updateValueCreation"
+        "url": "http://oscm.xmiss.top/oscm_new/selectReportItemInstanceByYearAndMonth"
       }
     ]
   },
@@ -1734,6 +1682,202 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/orders"
+      }
+    ]
+  },
+  {
+    "type": "DELETE",
+    "url": "/deleteAllProportion",
+    "title": "删除所有项目占比表记录",
+    "name": "deleteAllProportion____________",
+    "group": "deleteAllProportion",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "DELETE: /deleteAllProportion\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除所有项目占比表记录\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "deleteAllProportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteAllProportion"
+      }
+    ]
+  },
+  {
+    "type": "DELETE",
+    "url": "/deleteProportionById",
+    "title": "删除指定项目占比表记录",
+    "name": "deleteImprovementPlanById____________",
+    "group": "deleteProportionById",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>删除指定项目占比表记录id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "DELETE: /deleteProportionById?id=1\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除指定项目占比表记录成功\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "deleteProportionById",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteProportionById"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/getAllProportion",
+    "title": "查找所有项目占比表记录",
+    "name": "getAllProportion____________",
+    "group": "getAllProportion",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /getAllProportion\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找所有项目占比表记录成功\",\n\"data\":[\n{\n\"id\":143,\n\"report_item_id\":0,\n\"year\":\"\",\n\"month\":\"\",\n\"proportion\":0.6196991,\n\"accumulate_proportion\":0.6196991,\n\"asset_or_debt\":0,\n\"create_date\":\"2019-01-01 00:00:00\"},\n{\n\"id\":146,\n\"report_item_id\":0,\n\"year\":\"\",\n\"month\":\"\",\n\"proportion\":0,\n\"accumulate_proportion\":0.75356704,\n\"asset_or_debt\":0,\n\"create_date\":\"2019-01-01 00:00:00\"\n}\n]}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "getAllProportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/getAllProportion"
+      }
+    ]
+  },
+  {
+    "type": "POST",
+    "url": "/insertProportion",
+    "title": "插入项目占比表",
+    "name": "insertProportion________",
+    "group": "insertProportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "bigint",
+            "optional": false,
+            "field": "report_item_id",
+            "description": "<p>报告条目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>年度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "proportion",
+            "description": "<p>比例</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "accumulate_proportion",
+            "description": "<p>累计比例</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "asset_or_debt",
+            "description": "<p>资产或负债</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Timestamp",
+            "optional": false,
+            "field": "create_date",
+            "description": "<p>创建时间</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "{\n\"report_item_id\":0,\n\"year\":\"\",\n\"month\":\"\",\n\"proportion\":0,\n\"accumulate_proportion\":0.75356704,\n\"asset_or_debt\":0,\n\"create_date\":\"2019-01-01 00:00:00\"\n}\nPOST: /insertImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"插入项目占比表成功\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "insertProportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/insertProportion"
       }
     ]
   }
