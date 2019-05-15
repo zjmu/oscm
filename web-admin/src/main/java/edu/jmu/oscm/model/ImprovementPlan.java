@@ -31,6 +31,9 @@ public class ImprovementPlan {
     //日期
     private Timestamp create_date;
 
+    //外键对应的Item对象
+    private  Item item;
+
     public int getId() {
         return id;
     }
