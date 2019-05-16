@@ -31,7 +31,7 @@ public class FoundCostController {
      * 查询流动资金占用成本管控目标完成情况分析
      * @api {GET} /queryFoundCost 查询流动资金占用成本管控目标完成情况分析
      * @apiName queryFoundCost 查询流动资金占用成本管控目标完成情况分析
-     * @apiGroup 1FoundCost
+     * @apiGroup FoundCost
      * @apiParam {String} year 指定流动资金占用成本管控目标完成情况分析year值
      * @apiParam {String} month 指定流动资金占用成本管控目标完成情况分析month值
      * @apiParamExample {json} Request_Example:

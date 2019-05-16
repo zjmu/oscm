@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.jmu.oscm.mapper.ReportItemInstanceMapper">
+
     <resultMap id="ReportItemInstanceMapper" type="edu.jmu.oscm.model.ReportItemInstance">
         <id column="ID" property="id"/>
         <result column="REPORT_ITEM_ID" property="reportItemId"/>
@@ -23,6 +24,7 @@
         <result column="ITEM_NAME" property="itemName"/>
     </resultMap>
 
+
     <select id="getAllReportItemInstance" resultMap="ReportItemInstanceMapper">
         select * from report_item_instance
     </select>
@@ -34,6 +36,7 @@
     <select id="getReportItemInstanceById" resultMap="ReportItemInstanceMapper">
         SELECT * FROM report_item_instance WHERE ID = #{id}
     </select>
+
 
     <select id="getReportItemInstanceByReportItemId" resultMap="mapper">
         SELECT ITEM_NAME FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}

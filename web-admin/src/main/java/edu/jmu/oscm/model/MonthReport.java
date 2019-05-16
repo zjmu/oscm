@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 import java.math.BigInteger;
 
+import java.sql.Timestamp;
+
 @Data
 public class MonthReport {
 
@@ -45,8 +47,11 @@ public class MonthReport {
     //备注
     private  String remark;
 
-    //日期
-    private  String date;
+    //创建日期
+    private  Timestamp create_date;
+
+    //外键对应的Item对象
+    private  Item item;
 
     public int getId() {
         return id;
@@ -144,12 +149,12 @@ public class MonthReport {
         this.remark = remark;
     }
 
-    public String getDate() {
-        return date;
+    public Timestamp getCreate_date() {
+        return create_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreate_date(Timestamp create_date) {
+        this.create_date = create_date;
     }
 
     @Override
@@ -167,7 +172,7 @@ public class MonthReport {
                 ", deficiency='" + deficiency + '\'' +
                 ", evaluate='" + evaluate + '\'' +
                 ", remark='" + remark + '\'' +
-                ", date='" + date + '\'' +
+                ", create_date='" + create_date + '\'' +
                 '}';
     }
 }

@@ -168,7 +168,7 @@ public class BalanceTargetValueController {
      * 计算上月余额与目标降低值表
      * @api {GET} /calculateBalanceTargetValue 计算上月余额与目标降低值表
      * @apiName calculateBalanceTargetValue 计算上月余额与目标降低值表
-     * @apiGroup balanceTargetValue
+     * @apiGroup BalanceTargetValue
      * @apiParam {String} year 指定计算上月余额与目标降低值表year值
      * @apiParam {String} month 指定计算上月余额与目标降低值表month值
      * @apiParamExample {json} Request_Example:
@@ -179,18 +179,26 @@ public class BalanceTargetValueController {
      * <p>
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
-     *{
-     * "code": 0,
-     * "message": "执行计算",
-     * "data": "计算完成!"
-     *}
+     *{"code":0,"message":"执行计算","data":[
+     * {"id":289,"reportItemId":1,"year":"2019","month":"3","lastMonthBalance":2090.00,"planMonthTargetValue":33.00,"planTotalReduceValue":166.00,"actualMonthTargetValue":-979.00,"
+     * actualTotalReduceValue":1101.00,"monthIncrementalValue":-11013.75,"totalIncrementalValue":12386.25,"monthReward":-154412.78,"totalReward":173655.23,"createDate":"2019-05-16T07:59:11.000+0000",
+     * "itemDept":null,"itemEmployee":null,"reportItemInstance":null},
+     * {"id":553,"reportItemId":2,"year":"2019","month":"3","lastMonthBalance":50000.00,"planMonthTargetValue":83.33,"planTotalReduceValue":177.67,"actualMonthTargetValue":-47778.00,
+     * "actualTotalReduceValue":2212.00,"monthIncrementalValue":-537502.50,"totalIncrementalValue":24885.00,"monthReward":-7535785.05,"totalReward":348887.70,"createDate":"2019-05-16T07:59:11.000+0000",
+     * "itemDept":null,"itemEmployee":null,"reportItemInstance":null},
+     * {"id":554,"reportItemId":3,"year":"2019","month":"3","lastMonthBalance":1020.00,"planMonthTargetValue":98777.00,"planTotalReduceValue":106554.00,"actualMonthTargetValue":4224.00,
+     * "actualTotalReduceValue":5234.00,"monthIncrementalValue":47520.00,"totalIncrementalValue":58882.50,"monthReward":666230.40,"totalReward":825532.65,"createDate":"2019-05-16T07:59:11.000+0000",
+     * "itemDept":null,"itemEmployee":null,"reportItemInstance":null},
+     * {"id":555,"reportItemId":4,"year":"2019","month":"3","lastMonthBalance":5020.00,"planMonthTargetValue":6222.00,"planTotalReduceValue":6247.00,"actualMonthTargetValue":-576.00,
+     * "actualTotalReduceValue":4434.00,"monthIncrementalValue":-6480.00,"totalIncrementalValue":49882.50,"monthReward":-90849.60,"totalReward":699352.65,"createDate":"2019-05-16T07:59:11.000+0000",
+     * "itemDept":null,"itemEmployee":null,"reportItemInstance":null}]}
      * */
     @GetMapping("/calculateBalanceTargetValue")
-    public BasicResponse<String> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month) {
+    public BasicResponse<List<BalanceTargetValue>> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month) {
         return BusinessWrapper.wrap(response -> {
             String message = balanceTargetValueService.calculate(year,month);
-            //List<BalanceTargetValue> result = balanceTargetValueMapper.selectByDate("2019","3");
-            ResponseUtil.set(response, 0, "执行计算", message);
+            List<BalanceTargetValue> result = balanceTargetValueMapper.selectByDate("2019","3");
+            ResponseUtil.set(response, 0, "执行计算", result);
         }, logger);
     }
 }

@@ -19,27 +19,6 @@
         <result column="create_date" property="createDate"/>
     </resultMap>
 
-    <resultMap id="mapper1" type="edu.jmu.oscm.model.BalanceTargetValue">
-        <id column="id" property="id"/>
-        <result column="REPORT_ITEM_ID" property="reportItemId"/>
-        <result column="year" property="year"/>
-        <result column="month" property="month"/>
-        <result column="last_month_balance" property="lastMonthBalance"/>
-        <result column="plan_month_target_value" property="planMonthTargetValue"/>
-        <result column="plan_total_reduce_value" property="planTotalReduceValue"/>
-        <result column="actual_month_target_value" property="actualMonthTargetValue"/>
-        <result column="actual_total_reduce_value" property="actualTotalReduceValue"/>
-        <result column="month_incremental_value" property="monthIncrementalValue"/>
-        <result column="total_incremental_value" property="totalIncrementalValue"/>
-        <result column="month_reward" property="monthReward"/>
-        <result column="total_reward" property="totalReward"/>
-        <result column="create_date" property="createDate"/>
-        <association property="reportItemInstance" column="{reportItemId=REPORT_ITEM_ID,year=year,month=month}" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstanceByReportItemId"/>
-        <collection property="itemDept" column="REPORT_ITEM_ID" select="edu.jmu.oscm.mapper.ItemDeptMapper.selectItemDept"/>
-        <collection property="itemEmployee" column="REPORT_ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
-    </resultMap>
-
-
     <insert id="insertMore" parameterType="java.util.List">
         INSERT INTO ad_balance_target_value(REPORT_ITEM_ID,year,month,last_month_balance,plan_month_target_value,plan_total_reduce_value,actual_month_target_value,
         actual_total_reduce_value,month_incremental_value,total_incremental_value,month_reward,total_reward,create_date)
@@ -69,6 +48,5 @@
     <select id="selectByDate" resultMap="mapper">
         SELECT * FROM ad_balance_target_value WHERE year=#{year} AND month=#{month}
     </select>
-
 
 </mapper>

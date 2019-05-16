@@ -15,4 +15,69 @@
         SELECT * FROM ad_incentive_ratio WHERE year=#{year}
     </select>
 
+    <insert id="add">
+        INSERT INTO ad_incentive_ratio (`year`, interest_rate, incentive_ratio, max_limit)
+        VALUE (#{year}, #{interest_rate}, #{incentive_ratio}, #{max_limit})
+    </insert>
+
+    <update id="update" parameterType="edu.jmu.oscm.model.IncentiveRatio">
+        UPDATE ad_incentive_ratio
+        SET `year` = #{year}, interest_rate = #{interest_rate}, incentive_ratio = #{incentive_ratio}, max_limit = #{max_limit}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updates" parameterType="java.util.List">
+        UPDATE ad_incentive_ratio
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="`year` = case" suffix="end,">
+                <foreach collection="list" item="incentiveRatio">
+                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.year}
+                </foreach>
+            </trim>
+            <trim prefix="interest_rate = case" suffix="end,">
+                <foreach collection="list" item="incentiveRatio">
+                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.interest_rate}
+                </foreach>
+            </trim>
+            <trim prefix="incentive_ratio = case" suffix="end,">
+                <foreach collection="list" item="incentiveRatio">
+                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.incentive_ratio}
+                </foreach>
+            </trim>
+            <trim prefix="max_limit = case" suffix="end,">
+                <foreach collection="list" item="incentiveRatio">
+                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.max_limit}
+                </foreach>
+            </trim>
+        </trim>
+        <where>
+            <foreach collection="list" item="incentiveRatio" separator="or">
+                id = #{incentiveRatio.id}
+            </foreach>
+        </where>
+    </update>
+
+    <delete id="deleteByID" parameterType="integer">
+        DELETE
+        FROM ad_incentive_ratio
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE
+        FROM ad_incentive_ratio
+        WHERE 1 = 1
+    </delete>
+
+    <select id="queryAll" resultType="edu.jmu.oscm.model.IncentiveRatio">
+        SELECT *
+        FROM ad_incentive_ratio
+    </select>
+
+    <select id="queryByID" resultType="edu.jmu.oscm.model.IncentiveRatio" parameterType="integer">
+        SELECT *
+        FROM ad_incentive_ratio
+        WHERE id = #{id}
+    </select>
+
 </mapper>

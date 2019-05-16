@@ -22,11 +22,20 @@
         <result column="nov" property="nov"/>
         <result column="dec" property="dec"/>
         <result column="asset_or_debt" property="asset_or_debt"/>
+        <result column="create_date" property="create_date"/>
+        <association property="item" javaType="edu.jmu.oscm.model.Item">
+            <result column="item_code" property="item_code"/>
+            <result column="item_name" property="item_name"/>
+            <result column="calc_expr" property="calc_expr"/>
+            <result column="calc_explain" property="calc_explain"/>
+            <result column="state" property="state"/>
+            <result column="modify_time" property="modify_date"/>
+        </association>
     </resultMap>
 
    <insert id="add" parameterType="edu.jmu.oscm.model.ReduceTarget" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO ad_item_reduce_target (REPORT_ITEM_ID, `year`, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt)
-        VALUE (#{report_item_id}, #{year}, #{year_percent}, #{year_value}, #{last_year_value}, #{jan},#{feb}, #{mar}, #{apr}, #{may}, #{jun},#{jul}, #{aug}, #{sept}, #{oct}, #{nov}, #{dec}, #{asset_or_debt})
+        INSERT INTO ad_item_reduce_target (REPORT_ITEM_ID, `year`, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt, create_date)
+        VALUE (#{report_item_id}, #{year}, #{year_percent}, #{year_value}, #{last_year_value}, #{jan},#{feb}, #{mar}, #{apr}, #{may}, #{jun},#{jul}, #{aug}, #{sept}, #{oct}, #{nov}, #{dec}, #{asset_or_debt}, #{create_date})
     </insert>
 
     <update id="update" parameterType="edu.jmu.oscm.model.ReduceTarget">
@@ -110,20 +119,47 @@
             </foreach>
         </where>
     </update>
+    <update id="updateMonth" parameterType="edu.jmu.oscm.model.ReduceTarget">
+        UPDATE ad_item_reduce_target
+        <trim prefix="set" suffixOverrides=",">
+            <if test="id!=null">id=#{id},</if>
+            <if test="jan!=null">jan=#{jan},</if>
+            <if test="feb!=null">feb=#{feb},</if>
+            <if test="mar!=null">mar=#{mar},</if>
+            <if test="apr!=null">apr=#{apr},</if>
+            <if test="may!=null">may=#{may},</if>
+            <if test="jun!=null">jun=#{jun},</if>
+            <if test="jul!=null">jul=#{jul},</if>
+            <if test="aug!=null">aug=#{aug},</if>
+            <if test="sept!=null">sept=#{sept},</if>
+            <if test="oct!=null">oct=#{oct},</if>
+            <if test="nov!=null">nov=#{nov},</if>
+            <if test="dec!=null">`dec`=#{dec},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
 
-    <delete id="deleteByID" parameterType="Integer" >
+    <delete id="deleteByID" parameterType="integer" >
         DELETE FROM ad_item_reduce_target
         WHERE id = #{id}
     </delete>
-
-    <select id="queryAll" resultType="edu.jmu.oscm.model.ReduceTarget">
-        SELECT *
-        from ad_item_reduce_target
-    </select>
-    <select id="queryByID" resultType="edu.jmu.oscm.model.ReduceTarget" parameterType="Integer">
-        SELECT *
+    <delete id="deleteAll">
+        DELETE
         FROM ad_item_reduce_target
-        WHERE id = #{id}
+        WHERE 1 = 1
+    </delete>
+    <select id="queryAll" resultMap="reduceTargetMapper">
+        SELECT reduce.*, item_code, item_name, calc_expr, calc_explain, state, modify_time
+        from ad_item_reduce_target reduce
+        inner join item
+        on reduce.report_item_id = item.id
+    </select>
+    <select id="queryByID" resultMap="reduceTargetMapper" parameterType="integer">
+        SELECT reduce.*, item_code, item_name, calc_expr, calc_explain, state, modify_time
+        FROM ad_item_reduce_target reduce
+        inner join item
+        on reduce.report_item_id = item.id
+        WHERE reduce.id = #{id}
     </select>
 
 

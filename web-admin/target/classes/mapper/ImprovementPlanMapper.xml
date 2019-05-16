@@ -9,15 +9,23 @@
         <result column="ok" property="ok"/>
         <result column="plan" property="plan"/>
         <result column="remark" property="remark"/>
-        <result column="date" property="date"/>
+        <result column="create_date" property="create_date"/>
+        <association property="item" javaType="edu.jmu.oscm.model.Item">
+            <result column="item_code" property="item_code"/>
+            <result column="item_name" property="item_name"/>
+            <result column="calc_expr" property="calc_expr"/>
+            <result column="calc_explain" property="calc_explain"/>
+            <result column="state" property="state"/>
+            <result column="modify_time" property="modify_date"/>
+        </association>
     </resultMap>
     <insert id="insertImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
-         insert into ad_improvement_plan (report_item_id,year,month,ok,plan,remark,date)
-        values (#{report_item_id},#{year},#{month},#{ok},#{plan},#{remark},#{date})
+         insert into ad_improvement_plan (report_item_id,year,month,ok,plan,remark,create_date)
+        values (#{report_item_id},#{year},#{month},#{ok},#{plan},#{remark},#{create_date})
 
     </insert>
     <update id="updateImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
-        UPDATE ad_improvement_plan SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , ok = #{ok} , plan = #{plan} , remark =#{remark} ,date =#{date}
+        UPDATE ad_improvement_plan SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , ok = #{ok} , plan = #{plan} , remark =#{remark} ,create_date =#{create_date}
         WHERE id = #{id}
     </update>
 
@@ -30,11 +38,14 @@
     </delete>
     
     <select id="selectImprovementPlanById" parameterType="int" resultMap="improvementPlanMapper">
-        select  * from ad_improvement_plan where id = #{id}
+         select improve.*,item.item_code,item.item_name,item.calc_expr,item.calc_explain,item.state,item.modify_time  from ad_improvement_plan improve inner join item on
+        improve.report_item_id = item.id where improve.id = #{id}
+
     </select>
 
     <select id="getAllImprovementPlan" resultMap="improvementPlanMapper">
-        select * from ad_improvement_plan
+          select improve.*,item.item_code,item.item_name,item.calc_expr,item.calc_explain,item.state,item.modify_time  from ad_improvement_plan improve inner join item on
+        improve.report_item_id = item.id
     </select>
 
 
