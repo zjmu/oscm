@@ -23,12 +23,12 @@ public class ImprovementPlanController {
     /**
      * 获取指定提升和改善计划表记录
      *
-     * @api {GET} /selectImprovementPlanById?id=  查询指定提升和改善计划表信息
+     * @api {GET} /improvementPlan?id=  查询指定提升和改善计划表信息
      * @apiName selectImprovementPlanById 查询指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 指定提升和改善计划表记录id
      * @apiParamExample {json} Request_Example:
-     * GET: /deleteImprovementPlanById?id=
+     * GET: /improvementPlanById?id=
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -67,11 +67,11 @@ public class ImprovementPlanController {
 
     /**
      * 查询所有提升和改善计划表记录
-     * @api {GET} /getAllImprovementPlan 查询所有提升和改善计划表信息
-     * @apiName getAllImprovementPlan 查询所有提升和改善计划表信息
+     * @api {GET} /improvementPlans 查询所有提升和改善计划表信息
+     * @apiName queryAllImprovementPlan 查询所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParamExample {json} Request_Example:
-     * GET: /getAllImprovementPlan
+     * GET: /improvementPlans
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -133,12 +133,12 @@ public class ImprovementPlanController {
     /**
      * 删除指定提升和改善计划表记录
      *
-     * @api {DELETE} /deleteImprovementPlanById 删除指定提升和改善计划表信息
-     * @apiName deleteImprovementPlanById 删除指定提升和改善计划表信息
+     * @api {DELETE} /improvementPlan 删除指定提升和改善计划表信息
+     * @apiName deleteImprovementPlan 删除指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 指定提升和改善计划表记录id
      * @apiParamExample {json} Request_Example:
-     * DELETE: /deleteImprovementPlanById?id=1
+     * DELETE: /improvementPlan?id=1
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -161,11 +161,11 @@ public class ImprovementPlanController {
     /**
      * 删除所有提升和改善计划表记录
      *
-     * @api {DELETE} /deleteAllImprovementPlan 删除所有提升和改善计划表信息
-     * @apiName deleteAllImprovementPlan 删除所有提升和改善计划表信息
+     * @api {DELETE} /improvementPlans 删除所有提升和改善计划表信息
+     * @apiName deleteAllImprovementPlans删除所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParamExample {json} Request_Example:
-     * DELETE: /deleteAllImprovementPlan
+     * DELETE: /improvementPlans
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -188,7 +188,7 @@ public class ImprovementPlanController {
     /**
      * 插入提升和改善计划表记录
      *
-     * @api {POST} /insertImprovementPlan 插入提升和改善计划表信息
+     * @api {POST} /improvementPlan 插入提升和改善计划表信息
      * @apiName insertImprovementPlan 插入所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {bigint} report_item_id 报告条目id
@@ -208,7 +208,7 @@ public class ImprovementPlanController {
      *  "remark":"1",
      *  "create_date":"2019-01-01 00:00:00"
      *  }
-     * POST: /insertImprovementPlan
+     * POST: /improvementPlan
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -232,7 +232,7 @@ public class ImprovementPlanController {
     /**
      * 更新指定提升和改善计划表记录
      *
-     * @api {PUT} /updateImprovementPlan 更新指定提升和改善计划表信息
+     * @api {PUT} /improvementPlan 更新指定提升和改善计划表信息
      * @apiName updateImprovementPlan 更新指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 提升和改善计划表id
@@ -254,7 +254,7 @@ public class ImprovementPlanController {
      *  "remark":"1",
      *  "create_date":"2019-01-01 00:00:00"
      *  }
-     * POST: /updateImprovementPlan
+     * POST: /improvementPlan
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8

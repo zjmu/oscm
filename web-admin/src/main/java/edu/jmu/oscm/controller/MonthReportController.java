@@ -21,12 +21,12 @@ public class MonthReportController {
     /**
      * 获取指定流动资金成本管控情况月度总结情况报告表记录
      *
-     * @api {GET} /selectMonthReportById?id=  查询指定流动资金成本管控情况月度总结情况报告表信息
+     * @api {GET} /monthReport?id=  查询指定流动资金成本管控情况月度总结情况报告表信息
      * @apiName selectMonthReportById 查询指定流动资金成本管控情况月度总结情况报告表信息
      * @apiGroup MonthReport
      * @apiParam {int} id 指定流动资金成本管控情况月度总结情况报告表记录id
      * @apiParamExample {json} Request_Example:
-     * GET: /selectMonthReportById?id=
+     * GET: /monthReport?id=
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -70,11 +70,11 @@ public class MonthReportController {
     /**
      * 查询所有流动资金成本管控情况月度总结情况报告表记录
      *
-     * @api {GET} /getAllMonthReport 查询所有流动资金成本管控情况月度总结情况报告表信息
-     * @apiName getAllMonthReport 查询所有流动资金成本管控情况月度总结情况报告表信息
+     * @api {GET} /monthReports 查询所有流动资金成本管控情况月度总结情况报告表信息
+     * @apiName queryAllImonthReport 查询所有流动资金成本管控情况月度总结情况报告表信息
      * @apiGroup MonthReport
      * @apiParamExample {json} Request_Example:
-     * GET: /getAllMonthReport
+     * GET: /monthReports
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -145,7 +145,7 @@ public class MonthReportController {
     /**
      * 删除指定流动资金成本管控情况月度总结情况报告表记录
      * @api {DELETE} /monthReport?id=  删除指定流动资金成本管控情况月度总结情况报告表信息
-     * @apiName monthReport 删除指定流动资金成本管控情况月度总结情况报告表信息
+     * @apiName deleteMonthReport 删除指定流动资金成本管控情况月度总结情况报告表信息
      * @apiGroup MonthReport
      * @apiParam {int} id 指定 流动资金成本管控情况月度总结情况报告表记录id
      * @apiParamExample {json} Request_Example:
@@ -174,10 +174,10 @@ public class MonthReportController {
     /**
      * 删除所有流动资金成本管控情况月度总结情况报告表记录
      * @api {DELETE} /monthReports 删除所有流动资金成本管控情况月度总结情况报告表信息
-     * @apiName monthReports 删除所有流动资金成本管控情况月度总结情况报告表信息
+     * @apiName deleteAllMonthReport 删除所有流动资金成本管控情况月度总结情况报告表信息
      * @apiGroup MonthReport
      * @apiParamExample {json} Request_Example:
-     * DELETE: /monthReport
+     * DELETE: /monthReports
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8

@@ -27,7 +27,7 @@ public class ReduceTargetController {
     /**
      * 查询所有项目降低目标设置
      * @api {GET} /reduceTargets 查询所有项目降低目标设置
-     * @apiName reduceTargets 查询所有项目降低目标设置
+     * @apiName queryAllReduceTargets 查询所有项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParamExample {json} Request_Example:
      * GET: /reduceTargets
@@ -120,7 +120,7 @@ public class ReduceTargetController {
     /**
      * 查询指定项目降低目标设置
      * @api {GET} /reduceTarget?id=  查询指定项目降低目标设置
-     * @apiName reduceTarget 查询指定项目降低目标设置
+     * @apiName queryReduceTarget 查询指定项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParamExample {json} Request_Example:
@@ -177,7 +177,7 @@ public class ReduceTargetController {
      * 添加一条项目降低目标设置
      *
      * @api {POST} /reduceTarget 添加一条项目降低目标设置
-     * @apiName reduceTarget 添加一条项目降低目标设置
+     * @apiName insertReduceTarget 添加一条项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {BigInteger} report_item_id 报告条目id
      * @apiParam {String} year 年份
@@ -217,8 +217,8 @@ public class ReduceTargetController {
     /**
      * 删除指定项目降低目标设置
      *
-     * @api {DELETE} /reduceTarget 删除指定项目降低目标设置
-     * @apiName reduceTarget 删除指定项目降低目标设置
+     * @api {DELETE} /reduceTarget?id= 删除指定项目降低目标设置
+     * @apiName deleteReduceTarget 删除指定项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParamExample {json} Request_Example:
@@ -246,7 +246,7 @@ public class ReduceTargetController {
      * 删除所有项目降低目标设置
      *
      * @api {DELETE} /reduceTargets 删除所有项目降低目标设置
-     * @apiName reduceTargets 删除所有项目降低目标设置
+     * @apiName deleteAllReduceTargets 删除所有项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParamExample {json} Request_Example:
      * DELETE: /reduceTargets
@@ -271,7 +271,7 @@ public class ReduceTargetController {
     /**
      * 更改指定项目年降低目标设置
      * @api {PUT} /reduceTarget_year 更改指定项目年降低目标设置
-     * @apiName reduceTarget_year 更改指定项目年降低目标设置
+     * @apiName updateReduceTarget_year 更改指定项目年降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam {BigDecimal}  year_value 计算后的年目标值
@@ -303,7 +303,7 @@ public class ReduceTargetController {
      * 批量更改项目年降低目标成功
      *
      * @api {PUT} /reduceTargets_year 批量更改项目年降低目标成功
-     * @apiName reduceTargets_year 批量更改项目年降低目标成功
+     * @apiName updateReduceTargets_year 批量更改项目年降低目标成功
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam {BigDecimal}  year_value 计算后的年目标值
@@ -335,7 +335,7 @@ public class ReduceTargetController {
     /**
      * 更改指定项目月降低目标设置
      * @api {PUT} /reduceTarget_month 更改指定项目月降低目标设置
-     * @apiName reduceTarget_month 更改指定项目月降低目标设置
+     * @apiName updateReduceTarget_month 更改指定项目月降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam jan 一月份

@@ -23,7 +23,7 @@ public class IncentiveRatioController {
      * 查询所有部门奖励比例
      *
      * @api {GET} /incentiveRatios  查询所有部门奖励比例
-     * @apiName incentiveRatios 查询所有部门奖励比例
+     * @apiName queryAllIncentiveRatios 查询所有部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParamExample {json} Request_Example:
      * GET: /incentiveRatios
@@ -67,7 +67,7 @@ public class IncentiveRatioController {
      * 查询指定部门奖励比例
      *
      * @api {GET} /incentiveRatio?id=  查询指定部门奖励比例
-     * @apiName incentiveRatio 查询指定部门奖励比例
+     * @apiName queryIncentiveRatio 查询指定部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParamExample {json} Request_Example:
@@ -102,7 +102,7 @@ public class IncentiveRatioController {
      * 添加一条部门奖励比例
      *
      * @api {POST} /incentiveRatio 添加一条部门奖励比例
-     * @apiName incentiveRatio 添加一条部门奖励比例
+     * @apiName addIncentiveRatio 添加一条部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {String} year 年份（每年一月，设置）
      * @apiParam {BigDecimal} interest_rate 利率
@@ -138,7 +138,7 @@ public class IncentiveRatioController {
      * 删除指定部门奖励比例
      *
      * @api {DELETE} /incentiveRatio?id= 删除指定部门奖励比例
-     * @apiName incentiveRatio 删除指定部门奖励比例
+     * @apiName deleteIncentiveRatio 删除指定部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParamExample {json} Request_Example:
@@ -165,7 +165,7 @@ public class IncentiveRatioController {
      * 删除所有部门奖励比例
      *
      * @api {DELETE} /incentiveRatios 删除所有部门奖励比例
-     * @apiName incentiveRatios 删除所有部门奖励比例
+     * @apiName deleteAllIncentiveRatios 删除所有部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParamExample {json} Request_Example:
      * DELETE: /incentiveRatios
@@ -191,7 +191,7 @@ public class IncentiveRatioController {
      * 更改指定部门奖励比例
      *
      * @api {PUT} /incentiveRatio 更改指定部门奖励比例
-     * @apiName incentiveRatio 更改指定部门奖励比例
+     * @apiName updateIncentiveRatio 更改指定部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParam {String} year 年份（每年一月，设置）
@@ -228,8 +228,8 @@ public class IncentiveRatioController {
     /**
      * 批量更改部门奖励比例
      *
-     * @api {PUT} /incentiveRatios 批量更改指定部门奖励比例
-     * @apiName incentiveRatios 批量更改指定部门奖励比例
+     * @api {PUT} /incentiveRatios 批量更改部门奖励比例
+     * @apiName updateIncentiveRatios 批量更改部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParam {String} year 年份（每年一月，设置）
