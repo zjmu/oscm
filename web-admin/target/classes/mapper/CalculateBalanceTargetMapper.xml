@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.CalculateBalanceTargetMapper">
+
+    <resultMap id="mapper1" type="edu.jmu.oscm.model.BalanceTargetValue">
+        <id property="reportItemId" column="REPORT_ITEM_ID"/>
+        <id property="year" column="YEAR"/>
+        <id property="month" column="MONTH"/>
+    </resultMap>
+
+    <resultMap id="mapper3" type="edu.jmu.oscm.model.ReportItemInstance">
+        <result property="reportItemId" column="REPORT_ITEM_ID"/>
+        <result property="year" column="YEAR"/>
+        <result property="month" column="MONTH"/>
+        <result property="endValue" column="END_VALUE"/>
+    </resultMap>
+
+    <resultMap id="mapper2" type="edu.jmu.oscm.model.ItemReduceTarget">
+        <result property="reportItemId" column="REPORT_ITEM_ID"/>
+        <result property="year" column="year"/>
+        <result property="jun" column="jun"/>
+        <result property="feb" column="feb"/>
+        <result property="mar" column="mar"/>
+        <result property="apr" column="apr"/>
+        <result property="may" column="may"/>
+        <result property="jan" column="jan"/>
+        <result property="jul" column="jul"/>
+        <result property="aug" column="aug"/>
+        <result property="sept" column="sept"/>
+        <result property="oct" column="oct"/>
+        <result property="nov" column="nov"/>
+        <result property="dec" column="dec"/>
+    </resultMap>
+
+    <select id="selectEndValue" resultMap="mapper3">
+        SELECT REPORT_ITEM_ID,MONTH,YEAR, END_VALUE FROM report_item_instance
+        WHERE YEAR =#{year} and MONTH = #{month}
+        order by REPORT_ITEM_ID
+    </select>
+
+    <select id="selectItemReduceTarget"  resultMap="mapper2" parameterType="String">
+        SELECT  REPORT_ITEM_ID,year,jun,feb,mar,apr,may,jan,jul,aug,sept,oct,nov,`dec`
+        from ad_item_reduce_target where year = #{year}
+        order by REPORT_ITEM_ID
+    </select>
+
+    <select id="selectBasicTable" resultMap="mapper1">
+        SELECT REPORT_ITEM_ID, YEAR, MONTH FROM report_item_instance
+        WHERE YEAR =#{year} and MONTH = #{month}
+        order by REPORT_ITEM_ID
+    </select>
+
+
+</mapper>

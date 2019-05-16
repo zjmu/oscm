@@ -1,27 +1,23 @@
 package edu.jmu.oscm.mapper;
 
-import edu.jmu.oscm.model.BalanceTargetValue;
+import edu.jmu.oscm.model.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Mapper
 public interface BalanceTargetValueMapper {
 
-    Boolean insert(BalanceTargetValue balanceTargetValue);
-
-    Boolean insertMore(List<BalanceTargetValue> balanceTargetValues);
-
     Boolean deleteAll();
 
-    Boolean deleteById(Integer id);
+    Boolean deleteByDate(@Param(value="year") String year, @Param(value="month") String month);
 
-    Boolean update(BalanceTargetValue balanceTargetValue);
-
-    //Boolean updateMore(List<BalanceTargetValue> balanceTargetValues);
+    Boolean insertMore(List<BalanceTargetValue> balanceTargetValues);
 
     List<BalanceTargetValue> selectAll();
 
     List<BalanceTargetValue> selectByDate(@Param(value="year") String year, @Param(value="month") String month);
+
 }

@@ -1,7 +1,8 @@
 package edu.jmu.oscm.controller;
 
-import edu.jmu.oscm.mapper.BalanceTargetValueMapper;
-import edu.jmu.oscm.model.BalanceTargetValue;
+import edu.jmu.oscm.mapper.*;
+import edu.jmu.oscm.model.*;
+import edu.jmu.oscm.service.BalanceTargetValueService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -20,45 +22,8 @@ public class BalanceTargetValueController {
     @Autowired
     private BalanceTargetValueMapper balanceTargetValueMapper;
 
-    /**
-     * 插入上月余额与目标降低值表
-     *
-     * @api {Post} /createBalanceTargetValue 插入上月余额与目标降低值表信息
-     * @apiName createBalanceTargetValue 插入上月余额与目标降低值表信息
-     * @apiGroup BalanceTargetValue
-     * @apiParamExample {json} Request_Example:
-     *{
-     *  "reportItemId":2,
-     *  "year":2019,
-     *  "month":3,
-     *  "lastMonthBalance":45,
-     *  "planMonthTargetValue":65,
-     *  "planTotalReduceValue":85,
-     *  "actualMonthTargetValue":98,
-     *  "actualTotalReduceValue":98,
-     *  "monthIncrementalValue":78,
-     *  "totalIncrementalValue":78,
-     *  "monthReward":25,
-     *  "totalReward":12,
-     *  "date":"2019-05-06"
-     *}
-     * POST: /createBalanceTargetValue
-     * <p>
-     * Request Header 如下
-     * Content-Type:application/json;charset=utf-8
-     * <p>
-     * @apiSuccessExample {json} Success-Response:
-     * HTTP/1.1 200 OK
-     * <p>
-     * {"code":0,"message":"增加记录成功","data":true}
-     */
-    @PostMapping("/createBalanceTargetValue")
-    public BasicResponse<Boolean> create(@RequestBody BalanceTargetValue balanceTargetValue) {
-        return BusinessWrapper.wrap(response -> {
-            Boolean isSuccess = balanceTargetValueMapper.insert(balanceTargetValue);
-            ResponseUtil.set(response, 0, "增加记录成功", isSuccess);
-        }, logger);
-    }
+    @Autowired
+    private BalanceTargetValueService balanceTargetValueService;
 
     /**
      * 批量插入上月余额与目标降低值表
@@ -141,84 +106,6 @@ public class BalanceTargetValueController {
         }, logger);
     }
 
-
-    /**
-     * 根据ID删除上月余额与目标降低值表
-     *
-     * @api {Delete} /deleteBalanceTargetValue?id= 删除指定上月余额与目标降低值表信息
-     * @apiName deleteBalanceTargetValue 删除指定上月余额与目标降低值表信息
-     * @apiGroup BalanceTargetValue
-     * @apiParam {Integer} id 指定要删除的上月余额与目标降低值表记录id
-     * @apiParamExample {json} Request_Example:
-     * Delete: /deleteBalanceTargetValue?id=
-     * <p>
-     * Request Header 如下
-     * Content-Type:application/json;charset=utf-8
-     * <p>
-     * @apiSuccessExample {json} Success-Response:
-     * HTTP/1.1 200 OK
-     * <p>
-     * {"code":0,"message":"删除数据成功","data":true}
-     */
-    @DeleteMapping("/deleteBalanceTargetValue")
-    public BasicResponse<Boolean> deleteAll(@RequestParam(value="id") Integer id) {
-        return BusinessWrapper.wrap(response -> {
-            Boolean isSuccess = balanceTargetValueMapper.deleteById(id);
-            ResponseUtil.set(response, 0, "删除数据成功", isSuccess);
-        }, logger);
-    }
-
-
-    /**
-     * 更新上月余额与目标降低值表
-     *
-     * @api {Put} /updateBalanceTargetValue 更新上月余额与目标降低值表信息
-     * @apiName updateBalanceTargetValue 更新上月余额与目标降低值表信息
-     * @apiGroup BalanceTargetValue
-     * @apiParamExample {json} Request_Example:
-     *{
-     *  "id":1,
-     *  "reportItemId":3,
-     *  "year":2019,
-     *  "month":5,
-     *  "lastMonthBalance":45,
-     *  "planMonthTargetValue":98,
-     *  "planTotalReduceValue":85,
-     *  "actualMonthTargetValue":98,
-     *  "actualTotalReduceValue":9888,
-     *  "monthIncrementalValue":78,
-     *  "totalIncrementalValue":768,
-     *  "monthReward":25,
-     *  "totalReward":12,
-     *  "date":"2019-05-06"
-     *}
-     * PUT: /updateBalanceTargetValue
-     * <p>
-     * Request Header 如下
-     * Content-Type:application/json;charset=utf-8
-     * <p>
-     * @apiSuccessExample {json} Success-Response:
-     * HTTP/1.1 200 OK
-     * <p>
-     * {"code":0,"message":"修改数据成功","data":true}
-     */
-    @PutMapping("/updateBalanceTargetValue")
-    public BasicResponse<Boolean> update(@RequestBody BalanceTargetValue balanceTargetValue) {
-        return BusinessWrapper.wrap(response -> {
-            Boolean isSuccess = balanceTargetValueMapper.update(balanceTargetValue);
-            ResponseUtil.set(response, 0, "修改数据成功", isSuccess);
-        }, logger);
-    }
-
-
-//    @PutMapping("/updateBalanceTargetValue")
-//    public BasicResponse<Boolean> updateMore(@RequestBody List<BalanceTargetValue> balanceTargetValues) {
-//        return BusinessWrapper.wrap(response -> {
-//            Boolean isSuccess = balanceTargetValueMapper.updateMore(balanceTargetValues);
-//            ResponseUtil.set(response, 0, "修改数据成功", isSuccess);
-//        }, logger);
-//    }
-
     /**
      * 查询所有上月余额与目标降低值表
      * @api {GET} /queryAllBalanceTargetValue 查询所有上月余额与目标降低值
@@ -274,6 +161,36 @@ public class BalanceTargetValueController {
         return BusinessWrapper.wrap(response -> {
             List<BalanceTargetValue> result = balanceTargetValueMapper.selectByDate(year,month);
             ResponseUtil.set(response, 0, "查询数据成功", result);
+        }, logger);
+    }
+
+    /**
+     * 计算上月余额与目标降低值表
+     * @api {GET} /calculateBalanceTargetValue 计算上月余额与目标降低值表
+     * @apiName calculateBalanceTargetValue 计算上月余额与目标降低值表
+     * @apiGroup balanceTargetValue
+     * @apiParam {String} year 指定计算上月余额与目标降低值表year值
+     * @apiParam {String} month 指定计算上月余额与目标降低值表month值
+     * @apiParamExample {json} Request_Example:
+     * GET: /calculateBalanceTargetValue?year= month=
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     *{
+     * "code": 0,
+     * "message": "执行计算",
+     * "data": "计算完成!"
+     *}
+     * */
+    @GetMapping("/calculateBalanceTargetValue")
+    public BasicResponse<String> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month) {
+        return BusinessWrapper.wrap(response -> {
+            String message = balanceTargetValueService.calculate(year,month);
+            //List<BalanceTargetValue> result = balanceTargetValueMapper.selectByDate("2019","3");
+            ResponseUtil.set(response, 0, "执行计算", message);
         }, logger);
     }
 }

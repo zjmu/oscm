@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.MonthReportMapper">
+    <resultMap id="MonthReportMapper" type="edu.jmu.oscm.model.MonthReport" >
+        <id column="id" property="id"/>
+        <result column="REPORT_ITEM_ID" property="report_item_id"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="target" property="target"/>
+        <result column="value" property="value"/>
+        <result column="difference" property="difference"/>
+        <result column="measure" property="measure"/>
+        <result column="experience" property="experience"/>
+        <result column="deficiency" property="deficiency"/>
+        <result column="evaluate" property="evaluate"/>
+        <result column="remark" property="remark"/>
+        <result column="date" property="date"/>
+    </resultMap>
+    <insert id="insertMonthReport" parameterType="edu.jmu.oscm.model.MonthReport">
+   insert into ad_month_report (report_item_id,year,month,target,value,difference,measure,
+   experience,deficiency,evaluate,remark,date)
+        values (#{report_item_id},#{year},#{month},#{target},#{value},#{difference},
+        #{measure},#{experience},#{deficiency},#{evaluate},#{remark},#{date})
+
+    </insert>
+    <update id="updateMonthReport" parameterType="edu.jmu.oscm.model.MonthReport">
+        UPDATE ad_month_report SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , target = #{target}, value = #{value},difference = #{difference},
+        measure = #{measure},experience = #{experience},deficiency = #{deficiency},evaluate = #{evaluate}, remark =#{remark} ,date =#{date}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteAll">
+          DELETE FROM ad_month_report WHERE id!=0
+    </delete>
+    <delete id="deleteById">
+            delete from ad_month_report where id = (#{id})
+    </delete>
+    <select id="selectMonthReportById" resultMap="MonthReportMapper">
+            select  * from ad_month_report where id = #{id}
+    </select>
+    <select id="getAllMonthReport" resultMap="MonthReportMapper">
+           select * from ad_month_report
+    </select>
+</mapper>
