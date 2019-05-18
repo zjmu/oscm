@@ -3,7 +3,10 @@ package edu.jmu.oscm.mapper;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.jmu.oscm.model.ReduceTarget;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Mapper
@@ -55,5 +58,33 @@ public interface ReduceTargetMapper {
      * */
     Boolean updates(List<ReduceTarget> reduceTargets);
 
+    /**
+     * 更改指定项目年降低目标比例
+     * @param reduceTarget ReduceTarget
+     * @return true or false
+     * */
+    Boolean updateYearPercent(ReduceTarget reduceTarget);
+
+    /**
+     * 更改项目月降低目标成功
+     * @param reduceTarget ReduceTarget
+     * @return true or false
+     * */
     Boolean updateMonth(ReduceTarget reduceTarget);
+
+    /**
+     * 查询去年实际降低额
+     * @param year String
+     * @param report_item_id BigInteger
+     * @return true or false
+     * */
+    BigDecimal selectLastYearValue(@Param("year") String year, @Param("report_item_id") BigInteger report_item_id);
+
+    /**
+     * 查看数据库是否存在该year和report_item_id
+     * @param year String
+     * @param report_item_id BigInteger
+     * @return true or false
+     * */
+    Boolean selectYaerAndReportID(@Param("year") String year, @Param("report_item_id") BigInteger report_item_id);
 }

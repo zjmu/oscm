@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.nimbus.NimbusStyle;
 import javax.xml.ws.Response;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -40,23 +41,23 @@ public class ReduceTargetController {
      * HTTP/1.1 200 OK
      * {"code":0,"message":"查询所有项目降低目标设置成功","data":[
      * "data":{"id":208,"
-     *          report_item_id":0,
-     *          "year":"",
-     *          "year_percent":0,
-     *          "year_value":635184.75,
-     *          "last_year_value":,
-     *          "jan":52932.062,
-     *          "feb":52932.062,
-     *          "mar":52932.062,
-     *          "apr":52932.062,
-     *          "may":52932.062,
-     *          "jun":52932.062,
-     *          "jul":52932.062,
-     *          "aug":52932.062,
-     *          "sept":52932.062,
-     *          "oct":52932.062,
-     *          "nov":52932.062,
-     *          "dec":52932.062,
+     *          report_item_id":1,
+     *          "year":"2009",
+     *          "year_percent":90,
+     *          "year_value":571666.5000,
+     *          "last_year_value":635185,
+     *          "jan":47638.875,
+     *          "feb":47638.875,
+     *          "mar":47638.875,
+     *          "apr":47638.875,
+     *          "may":47638.875,
+     *          "jun":47638.875,
+     *          "jul":47638.875,
+     *          "aug":47638.875,
+     *          "sept":47638.875,
+     *          "oct":47638.875,
+     *          "nov":47638.875,
+     *          "dec":47638.875,
      *          "asset_or_debt":true
      *          "create_date":2019-05-15T08:52:45.000+0000
      *          "item":{
@@ -69,23 +70,23 @@ public class ReduceTargetController {
      *          }
      *        },
      * "data":{"id":209,"
-     *          report_item_id":0,
-     *          "year":"",
-     *          "year_percent":0,
-     *          "year_value":1000.0000,
-     *          "last_year_value":,
-     *          "jan":83.3333,
-     *          "feb":83.3333,
-     *          "mar":83.3333,
-     *          "apr":83.3333,
-     *          "may":83.3333,
-     *          "jun":83.3333,
-     *          "jul":83.3333,
-     *          "aug":83.3333,
-     *          "sept":83.3333,
-     *          "oct":83.3333,
-     *          "nov":83.3333,
-     *          "dec":83.3337,
+     *          report_item_id":2,
+     *          "year":"2009",
+     *          "year_percent":90,
+     *          "year_value":90000.0000,
+     *          "last_year_value":100000.0000,
+     *          "jan":7500,
+     *          "feb":7500,
+     *          "mar":7500,
+     *          "apr":7500,
+     *          "may":7500,
+     *          "jun":7500,
+     *          "jul":7500,
+     *          "aug":7500,
+     *          "sept":7500,
+     *          "oct":7500,
+     *          "nov":7500,
+     *          "dec":7500,
      *          "asset_or_debt":true
      *          "create_date":2019-05-15T08:53:10.000+0000
      *          "item":{
@@ -135,23 +136,23 @@ public class ReduceTargetController {
      * <p>
      * {"code":0,"message":"查询指定项目降低目标设置",
      * "data":{"id":208,"
-     *          report_item_id":0,
-     *          "year":"",
-     *          "year_percent":0,
-     *          "year_value":635184.75,
-     *          "last_year_value":,
-     *          "jan":52932.062,
-     *          "feb":52932.062,
-     *          "mar":52932.062,
-     *          "apr":52932.062,
-     *          "may":52932.062,
-     *          "jun":52932.062,
-     *          "jul":52932.062,
-     *          "aug":52932.062,
-     *          "sept":52932.062,
-     *          "oct":52932.062,
-     *          "nov":52932.062,
-     *          "dec":52932.062,
+     *          report_item_id":1,
+     *          "year":"2009",
+     *          "year_percent":90,
+     *          "year_value":571666.5000,
+     *          "last_year_value":635185,
+     *          "jan":47638.875,
+     *          "feb":47638.875,
+     *          "mar":47638.875,
+     *          "apr":47638.875,
+     *          "may":47638.875,
+     *          "jun":47638.875,
+     *          "jul":47638.875,
+     *          "aug":47638.875,
+     *          "sept":47638.875,
+     *          "oct":47638.875,
+     *          "nov":47638.875,
+     *          "dec":47638.875,
      *          "asset_or_debt":true
      *          "create_date":2019-05-15T08:52:45.000+0000
      *          "item":{
@@ -163,7 +164,6 @@ public class ReduceTargetController {
      *              "modify_time"= 2019-04-28T01:54:33.000+0000
      *          }
      *        }
-     * }
      * */
     @GetMapping("/reduceTarget")
     public BasicResponse<ReduceTarget> queryByID(@RequestParam("id") int id){
@@ -182,16 +182,12 @@ public class ReduceTargetController {
      * @apiParam {BigInteger} report_item_id 报告条目id
      * @apiParam {String} year 年份
      * @apiParam {Double} year_percent 年度百分比，单位%
-     * @apiParam {BigDecimal} year_value 计算后的年目标值
-     * @apiParam {BigDecimal} last_year_value 去年实际降低额
      * @apiParam {Boolean} asset_or_debt 资产或负债，0资产  1负债
      * @apiParamExample {json} Request_Example:
      * {
      * "report_item_id":1,
-     * "year":"2018",
-     * "year_percent":0,
-     * "year_value":5525.02,
-     * "last_year_value":0,
+     * "year":"2013",
+     * "year_percent":90,
      * "asset_or_debt":1
      * }
      * POST: /reduceTarget
@@ -203,13 +199,19 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"添加一条项目降低目标设置","data":true}
+     * {"code":0,"message":"添加一条项目降低目标设置成功","data":true}
      * */
     @PostMapping("/reduceTarget")
-    public BasicResponse<Boolean> add(@RequestBody ReduceTarget reduceTarget){
+    public BasicResponse<Integer> add(@RequestBody ReduceTarget reduceTarget){
         return BusinessWrapper.wrap(response -> {
-            Boolean flag = reduceTargetService.add(reduceTarget);
-            ResponseUtil.set(response,0,"添加一条项目降低目标设置",flag);
+            Integer flag = reduceTargetService.add(reduceTarget);
+            if(flag.intValue() == -1){
+                ResponseUtil.set(response,0,"数据库中已存在该条项目降低目标设置",flag);
+            }else if(flag.intValue() == 0){
+                ResponseUtil.set(response,0,"获取不到去年实际降低额",flag);
+            }else{
+                ResponseUtil.set(response,0,"添加一条项目降低目标设置成功",flag);
+            }
         }, logger);
     }
 
@@ -270,17 +272,17 @@ public class ReduceTargetController {
 
     /**
      * 更改指定项目年降低目标设置
-     * @api {PUT} /reduceTarget_year 更改指定项目年降低目标设置
-     * @apiName updateReduceTarget_year 更改指定项目年降低目标设置
+     * @api {PUT} /reduceTarget_yearValue 更改指定项目年降低目标设置
+     * @apiName updateReduceTarget_yearValue 更改指定项目年降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam {BigDecimal}  year_value 计算后的年目标值
      * @apiParamExample {json} Request_Example:
      * {
-     * "id":229,
+     * "id":208,
      * "year_value":635184.7500
      * }
-     * PUT: /reduceTarget_year
+     * PUT: /reduceTarget_yearValue
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -291,19 +293,19 @@ public class ReduceTargetController {
      * <p>
      * {"code":0,"message":"更改指定项目年降低目标设置","data":true}
      * */
-    @PutMapping("/reduceTarget_year")
+/*    @PutMapping("/reduceTarget_yearValue")
     public BasicResponse<Boolean> update(@RequestBody ReduceTarget reduceTarget){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.update(reduceTarget);
             ResponseUtil.set(response,0,"更改指定项目年降低目标设置",flag);
         }, logger);
-    }
+    }*/
 
     /**
      * 批量更改项目年降低目标成功
      *
-     * @api {PUT} /reduceTargets_year 批量更改项目年降低目标成功
-     * @apiName updateReduceTargets_year 批量更改项目年降低目标成功
+     * @api {PUT} /reduceTargets_yearValue 批量更改项目年降低目标成功
+     * @apiName updateReduceTargets_yearValue 批量更改项目年降低目标成功
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam {BigDecimal}  year_value 计算后的年目标值
@@ -324,18 +326,50 @@ public class ReduceTargetController {
      * <p>
      * {"code":0,"message":"批量更改项目年降低目标成功","data":true}
      */
-    @PutMapping("/reduceTargets_year")
+/*    @PutMapping("/reduceTargets_yearValue")
     public BasicResponse<Boolean> updates(@RequestBody List<ReduceTarget> reduceTargets){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.updates(reduceTargets);
             ResponseUtil.set(response, 0 ,"批量更改项目年降低目标成功",flag);
         }, logger);
-    }
+    }*/
 
     /**
-     * 更改指定项目月降低目标设置
-     * @api {PUT} /reduceTarget_month 更改指定项目月降低目标设置
-     * @apiName updateReduceTarget_month 更改指定项目月降低目标设置
+     * 更改指定项目年降低目标比例
+     * @api {PUT} /reduceTarget_yearPercent 更改指定项目年降低目标比例
+     * @apiName updateReduceTarget_yearPercent 更改指定项目年降低目标比例
+     * @apiGroup ReduceTarget
+     * @apiParam {int} id 指定项目降低目标设置id
+     * @apiParam {BigDecimal}  year_percent 年度百分比，单位%
+     * @apiParamExample {json} Request_Example:
+     * {
+     * "id":215,
+     * "year_percent":60
+     * }
+     * PUT: /reduceTarget_yearPercent
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"更改指定项目年降低目标成功","data":true}
+     * */
+    @PutMapping("/reduceTarget_yearPercent")
+    public BasicResponse<Boolean> updateYearPercent(@RequestBody ReduceTarget reduceTarget){
+        return BusinessWrapper.wrap(response ->{
+            Boolean flag = reduceTargetService.updateYearPercent(reduceTarget);
+            ResponseUtil.set(response,0,"更改指定项目年降低目标比例成功",flag);
+        }, logger);
+    }
+
+
+    /**
+     * 更改指定项目月降低目标
+     * @api {PUT} /reduceTarget_monthValue 更改指定项目月降低目标
+     * @apiName updateReduceTarget_monthValue 更改指定项目月降低目标
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam jan 一月份
@@ -375,14 +409,15 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"更改指定项目年降低目标设置","data":true}
+     * {"code":0,"message":"更改指定项目年降低目标","data":true}
      * */
-    @PutMapping("/reduceTarget_month")
+    @PutMapping("/reduceTarget_monthValue")
     public BasicResponse<Boolean> updateMonth(@RequestBody ReduceTarget reduceTarget){
         return BusinessWrapper.wrap(response->{
             Boolean flag = reduceTargetService.updateMonth(reduceTarget);
             ResponseUtil.set(response,0,"更改项目月降低目标成功",flag);
         },logger);
     }
+
 
 }

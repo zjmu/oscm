@@ -37,7 +37,11 @@
         INSERT INTO ad_item_reduce_target (REPORT_ITEM_ID, `year`, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt, create_date)
         VALUE (#{report_item_id}, #{year}, #{year_percent}, #{year_value}, #{last_year_value}, #{jan},#{feb}, #{mar}, #{apr}, #{may}, #{jun},#{jul}, #{aug}, #{sept}, #{oct}, #{nov}, #{dec}, #{asset_or_debt}, #{create_date})
     </insert>
-
+    <update id="updateYearPercent" parameterType="edu.jmu.oscm.model.ReduceTarget">
+        UPDATE ad_item_reduce_target
+        SET year_percent = #{year_percent}, year_value = #{year_value}, jan = #{jan}, feb = #{feb}, mar = #{mar}, apr = #{apr}, may = #{may}, jun = #{jun}, jul = #{jul}, aug = #{aug}, sept = #{sept}, oct = #{oct}, nov = #{nov}, `dec` = #{dec}
+        WHERE id = #{id}
+    </update>
     <update id="update" parameterType="edu.jmu.oscm.model.ReduceTarget">
         UPDATE ad_item_reduce_target
         SET year_value = #{year_value}, jan = #{jan}, feb = #{feb}, mar = #{mar}, apr = #{apr}, may = #{may}, jun = #{jun}, jul = #{jul}, aug = #{aug}, sept = #{sept}, oct = #{oct}, nov = #{nov}, `dec` = #{dec}
@@ -161,17 +165,27 @@
         on reduce.report_item_id = item.id
         WHERE reduce.id = #{id}
     </select>
+    <select id="selectLastYearValue" resultType="java.math.BigDecimal">
+        SELECT year_value
+        FROM ad_item_reduce_target
+        WHERE `year` = #{year} AND report_item_id = #{report_item_id}
+    </select>
+    <select id="selectYaerAndReportID" resultType="java.lang.Boolean">
+        SELECT *
+        FROM ad_item_reduce_target
+        WHERE `year` = #{year} AND report_item_id = #{report_item_id}
+    </select>
 
 
-<!--    使用了druid数据源，则配置的时候要注意：
-    不能配置wall拦截器，否则批量更新不成功。
-    url: jdbc:mysql://127.0.0.1:3306/aderi?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-    <update id="updates" parameterType="java.util.List">
-        <foreach collection = "list" item="reduceTarget" separator=";">
-            UPDATE ad_item_reduce_target
-            SET year_value = #{reduceTarget.year_value}, jan = #{reduceTarget.jan}, feb = #{reduceTarget.feb}, mar = #{reduceTarget.mar}, apr = #{reduceTarget.apr}, may = #{reduceTarget.may}, jun = #{reduceTarget.jun}, jul = #{reduceTarget.jul}, aug = #{reduceTarget.aug}, sept = #{reduceTarget.sept}, oct = #{reduceTarget.oct}, nov = #{reduceTarget.nov}, `dec` = #{reduceTarget.dec}
-            WHERE id = #{reduceTarget.id}
-        </foreach>
-    </update>-->
+    <!--    使用了druid数据源，则配置的时候要注意：
+        不能配置wall拦截器，否则批量更新不成功。
+        url: jdbc:mysql://127.0.0.1:3306/aderi?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        <update id="updates" parameterType="java.util.List">
+            <foreach collection = "list" item="reduceTarget" separator=";">
+                UPDATE ad_item_reduce_target
+                SET year_value = #{reduceTarget.year_value}, jan = #{reduceTarget.jan}, feb = #{reduceTarget.feb}, mar = #{reduceTarget.mar}, apr = #{reduceTarget.apr}, may = #{reduceTarget.may}, jun = #{reduceTarget.jun}, jul = #{reduceTarget.jul}, aug = #{reduceTarget.aug}, sept = #{reduceTarget.sept}, oct = #{reduceTarget.oct}, nov = #{reduceTarget.nov}, `dec` = #{reduceTarget.dec}
+                WHERE id = #{reduceTarget.id}
+            </foreach>
+        </update>-->
 
 </mapper>

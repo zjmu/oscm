@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,12 +20,35 @@ public class ReduceTargetService {
         return reduceTargetMapper.queryAll();
     }
 
-    public Boolean add(ReduceTarget reduceTarget){
+    public Integer add(ReduceTarget reduceTarget){
+        //判断是否存在，是则不可添加
+        if(reduceTargetMapper.selectYaerAndReportID(reduceTarget.getYear(),reduceTarget.getReport_item_id())!=null){
+            return -1;
+        }
         /*获取系统当前时间*/
         Timestamp d = new Timestamp(System.currentTimeMillis());
         reduceTarget.setCreate_date(d);
-        ReduceTarget rt = caculateAverage(reduceTarget);
-        return reduceTargetMapper.add(rt);
+        ReduceTarget rt ;
+
+        //根据percent设置year_value = percent * last_year_value
+        int lastYear = Integer.parseInt(reduceTarget.getYear()) - 1;
+        String lastYear_string = String.valueOf(lastYear);
+        //获取去年的year_value,设为今年的last_year_value
+        BigDecimal lastYearValue = reduceTargetMapper.selectLastYearValue(lastYear_string,reduceTarget.getReport_item_id());
+        if(lastYearValue == null){
+            return 0;
+        }
+        reduceTarget.setLast_year_value(lastYearValue);
+        //计算今年的year_value
+        BigDecimal num = new BigDecimal("100");
+        BigDecimal yearPercent = new BigDecimal(reduceTarget.getYear_percent());
+        BigDecimal yearValue = (lastYearValue.multiply(yearPercent)).divide(num,4, BigDecimal.ROUND_HALF_DOWN);
+        reduceTarget.setYear_value(yearValue);
+
+        //根据year_value初始化所有月份
+        rt = caculateAverage(reduceTarget);
+        reduceTargetMapper.add(rt);
+        return 1;
     }
 
     public  Boolean deleteByID(int id){
@@ -39,9 +63,30 @@ public class ReduceTargetService {
         return reduceTargetMapper.queryByID(id);
     }
 
+    public Boolean updateYearPercent(ReduceTarget reduceTarget){
+        ReduceTarget rt = reduceTargetMapper.queryByID(reduceTarget.getId());
+        //重新计算yearValue
+        BigDecimal num = new BigDecimal("100");
+        BigDecimal yearPercent = new BigDecimal(reduceTarget.getYear_percent());
+        BigDecimal yearValue = rt.getLast_year_value().multiply(yearPercent).divide(num,4, BigDecimal.ROUND_HALF_DOWN);
+        rt.setYear_percent(reduceTarget.getYear_percent());
+        rt.setYear_value(yearValue);
+        //计算十二个月的value
+        ReduceTarget reduceTarget1 = caculateAverage(rt);
+        return reduceTargetMapper.updateYearPercent(reduceTarget1);
+    }
+
     public Boolean update(ReduceTarget reduceTarget){
         ReduceTarget rt = caculateAverage(reduceTarget);
         return reduceTargetMapper.update(rt);
+    }
+
+    public BigDecimal selectLastYearValue(ReduceTarget reduceTarget){
+        int lastYear = Integer.parseInt(reduceTarget.getYear()) - 1;
+        String lastYear_string = String.valueOf(lastYear);
+
+        BigDecimal lastYearValue = reduceTargetMapper.selectLastYearValue(lastYear_string,reduceTarget.getReport_item_id());
+        return lastYearValue;
     }
 
     public Boolean updates(List<ReduceTarget> reduceTargets){

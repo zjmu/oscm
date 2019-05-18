@@ -304,15 +304,15 @@
   },
   {
     "type": "DELETE",
-    "url": "/deleteAllImprovementPlan",
+    "url": "/improvementPlans",
     "title": "删除所有提升和改善计划表信息",
-    "name": "deleteAllImprovementPlan_______________",
+    "name": "deleteAllImprovementPlans______________",
     "group": "ImprovementPlan",
     "parameter": {
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "DELETE: /deleteAllImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /improvementPlans\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -331,15 +331,15 @@
     "groupTitle": "ImprovementPlan",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/deleteAllImprovementPlan"
+        "url": "http://oscm.xmiss.top/oscm_new/improvementPlans"
       }
     ]
   },
   {
     "type": "DELETE",
-    "url": "/deleteImprovementPlanById",
+    "url": "/improvementPlan",
     "title": "删除指定提升和改善计划表信息",
-    "name": "deleteImprovementPlanById_______________",
+    "name": "deleteImprovementPlan_______________",
     "group": "ImprovementPlan",
     "parameter": {
       "fields": {
@@ -356,7 +356,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "DELETE: /deleteImprovementPlanById?id=1\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /improvementPlan?id=1\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -375,46 +375,13 @@
     "groupTitle": "ImprovementPlan",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/deleteImprovementPlanById"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/getAllImprovementPlan",
-    "title": "查询所有提升和改善计划表信息",
-    "name": "getAllImprovementPlan_______________",
-    "group": "ImprovementPlan",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /getAllImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\n\"data\":[\n         {\n             \"id\":1,\n             \"report_item_id\":0,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n             \"item\":{\n                      \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n             },\n         {\n             \"id\":2,\n             \"report_item_id\":0,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n             \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n           }\n      ]}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ImprovementPlanController.java",
-    "groupTitle": "ImprovementPlan",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/getAllImprovementPlan"
+        "url": "http://oscm.xmiss.top/oscm_new/improvementPlan"
       }
     ]
   },
   {
     "type": "POST",
-    "url": "/insertImprovementPlan",
+    "url": "/improvementPlan",
     "title": "插入提升和改善计划表信息",
     "name": "insertImprovementPlan_______________",
     "group": "ImprovementPlan",
@@ -475,7 +442,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /insertImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /improvementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -494,13 +461,46 @@
     "groupTitle": "ImprovementPlan",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/insertImprovementPlan"
+        "url": "http://oscm.xmiss.top/oscm_new/improvementPlan"
       }
     ]
   },
   {
     "type": "GET",
-    "url": "/selectImprovementPlanById?id=",
+    "url": "/improvementPlans",
+    "title": "查询所有提升和改善计划表信息",
+    "name": "queryAllImprovementPlan_______________",
+    "group": "ImprovementPlan",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /improvementPlans\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\n\"data\":[\n         {\n             \"id\":1,\n             \"report_item_id\":0,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n             \"item\":{\n                      \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n             },\n         {\n             \"id\":2,\n             \"report_item_id\":0,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n             \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n           }\n      ]}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ImprovementPlanController.java",
+    "groupTitle": "ImprovementPlan",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/improvementPlans"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/improvementPlan?id=",
     "title": "查询指定提升和改善计划表信息",
     "name": "selectImprovementPlanById_______________",
     "group": "ImprovementPlan",
@@ -519,7 +519,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /deleteImprovementPlanById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /improvementPlanById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -538,13 +538,13 @@
     "groupTitle": "ImprovementPlan",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/selectImprovementPlanById?id="
+        "url": "http://oscm.xmiss.top/oscm_new/improvementPlan?id="
       }
     ]
   },
   {
     "type": "PUT",
-    "url": "/updateImprovementPlan",
+    "url": "/improvementPlan",
     "title": "更新指定提升和改善计划表信息",
     "name": "updateImprovementPlan_______________",
     "group": "ImprovementPlan",
@@ -612,7 +612,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n \"id\":1,\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /updateImprovementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n \"id\":1,\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /improvementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -631,51 +631,7 @@
     "groupTitle": "ImprovementPlan",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/updateImprovementPlan"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/incentiveRatio?id=",
-    "title": "查询指定部门奖励比例",
-    "name": "incentiveRatio___________",
-    "group": "IncentiveRatio",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "id",
-            "description": "<p>指定部门奖励比例id</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /incentiveRatio?id=200\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n(\"code\":0, \"message\":\"查询指定部门奖励比例成功\",\n\"data\":{\n         \"id\":200,\n         \"year\":\"2018\",\n         \"interest_rate\":10.01,\n         \"incentive_ratio\":12.01,\n         \"max_limit\":15.02,\n         \"create_date\":2019-05-09T13:14:48.000+0000\n     }",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
-    "groupTitle": "IncentiveRatio",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/incentiveRatio?id="
+        "url": "http://oscm.xmiss.top/oscm_new/improvementPlan"
       }
     ]
   },
@@ -683,7 +639,7 @@
     "type": "POST",
     "url": "/incentiveRatio",
     "title": "添加一条部门奖励比例",
-    "name": "incentiveRatio___________",
+    "name": "addIncentiveRatio___________",
     "group": "IncentiveRatio",
     "parameter": {
       "fields": {
@@ -746,9 +702,42 @@
   },
   {
     "type": "DELETE",
+    "url": "/incentiveRatios",
+    "title": "删除所有部门奖励比例",
+    "name": "deleteAllIncentiveRatios___________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "DELETE: /incentiveRatios\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除所有部门奖励比例成功\", \"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/incentiveRatios"
+      }
+    ]
+  },
+  {
+    "type": "DELETE",
     "url": "/incentiveRatio?id=",
     "title": "删除指定部门奖励比例",
-    "name": "incentiveRatio___________",
+    "name": "deleteIncentiveRatio___________",
     "group": "IncentiveRatio",
     "parameter": {
       "fields": {
@@ -789,10 +778,87 @@
     ]
   },
   {
+    "type": "GET",
+    "url": "/incentiveRatios",
+    "title": "查询所有部门奖励比例",
+    "name": "queryAllIncentiveRatios___________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /incentiveRatios\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n(\"code\":0, \"message\":\"查询所有部门奖励比例成功\",\n\"data\":[\n     {\n         \"id\":200,\n         \"year\":\"2018\",\n         \"interest_rate\":10.01,\n         \"incentive_ratio\":12.01,\n         \"max_limit\":15.02,\n         \"create_date\":2019-05-09T13:14:48.000+0000\n     },\n     {\n         \"id\":201,\n         \"year\":\"2018\",\n         \"interest_rate\":12.55,\n         \"incentive_ratio\":14,\n         \"max_limit\":18.1,\n         \"create_date\":2019-05-09T13:15:01.000+0000\n     }\n])",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/incentiveRatios"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/incentiveRatio?id=",
+    "title": "查询指定部门奖励比例",
+    "name": "queryIncentiveRatio___________",
+    "group": "IncentiveRatio",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定部门奖励比例id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /incentiveRatio?id=200\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n(\"code\":0, \"message\":\"查询指定部门奖励比例成功\",\n\"data\":{\n         \"id\":200,\n         \"year\":\"2018\",\n         \"interest_rate\":10.01,\n         \"incentive_ratio\":12.01,\n         \"max_limit\":15.02,\n         \"create_date\":2019-05-09T13:14:48.000+0000\n     }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
+    "groupTitle": "IncentiveRatio",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/incentiveRatio?id="
+      }
+    ]
+  },
+  {
     "type": "PUT",
     "url": "/incentiveRatio",
     "title": "更改指定部门奖励比例",
-    "name": "incentiveRatio___________",
+    "name": "updateIncentiveRatio___________",
     "group": "IncentiveRatio",
     "parameter": {
       "fields": {
@@ -861,76 +927,10 @@
     ]
   },
   {
-    "type": "GET",
-    "url": "/incentiveRatios",
-    "title": "查询所有部门奖励比例",
-    "name": "incentiveRatios___________",
-    "group": "IncentiveRatio",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /incentiveRatios\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n(\"code\":0, \"message\":\"查询所有部门奖励比例成功\",\n\"data\":[\n     {\n         \"id\":200,\n         \"year\":\"2018\",\n         \"interest_rate\":10.01,\n         \"incentive_ratio\":12.01,\n         \"max_limit\":15.02,\n         \"create_date\":2019-05-09T13:14:48.000+0000\n     },\n     {\n         \"id\":201,\n         \"year\":\"2018\",\n         \"interest_rate\":12.55,\n         \"incentive_ratio\":14,\n         \"max_limit\":18.1,\n         \"create_date\":2019-05-09T13:15:01.000+0000\n     }\n])",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
-    "groupTitle": "IncentiveRatio",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/incentiveRatios"
-      }
-    ]
-  },
-  {
-    "type": "DELETE",
-    "url": "/incentiveRatios",
-    "title": "删除所有部门奖励比例",
-    "name": "incentiveRatios___________",
-    "group": "IncentiveRatio",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "DELETE: /incentiveRatios\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除所有部门奖励比例成功\", \"data\":true}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/IncentiveRatioController.java",
-    "groupTitle": "IncentiveRatio",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/incentiveRatios"
-      }
-    ]
-  },
-  {
     "type": "PUT",
     "url": "/incentiveRatios",
-    "title": "批量更改指定部门奖励比例",
-    "name": "incentiveRatios_____________",
+    "title": "批量更改部门奖励比例",
+    "name": "updateIncentiveRatios___________",
     "group": "IncentiveRatio",
     "parameter": {
       "fields": {
@@ -999,16 +999,16 @@
     ]
   },
   {
-    "type": "GET",
-    "url": "/getAllMonthReport",
-    "title": "查询所有流动资金成本管控情况月度总结情况报告表信息",
-    "name": "getAllMonthReport__________________________",
+    "type": "DELETE",
+    "url": "/monthReports",
+    "title": "删除所有流动资金成本管控情况月度总结情况报告表信息",
+    "name": "deleteAllMonthReport__________________________",
     "group": "MonthReport",
     "parameter": {
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /getAllMonthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /monthReports\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1017,7 +1017,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询所有流动资金成本管控情况月度总结情况报告表成功\",\"data\":\n[\n    {\n     \"id\":1,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00-01\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n     },\n    {\n     \"id\":2,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n     }\n ]\n }",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\n     \"code\":0,\n     \"message\":\"删除所有流动资金成本管控情况月度总结情况报告表成功\"\n}",
           "type": "json"
         }
       ]
@@ -1027,7 +1027,51 @@
     "groupTitle": "MonthReport",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/getAllMonthReport"
+        "url": "http://oscm.xmiss.top/oscm_new/monthReports"
+      }
+    ]
+  },
+  {
+    "type": "DELETE",
+    "url": "/monthReport?id=",
+    "title": "删除指定流动资金成本管控情况月度总结情况报告表信息",
+    "name": "deleteMonthReport__________________________",
+    "group": "MonthReport",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定 流动资金成本管控情况月度总结情况报告表记录id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "DELETE: /monthReport?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\n     \"code\":0,\n     \"message\":\"删除指定流动资金成本管控情况月度总结情况报告表成功\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/MonthReportController.java",
+    "groupTitle": "MonthReport",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/monthReport?id="
       }
     ]
   },
@@ -1281,60 +1325,16 @@
     ]
   },
   {
-    "type": "DELETE",
-    "url": "/monthReport?id=",
-    "title": "删除指定流动资金成本管控情况月度总结情况报告表信息",
-    "name": "monthReport__________________________",
-    "group": "MonthReport",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "id",
-            "description": "<p>指定 流动资金成本管控情况月度总结情况报告表记录id</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "DELETE: /monthReport?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\n     \"code\":0,\n     \"message\":\"删除指定流动资金成本管控情况月度总结情况报告表成功\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/MonthReportController.java",
-    "groupTitle": "MonthReport",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/monthReport?id="
-      }
-    ]
-  },
-  {
-    "type": "DELETE",
+    "type": "GET",
     "url": "/monthReports",
-    "title": "删除所有流动资金成本管控情况月度总结情况报告表信息",
-    "name": "monthReports__________________________",
+    "title": "查询所有流动资金成本管控情况月度总结情况报告表信息",
+    "name": "queryAllImonthReport__________________________",
     "group": "MonthReport",
     "parameter": {
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "DELETE: /monthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /monthReports\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1343,7 +1343,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\n     \"code\":0,\n     \"message\":\"删除所有流动资金成本管控情况月度总结情况报告表成功\"\n}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询所有流动资金成本管控情况月度总结情况报告表成功\",\"data\":\n[\n    {\n     \"id\":1,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00-01\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n     },\n    {\n     \"id\":2,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n     }\n ]\n }",
           "type": "json"
         }
       ]
@@ -1359,7 +1359,7 @@
   },
   {
     "type": "GET",
-    "url": "/selectMonthReportById?id=",
+    "url": "/monthReport?id=",
     "title": "查询指定流动资金成本管控情况月度总结情况报告表信息",
     "name": "selectMonthReportById__________________________",
     "group": "MonthReport",
@@ -1378,7 +1378,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /selectMonthReportById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /monthReport?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1397,7 +1397,7 @@
     "groupTitle": "MonthReport",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/selectMonthReportById?id="
+        "url": "http://oscm.xmiss.top/oscm_new/monthReport?id="
       }
     ]
   },
@@ -1556,9 +1556,42 @@
   },
   {
     "type": "DELETE",
-    "url": "/reduceTarget",
+    "url": "/reduceTargets",
+    "title": "删除所有项目降低目标设置",
+    "name": "deleteAllReduceTargets_____________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "DELETE: /reduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除所有项目降低目标设置\", \"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets"
+      }
+    ]
+  },
+  {
+    "type": "DELETE",
+    "url": "/reduceTarget?id=",
     "title": "删除指定项目降低目标设置",
-    "name": "reduceTarget_____________",
+    "name": "deleteReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1594,7 +1627,7 @@
     "groupTitle": "ReduceTarget",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/reduceTarget"
+        "url": "http://oscm.xmiss.top/oscm_new/reduceTarget?id="
       }
     ]
   },
@@ -1602,7 +1635,7 @@
     "type": "POST",
     "url": "/reduceTarget",
     "title": "添加一条项目降低目标设置",
-    "name": "reduceTarget_____________",
+    "name": "insertReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1679,9 +1712,42 @@
   },
   {
     "type": "GET",
+    "url": "/reduceTargets",
+    "title": "查询所有项目降低目标设置",
+    "name": "queryAllReduceTargets_____________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /reduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询所有项目降低目标设置成功\",\"data\":[\n\"data\":{\"id\":208,\"\n         report_item_id\":0,\n         \"year\":\"\",\n         \"year_percent\":0,\n         \"year_value\":635184.75,\n         \"last_year_value\":,\n         \"jan\":52932.062,\n         \"feb\":52932.062,\n         \"mar\":52932.062,\n         \"apr\":52932.062,\n         \"may\":52932.062,\n         \"jun\":52932.062,\n         \"jul\":52932.062,\n         \"aug\":52932.062,\n         \"sept\":52932.062,\n         \"oct\":52932.062,\n         \"nov\":52932.062,\n         \"dec\":52932.062,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:52:45.000+0000\n         \"item\":{\n             \"item_code\"=\"货币资金\"\n             \"item_name\"=\"货币资金\"\n             \"calc_expr=\"1001+1002+1009\"\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n\"data\":{\"id\":209,\"\n         report_item_id\":0,\n         \"year\":\"\",\n         \"year_percent\":0,\n         \"year_value\":1000.0000,\n         \"last_year_value\":,\n         \"jan\":83.3333,\n         \"feb\":83.3333,\n         \"mar\":83.3333,\n         \"apr\":83.3333,\n         \"may\":83.3333,\n         \"jun\":83.3333,\n         \"jul\":83.3333,\n         \"aug\":83.3333,\n         \"sept\":83.3333,\n         \"oct\":83.3333,\n         \"nov\":83.3333,\n         \"dec\":83.3337,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:53:10.000+0000\n         \"item\":{\n             \"item_code\"=\"短期投资\"\n             \"item_name\"=\"短期投资\"\n             \"calc_expr=\"1101-1102\"\n             \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:59:55.000+0000\n         }\n       }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets"
+      }
+    ]
+  },
+  {
+    "type": "GET",
     "url": "/reduceTarget?id=",
     "title": "查询指定项目降低目标设置",
-    "name": "reduceTarget_____________",
+    "name": "queryReduceTarget_____________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1725,7 +1791,7 @@
     "type": "PUT",
     "url": "/reduceTarget_month",
     "title": "更改指定项目月降低目标设置",
-    "name": "reduceTarget_month______________",
+    "name": "updateReduceTarget_month______________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1841,7 +1907,7 @@
     "type": "PUT",
     "url": "/reduceTarget_year",
     "title": "更改指定项目年降低目标设置",
-    "name": "reduceTarget_year______________",
+    "name": "updateReduceTarget_year______________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1889,76 +1955,10 @@
     ]
   },
   {
-    "type": "GET",
-    "url": "/reduceTargets",
-    "title": "查询所有项目降低目标设置",
-    "name": "reduceTargets_____________",
-    "group": "ReduceTarget",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /reduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询所有项目降低目标设置成功\",\"data\":[\n\"data\":{\"id\":208,\"\n         report_item_id\":0,\n         \"year\":\"\",\n         \"year_percent\":0,\n         \"year_value\":635184.75,\n         \"last_year_value\":,\n         \"jan\":52932.062,\n         \"feb\":52932.062,\n         \"mar\":52932.062,\n         \"apr\":52932.062,\n         \"may\":52932.062,\n         \"jun\":52932.062,\n         \"jul\":52932.062,\n         \"aug\":52932.062,\n         \"sept\":52932.062,\n         \"oct\":52932.062,\n         \"nov\":52932.062,\n         \"dec\":52932.062,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:52:45.000+0000\n         \"item\":{\n             \"item_code\"=\"货币资金\"\n             \"item_name\"=\"货币资金\"\n             \"calc_expr=\"1001+1002+1009\"\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n\"data\":{\"id\":209,\"\n         report_item_id\":0,\n         \"year\":\"\",\n         \"year_percent\":0,\n         \"year_value\":1000.0000,\n         \"last_year_value\":,\n         \"jan\":83.3333,\n         \"feb\":83.3333,\n         \"mar\":83.3333,\n         \"apr\":83.3333,\n         \"may\":83.3333,\n         \"jun\":83.3333,\n         \"jul\":83.3333,\n         \"aug\":83.3333,\n         \"sept\":83.3333,\n         \"oct\":83.3333,\n         \"nov\":83.3333,\n         \"dec\":83.3337,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:53:10.000+0000\n         \"item\":{\n             \"item_code\"=\"短期投资\"\n             \"item_name\"=\"短期投资\"\n             \"calc_expr=\"1101-1102\"\n             \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:59:55.000+0000\n         }\n       }\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
-    "groupTitle": "ReduceTarget",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets"
-      }
-    ]
-  },
-  {
-    "type": "DELETE",
-    "url": "/reduceTargets",
-    "title": "删除所有项目降低目标设置",
-    "name": "reduceTargets_____________",
-    "group": "ReduceTarget",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "DELETE: /reduceTargets\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"删除所有项目降低目标设置\", \"data\":true}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
-    "groupTitle": "ReduceTarget",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets"
-      }
-    ]
-  },
-  {
     "type": "PUT",
     "url": "/reduceTargets_year",
     "title": "批量更改项目年降低目标成功",
-    "name": "reduceTargets_year______________",
+    "name": "updateReduceTargets_year______________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
