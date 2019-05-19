@@ -271,9 +271,9 @@ public class ReduceTargetController {
     }
 
     /**
-     * 更改指定项目年降低目标设置
-     * @api {PUT} /reduceTarget_yearValue 更改指定项目年降低目标设置
-     * @apiName updateReduceTarget_yearValue 更改指定项目年降低目标设置
+     * 更改指定项目年降低目标值
+     * @api {PUT} /reduceTarget_yearValue 更改指定项目年降低目标值
+     * @apiName updateReduceTarget_yearValue 更改指定项目年降低目标值
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam {BigDecimal}  year_value 计算后的年目标值
@@ -293,19 +293,19 @@ public class ReduceTargetController {
      * <p>
      * {"code":0,"message":"更改指定项目年降低目标设置","data":true}
      * */
-/*    @PutMapping("/reduceTarget_yearValue")
+    @PutMapping("/reduceTarget_yearValue")
     public BasicResponse<Boolean> update(@RequestBody ReduceTarget reduceTarget){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.update(reduceTarget);
             ResponseUtil.set(response,0,"更改指定项目年降低目标设置",flag);
         }, logger);
-    }*/
+    }
 
     /**
-     * 批量更改项目年降低目标成功
+     * 批量更改项目年降低目标值
      *
-     * @api {PUT} /reduceTargets_yearValue 批量更改项目年降低目标成功
-     * @apiName updateReduceTargets_yearValue 批量更改项目年降低目标成功
+     * @api {PUT} /reduceTargets_yearValue 批量更改项目年降低目标值
+     * @apiName updateReduceTargets_yearValue 批量更改项目年降低目标成值
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam {BigDecimal}  year_value 计算后的年目标值
@@ -326,13 +326,13 @@ public class ReduceTargetController {
      * <p>
      * {"code":0,"message":"批量更改项目年降低目标成功","data":true}
      */
-/*    @PutMapping("/reduceTargets_yearValue")
+    @PutMapping("/reduceTargets_yearValue")
     public BasicResponse<Boolean> updates(@RequestBody List<ReduceTarget> reduceTargets){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.updates(reduceTargets);
             ResponseUtil.set(response, 0 ,"批量更改项目年降低目标成功",flag);
         }, logger);
-    }*/
+    }
 
     /**
      * 更改指定项目年降低目标比例
