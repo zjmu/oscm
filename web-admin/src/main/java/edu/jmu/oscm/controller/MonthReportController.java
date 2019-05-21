@@ -38,8 +38,9 @@ public class MonthReportController {
      * {"code":0,
      * "message":"查找指定流动资金成本管控情况月度总结情况报告表成功",
      * "data":
-     * {    "id":1,
-     *      "report_item_id":0,
+     * {
+     *      "id":1,
+     *      "item_id":1,
      *      "year":"2019",
      *      "month":"5",
      *      "ok":1,
@@ -87,7 +88,7 @@ public class MonthReportController {
      * [
      *     {
      *      "id":1,
-     *      "report_item_id":0,
+     *      "item_id":1,
      *      "year":"2019",
      *      "month":"5","
      *      "target":1000.1,
@@ -110,7 +111,7 @@ public class MonthReportController {
      *      },
      *     {
      *      "id":2,
-     *      "report_item_id":0,
+     *      "item_id":1,
      *      "year":"2019",
      *      "month":"5","
      *      "target":1000.1,
@@ -205,7 +206,7 @@ public class MonthReportController {
      * @api {POST} /monthReport 插入流动资金成本管控情况月度总结情况报告表信息
      * @apiName monthReport 插入流动资金成本管控情况月度总结情况报告表信息
      * @apiGroup MonthReport
-     * @apiParam {bigint} report_item_id 报告条目id
+     * @apiParam {bigint} item_id 报告条目id
      * @apiParam {String} year 年度
      * @apiParam {String} month 月份
      * @apiParam {BigDecimal} target 目标值
@@ -219,7 +220,7 @@ public class MonthReportController {
      * @apiParam {Timestamp} create_date 创建时间
      * @apiParamExample {json} Request_Example:
      * {
-     * "report_item_id":0,
+     * "item_id":1,
      * "year":"2019",
      * "month":"5","
      * "target":1000.1,
@@ -256,7 +257,7 @@ public class MonthReportController {
      * @api {PUT} /monthReport 更新指定流动资金成本管控情况月度总结情况报告表信息
      * @apiName monthReport 更新指定流动资金成本管控情况月度总结情况报告表信息
      * @apiParam {int} id 流动资金成本管控情况月度总结情况报告表id
-     * @apiParam {bigint} report_item_id 报告条目id
+     * @apiParam {bigint} item_id 报告条目id
      * @apiParam {String} year 年度
      * @apiParam {String} month 月份
      * @apiParam {BigDecimal} target 目标值
@@ -272,7 +273,7 @@ public class MonthReportController {
      * @apiParamExample {json} Request_Example:
      * {
      * "id":1,
-     * "report_item_id":0,
+     * "item_id":1,
      * "year":"2019",
      * "month":"5","
      * "target":1000.1,

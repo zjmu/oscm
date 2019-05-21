@@ -39,8 +39,10 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,
      * "message":"查找指定提升和改善计划表成功",
-     * "data":{"id":1,
-     * "report_item_id":0,
+     * "data":
+     * {
+     * "id":1,
+     * "item_id":1,
      * "year":"2019",
      * "month":"5",
      * "ok":1,
@@ -84,7 +86,7 @@ public class ImprovementPlanController {
      * "data":[
      *          {
      *              "id":1,
-     *              "report_item_id":0,
+     *              "item_id":1,
      *              "year":"2019",
      *              "month":"5",
      *              "ok":1,
@@ -102,7 +104,7 @@ public class ImprovementPlanController {
      *              },
      *          {
      *              "id":2,
-     *              "report_item_id":0,
+     *              "item_id":1,
      *              "year":"2019",
      *              "month":"5",
      *              "ok":1,
@@ -191,7 +193,7 @@ public class ImprovementPlanController {
      * @api {POST} /improvementPlan 插入提升和改善计划表信息
      * @apiName insertImprovementPlan 插入所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
-     * @apiParam {bigint} report_item_id 报告条目id
+     * @apiParam {bigint} item_id 报告条目id
      * @apiParam {String} year 年度
      * @apiParam {String} month 月份
      * @apiParam {int} ok 完成情况
@@ -200,7 +202,7 @@ public class ImprovementPlanController {
      * @apiParam {Timestamp} create_date 创建时间
      * @apiParamExample {json} Request_Example:
      * {
-     *  "report_item_id":0,
+     *  "item_id":1,
      *  "year":"2019",
      *  "month":"5",
      *  "ok":1,
@@ -236,7 +238,7 @@ public class ImprovementPlanController {
      * @apiName updateImprovementPlan 更新指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 提升和改善计划表id
-     * @apiParam {bigint} report_item_id 报告条目id
+     * @apiParam {bigint} item_id 报告条目id
      * @apiParam {String} year 年度
      * @apiParam {String} month 月份
      * @apiParam {int} ok 完成情况
@@ -246,7 +248,7 @@ public class ImprovementPlanController {
      * @apiParamExample {json} Request_Example:
      * {
      *  "id":1,
-     *  "report_item_id":0,
+     *  "item_id":1,
      *  "year":"2019",
      *  "month":"5",
      *  "ok":1,

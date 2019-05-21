@@ -40,8 +40,8 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * {"code":0,"message":"查询所有项目降低目标设置成功","data":[
-     * "data":{"id":208,"
-     *          item_id":1,
+     * "data":{"id":208,
+     *          "item_id":1,
      *          "year":"2009",
      *          "year_percent":90,
      *          "year_value":571666.5000,
@@ -69,8 +69,8 @@ public class ReduceTargetController {
      *              "modify_time"= 2019-04-28T01:54:33.000+0000
      *          }
      *        },
-     * "data":{"id":209,"
-     *          item_id":2,
+     * "data":{"id":209,
+     *          "item_id":2,
      *          "year":"2009",
      *          "year_percent":90,
      *          "year_value":90000.0000,
@@ -135,8 +135,8 @@ public class ReduceTargetController {
      * HTTP/1.1 200 OK
      * <p>
      * {"code":0,"message":"查询指定项目降低目标设置",
-     * "data":{"id":208,"
-     *          item_id":1,
+     * "data":{"id":208,
+     *          "item_id":1,
      *          "year":"2009",
      *          "year_percent":90,
      *          "year_value":571666.5000,
