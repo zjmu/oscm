@@ -6,7 +6,6 @@ import edu.jmu.oscm.service.ProportionService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.jmu.oscm.mapper.BalanceTargetValueMapper">
 
-
     <resultMap id="mapper" type="edu.jmu.oscm.model.BalanceTargetValue">
         <id column="id" property="id"/>
         <result column="REPORT_ITEM_ID" property="reportItemId"/>
@@ -17,116 +16,29 @@
         <result column="total_incremental_value" property="totalIncrementalValue"/>
         <result column="month_reward" property="monthReward"/>
         <result column="total_reward" property="totalReward"/>
-        <result column="date" property="date"/>
+        <result column="create_date" property="createDate"/>
     </resultMap>
 
-    <insert id="insert" parameterType="edu.jmu.oscm.model.BalanceTargetValue" >
-        INSERT ad_balance_target_value(REPORT_ITEM_ID,year,month,last_month_balance,plan_month_target_value,plan_total_reduce_value,actual_month_target_value,
-        actual_total_reduce_value,month_incremental_value,total_incremental_value,month_reward,total_reward,date)
-        VALUES (#{reportItemId},#{year},#{month},#{lastMonthBalance},#{planMonthTargetValue},#{planTotalReduceValue},
-        #{actualMonthTargetValue},#{actualTotalReduceValue},#{monthIncrementalValue},#{totalIncrementalValue},#{monthReward},#{totalReward},#{date})
-    </insert>
-
     <insert id="insertMore" parameterType="java.util.List">
-        INSERT ad_balance_target_value(REPORT_ITEM_ID,year,month,last_month_balance,plan_month_target_value,plan_total_reduce_value,actual_month_target_value,
-        actual_total_reduce_value,month_incremental_value,total_incremental_value,month_reward,total_reward,date)
+        INSERT INTO ad_balance_target_value(REPORT_ITEM_ID,year,month,last_month_balance,plan_month_target_value,plan_total_reduce_value,actual_month_target_value,
+        actual_total_reduce_value,month_incremental_value,total_incremental_value,month_reward,total_reward,create_date)
         VALUES
         <foreach collection="list" item="balanceTargetValue" separator=",">
-        (#{balanceTargetValue.reportItemId},#{balanceTargetValue.year},#{balanceTargetValue.month},#{balanceTargetValue.lastMonthBalance},#{balanceTargetValue.planMonthTargetValue},#{balanceTargetValue.planTotalReduceValue},#{balanceTargetValue.actualMonthTargetValue},
-         #{balanceTargetValue.actualTotalReduceValue},#{balanceTargetValue.monthIncrementalValue},#{balanceTargetValue.totalIncrementalValue},#{balanceTargetValue.monthReward},#{balanceTargetValue.totalReward},#{balanceTargetValue.date})
+            (#{balanceTargetValue.reportItemId},#{balanceTargetValue.year},#{balanceTargetValue.month},#{balanceTargetValue.lastMonthBalance},#{balanceTargetValue.planMonthTargetValue},#{balanceTargetValue.planTotalReduceValue},#{balanceTargetValue.actualMonthTargetValue},
+             #{balanceTargetValue.actualTotalReduceValue},#{balanceTargetValue.monthIncrementalValue},#{balanceTargetValue.totalIncrementalValue},#{balanceTargetValue.monthReward},#{balanceTargetValue.totalReward},#{balanceTargetValue.createDate})
         </foreach>
+        ON DUPLICATE KEY UPDATE
+        REPORT_ITEM_ID=VALUES(REPORT_ITEM_ID),year=VALUES(year),month=VALUES(month),last_month_balance=VALUES(last_month_balance),plan_month_target_value=VALUES(plan_month_target_value),
+        plan_total_reduce_value=VALUES(plan_total_reduce_value),actual_month_target_value=VALUES(actual_month_target_value),actual_total_reduce_value=VALUES(actual_total_reduce_value),month_incremental_value=VALUES(month_incremental_value),
+        total_incremental_value=VALUES(total_incremental_value),month_reward=VALUES(month_reward),total_reward=VALUES(total_reward),create_date=VALUES(create_date)
     </insert>
-
-    <update id="update" parameterType="edu.jmu.oscm.model.BalanceTargetValue">
-        UPDATE ad_balance_target_value SET REPORT_ITEM_ID=#{reportItemId},year=#{year},month=#{month},last_month_balance=#{lastMonthBalance},plan_month_target_value=#{planMonthTargetValue},
-        plan_total_reduce_value=#{planTotalReduceValue},actual_month_target_value=#{actualMonthTargetValue},actual_total_reduce_value=#{actualTotalReduceValue},month_incremental_value=#{monthIncrementalValue},
-        total_incremental_value=#{totalIncrementalValue},month_reward=#{monthReward},total_reward=#{totalReward},date=#{date}
-        WHERE id=#{id}
-    </update>
-
-    <!--<update id="updateMore" parameterType="java.util.List">-->
-        <!--UPDATE ad_balance_target_value-->
-        <!--<trim prefix="set" suffixOverrides=",">-->
-            <!--<trim prefix="REPORT_ITEM_ID = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.reportItemId}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="year = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.year}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="month = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.month}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="last_month_balance = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.lastMonthBalance}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="plan_month_target_value = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.planMonthTargetValue}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="plan_total_reduce_value = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.planTotalReduceValue}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="actual_month_target_value = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.actualMonthTargetValue}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="actual_total_reduce_value = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.actualTotalReduceValue}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="month_incremental_value = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.monthIncrementalValue}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="total_incremental_value = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.totalIncrementalValue}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="month_reward = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.monthReward}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="total_reward = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.totalReward}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-            <!--<trim prefix="date = case" suffix="end,">-->
-                <!--<foreach collection="list" item="reduceTarget">-->
-                    <!--WHEN id = #{balanceTargetValue.id} THEN #{balanceTargetValue.date}-->
-                <!--</foreach>-->
-            <!--</trim>-->
-        <!--</trim>-->
-        <!--<where>-->
-            <!--<foreach collection="list" item="balanceTargetValue" separator="or">-->
-                <!--id = #{balanceTargetValue.id}-->
-            <!--</foreach>-->
-        <!--</where>-->
-
-    <!--</update>-->
 
     <delete id="deleteAll">
         DELETE FROM ad_balance_target_value
     </delete>
 
-    <delete id="deleteById">
-        DELETE FROM ad_balance_target_value WHERE id=#{id}
+    <delete id="deleteByDate">
+        DELETE FROM ad_balance_target_value WHERE year = #{year} and month = #{month}
     </delete>
 
     <select id="selectAll" resultMap="mapper">

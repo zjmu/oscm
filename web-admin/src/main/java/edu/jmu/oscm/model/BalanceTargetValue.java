@@ -25,9 +25,18 @@ public class BalanceTargetValue {
     private BigDecimal monthReward;
     private BigDecimal totalReward;
     private Timestamp createDate;
+    private Boolean assetOrDebt;
     private List<ItemDept> itemDept;
     private List<ItemEmployee> itemEmployee;
     private ReportItemInstance reportItemInstance;
+
+    public Boolean getAssetOrDebt() {
+        return assetOrDebt;
+    }
+
+    public void setAssetOrDebt(Boolean assetOrDebt) {
+        this.assetOrDebt = assetOrDebt;
+    }
 
     public Integer getId() {
         return id;

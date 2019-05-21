@@ -1,6 +1,6 @@
 package edu.jmu.oscm.mapper;
 
-import edu.jmu.oscm.model.*;
+import edu.jmu.oscm.model.BalanceTargetValue;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
