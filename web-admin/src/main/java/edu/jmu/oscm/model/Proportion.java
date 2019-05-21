@@ -23,7 +23,7 @@ public class Proportion {
     private Boolean asset_or_debt;
     private String create_date;
 
-    private ReportItemInstance reportItemInstance;
+    private ReportItem reportItem;
 
     public int getId() {
         return id;
@@ -69,9 +69,7 @@ public class Proportion {
         return accumulate_proportion;
     }
 
-    public void setAccumulate_proportion(String accumulate_proportion) {
-        this.accumulate_proportion = accumulate_proportion;
-    }
+    public void setAccumulate_proportion(String accumulate_proportion) { this.accumulate_proportion = accumulate_proportion; }
 
     public Boolean getAsset_or_debt() {
         return asset_or_debt;
@@ -89,11 +87,11 @@ public class Proportion {
         this.create_date = create_date;
     }
 
-    public ReportItemInstance getReportItemInstance() {
-        return reportItemInstance;
+    public ReportItem getReportItem() {
+        return reportItem;
     }
 
-    public void setReportItemInstance(ReportItemInstance reportItemInstance) {
-        this.reportItemInstance = reportItemInstance;
+    public void setReportItem(ReportItem reportItem) {
+        this.reportItem = reportItem;
     }
 }

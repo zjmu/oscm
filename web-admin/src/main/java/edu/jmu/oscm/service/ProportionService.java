@@ -76,37 +76,38 @@ public class ProportionService {
 //        return tableImpl;
 //    }
 
-    public Map<String,Object> getListByType(List<Proportion> proportions, Boolean type) {
+    public Map<String,Object> getListByType(List<Proportion> proportions, int type) {
 
-        Map<String,Object> map = new HashMap<>();
-
-        List<ProportionView> proportionViewList = new ArrayList<>();
-        ProportionView proportionView;
-        float total = 0;
-        float accumProp = 0;
-
-        // 获得总计
-        for(int i = 0;i<proportions.size();i++){
-            if (proportions.get(i).getAsset_or_debt()==type) {
-                total = total + Float.valueOf(proportions.get(i).getReportItemInstance().getEndValue());
-                if (i == proportions.size() - 1) {
-                    break;
-                }
-            }
-        }
-
-        // 填充每一项
-        for (Proportion proportion : proportions) {
-            if (proportion.getAsset_or_debt()==type) {
-                accumProp = accumProp + Float.valueOf(proportion.getReportItemInstance().getEndValue()) / total;
-                proportionView = new ProportionView(proportion.getReportItemInstance().getItemName(), Float.valueOf(proportion.getReportItemInstance().getEndValue()), Float.valueOf(proportion.getReportItemInstance().getEndValue()) / total, accumProp);
-                proportionViewList.add(proportionView);
-            }
-        }
-
-        map.put("totalValue",total);
-        map.put("list",proportionViewList);
-
-        return map;
+//        Map<String,Object> map = new HashMap<>();
+//
+//        List<ProportionView> proportionViewList = new ArrayList<>();
+//        ProportionView proportionView;
+//        float total = 0;
+//        float accumProp = 0;
+//
+//        // 获得总计
+//        for(int i = 0;i<proportions.size();i++){
+//            if (proportions.get(i).getAsset_or_debt()==type) {
+//                total = total + Float.valueOf(proportions.get(i).getReportItemInstance().getEndValue());
+//                if (i == proportions.size() - 1) {
+//                    break;
+//                }
+//            }
+//        }
+//
+//        // 填充每一项
+//        for (Proportion proportion : proportions) {
+//            if (proportion.getAsset_or_debt()==type) {
+//                accumProp = accumProp + Float.valueOf(proportion.getReportItemInstance().getEndValue()) / total;
+//                proportionView = new ProportionView(proportion.getReportItemInstance().getItemName(), Float.valueOf(proportion.getReportItemInstance().getEndValue()), Float.valueOf(proportion.getReportItemInstance().getEndValue()) / total, accumProp);
+//                proportionViewList.add(proportionView);
+//            }
+//        }
+//
+//        map.put("totalValue",total);
+//        map.put("list",proportionViewList);
+//
+//        return map;
+        return null;
     }
 }
