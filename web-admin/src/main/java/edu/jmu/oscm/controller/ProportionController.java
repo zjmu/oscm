@@ -258,8 +258,9 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/selectProportionAndReport")
-    public BasicResponse<Map<String,Object>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("reportId")int reportId) {
+    public BasicResponse<Map<String,Object>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("reportId") int reportId,@RequestParam("type") int type) {
         return BusinessWrapper.wrap(response -> {
+
             List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
 
             Map<String,Object> map = proportionService.getListByType(proportions,reportId);

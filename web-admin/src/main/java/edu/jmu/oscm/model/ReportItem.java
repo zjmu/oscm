@@ -20,7 +20,9 @@ public class ReportItem {
     private String state;
     private Date modifyTime;
 
-
+    private Item item;
+    private Report report;
+    private ReportItemInstance reportItemInstance;
 
     public BigInteger getId() {
         return id;
@@ -68,5 +70,29 @@ public class ReportItem {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
+    }
+
+    public ReportItemInstance getReportItemInstance() {
+        return reportItemInstance;
+    }
+
+    public void setReportItemInstance(ReportItemInstance reportItemInstance) {
+        this.reportItemInstance = reportItemInstance;
     }
 }

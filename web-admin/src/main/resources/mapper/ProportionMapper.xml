@@ -1,47 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.jmu.oscm.mapper.ProportionMapper">
-    <resultMap id="ProportionMapper" type="edu.jmu.oscm.model.Proportion">
+    <resultMap id="ProportionItem" type="edu.jmu.oscm.model.Proportion">
         <id column="id" property="id"/>
-        <result column="REPORT_ITEM_ID" property="report_item_id"/>
+        <result column="REPORT_ITEM_ID" property="reportItemId"/>
         <result column="year" property="year"/>
         <result column="month" property="month"/>
         <result column="proportion" property="proportion"/>
-        <result column="accumulate_proportion" property="accumulate_proportion"/>
-        <result column="asset_or_debt" property="asset_or_debt"/>
-        <result column="create_date" property="create_date"/>
+        <result column="accumulate_proportion" property="accumulateProportion"/>
+        <result column="asset_or_debt" property="assetOrDebt"/>
+        <result column="create_date" property="createDate"/>
     </resultMap>
 
-    <resultMap id="ProportionAndReportItemInstanceMapper" type="edu.jmu.oscm.model.Proportion">
-        <id column="id" property="id"/>
-        <result column="REPORT_ITEM_ID" property="report_item_id"/>
-        <result column="year" property="year"/>
-        <result column="month" property="month"/>
-        <result column="proportion" property="proportion"/>
-        <result column="accumulate_proportion" property="accumulate_proportion"/>
-        <result column="asset_or_debt" property="asset_or_debt"/>
-        <result column="create_date" property="create_date"/>
-        <association property="reportItemInstance" javaType="edu.jmu.oscm.model.ReportItemInstance">
-            <id column="ID" property="id"/>
-            <result column="REPORT_ITEM_ID" property="reportItemId"/>
-            <result column="REPORT_CODE" property="reportCode"/>
-            <result column="REPORT_NAME" property="reportName"/>
-            <result column="OBJECT_TYPE" property="objectType"/>
-            <result column="OBJECT_ID" property="objectId"/>
-            <result column="ITEM_CODE" property="itemCode"/>
-            <result column="ITEM_NAME" property="itemName"/>
-            <result column="ORDER_NUM" property="orderNum"/>
-            <result column="YEAR" property="year"/>
-            <result column="MONTH" property="month"/>
-            <result column="BEGIN_VALUE" property="beginValue"/>
-            <result column="VALUE" property="value"/>
-            <result column="END_VALUE" property="endValue"/>
-            <result column="MODIFY_TIME" property="modifyTime"/>
-        </association>
-        <association property="item" javaType="edu.jmu.oscm.model.Item">
-            <id column="ID" property="ID"/>
-            <id property="item_code"/>
-        </association>
+    <resultMap id="ProportionItemByYearAndMonthAndReportId" type="edu.jmu.oscm.model.Proportion">
+
     </resultMap>
 
     <insert id="insertProportion" parameterType="edu.jmu.oscm.model.Proportion">
@@ -57,21 +29,18 @@
         DELETE FROM ad_item_proportion WHERE id!=0
     </delete>
 
-    <select id="getAllProportion" resultMap="ProportionMapper">
+    <select id="getAllProportion" resultMap="ProportionItem">
         select * from ad_item_proportion
     </select>
 
-    <select id="selectProportionById" resultMap="ProportionMapper">
+    <select id="selectProportionById" resultMap="ProportionItem">
         select * from ad_item_proportion where id = #{id}
     </select>
 
-    <select id="selectProportionByYearAndMonth" resultMap="ProportionMapper">
+    <select id="selectProportionByYearAndMonth" resultMap="ProportionItem">
         select * from ad_item_proportion where year = #{year} and month = #{month}
     </select>
 
-    <select id="selectProportionAndReportItemInstanceByYearAndMonth" resultMap="ProportionAndReportItemInstanceMapper">
-        select * from ad_item_proportion proportion,report_item_instance report where proportion.year = #{year} and proportion.month = #{month}
-            and proportion.year = report.year and proportion.month = report.month and proportion.REPORT_ITEM_ID = report.REPORT_ITEM_ID
-    </select>
+    <select id="selectProportionByYearAndMonthAndReportId"
 
 </mapper>
