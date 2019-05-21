@@ -22,7 +22,6 @@
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.ReportItemInstance">
         <result column="ITEM_NAME" property="itemName"/>
-        <result column="REPORT_NAME" property="reportName"/>
     </resultMap>
 
 
@@ -40,7 +39,7 @@
 
 
     <select id="getReportItemInstanceByReportItemId" resultMap="mapper">
-        SELECT ITEM_NAME ,REPORT_NAME FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}
+        SELECT ITEM_NAME FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}
          and YEAR=#{year} and MONTH=#{month}
     </select>
 

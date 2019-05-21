@@ -24,14 +24,14 @@ public class ResponsibilityIndicatorController {
     private ResponsibilityIndicatorMapper responsibilityIndicatorMapper;
 
     /**
-     * 查询流动资金占用成本管控责任关键指表
-     * @api {GET} /getResponsibilityIndicator 查询流动资金占用成本管控责任关键指标
+     * 查询流动资金占用成本管控责任指标
+     * @api {GET} /queryResponsibilityIndicator 查询流动资金占用成本管控责任关键指标
      * @apiName queryResponsibilityIndicator 查询流动资金占用成本管控责任关键指标
      * @apiGroup ResponsibilityIndicator
      * @apiParam {String} year 指定动资金占用成本管控责任关键指标表year值
      * @apiParam {String} month 指定动资金占用成本管控责任关键指标表month值
      * @apiParamExample {json} Request_Example:
-     * GET: /getResponsibilityIndicator？year= month=
+     * GET: /queryResponsibilityIndicator？year= month=
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
