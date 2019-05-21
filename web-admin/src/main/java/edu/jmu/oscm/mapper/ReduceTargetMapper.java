@@ -75,16 +75,16 @@ public interface ReduceTargetMapper {
     /**
      * 查询去年实际降低额
      * @param year String
-     * @param report_item_id BigInteger
+     * @param item_id BigInteger
      * @return true or false
      * */
-    BigDecimal selectLastYearValue(@Param("year") String year, @Param("report_item_id") BigInteger report_item_id);
+    BigDecimal selectLastYearValue(@Param("year") String year, @Param("item_id") BigInteger item_id);
 
     /**
      * 查看数据库是否存在该year和report_item_id
      * @param year String
-     * @param report_item_id BigInteger
+     * @param item_id BigInteger
      * @return true or false
      * */
-    Boolean selectYaerAndReportID(@Param("year") String year, @Param("report_item_id") BigInteger report_item_id);
+    Boolean selectYearAndReportID(@Param("year") String year, @Param("item_id") BigInteger item_id);
 }

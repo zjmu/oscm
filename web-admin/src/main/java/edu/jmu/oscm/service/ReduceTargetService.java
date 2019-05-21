@@ -22,7 +22,7 @@ public class ReduceTargetService {
 
     public Integer add(ReduceTarget reduceTarget){
         //判断是否存在，是则不可添加
-        if(reduceTargetMapper.selectYaerAndReportID(reduceTarget.getYear(),reduceTarget.getReport_item_id())!=null){
+        if(reduceTargetMapper.selectYearAndReportID(reduceTarget.getYear(),reduceTarget.getItem_id())!=null){
             return -1;
         }
         /*获取系统当前时间*/
@@ -34,7 +34,7 @@ public class ReduceTargetService {
         int lastYear = Integer.parseInt(reduceTarget.getYear()) - 1;
         String lastYear_string = String.valueOf(lastYear);
         //获取去年的year_value,设为今年的last_year_value
-        BigDecimal lastYearValue = reduceTargetMapper.selectLastYearValue(lastYear_string,reduceTarget.getReport_item_id());
+        BigDecimal lastYearValue = reduceTargetMapper.selectLastYearValue(lastYear_string,reduceTarget.getItem_id());
         if(lastYearValue == null){
             return 0;
         }
@@ -85,7 +85,7 @@ public class ReduceTargetService {
         int lastYear = Integer.parseInt(reduceTarget.getYear()) - 1;
         String lastYear_string = String.valueOf(lastYear);
 
-        BigDecimal lastYearValue = reduceTargetMapper.selectLastYearValue(lastYear_string,reduceTarget.getReport_item_id());
+        BigDecimal lastYearValue = reduceTargetMapper.selectLastYearValue(lastYear_string,reduceTarget.getItem_id());
         return lastYearValue;
     }
 
