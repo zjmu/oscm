@@ -38,6 +38,10 @@
             <result column="END_VALUE" property="endValue"/>
             <result column="MODIFY_TIME" property="modifyTime"/>
         </association>
+        <association property="item" javaType="edu.jmu.oscm.model.Item">
+            <id column="ID" property="ID"/>
+            <id property="item_code"/>
+        </association>
     </resultMap>
 
     <insert id="insertProportion" parameterType="edu.jmu.oscm.model.Proportion">
