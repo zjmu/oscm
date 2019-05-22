@@ -23,12 +23,13 @@
         <result column="create_date" property="createDate"/>
 
         <collection property="reportItemList" ofType="edu.jmu.oscm.model.ReportItem">
-            <id property="id" column="ID"/>
+            <result property="id" column="ID"/>
             <result property="reportId" column="REPORT_ID"/>
             <result property="itemId" column="ITEM_ID"/>
             <result property="orderNum" column="ORDER_NUM"/>
             <result property="state" column="STATE"/>
             <result property="modifyTime" column="MODIFY_TIME"/>
+
         </collection>
     </resultMap>
 
@@ -58,7 +59,9 @@
     </select>
 
     <select id="selectProportionByYearAndMonthAndReportId" resultMap="ProportionItemByYearAndMonthAndReportId">
-        SELECT * FROM ad_item_proportion ,report_item WHERE (ad_item_proportion.ITEM_ID = #{reportId}) AND (report_item.ITEM_ID = ad_item_proportion.ITEM_ID)
+        SELECT * FROM ad_item_proportion ,report_item WHERE (ad_item_proportion.ITEM_ID = #{reportId}) AND (report_item.REPORT_ID = ad_item_proportion.ITEM_ID
+            AND ad_item_proportion.year = #{year} AND ad_item_proportion.month = #{month}
+        )
     </select>
 
 </mapper>

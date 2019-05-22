@@ -16,8 +16,6 @@ public class Report {
     private BigInteger id;
     private String reportCode;
     private String reportName;
-    private String objectType;
-    private String objectId;
     private String state;
     private Date modifyTime;
 
@@ -45,22 +43,6 @@ public class Report {
         this.reportName = reportName;
     }
 
-    public String getObjectType() {
-        return objectType;
-    }
-
-    public void setObjectType(String objectType) {
-        this.objectType = objectType;
-    }
-
-    public String getObjectId() {
-        return objectId;
-    }
-
-    public void setObjectId(String objectId) {
-        this.objectId = objectId;
-    }
-
     public String getState() {
         return state;
     }
@@ -75,5 +57,15 @@ public class Report {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public Report(String reportCode, String reportName, String state) {
+        this.reportCode = reportCode;
+        this.reportName = reportName;
+        this.state = state;
+    }
+
+    public Report(){
+
     }
 }
