@@ -392,7 +392,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "bigint",
             "optional": false,
-            "field": "report_item_id",
+            "field": "item_id",
             "description": "<p>报告条目id</p>"
           },
           {
@@ -442,7 +442,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /improvementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n \"item_id\":1,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /improvementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -484,7 +484,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\n\"data\":[\n         {\n             \"id\":1,\n             \"report_item_id\":0,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n             \"item\":{\n                      \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n             },\n         {\n             \"id\":2,\n             \"report_item_id\":0,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n             \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n           }\n      ]}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询提升和改善计划表成功\",\n\"data\":[\n         {\n             \"id\":1,\n             \"item_id\":1,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n             \"item\":{\n                      \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n             },\n         {\n             \"id\":2,\n             \"item_id\":1,\n             \"year\":\"2019\",\n             \"month\":\"5\",\n             \"ok\":1,\n             \"plan\":\"1\",\n             \"remark\":\"1\",\n             \"create_date\":\"2019-01-01 00:00:00\"\n             \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n           }\n      ]}",
           "type": "json"
         }
       ]
@@ -528,7 +528,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定提升和改善计划表成功\",\n\"data\":{\"id\":1,\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n}}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定提升和改善计划表成功\",\n\"data\":\n{\n\"id\":1,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n}}",
           "type": "json"
         }
       ]
@@ -562,7 +562,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "bigint",
             "optional": false,
-            "field": "report_item_id",
+            "field": "item_id",
             "description": "<p>报告条目id</p>"
           },
           {
@@ -612,7 +612,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n \"id\":1,\n \"report_item_id\":0,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /improvementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n \"id\":1,\n \"item_id\":1,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /improvementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1088,7 +1088,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "bigint",
             "optional": false,
-            "field": "report_item_id",
+            "field": "item_id",
             "description": "<p>报告条目id</p>"
           },
           {
@@ -1173,7 +1173,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /monthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /monthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1215,7 +1215,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "bigint",
             "optional": false,
-            "field": "report_item_id",
+            "field": "item_id",
             "description": "<p>报告条目id</p>"
           },
           {
@@ -1300,7 +1300,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n\"id\":1,\n\"report_item_id\":0,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"create_date\":\"2019-01-01 00:00:00\"\n }\nPUT /monthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n\"id\":1,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"create_date\":\"2019-01-01 00:00:00\"\n }\nPUT /monthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1343,7 +1343,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询所有流动资金成本管控情况月度总结情况报告表成功\",\"data\":\n[\n    {\n     \"id\":1,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00-01\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n     },\n    {\n     \"id\":2,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n     }\n ]\n }",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询所有流动资金成本管控情况月度总结情况报告表成功\",\"data\":\n[\n    {\n     \"id\":1,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00-01\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n     },\n    {\n     \"id\":2,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\"\n     \"target\":1000.1,\n     \"value\":2000.1,\n     \"difference\":3000.1,\n     \"measure\":\"1111\",\n     \"experience\":\"111\",\n     \"deficiency\":\"111\",\n     \"evaluate\":\"111\",\n     \"remark\":\"111\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n     }\n ]\n }",
           "type": "json"
         }
       ]
@@ -1387,7 +1387,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{    \"id\":1,\n     \"report_item_id\":0,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n}\n}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{\n     \"id\":1,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n}\n}",
           "type": "json"
         }
       ]
@@ -1644,7 +1644,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "BigInteger",
             "optional": false,
-            "field": "report_item_id",
+            "field": "item_id",
             "description": "<p>报告条目id</p>"
           },
           {
@@ -1673,7 +1673,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n\"report_item_id\":1,\n\"year\":\"2013\",\n\"year_percent\":90,\n\"asset_or_debt\":1\n}\nPOST: /reduceTarget\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n\"item_id\":1,\n\"year\":\"2013\",\n\"year_percent\":90,\n\"asset_or_debt\":1\n}\nPOST: /reduceTarget\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1715,7 +1715,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询所有项目降低目标设置成功\",\"data\":[\n\"data\":{\"id\":208,\"\n         report_item_id\":1,\n         \"year\":\"2009\",\n         \"year_percent\":90,\n         \"year_value\":571666.5000,\n         \"last_year_value\":635185,\n         \"jan\":47638.875,\n         \"feb\":47638.875,\n         \"mar\":47638.875,\n         \"apr\":47638.875,\n         \"may\":47638.875,\n         \"jun\":47638.875,\n         \"jul\":47638.875,\n         \"aug\":47638.875,\n         \"sept\":47638.875,\n         \"oct\":47638.875,\n         \"nov\":47638.875,\n         \"dec\":47638.875,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:52:45.000+0000\n         \"item\":{\n             \"item_code\"=\"货币资金\"\n             \"item_name\"=\"货币资金\"\n             \"calc_expr=\"1001+1002+1009\"\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n\"data\":{\"id\":209,\"\n         report_item_id\":2,\n         \"year\":\"2009\",\n         \"year_percent\":90,\n         \"year_value\":90000.0000,\n         \"last_year_value\":100000.0000,\n         \"jan\":7500,\n         \"feb\":7500,\n         \"mar\":7500,\n         \"apr\":7500,\n         \"may\":7500,\n         \"jun\":7500,\n         \"jul\":7500,\n         \"aug\":7500,\n         \"sept\":7500,\n         \"oct\":7500,\n         \"nov\":7500,\n         \"dec\":7500,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:53:10.000+0000\n         \"item\":{\n             \"item_code\"=\"短期投资\"\n             \"item_name\"=\"短期投资\"\n             \"calc_expr=\"1101-1102\"\n             \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:59:55.000+0000\n         }\n       }\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询所有项目降低目标设置成功\",\"data\":[\n\"data\":{\"id\":208,\n         \"item_id\":1,\n         \"year\":\"2009\",\n         \"year_percent\":90,\n         \"year_value\":571666.5000,\n         \"last_year_value\":635185,\n         \"jan\":47638.875,\n         \"feb\":47638.875,\n         \"mar\":47638.875,\n         \"apr\":47638.875,\n         \"may\":47638.875,\n         \"jun\":47638.875,\n         \"jul\":47638.875,\n         \"aug\":47638.875,\n         \"sept\":47638.875,\n         \"oct\":47638.875,\n         \"nov\":47638.875,\n         \"dec\":47638.875,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:52:45.000+0000\n         \"item\":{\n             \"item_code\"=\"货币资金\"\n             \"item_name\"=\"货币资金\"\n             \"calc_expr=\"1001+1002+1009\"\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n\"data\":{\"id\":209,\n         \"item_id\":2,\n         \"year\":\"2009\",\n         \"year_percent\":90,\n         \"year_value\":90000.0000,\n         \"last_year_value\":100000.0000,\n         \"jan\":7500,\n         \"feb\":7500,\n         \"mar\":7500,\n         \"apr\":7500,\n         \"may\":7500,\n         \"jun\":7500,\n         \"jul\":7500,\n         \"aug\":7500,\n         \"sept\":7500,\n         \"oct\":7500,\n         \"nov\":7500,\n         \"dec\":7500,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:53:10.000+0000\n         \"item\":{\n             \"item_code\"=\"短期投资\"\n             \"item_name\"=\"短期投资\"\n             \"calc_expr=\"1101-1102\"\n             \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:59:55.000+0000\n         }\n       }\n}",
           "type": "json"
         }
       ]
@@ -1759,7 +1759,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询指定项目降低目标设置\",\n\"data\":{\"id\":208,\"\n         report_item_id\":1,\n         \"year\":\"2009\",\n         \"year_percent\":90,\n         \"year_value\":571666.5000,\n         \"last_year_value\":635185,\n         \"jan\":47638.875,\n         \"feb\":47638.875,\n         \"mar\":47638.875,\n         \"apr\":47638.875,\n         \"may\":47638.875,\n         \"jun\":47638.875,\n         \"jul\":47638.875,\n         \"aug\":47638.875,\n         \"sept\":47638.875,\n         \"oct\":47638.875,\n         \"nov\":47638.875,\n         \"dec\":47638.875,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:52:45.000+0000\n         \"item\":{\n             \"item_code\"=\"货币资金\"\n             \"item_name\"=\"货币资金\"\n             \"calc_expr=\"1001+1002+1009\"\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       }",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询指定项目降低目标设置\",\n\"data\":{\"id\":208,\n         \"item_id\":1,\n         \"year\":\"2009\",\n         \"year_percent\":90,\n         \"year_value\":571666.5000,\n         \"last_year_value\":635185,\n         \"jan\":47638.875,\n         \"feb\":47638.875,\n         \"mar\":47638.875,\n         \"apr\":47638.875,\n         \"may\":47638.875,\n         \"jun\":47638.875,\n         \"jul\":47638.875,\n         \"aug\":47638.875,\n         \"sept\":47638.875,\n         \"oct\":47638.875,\n         \"nov\":47638.875,\n         \"dec\":47638.875,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-15T08:52:45.000+0000\n         \"item\":{\n             \"item_code\"=\"货币资金\"\n             \"item_name\"=\"货币资金\"\n             \"calc_expr=\"1001+1002+1009\"\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\"\n             \"state\"=\"1\"\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       }",
           "type": "json"
         }
       ]
@@ -1943,8 +1943,18 @@ define({ "api": [
   {
     "type": "PUT",
     "url": "/reduceTarget_yearValue",
+<<<<<<< HEAD
+<<<<<<< HEAD
     "title": "更改指定项目年降低目标设置",
     "name": "updateReduceTarget_yearValue______________",
+=======
+    "title": "更改指定项目年降低目标值",
+    "name": "updateReduceTarget_yearValue_____________",
+>>>>>>> 05333dca9853fe09fa2c0a43be84271519a4c060
+=======
+    "title": "更改指定项目年降低目标值设置",
+    "name": "updateReduceTarget_yearValue_______________",
+>>>>>>> fdd238e87e2eaa6f970c7cbc7d3e827ef56bdd99
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1977,7 +1987,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改指定项目年降低目标设置\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改指定项目年降低目标值成功\",\"data\":true}",
           "type": "json"
         }
       ]
@@ -1994,8 +2004,16 @@ define({ "api": [
   {
     "type": "PUT",
     "url": "/reduceTargets_yearValue",
+<<<<<<< HEAD
     "title": "批量更改项目年降低目标成功",
+=======
+    "title": "批量更改项目年降低目标值",
+<<<<<<< HEAD
+>>>>>>> 05333dca9853fe09fa2c0a43be84271519a4c060
     "name": "updateReduceTargets_yearValue______________",
+=======
+    "name": "updateReduceTargets_yearValue_____________",
+>>>>>>> fdd238e87e2eaa6f970c7cbc7d3e827ef56bdd99
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -2019,7 +2037,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "[\n{\"id\":226,\"year_value\":5000},\n{\"id\":227,\"year_value\":5000},\n{\"id\":228,\"year_value\":5000}\n]\nPUT: /reduceTargets_year\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "[\n{\"id\":226,\"year_value\":5000},\n{\"id\":227,\"year_value\":5000},\n]\nPUT: /reduceTargets_yearValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -2028,7 +2046,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量更改项目年降低目标成功\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量更改项目年降低目标值成功\",\"data\":true}",
           "type": "json"
         }
       ]

@@ -3,7 +3,7 @@
 <mapper namespace="edu.jmu.oscm.mapper.MonthReportMapper">
     <resultMap id="MonthReportMapper" type="edu.jmu.oscm.model.MonthReport" >
         <id column="id" property="id"/>
-        <result column="REPORT_ITEM_ID" property="report_item_id"/>
+        <result column="item_id" property="item_id"/>
         <result column="year" property="year"/>
         <result column="month" property="month"/>
         <result column="target" property="target"/>
@@ -25,14 +25,14 @@
         </association>
     </resultMap>
     <insert id="insertMonthReport" parameterType="edu.jmu.oscm.model.MonthReport">
-   insert into ad_month_report (report_item_id,year,month,target,value,difference,measure,
+   insert into ad_month_report (item_id,year,month,target,value,difference,measure,
    experience,deficiency,evaluate,remark,create_date)
-        values (#{report_item_id},#{year},#{month},#{target},#{value},#{difference},
+        values (#{item_id},#{year},#{month},#{target},#{value},#{difference},
         #{measure},#{experience},#{deficiency},#{evaluate},#{remark},#{create_date})
 
     </insert>
     <update id="updateMonthReport" parameterType="edu.jmu.oscm.model.MonthReport">
-        UPDATE ad_month_report SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , target = #{target}, value = #{value},difference = #{difference},
+        UPDATE ad_month_report SET item_id = #{item_id} , year = #{year} , month = #{month} , target = #{target}, value = #{value},difference = #{difference},
         measure = #{measure},experience = #{experience},deficiency = #{deficiency},evaluate = #{evaluate}, remark =#{remark} ,create_date =#{create_date}
         WHERE id = #{id}
     </update>
@@ -44,10 +44,10 @@
     </delete>
     <select id="selectMonthReportById" resultMap="MonthReportMapper">
             select ad_month_report.*,item.item_code,item.item_name,item.calc_expr,item.calc_explain,item.state,item.modify_time  from ad_month_report inner join item on
-       ad_month_report.report_item_id = item.id where ad_month_report.id = #{id}
+       ad_month_report.item_id = item.id where ad_month_report.id = #{id}
     </select>
     <select id="getAllMonthReport" resultMap="MonthReportMapper">
             select ad_month_report.*,item.item_code,item.item_name,item.calc_expr,item.calc_explain,item.state,item.modify_time  from ad_month_report inner join item on
-       ad_month_report.report_item_id = item.id
+       ad_month_report.item_id = item.id
     </select>
 </mapper>

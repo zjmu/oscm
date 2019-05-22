@@ -22,10 +22,14 @@
   "generator": {
     "name": "apidoc",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "time": "2019-05-18T13:26:35.529Z",
 =======
     "time": "2019-05-19T06:39:21.225Z",
 >>>>>>> 05333dca9853fe09fa2c0a43be84271519a4c060
+=======
+    "time": "2019-05-21T12:10:57.041Z",
+>>>>>>> fdd238e87e2eaa6f970c7cbc7d3e827ef56bdd99
     "url": "http://apidocjs.com",
     "version": "0.17.7"
   }

@@ -15,13 +15,13 @@ import java.math.BigInteger;
 @Data
 public class Proportion {
     private int id;
-    private BigInteger report_item_id;
+    private BigInteger reportItemId;
     private String year;
     private String month;
     private String proportion;
-    private String accumulate_proportion;
-    private Boolean asset_or_debt;
-    private String create_date;
+    private String accumulateProportion;
+    private Boolean assetOrDebt;
+    private String createDate;
 
     private ReportItem reportItem;
 
@@ -33,12 +33,12 @@ public class Proportion {
         this.id = id;
     }
 
-    public BigInteger getReport_item_id() {
-        return report_item_id;
+    public BigInteger getReportItemId() {
+        return reportItemId;
     }
 
-    public void setReport_item_id(BigInteger report_item_id) {
-        this.report_item_id = report_item_id;
+    public void setReportItemId(BigInteger reportItemId) {
+        this.reportItemId = reportItemId;
     }
 
     public String getYear() {
@@ -65,26 +65,28 @@ public class Proportion {
         this.proportion = proportion;
     }
 
-    public String getAccumulate_proportion() {
-        return accumulate_proportion;
+    public String getAccumulateProportion() {
+        return accumulateProportion;
     }
 
-    public void setAccumulate_proportion(String accumulate_proportion) { this.accumulate_proportion = accumulate_proportion; }
-
-    public Boolean getAsset_or_debt() {
-        return asset_or_debt;
+    public void setAccumulateProportion(String accumulateProportion) {
+        this.accumulateProportion = accumulateProportion;
     }
 
-    public void setAsset_or_debt(Boolean asset_or_debt) {
-        this.asset_or_debt = asset_or_debt;
+    public Boolean getAssetOrDebt() {
+        return assetOrDebt;
     }
 
-    public String getCreate_date() {
-        return create_date;
+    public void setAssetOrDebt(Boolean assetOrDebt) {
+        this.assetOrDebt = assetOrDebt;
     }
 
-    public void setCreate_date(String create_date) {
-        this.create_date = create_date;
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public ReportItem getReportItem() {

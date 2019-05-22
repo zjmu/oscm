@@ -3,7 +3,7 @@
 <mapper namespace="edu.jmu.oscm.mapper.ImprovementPlanMapper">
     <resultMap id="improvementPlanMapper" type="edu.jmu.oscm.model.ImprovementPlan">
         <id column="id" property="id"/>
-        <result column="REPORT_ITEM_ID" property="report_item_id"/>
+        <result column="item_id" property="item_id"/>
         <result column="year" property="year"/>
         <result column="month" property="month"/>
         <result column="ok" property="ok"/>
@@ -20,12 +20,12 @@
         </association>
     </resultMap>
     <insert id="insertImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
-         insert into ad_improvement_plan (report_item_id,year,month,ok,plan,remark,create_date)
-        values (#{report_item_id},#{year},#{month},#{ok},#{plan},#{remark},#{create_date})
+         insert into ad_improvement_plan (item_id,year,month,ok,plan,remark,create_date)
+        values (#{item_id},#{year},#{month},#{ok},#{plan},#{remark},#{create_date})
 
     </insert>
     <update id="updateImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
-        UPDATE ad_improvement_plan SET report_item_id = #{report_item_id} , year = #{year} , month = #{month} , ok = #{ok} , plan = #{plan} , remark =#{remark} ,create_date =#{create_date}
+        UPDATE ad_improvement_plan SET item_id = #{item_id} , year = #{year} , month = #{month} , ok = #{ok} , plan = #{plan} , remark =#{remark} ,create_date =#{create_date}
         WHERE id = #{id}
     </update>
 
@@ -39,13 +39,13 @@
     
     <select id="selectImprovementPlanById" parameterType="int" resultMap="improvementPlanMapper">
          select improve.*,item.item_code,item.item_name,item.calc_expr,item.calc_explain,item.state,item.modify_time  from ad_improvement_plan improve inner join item on
-        improve.report_item_id = item.id where improve.id = #{id}
+        improve.item_id = item.id where improve.id = #{id}
 
     </select>
 
     <select id="getAllImprovementPlan" resultMap="improvementPlanMapper">
           select improve.*,item.item_code,item.item_name,item.calc_expr,item.calc_explain,item.state,item.modify_time  from ad_improvement_plan improve inner join item on
-        improve.report_item_id = item.id
+        improve.item_id = item.id
     </select>
 
 

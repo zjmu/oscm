@@ -51,8 +51,11 @@ public interface ProportionMapper {
 
     /**
      * 级联查找相关记录
+     * @param year
+     * @param month
+     * @param reportId
      * @return
      */
-    List<Proportion> selectProportionAndReportItemInstanceByYearAndMonth(String year, String month);
+//    List<Proportion> selectProportionByYearAndMonthAndReportId(String year, String month,int reportId);
 
 }
