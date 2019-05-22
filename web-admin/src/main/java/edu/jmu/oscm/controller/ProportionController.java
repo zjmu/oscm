@@ -237,7 +237,7 @@ public class ProportionController {
     /**
      * 查找项目占比表成功
      *
-     * @api {GET} /selectProportionAndReport?year=year&&month=month&&type=type  查询指定项目占比（资产和负债）
+     * @api {GET} /selectProportionAndReport?year=year&&month=month&&type=type  查询指定项目占比
      * @apiName selectProportionAndReport 查询项目占比信息
      * @apiGroup Proportion
      * @apiParam {String} year 指定项目占比表年
@@ -257,11 +257,11 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/selectProportionAndReport")
-    public BasicResponse<Map<String,Object>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("type")Boolean type) {
+    public BasicResponse<Map<String,Object>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("reportId")int reportId) {
         return BusinessWrapper.wrap(response -> {
             List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
 
-            Map<String,Object> map = proportionService.getListByType(proportions,type);
+            Map<String,Object> map = proportionService.getListByType(proportions,reportId);
 
             ResponseUtil.set(response, 0, "查找项目占比表成功", map);
         }, logger);

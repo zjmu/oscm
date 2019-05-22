@@ -1943,8 +1943,13 @@
   {
     "type": "PUT",
     "url": "/reduceTarget_yearValue",
+<<<<<<< HEAD
     "title": "更改指定项目年降低目标设置",
     "name": "updateReduceTarget_yearValue______________",
+=======
+    "title": "更改指定项目年降低目标值",
+    "name": "updateReduceTarget_yearValue_____________",
+>>>>>>> 05333dca9853fe09fa2c0a43be84271519a4c060
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1994,7 +1999,11 @@
   {
     "type": "PUT",
     "url": "/reduceTargets_yearValue",
+<<<<<<< HEAD
     "title": "批量更改项目年降低目标成功",
+=======
+    "title": "批量更改项目年降低目标值",
+>>>>>>> 05333dca9853fe09fa2c0a43be84271519a4c060
     "name": "updateReduceTargets_yearValue______________",
     "group": "ReduceTarget",
     "parameter": {

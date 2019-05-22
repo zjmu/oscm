@@ -38,7 +38,7 @@ public class ReduceTargetController {
      * HTTP/1.1 200 OK
      * {"code":0,"message":"查询所有项目降低目标设置成功","data":[
      * "data":{"id":208,"
-     *          report_item_id":1,
+     *          item_id":1,
      *          "year":"2009",
      *          "year_percent":90,
      *          "year_value":571666.5000,
@@ -67,7 +67,7 @@ public class ReduceTargetController {
      *          }
      *        },
      * "data":{"id":209,"
-     *          report_item_id":2,
+     *          item_id":2,
      *          "year":"2009",
      *          "year_percent":90,
      *          "year_value":90000.0000,
@@ -133,7 +133,7 @@ public class ReduceTargetController {
      * <p>
      * {"code":0,"message":"查询指定项目降低目标设置",
      * "data":{"id":208,"
-     *          report_item_id":1,
+     *          item_id":1,
      *          "year":"2009",
      *          "year_percent":90,
      *          "year_value":571666.5000,
@@ -176,13 +176,13 @@ public class ReduceTargetController {
      * @api {POST} /reduceTarget 添加一条项目降低目标设置
      * @apiName insertReduceTarget 添加一条项目降低目标设置
      * @apiGroup ReduceTarget
-     * @apiParam {BigInteger} report_item_id 报告条目id
+     * @apiParam {BigInteger} item_id 报告条目id
      * @apiParam {String} year 年份
      * @apiParam {Double} year_percent 年度百分比，单位%
      * @apiParam {Boolean} asset_or_debt 资产或负债，0资产  1负债
      * @apiParamExample {json} Request_Example:
      * {
-     * "report_item_id":1,
+     * "item_id":1,
      * "year":"2013",
      * "year_percent":90,
      * "asset_or_debt":1
@@ -268,9 +268,9 @@ public class ReduceTargetController {
     }
 
     /**
-     * 更改指定项目年降低目标设置
-     * @api {PUT} /reduceTarget_yearValue 更改指定项目年降低目标设置
-     * @apiName updateReduceTarget_yearValue 更改指定项目年降低目标设置
+     * 更改指定项目年降低目标值设置
+     * @api {PUT} /reduceTarget_yearValue 更改指定项目年降低目标值设置
+     * @apiName updateReduceTarget_yearValue 更改指定项目年降低目标值设置
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam {BigDecimal}  year_value 计算后的年目标值
@@ -288,21 +288,21 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"更改指定项目年降低目标设置","data":true}
+     * {"code":0,"message":"更改指定项目年降低目标值成功","data":true}
      * */
-/*    @PutMapping("/reduceTarget_yearValue")
+    @PutMapping("/reduceTarget_yearValue")
     public BasicResponse<Boolean> update(@RequestBody ReduceTarget reduceTarget){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.update(reduceTarget);
-            ResponseUtil.set(response,0,"更改指定项目年降低目标设置",flag);
+            ResponseUtil.set(response,0,"更改指定项目年降低目标值成功",flag);
         }, logger);
-    }*/
+    }
 
     /**
-     * 批量更改项目年降低目标成功
+     * 批量更改项目年降低目标值
      *
-     * @api {PUT} /reduceTargets_yearValue 批量更改项目年降低目标成功
-     * @apiName updateReduceTargets_yearValue 批量更改项目年降低目标成功
+     * @api {PUT} /reduceTargets_yearValue 批量更改项目年降低目标值
+     * @apiName updateReduceTargets_yearValue 批量更改项目年降低目标值
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam {BigDecimal}  year_value 计算后的年目标值
@@ -310,9 +310,8 @@ public class ReduceTargetController {
      *[
      * {"id":226,"year_value":5000},
      * {"id":227,"year_value":5000},
-     * {"id":228,"year_value":5000}
      * ]
-     * PUT: /reduceTargets_year
+     * PUT: /reduceTargets_yearValue
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -321,15 +320,15 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"批量更改项目年降低目标成功","data":true}
+     * {"code":0,"message":"批量更改项目年降低目标值成功","data":true}
      */
-/*    @PutMapping("/reduceTargets_yearValue")
+    @PutMapping("/reduceTargets_yearValue")
     public BasicResponse<Boolean> updates(@RequestBody List<ReduceTarget> reduceTargets){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = reduceTargetService.updates(reduceTargets);
-            ResponseUtil.set(response, 0 ,"批量更改项目年降低目标成功",flag);
+            ResponseUtil.set(response, 0 ,"批量更改项目年降低目标值成功",flag);
         }, logger);
-    }*/
+    }
 
     /**
      * 更改指定项目年降低目标比例
