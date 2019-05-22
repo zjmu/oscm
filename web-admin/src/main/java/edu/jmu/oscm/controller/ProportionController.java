@@ -258,14 +258,16 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/selectProportionAndReport")
-    public BasicResponse<Map<String,Object>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("reportId") int reportId,@RequestParam("type") int type) {
+    public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("reportId") int reportId,@RequestParam("type") int type) {
         return BusinessWrapper.wrap(response -> {
 
-            List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportId(year, month,reportId);
 
-            Map<String,Object> map = proportionService.getListByType(proportions,reportId);
+            //List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
 
-            ResponseUtil.set(response, 0, "查找项目占比表成功", map);
+            //Map<String,Object> map = proportionService.getListByType(proportions,reportId);
+
+            ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
         }, logger);
     }
 

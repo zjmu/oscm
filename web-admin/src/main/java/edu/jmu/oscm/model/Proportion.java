@@ -3,6 +3,7 @@ package edu.jmu.oscm.model;
 import lombok.Data;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @author zyx
@@ -23,7 +24,7 @@ public class Proportion {
     private Boolean assetOrDebt;
     private String createDate;
 
-    private ReportItem reportItem;
+    private List<ReportItem> reportItemList;
 
     public int getId() {
         return id;
@@ -89,11 +90,11 @@ public class Proportion {
         this.createDate = createDate;
     }
 
-    public ReportItem getReportItem() {
-        return reportItem;
+    public List<ReportItem> getReportItemList() {
+        return reportItemList;
     }
 
-    public void setReportItem(ReportItem reportItem) {
-        this.reportItem = reportItem;
+    public void setReportItemList(List<ReportItem> reportItemList) {
+        this.reportItemList = reportItemList;
     }
 }
