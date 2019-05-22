@@ -33,10 +33,9 @@ public interface MonthReportMapper {
 
     /**
      * 根据id查找一条
-     * @param id
      * @return
      */
-    MonthReport selectMonthReportById(int id);
+    List<MonthReport> selectMonthReportByDate(String year,String month);
 
     /**
      * 查找所有记录

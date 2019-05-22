@@ -500,9 +500,9 @@
   },
   {
     "type": "GET",
-    "url": "/improvementPlan?id=",
+    "url": "/improvementPlan?year=&&month=",
     "title": "查询指定提升和改善计划表信息",
-    "name": "selectImprovementPlanById_______________",
+    "name": "selectImprovementPlanByDate_______________",
     "group": "ImprovementPlan",
     "parameter": {
       "fields": {
@@ -519,7 +519,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /improvementPlanById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /improvementPlan?year=2019 && month = 5\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -528,7 +528,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定提升和改善计划表成功\",\n\"data\":\n{\n\"id\":1,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n}}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定提升和改善计划表成功\",\n\"data\":\n{\n{\n\"id\":1,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n}\n{\n\"id\":2,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n}\n}\n\n}",
           "type": "json"
         }
       ]
@@ -538,7 +538,7 @@
     "groupTitle": "ImprovementPlan",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/improvementPlan?id="
+        "url": "http://oscm.xmiss.top/oscm_new/improvementPlan?year=&&month="
       }
     ]
   },
@@ -1359,9 +1359,9 @@
   },
   {
     "type": "GET",
-    "url": "/monthReport?id=",
+    "url": "/monthReport?year=&&month=",
     "title": "查询指定流动资金成本管控情况月度总结情况报告表信息",
-    "name": "selectMonthReportById__________________________",
+    "name": "selectMonthReportByDate__________________________",
     "group": "MonthReport",
     "parameter": {
       "fields": {
@@ -1378,7 +1378,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /monthReport?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /monthReport?year= 2019 && month = 5\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1387,7 +1387,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{\n     \"id\":1,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n}\n}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{\n{\n     \"id\":1,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n   }\n{\n     \"id\":2,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n   }\n}\n}",
           "type": "json"
         }
       ]
@@ -1397,14 +1397,14 @@
     "groupTitle": "MonthReport",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/monthReport?id="
+        "url": "http://oscm.xmiss.top/oscm_new/monthReport?year=&&month="
       }
     ]
   },
   {
     "type": "GET",
     "url": "/selectProportionAndReport?year=year&&month=month&&type=type",
-    "title": "查询指定项目占比（资产和负债）",
+    "title": "查询指定项目占比",
     "name": "selectProportionAndReport_________",
     "group": "Proportion",
     "parameter": {

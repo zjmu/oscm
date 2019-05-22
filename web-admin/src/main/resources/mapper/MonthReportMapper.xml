@@ -42,9 +42,9 @@
     <delete id="deleteById">
             delete from ad_month_report where id = (#{id})
     </delete>
-    <select id="selectMonthReportById" resultMap="MonthReportMapper">
+    <select id="selectMonthReportByDate" resultMap="MonthReportMapper" parameterType="String">
             select ad_month_report.*,item.item_code,item.item_name,item.calc_expr,item.calc_explain,item.state,item.modify_time  from ad_month_report inner join item on
-       ad_month_report.item_id = item.id where ad_month_report.id = #{id}
+       ad_month_report.item_id = item.id where ad_month_report.year = #{year} and ad_month_report.month = #{month}
     </select>
     <select id="getAllMonthReport" resultMap="MonthReportMapper">
             select ad_month_report.*,item.item_code,item.item_name,item.calc_expr,item.calc_explain,item.state,item.modify_time  from ad_month_report inner join item on
