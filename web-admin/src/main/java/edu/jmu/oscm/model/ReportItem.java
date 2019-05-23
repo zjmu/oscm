@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zyx
@@ -19,6 +20,7 @@ public class ReportItem {
     private int orderNum;
     private String state;
     private Date modifyTime;
+
     private Item item;
     private Report report;
     private ReportItemInstance reportItemInstance;

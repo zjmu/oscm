@@ -1,5 +1,6 @@
 package edu.jmu.oscm.controller;
 
+import edu.jmu.oscm.mapper.ItemMapper;
 import edu.jmu.oscm.mapper.ProportionMapper;
 import edu.jmu.oscm.mapper.ReportMapper;
 import edu.jmu.oscm.model.Proportion;
@@ -30,7 +31,7 @@ public class ProportionController {
     private ProportionMapper proportionMapper;
 
     @Autowired
-    private ReportMapper reportMapper;
+    private ItemMapper itemMapper;
 
     @Autowired
     private ProportionService proportionService;
@@ -266,7 +267,7 @@ public class ProportionController {
 
             List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportId(year, month,reportId);
 
-            System.out.println(reportMapper.getAllReport());
+            System.out.println(itemMapper.getItemByItemId(1001));
 
             //List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
 

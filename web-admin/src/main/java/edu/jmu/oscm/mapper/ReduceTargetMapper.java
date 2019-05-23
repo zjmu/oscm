@@ -1,6 +1,5 @@
 package edu.jmu.oscm.mapper;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.jmu.oscm.model.ReduceTarget;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -21,6 +21,11 @@ public interface ReportMapper {
      */
     Boolean deleteAllReport();
 
+    /**
+     * 根据ReportCode删除Report记录
+     * @param ReportCode
+     * @return
+     */
     Boolean deleteByReportCode(@Param("ReportCode")String ReportCode);
 
     /**
@@ -35,5 +40,12 @@ public interface ReportMapper {
      * @param ReportCode
      * @return
      */
-    List<Report> getReportByReportCode(@Param("ReportCode")String ReportCode);
+    Report getReportByReportCode(@Param("ReportCode")String ReportCode);
+
+    /**
+     * 根据ReportId找到相应的Report记录
+     * @param ReportId
+     * @return
+     */
+    Report getReportByReportId(@Param("ReportId")int ReportId);
 }

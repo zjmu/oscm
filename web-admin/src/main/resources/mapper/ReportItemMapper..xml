@@ -6,12 +6,12 @@
         <id property="id" column="ID"/>
         <result property="state" column="STATE"/>
         <result property="modifyTime" column="MODEFY_TIME"/>
-        <result property="item" column="ITEM"/>
+        <result property="itemList" column="ITEM"/>
         <result property="itemId" column="ITEM_ID"/>
         <result property="orderNum" column="ORDER_NUM"/>
         <result property="report" column="REPORT"/>
         <result property="reportId" column="REPORT_ID"/>
-        <association property="reportItemInstance" javaType="edu.jmu.oscm.model.ReportItemInstance">
+        <association property="reportItemInstanceList" javaType="edu.jmu.oscm.model.ReportItemInstance">
             <id column="ID" property="id"/>
             <result column="REPORT_ITEM_ID" property="reportItemId"/>
             <result column="REPORT_CODE" property="reportCode"/>

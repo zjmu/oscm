@@ -16,14 +16,16 @@ import java.util.List;
 @Data
 public class Proportion {
     private int id;
-    private BigInteger reportItemId;
+    private BigInteger itemId;
+    private String itemCode;
+    private String itemName;
     private String year;
     private String month;
     private String proportion;
     private String accumulateProportion;
     private Boolean assetOrDebt;
     private String createDate;
-    private List<ReportItem> reportItemList;
+    private ReportItem reportItem;
 
     public int getId() {
         return id;
@@ -33,12 +35,28 @@ public class Proportion {
         this.id = id;
     }
 
-    public BigInteger getReportItemId() {
-        return reportItemId;
+    public BigInteger getItemId() {
+        return itemId;
     }
 
-    public void setReportItemId(BigInteger reportItemId) {
-        this.reportItemId = reportItemId;
+    public void setItemId(BigInteger itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getYear() {
@@ -89,11 +107,11 @@ public class Proportion {
         this.createDate = createDate;
     }
 
-    public List<ReportItem> getReportItemList() {
-        return reportItemList;
+    public ReportItem getReportItem() {
+        return reportItem;
     }
 
-    public void setReportItemList(List<ReportItem> reportItemList) {
-        this.reportItemList = reportItemList;
+    public void setReportItem(ReportItem reportItem) {
+        this.reportItem = reportItem;
     }
 }

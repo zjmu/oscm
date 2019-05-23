@@ -27,7 +27,7 @@ public interface ReportItemInstanceMapper {
      * 按id查找记录
      * @return
      */
-    List<ReportItemInstance> getReportItemInstanceById(int id);
+    List<ReportItemInstance> getReportItemInstanceByReportItemId(@Param("reportItemId") BigInteger reportItemId);
 
     /**
      * 按条件关联查询项目名称
