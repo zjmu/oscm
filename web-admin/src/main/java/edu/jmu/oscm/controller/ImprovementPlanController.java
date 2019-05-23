@@ -23,12 +23,12 @@ public class ImprovementPlanController {
     /**
      * 获取指定提升和改善计划表记录
      *
-     * @api {GET} /improvementPlan?id=  查询指定提升和改善计划表信息
-     * @apiName selectImprovementPlanById 查询指定提升和改善计划表信息
+     * @api {GET} /improvementPlan?year=&&month=  查询指定提升和改善计划表信息
+     * @apiName selectImprovementPlanByDate 查询指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 指定提升和改善计划表记录id
      * @apiParamExample {json} Request_Example:
-     * GET: /improvementPlanById?id=
+     * GET: /improvementPlan?year=2019 && month = 5
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -40,6 +40,7 @@ public class ImprovementPlanController {
      * {"code":0,
      * "message":"查找指定提升和改善计划表成功",
      * "data":
+     * {
      * {
      * "id":1,
      * "item_id":1,
@@ -57,13 +58,34 @@ public class ImprovementPlanController {
      *          "state"="1"
      *          "modify_time"= "2019-04-28 09:59:00"
      *          }
-     * }}
+     * }
+     * {
+     * "id":2,
+     * "item_id":1,
+     * "year":"2019",
+     * "month":"5",
+     * "ok":1,
+     * "plan":"1",
+     * "remark":"1",
+     * "create_date":"2019-01-01 00:00:00"
+     * "item":{
+     *          "item_code"="短期投资"
+     *          "item_name"="短期投资"
+     *          "calc_expr="1101-1102"
+     *          "calc_explain"="短期投资-短期投资跌价准备"
+     *          "state"="1"
+     *          "modify_time"= "2019-04-28 09:59:00"
+     *          }
+     * }
+     * }
+     *
+     * }
      */
     @GetMapping("/improvementPlan")
-    public BasicResponse<ImprovementPlan> selectImprovementPlanById(@RequestParam("id") int id) {
+    public BasicResponse<List<ImprovementPlan>> selectImprovementPlanByDate(@RequestParam("year") String year,@RequestParam("month") String month) {
         return BusinessWrapper.wrap(response -> {
-            ImprovementPlan improvementPlan = improvementPlanMapper.selectImprovementPlanById(id);
-            ResponseUtil.set(response, 0, "查找指定提升和改善计划表成功",improvementPlan);
+            List<ImprovementPlan> improvementPlans = improvementPlanMapper.selectImprovementPlanByDate(year,month);
+            ResponseUtil.set(response, 0, "查找指定提升和改善计划表成功",improvementPlans);
         }, logger);
     }
 

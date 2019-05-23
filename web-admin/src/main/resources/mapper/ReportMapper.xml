@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.jmu.oscm.mapper.ReportMapper">
+<<<<<<< HEAD
     <resultMap id="mapper" type="edu.jmu.oscm.model.Report">
         <id property="id" column="ID"/>
         <result property="reportName" column="REPORT_NAME"/>
@@ -10,4 +11,36 @@
         <result property="reportCode" column="REPORT_CODE"/>
         <result property="state" column="STATE"/>
     </resultMap>
+=======
+
+    <resultMap id="ReportResultMap" type="edu.jmu.oscm.model.Report">
+        <id column="id" property="id"/>
+        <result column="REPORT_CODE" property="reportCode"/>
+        <result column="REPORT_NAME" property="reportName"/>
+        <result column="STATE" property="state"/>
+        <result column="MODIFY_TIME" property="modifyTime"/>
+    </resultMap>
+
+    <insert id="insertReport" parameterType="edu.jmu.oscm.model.Report">
+        INSERT INTO report(REPORT_CODE,REPORT_NAME,STATE)
+        values (#{reportCode},#{reportName},#{state})
+    </insert>
+
+    <delete id="deleteAllReport">
+        DELETE FROM report
+    </delete>
+
+    <delete id="deleteByReportCode">
+        DELETE FROM report WHERE REPORT_CODE = #{ReportCode}
+    </delete>
+
+    <select id="getAllReport" resultMap="ReportResultMap">
+        SELECT * FROM report
+    </select>
+
+    <select id="getReportByReportCode" resultMap="ReportResultMap">
+        SELECT * FROM report WHERE REPORT_CODE=#{ReportCode}
+    </select>
+
+>>>>>>> cca0542de65765e8f361cc648922b7fac8d534e7
 </mapper>

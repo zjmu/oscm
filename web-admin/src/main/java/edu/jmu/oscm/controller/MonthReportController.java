@@ -21,12 +21,12 @@ public class MonthReportController {
     /**
      * 获取指定流动资金成本管控情况月度总结情况报告表记录
      *
-     * @api {GET} /monthReport?id=  查询指定流动资金成本管控情况月度总结情况报告表信息
-     * @apiName selectMonthReportById 查询指定流动资金成本管控情况月度总结情况报告表信息
+     * @api {GET} /monthReport?year=&&month=  查询指定流动资金成本管控情况月度总结情况报告表信息
+     * @apiName selectMonthReportByDate 查询指定流动资金成本管控情况月度总结情况报告表信息
      * @apiGroup MonthReport
      * @apiParam {int} id 指定流动资金成本管控情况月度总结情况报告表记录id
      * @apiParamExample {json} Request_Example:
-     * GET: /monthReport?id=
+     * GET: /monthReport?year= 2019 && month = 5
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -38,6 +38,7 @@ public class MonthReportController {
      * {"code":0,
      * "message":"查找指定流动资金成本管控情况月度总结情况报告表成功",
      * "data":
+     * {
      * {
      *      "id":1,
      *      "item_id":1,
@@ -55,14 +56,33 @@ public class MonthReportController {
      *                      "state"="1"
      *                      "modify_time"= "2019-04-28 09:59:00"
      *          }
+     *    }
+     * {
+     *      "id":2,
+     *      "item_id":1,
+     *      "year":"2019",
+     *      "month":"5",
+     *      "ok":1,
+     *      "plan":"1",
+     *      "remark":"1",
+     *      "create_date":"2019-01-01 00:00:00"
+     *       "item":{
+     *                      "item_code"="短期投资"
+     *                      "item_name"="短期投资"
+     *                      "calc_expr="1101-1102"
+     *                      "calc_explain"="短期投资-短期投资跌价准备"
+     *                      "state"="1"
+     *                      "modify_time"= "2019-04-28 09:59:00"
+     *          }
+     *    }
      * }
      * }
      */
     @GetMapping("/monthReport")
-    public BasicResponse<MonthReport> selectMonthReportById(@RequestParam("id") int id) {
+    public BasicResponse<List<MonthReport>> selectMonthReportByDate(@RequestParam("year") String year,@RequestParam("month") String month) {
         return BusinessWrapper.wrap(response -> {
-            MonthReport monthReport = monthReportMapper.selectMonthReportById(id);
-            ResponseUtil.set(response, 0, "查找指定流动资金成本管控情况月度总结情况报告表成功",monthReport);
+            List<MonthReport> monthReports = monthReportMapper.selectMonthReportByDate(year,month);
+            ResponseUtil.set(response, 0, "查找指定流动资金成本管控情况月度总结情况报告表成功",monthReports);
         }, logger);
     }
 
