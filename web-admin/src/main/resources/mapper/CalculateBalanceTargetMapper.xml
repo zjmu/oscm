@@ -3,7 +3,7 @@
 <mapper namespace="edu.jmu.oscm.mapper.CalculateBalanceTargetMapper">
 
     <resultMap id="mapper1" type="edu.jmu.oscm.model.BalanceTargetValue">
-        <id property="reportItemId" column="REPORT_ITEM_ID"/>
+        <id property="itemId" column="REPORT_ITEM_ID"/>
         <id property="year" column="YEAR"/>
         <id property="month" column="MONTH"/>
     </resultMap>

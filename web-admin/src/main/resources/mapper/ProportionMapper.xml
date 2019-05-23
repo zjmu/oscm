@@ -13,11 +13,27 @@
     </resultMap>
 
     <resultMap id="ProportionItemByYearAndMonthAndReportId" type="edu.jmu.oscm.model.Proportion">
+        <id column="id" property="id"/>
+        <result column="REPORT_ITEM_ID" property="reportItemId"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="proportion" property="proportion"/>
+        <result column="accumulate_proportion" property="accumulateProportion"/>
+        <result column="asset_or_debt" property="assetOrDebt"/>
+        <result column="create_date" property="createDate"/>
 
+        <collection property="reportItemList" ofType="edu.jmu.oscm.model.ReportItem">
+            <id property="id" column="ID"/>
+            <result property="reportId" column="REPORT_ID"/>
+            <result property="itemId" column="ITEM_ID"/>
+            <result property="orderNum" column="ORDER_NUM"/>
+            <result property="state" column="STATE"/>
+            <result property="modifyTime" column="MODIFY_TIME"/>
+        </collection>
     </resultMap>
 
     <insert id="insertProportion" parameterType="edu.jmu.oscm.model.Proportion">
-        INSERT INTO ad_item_proportion(report_item_id,year,month,proportion,accumulate_proportion,asset_or_debt,create_date)
+        INSERT INTO ad_item_proportion(ITEM_ID,year,month,proportion,accumulate_proportion,asset_or_debt,create_date)
         values (#{report_item_id},#{year},#{month},#{proportion},#{accumulate_proportion},#{asset_or_debt},#{create_date})
     </insert>
 
@@ -41,6 +57,9 @@
         select * from ad_item_proportion where year = #{year} and month = #{month}
     </select>
 
-<!--    <select id="selectProportionByYearAndMonthAndReportId"-->
+
+    <select id="selectProportionByYearAndMonthAndReportId" resultMap="ProportionItemByYearAndMonthAndReportId">
+        SELECT * FROM ad_item_proportion ,report_item WHERE (ad_item_proportion.ITEM_ID = #{reportId}) AND (report_item.ITEM_ID = ad_item_proportion.ITEM_ID)
+    </select>
 
 </mapper>
