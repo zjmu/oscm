@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.jmu.oscm.mapper.ReportMapper">
-<<<<<<< HEAD
-    <resultMap id="mapper" type="edu.jmu.oscm.model.Report">
-        <id property="id" column="ID"/>
-        <result property="reportName" column="REPORT_NAME"/>
-        <result property="modifyTime" column="MODIFY_TIEM"/>
-        <result property="objectId" column="OBJECT_ID"/>
-        <result property="objectType" column="OBJECT_TYPE"/>
-        <result property="reportCode" column="REPORT_CODE"/>
-        <result property="state" column="STATE"/>
-    </resultMap>
-=======
 
     <resultMap id="ReportResultMap" type="edu.jmu.oscm.model.Report">
         <id column="id" property="id"/>
@@ -42,5 +31,4 @@
         SELECT * FROM report WHERE REPORT_CODE=#{ReportCode}
     </select>
 
->>>>>>> cca0542de65765e8f361cc648922b7fac8d534e7
 </mapper>

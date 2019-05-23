@@ -4,7 +4,7 @@
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.BalanceTargetValue">
         <id column="id" property="id"/>
-        <result column="REPORT_ITEM_ID" property="reportItemId"/>
+        <result column="ITEM_ID" property="itemId"/>
         <result column="year" property="year"/>
         <result column="month" property="month"/>
         <result column="last_month_balance" property="lastMonthBalance"/>
@@ -20,15 +20,15 @@
     </resultMap>
 
     <insert id="insertMore" parameterType="java.util.List">
-        INSERT INTO ad_balance_target_value(REPORT_ITEM_ID,year,month,last_month_balance,plan_month_target_value,plan_total_reduce_value,actual_month_target_value,
+        INSERT INTO ad_balance_target_value(ITEM_ID,year,month,last_month_balance,plan_month_target_value,plan_total_reduce_value,actual_month_target_value,
         actual_total_reduce_value,month_incremental_value,total_incremental_value,month_reward,total_reward,create_date)
         VALUES
         <foreach collection="list" item="balanceTargetValue" separator=",">
-            (#{balanceTargetValue.reportItemId},#{balanceTargetValue.year},#{balanceTargetValue.month},#{balanceTargetValue.lastMonthBalance},#{balanceTargetValue.planMonthTargetValue},#{balanceTargetValue.planTotalReduceValue},#{balanceTargetValue.actualMonthTargetValue},
+            (#{balanceTargetValue.itemId},#{balanceTargetValue.year},#{balanceTargetValue.month},#{balanceTargetValue.lastMonthBalance},#{balanceTargetValue.planMonthTargetValue},#{balanceTargetValue.planTotalReduceValue},#{balanceTargetValue.actualMonthTargetValue},
              #{balanceTargetValue.actualTotalReduceValue},#{balanceTargetValue.monthIncrementalValue},#{balanceTargetValue.totalIncrementalValue},#{balanceTargetValue.monthReward},#{balanceTargetValue.totalReward},#{balanceTargetValue.createDate})
         </foreach>
         ON DUPLICATE KEY UPDATE
-        REPORT_ITEM_ID=VALUES(REPORT_ITEM_ID),year=VALUES(year),month=VALUES(month),last_month_balance=VALUES(last_month_balance),plan_month_target_value=VALUES(plan_month_target_value),
+        ITEM_ID=VALUES(ITEM_ID),year=VALUES(year),month=VALUES(month),last_month_balance=VALUES(last_month_balance),plan_month_target_value=VALUES(plan_month_target_value),
         plan_total_reduce_value=VALUES(plan_total_reduce_value),actual_month_target_value=VALUES(actual_month_target_value),actual_total_reduce_value=VALUES(actual_total_reduce_value),month_incremental_value=VALUES(month_incremental_value),
         total_incremental_value=VALUES(total_incremental_value),month_reward=VALUES(month_reward),total_reward=VALUES(total_reward),create_date=VALUES(create_date)
     </insert>

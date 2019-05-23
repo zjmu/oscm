@@ -57,7 +57,7 @@ public class BalanceTargetValueService {
             return "您设置了多条当年的奖励比例";
 
         for(BalanceTargetValue balanceTargetValue: balanceTargetValues){
-            BigInteger reportItemId = balanceTargetValue.getReportItemId();
+            BigInteger reportItemId = balanceTargetValue.getItemId();
 
             calculateLastMonthBalance(lastMonthBalances,balanceTargetValue);
 
@@ -92,7 +92,7 @@ public class BalanceTargetValueService {
     public void calculateLastMonthBalance(List<ReportItemInstance> reportItemInstances,BalanceTargetValue balanceTargetValue){
         BigDecimal lastEndValue = BigDecimal.valueOf(0);
         for(ReportItemInstance reportItemInstance :reportItemInstances){
-            if(reportItemInstance.getReportItemId() == balanceTargetValue.getReportItemId()){
+            if(reportItemInstance.getReportItemId() == balanceTargetValue.getItemId()){
                 lastEndValue = new BigDecimal(reportItemInstance.getEndValue());
             }
         }
@@ -136,7 +136,7 @@ public class BalanceTargetValueService {
         BigDecimal total=BigDecimal.valueOf(0);
         Integer month = Integer.valueOf(balanceTargetValue.getMonth());
         for(int i=1;i<=month;i++){
-            BigInteger reportItemId = balanceTargetValue.getReportItemId();
+            BigInteger reportItemId = balanceTargetValue.getItemId();
             BigDecimal result = calculatePlanMonthTargetValue(reportItemId,String.valueOf(i));
             total = total.add(result);
         }

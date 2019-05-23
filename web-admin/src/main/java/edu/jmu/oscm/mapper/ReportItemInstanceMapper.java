@@ -33,6 +33,7 @@ public interface ReportItemInstanceMapper {
      * 按条件关联查询项目名称
      * @return
      */
-    ReportItemInstance getReportItemInstanceByReportItemId(@Param("reportItemId") BigInteger reportItemId,@Param("year")String year,@Param("month")String month);
+    ReportItemInstance getReportItemInstance(@Param("reportItemId") BigInteger reportItemId,@Param("year")String year,@Param("month")String month);
+
 
 }
