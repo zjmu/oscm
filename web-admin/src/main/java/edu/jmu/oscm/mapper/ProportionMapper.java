@@ -59,5 +59,13 @@ public interface ProportionMapper {
     List<Proportion> selectProportionByYearAndMonthAndReportIdAndType(String year, String month,int reportId,int type);
 
 
-    Boolean updateProportion();
+    /**
+     * 占比计算接口
+     * @param year
+     * @param month
+     * @param reportId
+     * @param type
+     * @return
+     */
+    Boolean calculateProportionOfYearAndMonth(String year,String month,int reportId,int type);
 }

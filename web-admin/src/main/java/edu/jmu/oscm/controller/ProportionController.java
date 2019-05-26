@@ -31,9 +31,6 @@ public class ProportionController {
     private ProportionMapper proportionMapper;
 
     @Autowired
-    private ItemMapper itemMapper;
-
-    @Autowired
     private ProportionService proportionService;
 
     /**
@@ -266,8 +263,6 @@ public class ProportionController {
         return BusinessWrapper.wrap(response -> {
 
             List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportIdAndType(year, month,reportId,type);
-
-            System.out.println(itemMapper.getItemByItemId(1001));
 
             //List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
 

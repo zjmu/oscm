@@ -129,6 +129,11 @@
     </select>
 
 
+    <update id="calculateProportionOfYearAndMonth">
+#         SELECT table0.*,table1.*,SUM(table2.VALUE) AS VALUE FROM ad_item_proportion table0, report_item table1, report_item_instance table2
+#         WHERE table1.REPORT_ID = #{reportId} AND table2.REPORT_ITEM_ID = table1.ID AND table0.ITEM_ID = table1.ITEM_ID AND table0.year = #{year} AND table0.month = #{month} AND table0.year = table2.YEAR AND table0.month = table2.MONTH AND table0.asset_or_debt = #{type}
+#         GROUP BY table0.id,table1.ID,table2.REPORT_ITEM_ID
+    </update>
 
 <!--    SELECT *-->
 <!--    FROM ad_item_proportion table1-->
