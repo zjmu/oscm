@@ -23,7 +23,7 @@ public class ReportItem {
 
     private Item item;
     private Report report;
-    private ReportItemInstance reportItemInstance;
+    private List<ReportItemInstance> reportItemInstanceList;
 
     public BigInteger getId() {
         return id;
@@ -89,11 +89,11 @@ public class ReportItem {
         this.report = report;
     }
 
-    public ReportItemInstance getReportItemInstance() {
-        return reportItemInstance;
+    public List<ReportItemInstance> getReportItemInstanceList() {
+        return reportItemInstanceList;
     }
 
-    public void setReportItemInstance(ReportItemInstance reportItemInstance) {
-        this.reportItemInstance = reportItemInstance;
+    public void setReportItemInstanceList(List<ReportItemInstance> reportItemInstanceList) {
+        this.reportItemInstanceList = reportItemInstanceList;
     }
 }

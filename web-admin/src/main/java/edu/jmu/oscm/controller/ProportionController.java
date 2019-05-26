@@ -265,7 +265,7 @@ public class ProportionController {
     public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("reportId") int reportId,@RequestParam("type") int type) {
         return BusinessWrapper.wrap(response -> {
 
-            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportId(year, month,reportId);
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportIdAndType(year, month,reportId,type);
 
             System.out.println(itemMapper.getItemByItemId(1001));
 
