@@ -1,8 +1,6 @@
 package edu.jmu.oscm.controller;
 
-import edu.jmu.oscm.mapper.ItemMapper;
 import edu.jmu.oscm.mapper.ProportionMapper;
-import edu.jmu.oscm.mapper.ReportMapper;
 import edu.jmu.oscm.model.Proportion;
 import edu.jmu.oscm.service.ProportionService;
 import edu.jmu.util.BasicResponse;
@@ -13,9 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author zyx
@@ -30,9 +26,6 @@ public class ProportionController {
 
     @Autowired
     private ProportionMapper proportionMapper;
-
-    @Autowired
-    private ItemMapper itemMapper;
 
     @Autowired
     private ProportionService proportionService;
@@ -266,9 +259,7 @@ public class ProportionController {
     public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("reportId") int reportId,@RequestParam("type") int type) {
         return BusinessWrapper.wrap(response -> {
 
-            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportId(year, month,reportId);
-
-            System.out.println(itemMapper.getItemByItemId(new BigInteger("1001")));
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportIdAndType(year, month,reportId,type);
 
             //List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
 

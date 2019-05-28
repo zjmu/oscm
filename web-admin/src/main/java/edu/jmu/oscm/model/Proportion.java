@@ -26,6 +26,7 @@ public class Proportion {
     private Boolean assetOrDebt;
     private String createDate;
     private ReportItem reportItem;
+    private List<ReportItemInstance> reportItemInstanceList;
 
     public int getId() {
         return id;
@@ -113,5 +114,13 @@ public class Proportion {
 
     public void setReportItem(ReportItem reportItem) {
         this.reportItem = reportItem;
+    }
+
+    public List<ReportItemInstance> getReportItemInstanceList() {
+        return reportItemInstanceList;
+    }
+
+    public void setReportItemInstanceList(List<ReportItemInstance> reportItemInstanceList) {
+        this.reportItemInstanceList = reportItemInstanceList;
     }
 }

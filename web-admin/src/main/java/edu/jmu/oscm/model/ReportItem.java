@@ -25,14 +25,6 @@ public class ReportItem {
     private List<ReportItemInstance> reportItemInstances;
     private ItemReduceTarget itemReduceTarget;
 
-    public ItemReduceTarget getItemReduceTarget() {
-        return itemReduceTarget;
-    }
-
-    public void setItemReduceTarget(ItemReduceTarget itemReduceTarget) {
-        this.itemReduceTarget = itemReduceTarget;
-    }
-
     public BigInteger getId() {
         return id;
     }
@@ -103,5 +95,13 @@ public class ReportItem {
 
     public void setReportItemInstances(List<ReportItemInstance> reportItemInstances) {
         this.reportItemInstances = reportItemInstances;
+    }
+
+    public ItemReduceTarget getItemReduceTarget() {
+        return itemReduceTarget;
+    }
+
+    public void setItemReduceTarget(ItemReduceTarget itemReduceTarget) {
+        this.itemReduceTarget = itemReduceTarget;
     }
 }

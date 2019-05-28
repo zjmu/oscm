@@ -34,7 +34,25 @@
             <result property="modifyTime" column="MODIFY_TIME"/>
             <association property="item" javaType="edu.jmu.oscm.model.Item" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId" column="ITEM_ID"/>
             <association property="report" javaType="edu.jmu.oscm.model.Report" select="edu.jmu.oscm.mapper.ReportMapper.getReportByReportId" column="REPORT_ID"/>
-            <association property="reportItemInstance" javaType="edu.jmu.oscm.model.ReportItemInstance" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstance" column="REPORT_ITEM_ID = REPORT_ID"/>
+        </collection>
+        <collection property="reportItemInstanceList" ofType="edu.jmu.oscm.model.ReportItemInstance">
+            <result property="id" column="ID"/>
+            <result column="REPORT_ITEM_ID" property="reportItemId"/>
+            <result column="REPORT_CODE" property="reportCode"/>
+            <result column="REPORT_NAME" property="reportName"/>
+            <result column="DEPT_CODE" property="deptCode"/>
+            <result column="DEPT_NAME" property="deptName"/>
+            <result column="ITEM_CODE" property="itemCode"/>
+            <result column="ITEM_NAME" property="itemName"/>
+            <result column="LEVEL" property="level"/>
+            <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
+            <result column="ORDER_NUM" property="orderNum"/>
+            <result column="YEAR" property="year"/>
+            <result column="MONTH" property="month"/>
+            <result column="BEGIN_VALUE" property="beginValue"/>
+            <result column="VALUE" property="value"/>
+            <result column="END_VALUE" property="endValue"/>
+            <result column="MODIFY_TIME" property="modifyTime"/>
         </collection>
 
         <!--        <association property="reportItem" javaType="edu.jmu.oscm.model.ReportItem">-->
@@ -104,15 +122,25 @@
           and month = #{month}
     </select>
 
-
-    <select id="selectProportionByYearAndMonthAndReportId" resultMap="ProportionItemByYearAndMonthAndReportId">
-        SELECT *
-        FROM ad_item_proportion table1
-                 JOIN report_item table2 ON table1.ITEM_ID = table2.ITEM_ID
-                 JOIN report table3 ON table2.REPORT_ID = table3.ID
-                 JOIN item table4 ON table2.ITEM_ID = table4.ID
-                 JOIN report_item_instance table5 ON table5.YEAR = table1.year AND table5.MONTH = table1.month AND table5.REPORT_ITEM_ID = table3.ID
-        WHERE table1.year = #{year} AND table1.month = #{month} AND table3.ID = 1
+    <select id="selectProportionByYearAndMonthAndReportIdAndType" resultMap="ProportionItemByYearAndMonthAndReportId">
+        SELECT table0.*,table1.*,SUM(table2.VALUE) AS VALUE FROM ad_item_proportion table0, report_item table1, report_item_instance table2
+        WHERE table1.REPORT_ID = #{reportId} AND table2.REPORT_ITEM_ID = table1.ID AND table0.ITEM_ID = table1.ITEM_ID AND table0.year = #{year} AND table0.month = #{month} AND table0.year = table2.YEAR AND table0.month = table2.MONTH AND table0.asset_or_debt = #{type}
+        GROUP BY table0.id,table1.ID,table2.REPORT_ITEM_ID
     </select>
+
+
+    <update id="calculateProportionOfYearAndMonth">
+#         SELECT table0.*,table1.*,SUM(table2.VALUE) AS VALUE FROM ad_item_proportion table0, report_item table1, report_item_instance table2
+#         WHERE table1.REPORT_ID = #{reportId} AND table2.REPORT_ITEM_ID = table1.ID AND table0.ITEM_ID = table1.ITEM_ID AND table0.year = #{year} AND table0.month = #{month} AND table0.year = table2.YEAR AND table0.month = table2.MONTH AND table0.asset_or_debt = #{type}
+#         GROUP BY table0.id,table1.ID,table2.REPORT_ITEM_ID
+    </update>
+
+<!--    SELECT *-->
+<!--    FROM ad_item_proportion table1-->
+<!--    JOIN report_item table2 ON table1.ITEM_ID = table2.ITEM_ID-->
+<!--    JOIN report table3 ON table2.REPORT_ID = table3.ID-->
+<!--    JOIN item table4 ON table2.ITEM_ID = table4.ID-->
+<!--    JOIN report_item_instance table5 ON table5.YEAR = table1.year AND table5.MONTH = table1.month AND table5.REPORT_ITEM_ID = table3.ID-->
+<!--    WHERE table1.year = #{year} AND table1.month = #{month} AND table5.REPORT_ITEM_ID = #{reportId}-->
 
 </mapper>

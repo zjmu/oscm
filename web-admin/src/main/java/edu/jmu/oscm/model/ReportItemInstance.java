@@ -12,11 +12,13 @@ public class ReportItemInstance {
     private BigInteger reportItemId;
     private String reportCode;
     private String reportName;
-    private String objectType;
-    private String objectId;
+    private String deptCode;
+    private String deptName;
     private String itemCode;
     private String itemName;
-    private  Integer orderNum;
+    private Integer level;
+    private String parentItemCode;
+    private Integer orderNum;
     private String year;
     private String month;
     private String beginValue;
@@ -56,20 +58,20 @@ public class ReportItemInstance {
         this.reportName = reportName;
     }
 
-    public String getObjectType() {
-        return objectType;
+    public String getDeptCode() {
+        return deptCode;
     }
 
-    public void setObjectType(String objectType) {
-        this.objectType = objectType;
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
     }
 
-    public String getObjectId() {
-        return objectId;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setObjectId(String objectId) {
-        this.objectId = objectId;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
     public String getItemCode() {
@@ -86,6 +88,22 @@ public class ReportItemInstance {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public String getParentItemCode() {
+        return parentItemCode;
+    }
+
+    public void setParentItemCode(String parentItemCode) {
+        this.parentItemCode = parentItemCode;
     }
 
     public Integer getOrderNum() {

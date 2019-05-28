@@ -27,7 +27,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /calculateBalanceTargetValue?year= month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /calculateBalanceTargetValue?year= &month= &reportId=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -36,7 +36,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"执行计算\",\"data\":[\n{\"id\":289,\"reportItemId\":1,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":2090.00,\"planMonthTargetValue\":33.00,\"planTotalReduceValue\":166.00,\"actualMonthTargetValue\":-979.00,\"\nactualTotalReduceValue\":1101.00,\"monthIncrementalValue\":-11013.75,\"totalIncrementalValue\":12386.25,\"monthReward\":-154412.78,\"totalReward\":173655.23,\"createDate\":\"2019-05-16T07:59:11.000+0000\",\n\"itemDept\":null,\"itemEmployee\":null,\"reportItemInstance\":null},\n{\"id\":553,\"reportItemId\":2,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":50000.00,\"planMonthTargetValue\":83.33,\"planTotalReduceValue\":177.67,\"actualMonthTargetValue\":-47778.00,\n\"actualTotalReduceValue\":2212.00,\"monthIncrementalValue\":-537502.50,\"totalIncrementalValue\":24885.00,\"monthReward\":-7535785.05,\"totalReward\":348887.70,\"createDate\":\"2019-05-16T07:59:11.000+0000\",\n\"itemDept\":null,\"itemEmployee\":null,\"reportItemInstance\":null},\n{\"id\":554,\"reportItemId\":3,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":1020.00,\"planMonthTargetValue\":98777.00,\"planTotalReduceValue\":106554.00,\"actualMonthTargetValue\":4224.00,\n\"actualTotalReduceValue\":5234.00,\"monthIncrementalValue\":47520.00,\"totalIncrementalValue\":58882.50,\"monthReward\":666230.40,\"totalReward\":825532.65,\"createDate\":\"2019-05-16T07:59:11.000+0000\",\n\"itemDept\":null,\"itemEmployee\":null,\"reportItemInstance\":null},\n{\"id\":555,\"reportItemId\":4,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":5020.00,\"planMonthTargetValue\":6222.00,\"planTotalReduceValue\":6247.00,\"actualMonthTargetValue\":-576.00,\n\"actualTotalReduceValue\":4434.00,\"monthIncrementalValue\":-6480.00,\"totalIncrementalValue\":49882.50,\"monthReward\":-90849.60,\"totalReward\":699352.65,\"createDate\":\"2019-05-16T07:59:11.000+0000\",\n\"itemDept\":null,\"itemEmployee\":null,\"reportItemInstance\":null}]}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"执行计算\",\"data\":[\n{\"id\":289,\"reportItemId\":1,\"year\":\"2018\",\"month\":\"03\",\"lastMonthBalance\":2090.00,\"planMonthTargetValue\":33.00,\"planTotalReduceValue\":166.00,\"actualMonthTargetValue\":-979.00,\"\nactualTotalReduceValue\":1101.00,\"monthIncrementalValue\":-11013.75,\"totalIncrementalValue\":12386.25,\"monthReward\":-154412.78,\"totalReward\":173655.23,\"createDate\":\"2019-05-16T07:59:11.000+0000\",\n\"itemDept\":null,\"itemEmployee\":null,\"reportItemInstance\":null},\n{\"id\":553,\"reportItemId\":2,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":50000.00,\"planMonthTargetValue\":83.33,\"planTotalReduceValue\":177.67,\"actualMonthTargetValue\":-47778.00,\n\"actualTotalReduceValue\":2212.00,\"monthIncrementalValue\":-537502.50,\"totalIncrementalValue\":24885.00,\"monthReward\":-7535785.05,\"totalReward\":348887.70,\"createDate\":\"2019-05-16T07:59:11.000+0000\",\n\"itemDept\":null,\"itemEmployee\":null,\"reportItemInstance\":null},\n{\"id\":554,\"reportItemId\":3,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":1020.00,\"planMonthTargetValue\":98777.00,\"planTotalReduceValue\":106554.00,\"actualMonthTargetValue\":4224.00,\n\"actualTotalReduceValue\":5234.00,\"monthIncrementalValue\":47520.00,\"totalIncrementalValue\":58882.50,\"monthReward\":666230.40,\"totalReward\":825532.65,\"createDate\":\"2019-05-16T07:59:11.000+0000\",\n\"itemDept\":null,\"itemEmployee\":null,\"reportItemInstance\":null},\n{\"id\":555,\"reportItemId\":4,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":5020.00,\"planMonthTargetValue\":6222.00,\"planTotalReduceValue\":6247.00,\"actualMonthTargetValue\":-576.00,\n\"actualTotalReduceValue\":4434.00,\"monthIncrementalValue\":-6480.00,\"totalIncrementalValue\":49882.50,\"monthReward\":-90849.60,\"totalReward\":699352.65,\"createDate\":\"2019-05-16T07:59:11.000+0000\",\n\"itemDept\":null,\"itemEmployee\":null,\"reportItemInstance\":null}]}",
           "type": "json"
         }
       ]
@@ -54,7 +54,7 @@
     "type": "Delete",
     "url": "/deleteAllBalanceTargetValue",
     "title": "删除所有上月余额与目标降低值表信息",
-    "name": "deleteAllBalanceTargetValue__________________",
+    "name": "deleteAll__________________",
     "group": "BalanceTargetValue",
     "parameter": {
       "examples": [
@@ -84,10 +84,43 @@
     ]
   },
   {
+    "type": "Delete",
+    "url": "/deleteBalanceTargetValue",
+    "title": "按年月删除上月余额与目标降低值表信息",
+    "name": "deleteByDate___________________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "Delete: /deleteBalanceTargetValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"清除数据成功\",\"data\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/deleteBalanceTargetValue"
+      }
+    ]
+  },
+  {
     "type": "GET",
     "url": "/queryAllBalanceTargetValue",
     "title": "查询所有上月余额与目标降低值",
-    "name": "queryAllBalanceTargetValue_______________",
+    "name": "queryAll_______________",
     "group": "BalanceTargetValue",
     "parameter": {
       "examples": [
@@ -102,7 +135,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[\n {\"id\":122,\n \"itemId\":1,\n \"year\":\"2019\",\n \"month\":\"3\",\n \"lastMonthBalance\":2090.00,\n \"planMonthTargetValue\":33.00,\n \"planTotalReduceValue\":166.00,\n \"actualMonthTargetValue\":-979.00,\n \"actualTotalReduceValue\":1101.00,\n \"monthIncrementalValue\":-11013.75,\n \"totalIncrementalValue\":12386.25,\n \"monthReward\":-154412.78,\n \"totalReward\":173655.23,\n \"createDate\":\"2019-05-12T08:01:22.000+0000\",\n \"assetOrDebt\":null,\n \"itemDept\":null,\n \"itemEmployee\":null,\n \"reportItemInstance\":null}\n ]}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[\n {\"id\":122,\n \"itemId\":1,\n \"year\":\"2018\",\n \"month\":\"03\",\n \"lastMonthBalance\":2090.00,\n \"planMonthTargetValue\":33.00,\n \"planTotalReduceValue\":166.00,\n \"actualMonthTargetValue\":-979.00,\n \"actualTotalReduceValue\":1101.00,\n \"monthIncrementalValue\":-11013.75,\n \"totalIncrementalValue\":12386.25,\n \"monthReward\":-154412.78,\n \"totalReward\":173655.23,\n \"createDate\":\"2019-05-12T08:01:22.000+0000\",\n \"assetOrDebt\":null,\n \"itemDept\":null,\n \"itemEmployee\":null,\n \"reportItemInstance\":null}\n ]}",
           "type": "json"
         }
       ]
@@ -118,9 +151,9 @@
   },
   {
     "type": "GET",
-    "url": "/queryBalanceTargetValue?year=&month=",
+    "url": "/queryBalanceTargetValue",
     "title": "根据年月查询上月余额与目标降低值表",
-    "name": "queryBalanceTargetValue__________________",
+    "name": "queryByDate__________________",
     "group": "BalanceTargetValue",
     "parameter": {
       "fields": {
@@ -137,7 +170,7 @@
             "type": "String",
             "optional": false,
             "field": "month",
-            "description": "<p>指定上月余额与目标降低值表month值</p>"
+            "description": "<p>指定上月余额与目标降低值表reportId值</p>"
           }
         ]
       },
@@ -153,7 +186,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[\n {\"id\":122,\n \"itemId\":1,\n \"year\":\"2019\",\n \"month\":\"3\",\n \"lastMonthBalance\":2090.00,\n \"planMonthTargetValue\":33.00,\n \"planTotalReduceValue\":166.00,\n \"actualMonthTargetValue\":-979.00,\n \"actualTotalReduceValue\":1101.00,\n \"monthIncrementalValue\":-11013.75,\n \"totalIncrementalValue\":12386.25,\n \"monthReward\":-154412.78,\n \"totalReward\":173655.23,\n \"createDate\":\"2019-05-12T08:01:22.000+0000\",\n \"assetOrDebt\":null,\n \"itemDept\":null,\n \"itemEmployee\":null,\n \"reportItemInstance\":null}\n ]}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[\n {\"id\":122,\n \"itemId\":1,\n \"year\":\"2018\",\n \"month\":\"03\",\n \"lastMonthBalance\":2090.00,\n \"planMonthTargetValue\":33.00,\n \"planTotalReduceValue\":166.00,\n \"actualMonthTargetValue\":-979.00,\n \"actualTotalReduceValue\":1101.00,\n \"monthIncrementalValue\":-11013.75,\n \"totalIncrementalValue\":12386.25,\n \"monthReward\":-154412.78,\n \"totalReward\":173655.23,\n \"createDate\":\"2019-05-12T08:01:22.000+0000\",\n \"assetOrDebt\":null,\n \"itemDept\":null,\n \"itemEmployee\":null,\n \"reportItemInstance\":null}\n ]}",
           "type": "json"
         }
       ]
@@ -163,16 +196,16 @@
     "groupTitle": "BalanceTargetValue",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/queryBalanceTargetValue?year=&month="
+        "url": "http://oscm.xmiss.top/oscm_new/queryBalanceTargetValue"
       }
     ]
   },
   {
     "type": "GET",
-    "url": "/queryFoundCost",
+    "url": "/queryCompletion",
     "title": "查询流动资金占用成本管控目标完成情况分析",
-    "name": "queryFoundCost_____________________",
-    "group": "FoundCost",
+    "name": "queryCompletion_____________________",
+    "group": "Completion",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -195,7 +228,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /queryFoundCost?year= month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /queryCompletion?year= &month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -204,68 +237,17 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询订单成功\",\"data\":{\n\"totalDifference\":[935.00],\n\"foundCosts\":[\n{\"id\":null,\"reportItemId\":1,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":null,\"planMonthTargetValue\":33.00,\"planTotalReduceValue\":166.00,\n\"actualMonthTargetValue\":1091.00,\"actualTotalReduceValue\":1101.00,\"monthIncrementalValue\":null,\"totalIncrementalValue\":null,\"monthReward\":null,\"totalReward\":null,\"createDate\":null,\n\"itemDept\":[\n{\"id\":null,\"reportItemId\":1,\"isCharge\":1,\"deptCode\":\"C500\",\n\"department\":\n{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":null,\"reportItemId\":1,\"isCharge\":0,\"deptCode\":\"C500\",\n\"department\":\n{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}}],\"itemEmployee\":null,\n\"reportItemInstance\":\n{\"id\":null,\"reportItemId\":null,\"reportCode\":null,\"reportName\":null,\"objectType\":null,\"objectId\":null,\"itemCode\":null,\"itemName\":\"货币资金\",\"orderNum\":null,\"year\":null,\"month\":null,\"beginValue\":null,\"value\":null,\"endValue\":null,\"modifyTime\":null}}]}\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询流动资金占用成本管控目标完成情况成功\",\"data\":{\n\"totalDifference\":[935.00],\n\"foundCosts\":[\n{\"id\":null,\"reportItemId\":1,\"year\":\"2018\",\"month\":\"03\",\"lastMonthBalance\":null,\"planMonthTargetValue\":33.00,\"planTotalReduceValue\":166.00,\n\"actualMonthTargetValue\":1091.00,\"actualTotalReduceValue\":1101.00,\"monthIncrementalValue\":null,\"totalIncrementalValue\":null,\"monthReward\":null,\"totalReward\":null,\"createDate\":null,\n\"itemDept\":[\n{\"id\":null,\"reportItemId\":1,\"isCharge\":1,\"deptCode\":\"C500\",\n\"department\":\n{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":null,\"reportItemId\":1,\"isCharge\":0,\"deptCode\":\"C500\",\n\"department\":\n{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}}],\"itemEmployee\":null,\n\"reportItemInstance\":\n{\"id\":null,\"reportItemId\":null,\"reportCode\":null,\"reportName\":null,\"objectType\":null,\"objectId\":null,\"itemCode\":null,\"itemName\":\"货币资金\",\"orderNum\":null,\"year\":null,\"month\":null,\"beginValue\":null,\"value\":null,\"endValue\":null,\"modifyTime\":null}}]}\n}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/FoundCostController.java",
-    "groupTitle": "FoundCost",
+    "filename": "java/edu/jmu/oscm/controller/CompletionController.java",
+    "groupTitle": "Completion",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/queryFoundCost"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/queryFoundIncrementalValue",
-    "title": "查询流动资金占用成本管控增创价值表",
-    "name": "queryFoundIncrementalValue__________________",
-    "group": "FoundIncrementalValue",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>指定流动资金占用成本管控增创价值表year值</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>指定流动资金占用成本管控增创价值表month值</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /queryFoundIncrementalValue?year= month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询订单成功\",\"data\":[\n{\"id\":null,\"reportItemId\":1,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":null,\"planMonthTargetValue\":null,\"planTotalReduceValue\":null,\"actualMonthTargetValue\":1091.00,\n\"actualTotalReduceValue\":1101.00,\"monthIncrementalValue\":12273.75,\"totalIncrementalValue\":12386.25,\"monthReward\":172077.98,\"totalReward\":173655.23,\"createDate\":null,\n\"itemDept\":[\n{\"id\":null,\"reportItemId\":1,\"isCharge\":1,\"deptCode\":\"C500\",\"department\":{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":null,\"reportItemId\":1,\"isCharge\":0,\"deptCode\":\"C500\",\"department\":{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}}],\n\"itemEmployee\":null,\n\"reportItemInstance\":\n{\"id\":null,\"reportItemId\":null,\"reportCode\":null,\"reportName\":null,\"objectType\":null,\"objectId\":null,\"itemCode\":null,\"itemName\":\"货币资金\",\"orderNum\":null,\"year\":null,\"month\":null,\"beginValue\":null,\"value\":null,\"endValue\":null,\"modifyTime\":null}}]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/FoundIncrementalValueController.java",
-    "groupTitle": "FoundIncrementalValue",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/queryFoundIncrementalValue"
+        "url": "http://oscm.xmiss.top/oscm_new/queryCompletion"
       }
     ]
   },
@@ -966,6 +948,57 @@
     ]
   },
   {
+    "type": "GET",
+    "url": "/queryIncrementalValue",
+    "title": "查询流动资金占用成本管控增创价值表",
+    "name": "queryIncrementalValue__________________",
+    "group": "IncrementalValue",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定流动资金占用成本管控增创价值表year值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定流动资金占用成本管控增创价值表month值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryIncrementalValue?year= &month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询流动资金占用成本管控增创价值成功\",\"data\":[\n{\"id\":null,\"reportItemId\":1,\"year\":\"2018\",\"month\":\"03\",\"lastMonthBalance\":null,\"planMonthTargetValue\":null,\"planTotalReduceValue\":null,\"actualMonthTargetValue\":1091.00,\n\"actualTotalReduceValue\":1101.00,\"monthIncrementalValue\":12273.75,\"totalIncrementalValue\":12386.25,\"monthReward\":172077.98,\"totalReward\":173655.23,\"createDate\":null,\n\"itemDept\":[\n{\"id\":null,\"reportItemId\":1,\"isCharge\":1,\"deptCode\":\"C500\",\"department\":{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":null,\"reportItemId\":1,\"isCharge\":0,\"deptCode\":\"C500\",\"department\":{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}}],\n\"itemEmployee\":null,\n\"reportItemInstance\":\n{\"id\":null,\"reportItemId\":null,\"reportCode\":null,\"reportName\":null,\"objectType\":null,\"objectId\":null,\"itemCode\":null,\"itemName\":\"货币资金\",\"orderNum\":null,\"year\":null,\"month\":null,\"beginValue\":null,\"value\":null,\"endValue\":null,\"modifyTime\":null}}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncrementalValueController.java",
+    "groupTitle": "IncrementalValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryIncrementalValue"
+      }
+    ]
+  },
+  {
     "type": "DELETE",
     "url": "/monthReports",
     "title": "删除所有流动资金成本管控情况月度总结情况报告表信息",
@@ -1428,50 +1461,6 @@
   },
   {
     "type": "GET",
-    "url": "/selectProportionById?id=",
-    "title": "查询指定项目占比",
-    "name": "selectProportionById_________",
-    "group": "Proportion",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "id",
-            "description": "<p>指定项目占比表记录id</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /selectProportionById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
-      }
-    ]
-  },
-  {
-    "type": "GET",
     "url": "/selectProportionByYearAndMonth?year=year&&month=month",
     "title": "查询指定项目占比",
     "name": "selectProportionById_________",
@@ -1518,6 +1507,50 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/selectProportionByYearAndMonth?year=year&&month=month"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/selectProportionById?id=",
+    "title": "查询指定项目占比",
+    "name": "selectProportionById_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目占比表记录id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /selectProportionById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
       }
     ]
   },
@@ -2103,7 +2136,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /queryResponsibilityIndicator？year= month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /queryResponsibilityIndicator？year= &month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -2112,7 +2145,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询订单成功\",\"data\":[\n{\"id\":null,\"reportItemId\":1,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":20.00,\"planMonthTargetValue\":33.00,\"planTotalReduceValue\":null,\n\"actualMonthTargetValue\":null,\"actualTotalReduceValue\":null,\"monthIncrementalValue\":null,\"totalIncrementalValue\":null,\"monthReward\":null,\n\"totalReward\":null,\"createDate\":null,\n\"itemDept\":[\n{\"id\":null,\"reportItemId\":1,\"isCharge\":1,\"deptCode\":\"C500\",\"\ndepartment\":\n{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":null,\"reportItemId\":1,\"isCharge\":0,\"deptCode\":\"C500\",\n\"department\":\n{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}}\n],\n\"itemEmployee\":[\n{\"id\":1,\"reportItemId\":1,\"isCharge\":0,\"employeeId\":449,\n\"employee\":\n{\"id\":449,\"employeeCode\":null,\"simpleCode\":null,\"employeeName\":\"-*-\",\"employeeType\":null,\"deptCode\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":5,\"reportItemId\":1,\"isCharge\":1,\"employeeId\":453,\n\"employee\":\n{\"id\":453,\"employeeCode\":null,\"simpleCode\":null,\"employeeName\":\"郭*芸\",\"employeeType\":null,\"deptCode\":null,\"state\":null,\"modifyTime\":null}}\n],\n\"reportItemInstance\":\n{\"id\":null,\"reportItemId\":null,\"reportCode\":null,\"reportName\":null,\"objectType\":null,\"objectId\":null,\"itemCode\":null,\"itemName\":\"货币资金\",\"orderNum\":null,\"year\":null,\"month\":null,\"beginValue\":null,\"value\":null,\"endValue\":null,\"modifyTime\":null}}]\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询流动资金占用成本管控责任指标成功\",\"data\":[\n{\"id\":null,\"reportItemId\":1,\"year\":\"2018\",\"month\":\"03\",\"lastMonthBalance\":20.00,\"planMonthTargetValue\":33.00,\"planTotalReduceValue\":null,\n\"actualMonthTargetValue\":null,\"actualTotalReduceValue\":null,\"monthIncrementalValue\":null,\"totalIncrementalValue\":null,\"monthReward\":null,\n\"totalReward\":null,\"createDate\":null,\n\"itemDept\":[\n{\"id\":null,\"reportItemId\":1,\"isCharge\":1,\"deptCode\":\"C500\",\"\ndepartment\":\n{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":null,\"reportItemId\":1,\"isCharge\":0,\"deptCode\":\"C500\",\n\"department\":\n{\"id\":null,\"deptCode\":\"C500\",\"deptName\":\"战略客户部公共\",\"parentDeptCode\":null,\"level\":null,\"state\":null,\"modifyTime\":null}}\n],\n\"itemEmployee\":[\n{\"id\":1,\"reportItemId\":1,\"isCharge\":0,\"employeeId\":449,\n\"employee\":\n{\"id\":449,\"employeeCode\":null,\"simpleCode\":null,\"employeeName\":\"-*-\",\"employeeType\":null,\"deptCode\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":5,\"reportItemId\":1,\"isCharge\":1,\"employeeId\":453,\n\"employee\":\n{\"id\":453,\"employeeCode\":null,\"simpleCode\":null,\"employeeName\":\"郭*芸\",\"employeeType\":null,\"deptCode\":null,\"state\":null,\"modifyTime\":null}}\n],\n\"reportItemInstance\":\n{\"id\":null,\"reportItemId\":null,\"reportCode\":null,\"reportName\":null,\"objectType\":null,\"objectId\":null,\"itemCode\":null,\"itemName\":\"货币资金\",\"orderNum\":null,\"year\":null,\"month\":null,\"beginValue\":null,\"value\":null,\"endValue\":null,\"modifyTime\":null}}]\n}",
           "type": "json"
         }
       ]
@@ -2154,7 +2187,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /queryTargetMatching?year= month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /queryTargetMatching?year= &month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -2163,7 +2196,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询订单成功\",\"data\":[\n{\"id\":null,\"reportItemId\":1,\"year\":\"2019\",\"month\":\"3\",\"lastMonthBalance\":20.00,\"planMonthTargetValue\":33.00,\"planTotalReduceValue\":null,\"actualMonthTargetValue\":null,\n\"actualTotalReduceValue\":null,\"monthIncrementalValue\":null,\"totalIncrementalValue\":null,\"monthReward\":null,\"totalReward\":null,\"createDate\":null,\"itemDept\":null,\n\"itemEmployee\":[\n{\"id\":1,\"reportItemId\":1,\"isCharge\":0,\"employeeId\":449,\"employee\":\n{\"id\":449,\"employeeCode\":null,\"simpleCode\":null,\"employeeName\":\"-*-\",\"employeeType\":null,\"deptCode\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":5,\"reportItemId\":1,\"isCharge\":1,\"employeeId\":453,\"employee\":\n{\"id\":453,\"employeeCode\":null,\"simpleCode\":null,\"employeeName\":\"郭*芸\",\"employeeType\":null,\"deptCode\":null,\"state\":null,\"modifyTime\":null}}],\n\"reportItemInstance\":\n{\"id\":null,\"reportItemId\":null,\"reportCode\":null,\"reportName\":null,\"objectType\":null,\"objectId\":null,\"itemCode\":null,\"itemName\":\"货币资金\",\"orderNum\":null,\"year\":null,\"month\":null,\"beginValue\":null,\"value\":null,\"endValue\":null,\"modifyTime\":null}}]\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询流动资金占用成本管控责任指标成功\",\"data\":[\n{\"id\":null,\"reportItemId\":1,\"year\":\"2018\",\"month\":\"03\",\"lastMonthBalance\":20.00,\"planMonthTargetValue\":33.00,\"planTotalReduceValue\":null,\"actualMonthTargetValue\":null,\n\"actualTotalReduceValue\":null,\"monthIncrementalValue\":null,\"totalIncrementalValue\":null,\"monthReward\":null,\"totalReward\":null,\"createDate\":null,\"itemDept\":null,\n\"itemEmployee\":[\n{\"id\":1,\"reportItemId\":1,\"isCharge\":0,\"employeeId\":449,\"employee\":\n{\"id\":449,\"employeeCode\":null,\"simpleCode\":null,\"employeeName\":\"-*-\",\"employeeType\":null,\"deptCode\":null,\"state\":null,\"modifyTime\":null}},\n{\"id\":5,\"reportItemId\":1,\"isCharge\":1,\"employeeId\":453,\"employee\":\n{\"id\":453,\"employeeCode\":null,\"simpleCode\":null,\"employeeName\":\"郭*芸\",\"employeeType\":null,\"deptCode\":null,\"state\":null,\"modifyTime\":null}}],\n\"reportItemInstance\":\n{\"id\":null,\"reportItemId\":null,\"reportCode\":null,\"reportName\":null,\"objectType\":null,\"objectId\":null,\"itemCode\":null,\"itemName\":\"货币资金\",\"orderNum\":null,\"year\":null,\"month\":null,\"beginValue\":null,\"value\":null,\"endValue\":null,\"modifyTime\":null}}]\n}",
           "type": "json"
         }
       ]

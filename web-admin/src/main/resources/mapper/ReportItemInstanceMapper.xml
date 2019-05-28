@@ -7,10 +7,12 @@
         <result column="REPORT_ITEM_ID" property="reportItemId"/>
         <result column="REPORT_CODE" property="reportCode"/>
         <result column="REPORT_NAME" property="reportName"/>
-        <result column="OBJECT_TYPE" property="objectType"/>
-        <result column="OBJECT_ID" property="objectId"/>
+        <result column="DEPT_CODE" property="deptCode"/>
+        <result column="DEPT_NAME" property="deptName"/>
         <result column="ITEM_CODE" property="itemCode"/>
         <result column="ITEM_NAME" property="itemName"/>
+        <result column="LEVEL" property="level"/>
+        <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
         <result column="ORDER_NUM" property="orderNum"/>
         <result column="YEAR" property="year"/>
         <result column="MONTH" property="month"/>
