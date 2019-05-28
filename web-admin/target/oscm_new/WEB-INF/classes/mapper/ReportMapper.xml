@@ -31,4 +31,8 @@
         SELECT * FROM report WHERE REPORT_CODE=#{ReportCode}
     </select>
 
+    <select id="getReportByReportId" parameterType="int" resultMap="ReportResultMap">
+        SELECT * FROM report WHERE ID=#{ReportId}
+    </select>
+
 </mapper>

@@ -9,5 +9,19 @@ import java.util.List;
 @Mapper
 public interface ItemDeptMapper {
 
-    List<ItemDept> selectItemDept(BigInteger reportItemId);
+    /**
+     * @
+     * @description 获取全部部门
+     * @parament itemId
+     * @return 返回全部部门
+     */
+    List<ItemDept> selectItemDept(BigInteger itemId);
+
+    /**
+     * @
+     * @description 获区责任部门
+     * @parament itemId
+     * @return 责任部门
+     */
+    List<ItemDept> getResponsibleItemDept(BigInteger itemId);
 }

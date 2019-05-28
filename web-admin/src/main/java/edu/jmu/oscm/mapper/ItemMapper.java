@@ -4,6 +4,7 @@ import edu.jmu.oscm.model.Item;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public interface ItemMapper {
      * @param itemId
      * @return
      */
-    Item getItemByItemId(@Param("itemId") int itemId);
+    Item getItemByItemId(@Param("itemId") BigInteger itemId);
 
     /**
      * 清空item表

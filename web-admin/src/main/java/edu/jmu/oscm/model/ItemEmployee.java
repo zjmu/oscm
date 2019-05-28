@@ -7,7 +7,7 @@ import java.math.BigInteger;
 @Data
 public class ItemEmployee {
     private Integer id;
-    private BigInteger reportItemId;
+    private BigInteger itemId;
     private Integer isCharge;
     private BigInteger employeeId;
     private Employee employee;
@@ -36,12 +36,12 @@ public class ItemEmployee {
         this.id = id;
     }
 
-    public BigInteger getReportItemId() {
-        return reportItemId;
+    public BigInteger getItemId() {
+        return itemId;
     }
 
-    public void setReportItemId(BigInteger reportItemId) {
-        this.reportItemId = reportItemId;
+    public void setItemId(BigInteger itemId) {
+        this.itemId = itemId;
     }
 
     public Integer getIsCharge() {

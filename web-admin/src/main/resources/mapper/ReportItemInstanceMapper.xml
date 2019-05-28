@@ -32,7 +32,6 @@
         SELECT * FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}
     </select>
 
-
     <select id="getReportItemInstance" resultMap="ReportItemInstanceMapper">
         SELECT * FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}
          and YEAR=#{year} and MONTH=#{month}

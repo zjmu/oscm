@@ -26,44 +26,13 @@ public class BalanceTargetValueController {
     private BalanceTargetValueService balanceTargetValueService;
 
     /**
-     * 批量插入上月余额与目标降低值表
-     * @api {Post} /createMoreBalanceTargetValue 批量插入上月余额与目标降低值表信息
-     * @apiName createMoreBalanceTargetValue 批量插入上月余额与目标降低值表信息
+     * 按年月删除上月余额与目标降低值表
+     *
+     * @api {Delete} /deleteBalanceTargetValue 按年月删除上月余额与目标降低值表信息
+     * @apiName deleteByDate  按年月删除上月余额与目标降低值表信息
      * @apiGroup BalanceTargetValue
      * @apiParamExample {json} Request_Example:
-     *[
-     * {
-     *  "reportItemId":2,
-     *  "year":2019,
-     *  "month":3,
-     *  "lastMonthBalance":45,
-     *  "planMonthTargetValue":65,
-     *  "planTotalReduceValue":85,
-     *  "actualMonthTargetValue":98,
-     *  "actualTotalReduceValue":98,
-     *  "monthIncrementalValue":78,
-     *  "totalIncrementalValue":78,
-     *  "monthReward":25,
-     *  "totalReward":12,
-     *  "date":"2019-05-06"
-     *},
-     *{
-     *  "reportItemId":3,
-     *  "year":2019,
-     *  "month":5,
-     *  "lastMonthBalance":845,
-     *  "planMonthTargetValue":165,
-     *  "planTotalReduceValue":85,
-     *  "actualMonthTargetValue":988,
-     *  "actualTotalReduceValue":98,
-     *  "monthIncrementalValue":78,
-     *  "totalIncrementalValue":78,
-     *  "monthReward":25,
-     *  "totalReward":12,
-     *  "date":"2019-05-06"
-     *}
-     * ]
-     * POST: /createMoreBalanceTargetValue
+     * Delete: /deleteBalanceTargetValue
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -71,13 +40,13 @@ public class BalanceTargetValueController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"批量增加记录成功","data":true}
+     * {"code":0,"message":"清除数据成功","data":true}
      */
-    @PostMapping("/createMoreBalanceTargetValue")
-    public BasicResponse<Boolean> createMore(@RequestBody List<BalanceTargetValue> balanceTargetValues) {
+    @DeleteMapping("/deleteBalanceTargetValue")
+    public BasicResponse<Boolean> deleteByDate(@RequestParam(value = "year") String year,@RequestParam(value = "month") String month) {
         return BusinessWrapper.wrap(response -> {
-            Boolean isSuccess = balanceTargetValueMapper.insertMore(balanceTargetValues);
-            ResponseUtil.set(response, 0, "批量增加记录成功", isSuccess);
+            Boolean isSuccess = balanceTargetValueMapper.deleteByDate(year,month);
+            ResponseUtil.set(response, 0, "清空数据成功", isSuccess);
         }, logger);
     }
 
@@ -85,7 +54,7 @@ public class BalanceTargetValueController {
      * 删除所有上月余额与目标降低值表
      *
      * @api {Delete} /deleteAllBalanceTargetValue 删除所有上月余额与目标降低值表信息
-     * @apiName deleteAllBalanceTargetValue  删除所有上月余额与目标降低值表信息
+     * @apiName deleteAll  删除所有上月余额与目标降低值表信息
      * @apiGroup BalanceTargetValue
      * @apiParamExample {json} Request_Example:
      * Delete: /deleteAllBalanceTargetValue
@@ -107,42 +76,12 @@ public class BalanceTargetValueController {
     }
 
     /**
-     * 查询所有上月余额与目标降低值表
-     * @api {GET} /queryAllBalanceTargetValue 查询所有上月余额与目标降低值
-     * @apiName queryAllBalanceTargetValue 查询所有上月余额与目标降低值
-     * @apiGroup BalanceTargetValue
-     * @apiParamExample {json} Request_Example:
-     * GET: /queryAllBalanceTargetValue
-     * <p>
-     * Request Header 如下
-     * Content-Type:application/json;charset=utf-8
-     * <p>
-     * @apiSuccessExample {json} Success-Response:
-     * HTTP/1.1 200 OK
-     *{"code":0,"message":"查询数据成功","data":[
-     * {"id":11,"reportItemId":2,"year":"2019","month":"5","lastMonthBalance":45.0000,"planMonthTargetValue":65.0000,
-     * "planTotalReduceValue":85.0000,"actualMonthTargetValue":7500.0000,"actualTotalReduceValue":98.0000,"monthIncrementalValue":78.0000,
-     * "totalIncrementalValue":99999.0000,"monthReward":25.0000,"totalReward":12.0000,"date":"2019-05-06 00:00:00.0"},
-     * {"id":12,"reportItemId":3,"year":"2019","month":"4","lastMonthBalance":405.0000,"planMonthTargetValue":605.0000,
-     * "planTotalReduceValue":85.0000,"actualMonthTargetValue":7500.0000,"actualTotalReduceValue":98.0000,"monthIncrementalValue":708.0000,
-     * "totalIncrementalValue":999.0000,"monthReward":25.0000,"totalReward":12.0000,"date":"2019-05-06 00:00:00.0"}]
-     * }
-     * */
-    @GetMapping("/queryAllBalanceTargetValue")
-    public BasicResponse<List<BalanceTargetValue>> queryAll() {
-        return BusinessWrapper.wrap(response -> {
-            List<BalanceTargetValue> result = balanceTargetValueMapper.selectAll();
-            ResponseUtil.set(response, 0, "查询数据成功", result);
-        }, logger);
-    }
-
-    /**
      * 根据年月查询上月余额与目标降低值表
-     * @api {GET} /queryBalanceTargetValue?year=&month= 根据年月查询上月余额与目标降低值表
-     * @apiName queryBalanceTargetValue 根据年月查询上月余额与目标降低值表
+     * @api {GET} /queryBalanceTargetValue 根据年月查询上月余额与目标降低值表
+     * @apiName queryByDate 根据年月查询上月余额与目标降低值表
      * @apiGroup BalanceTargetValue
      * @apiParam {String} year 指定上月余额与目标降低值表year值
-     * @apiParam {String} month 指定上月余额与目标降低值表month值
+     * @apiParam {String} month 指定上月余额与目标降低值表reportId值
      * @apiParamExample {json} Request_Example:
      * GET: /queryBalanceTargetValue?year= & month=
      * <p>
@@ -151,10 +90,26 @@ public class BalanceTargetValueController {
      * <p>
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
-     *{"code":0,"message":"查询数据成功","data":[{"id":11,"reportItemId":2,"year":"2019","month":"5","lastMonthBalance":45.0000,"planMonthTargetValue":65.0000,
-     * "planTotalReduceValue":85.0000,"actualMonthTargetValue":7500.0000,"actualTotalReduceValue":98.0000,"monthIncrementalValue":78.0000,
-     * "totalIncrementalValue":99999.0000,"monthReward":25.0000,"totalReward":12.0000,"date":"2019-05-06 00:00:00.0"}]
-     * }
+     *{"code":0,"message":"查询数据成功","data":[
+     *  {"id":122,
+     *  "itemId":1,
+     *  "year":"2018",
+     *  "month":"03",
+     *  "lastMonthBalance":2090.00,
+     *  "planMonthTargetValue":33.00,
+     *  "planTotalReduceValue":166.00,
+     *  "actualMonthTargetValue":-979.00,
+     *  "actualTotalReduceValue":1101.00,
+     *  "monthIncrementalValue":-11013.75,
+     *  "totalIncrementalValue":12386.25,
+     *  "monthReward":-154412.78,
+     *  "totalReward":173655.23,
+     *  "createDate":"2019-05-12T08:01:22.000+0000",
+     *  "assetOrDebt":null,
+     *  "itemDept":null,
+     *  "itemEmployee":null,
+     *  "reportItemInstance":null}
+     *  ]}
      * */
     @GetMapping("/queryBalanceTargetValue")
     public BasicResponse<List<BalanceTargetValue>> queryByDate(@RequestParam(value = "year") String year,@RequestParam(value = "month") String month) {
@@ -165,14 +120,57 @@ public class BalanceTargetValueController {
     }
 
     /**
+     * 查询所有上月余额与目标降低值表
+     * @api {GET} /queryAllBalanceTargetValue 查询所有上月余额与目标降低值
+     * @apiName queryAll 查询所有上月余额与目标降低值
+     * @apiGroup BalanceTargetValue
+     * @apiParamExample {json} Request_Example:
+     * GET: /queryAllBalanceTargetValue
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     *{"code":0,"message":"查询数据成功","data":[
+     *  {"id":122,
+     *  "itemId":1,
+     *  "year":"2018",
+     *  "month":"03",
+     *  "lastMonthBalance":2090.00,
+     *  "planMonthTargetValue":33.00,
+     *  "planTotalReduceValue":166.00,
+     *  "actualMonthTargetValue":-979.00,
+     *  "actualTotalReduceValue":1101.00,
+     *  "monthIncrementalValue":-11013.75,
+     *  "totalIncrementalValue":12386.25,
+     *  "monthReward":-154412.78,
+     *  "totalReward":173655.23,
+     *  "createDate":"2019-05-12T08:01:22.000+0000",
+     *  "assetOrDebt":null,
+     *  "itemDept":null,
+     *  "itemEmployee":null,
+     *  "reportItemInstance":null}
+     *  ]}
+     * */
+    @GetMapping("/queryAllBalanceTargetValue")
+    public BasicResponse<List<BalanceTargetValue>> queryAll() {
+        return BusinessWrapper.wrap(response -> {
+            List<BalanceTargetValue> result = balanceTargetValueMapper.selectAll();
+            ResponseUtil.set(response, 0, "查询数据成功", result);
+        }, logger);
+    }
+
+     /**
      * 计算上月余额与目标降低值表
      * @api {GET} /calculateBalanceTargetValue 计算上月余额与目标降低值表
      * @apiName calculateBalanceTargetValue 计算上月余额与目标降低值表
      * @apiGroup BalanceTargetValue
      * @apiParam {String} year 指定计算上月余额与目标降低值表year值
      * @apiParam {String} month 指定计算上月余额与目标降低值表month值
+     * @apiParam {String} month 指定上月余额与目标降低值表month值
      * @apiParamExample {json} Request_Example:
-     * GET: /calculateBalanceTargetValue?year= month=
+     * GET: /calculateBalanceTargetValue?year= &month= &reportId=
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -180,7 +178,7 @@ public class BalanceTargetValueController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      *{"code":0,"message":"执行计算","data":[
-     * {"id":289,"reportItemId":1,"year":"2019","month":"3","lastMonthBalance":2090.00,"planMonthTargetValue":33.00,"planTotalReduceValue":166.00,"actualMonthTargetValue":-979.00,"
+     * {"id":289,"reportItemId":1,"year":"2018","month":"03","lastMonthBalance":2090.00,"planMonthTargetValue":33.00,"planTotalReduceValue":166.00,"actualMonthTargetValue":-979.00,"
      * actualTotalReduceValue":1101.00,"monthIncrementalValue":-11013.75,"totalIncrementalValue":12386.25,"monthReward":-154412.78,"totalReward":173655.23,"createDate":"2019-05-16T07:59:11.000+0000",
      * "itemDept":null,"itemEmployee":null,"reportItemInstance":null},
      * {"id":553,"reportItemId":2,"year":"2019","month":"3","lastMonthBalance":50000.00,"planMonthTargetValue":83.33,"planTotalReduceValue":177.67,"actualMonthTargetValue":-47778.00,
@@ -194,10 +192,9 @@ public class BalanceTargetValueController {
      * "itemDept":null,"itemEmployee":null,"reportItemInstance":null}]}
      * */
     @GetMapping("/calculateBalanceTargetValue")
-    public BasicResponse<List<BalanceTargetValue>> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month) {
+    public BasicResponse<List<BalanceTargetValue>> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month,@RequestParam("reportId")BigInteger reportId) {
         return BusinessWrapper.wrap(response -> {
-            String message = balanceTargetValueService.calculate(year,month);
-            List<BalanceTargetValue> result = balanceTargetValueMapper.selectByDate("2019","3");
+            List<BalanceTargetValue> result= balanceTargetValueService.calculate(year,month,reportId);
             ResponseUtil.set(response, 0, "执行计算", result);
         }, logger);
     }

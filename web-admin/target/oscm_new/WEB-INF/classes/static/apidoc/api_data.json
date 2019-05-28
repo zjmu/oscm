@@ -51,39 +51,6 @@
     ]
   },
   {
-    "type": "Post",
-    "url": "/createMoreBalanceTargetValue",
-    "title": "批量插入上月余额与目标降低值表信息",
-    "name": "createMoreBalanceTargetValue__________________",
-    "group": "BalanceTargetValue",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "[\n{\n \"reportItemId\":2,\n \"year\":2019,\n \"month\":3,\n \"lastMonthBalance\":45,\n \"planMonthTargetValue\":65,\n \"planTotalReduceValue\":85,\n \"actualMonthTargetValue\":98,\n \"actualTotalReduceValue\":98,\n \"monthIncrementalValue\":78,\n \"totalIncrementalValue\":78,\n \"monthReward\":25,\n \"totalReward\":12,\n \"date\":\"2019-05-06\"\n},\n{\n \"reportItemId\":3,\n \"year\":2019,\n \"month\":5,\n \"lastMonthBalance\":845,\n \"planMonthTargetValue\":165,\n \"planTotalReduceValue\":85,\n \"actualMonthTargetValue\":988,\n \"actualTotalReduceValue\":98,\n \"monthIncrementalValue\":78,\n \"totalIncrementalValue\":78,\n \"monthReward\":25,\n \"totalReward\":12,\n \"date\":\"2019-05-06\"\n}\n]\nPOST: /createMoreBalanceTargetValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量增加记录成功\",\"data\":true}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
-    "groupTitle": "BalanceTargetValue",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/createMoreBalanceTargetValue"
-      }
-    ]
-  },
-  {
     "type": "Delete",
     "url": "/deleteAllBalanceTargetValue",
     "title": "删除所有上月余额与目标降低值表信息",
@@ -135,7 +102,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[\n{\"id\":11,\"reportItemId\":2,\"year\":\"2019\",\"month\":\"5\",\"lastMonthBalance\":45.0000,\"planMonthTargetValue\":65.0000,\n\"planTotalReduceValue\":85.0000,\"actualMonthTargetValue\":7500.0000,\"actualTotalReduceValue\":98.0000,\"monthIncrementalValue\":78.0000,\n\"totalIncrementalValue\":99999.0000,\"monthReward\":25.0000,\"totalReward\":12.0000,\"date\":\"2019-05-06 00:00:00.0\"},\n{\"id\":12,\"reportItemId\":3,\"year\":\"2019\",\"month\":\"4\",\"lastMonthBalance\":405.0000,\"planMonthTargetValue\":605.0000,\n\"planTotalReduceValue\":85.0000,\"actualMonthTargetValue\":7500.0000,\"actualTotalReduceValue\":98.0000,\"monthIncrementalValue\":708.0000,\n\"totalIncrementalValue\":999.0000,\"monthReward\":25.0000,\"totalReward\":12.0000,\"date\":\"2019-05-06 00:00:00.0\"}]\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[\n {\"id\":122,\n \"itemId\":1,\n \"year\":\"2019\",\n \"month\":\"3\",\n \"lastMonthBalance\":2090.00,\n \"planMonthTargetValue\":33.00,\n \"planTotalReduceValue\":166.00,\n \"actualMonthTargetValue\":-979.00,\n \"actualTotalReduceValue\":1101.00,\n \"monthIncrementalValue\":-11013.75,\n \"totalIncrementalValue\":12386.25,\n \"monthReward\":-154412.78,\n \"totalReward\":173655.23,\n \"createDate\":\"2019-05-12T08:01:22.000+0000\",\n \"assetOrDebt\":null,\n \"itemDept\":null,\n \"itemEmployee\":null,\n \"reportItemInstance\":null}\n ]}",
           "type": "json"
         }
       ]
@@ -186,7 +153,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[{\"id\":11,\"reportItemId\":2,\"year\":\"2019\",\"month\":\"5\",\"lastMonthBalance\":45.0000,\"planMonthTargetValue\":65.0000,\n\"planTotalReduceValue\":85.0000,\"actualMonthTargetValue\":7500.0000,\"actualTotalReduceValue\":98.0000,\"monthIncrementalValue\":78.0000,\n\"totalIncrementalValue\":99999.0000,\"monthReward\":25.0000,\"totalReward\":12.0000,\"date\":\"2019-05-06 00:00:00.0\"}]\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询数据成功\",\"data\":[\n {\"id\":122,\n \"itemId\":1,\n \"year\":\"2019\",\n \"month\":\"3\",\n \"lastMonthBalance\":2090.00,\n \"planMonthTargetValue\":33.00,\n \"planTotalReduceValue\":166.00,\n \"actualMonthTargetValue\":-979.00,\n \"actualTotalReduceValue\":1101.00,\n \"monthIncrementalValue\":-11013.75,\n \"totalIncrementalValue\":12386.25,\n \"monthReward\":-154412.78,\n \"totalReward\":173655.23,\n \"createDate\":\"2019-05-12T08:01:22.000+0000\",\n \"assetOrDebt\":null,\n \"itemDept\":null,\n \"itemEmployee\":null,\n \"reportItemInstance\":null}\n ]}",
           "type": "json"
         }
       ]
@@ -1461,6 +1428,50 @@
   },
   {
     "type": "GET",
+    "url": "/selectProportionById?id=",
+    "title": "查询指定项目占比",
+    "name": "selectProportionById_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目占比表记录id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /selectProportionById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
+      }
+    ]
+  },
+  {
+    "type": "GET",
     "url": "/selectProportionByYearAndMonth?year=year&&month=month",
     "title": "查询指定项目占比",
     "name": "selectProportionById_________",
@@ -1507,50 +1518,6 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/selectProportionByYearAndMonth?year=year&&month=month"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/selectProportionById?id=",
-    "title": "查询指定项目占比",
-    "name": "selectProportionById_________",
-    "group": "Proportion",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "id",
-            "description": "<p>指定项目占比表记录id</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /selectProportionById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
       }
     ]
   },
@@ -1943,18 +1910,8 @@
   {
     "type": "PUT",
     "url": "/reduceTarget_yearValue",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "title": "更改指定项目年降低目标设置",
-    "name": "updateReduceTarget_yearValue______________",
-=======
-    "title": "更改指定项目年降低目标值",
-    "name": "updateReduceTarget_yearValue_____________",
->>>>>>> 05333dca9853fe09fa2c0a43be84271519a4c060
-=======
     "title": "更改指定项目年降低目标值设置",
     "name": "updateReduceTarget_yearValue_______________",
->>>>>>> fdd238e87e2eaa6f970c7cbc7d3e827ef56bdd99
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -2004,16 +1961,8 @@
   {
     "type": "PUT",
     "url": "/reduceTargets_yearValue",
-<<<<<<< HEAD
-    "title": "批量更改项目年降低目标成功",
-=======
     "title": "批量更改项目年降低目标值",
-<<<<<<< HEAD
->>>>>>> 05333dca9853fe09fa2c0a43be84271519a4c060
-    "name": "updateReduceTargets_yearValue______________",
-=======
     "name": "updateReduceTargets_yearValue_____________",
->>>>>>> fdd238e87e2eaa6f970c7cbc7d3e827ef56bdd99
     "group": "ReduceTarget",
     "parameter": {
       "fields": {

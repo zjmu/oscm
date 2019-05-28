@@ -4,6 +4,7 @@ edu\jmu\oscm\OscmApplication.class
 edu\jmu\oscm\controller\FoundCostController.class
 edu\jmu\oscm\model\Report.class
 edu\jmu\oscm\model\ItemEmployee.class
+edu\jmu\oscm\mapper\ItemMapper.class
 edu\jmu\oscm\mapper\ImprovementPlanMapper.class
 edu\jmu\oscm\mapper\ReportItemInstanceMapper.class
 edu\jmu\oscm\controller\BalanceTargetValueController.class

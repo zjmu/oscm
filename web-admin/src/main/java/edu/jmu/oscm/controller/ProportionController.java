@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -267,7 +268,7 @@ public class ProportionController {
 
             List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportId(year, month,reportId);
 
-            System.out.println(itemMapper.getItemByItemId(1001));
+            System.out.println(itemMapper.getItemByItemId(new BigInteger("1001")));
 
             //List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
 

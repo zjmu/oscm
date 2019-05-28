@@ -20,10 +20,18 @@ public class ReportItem {
     private int orderNum;
     private String state;
     private Date modifyTime;
-
     private Item item;
     private Report report;
-    private ReportItemInstance reportItemInstance;
+    private List<ReportItemInstance> reportItemInstances;
+    private ItemReduceTarget itemReduceTarget;
+
+    public ItemReduceTarget getItemReduceTarget() {
+        return itemReduceTarget;
+    }
+
+    public void setItemReduceTarget(ItemReduceTarget itemReduceTarget) {
+        this.itemReduceTarget = itemReduceTarget;
+    }
 
     public BigInteger getId() {
         return id;
@@ -89,11 +97,11 @@ public class ReportItem {
         this.report = report;
     }
 
-    public ReportItemInstance getReportItemInstance() {
-        return reportItemInstance;
+    public List<ReportItemInstance> getReportItemInstances() {
+        return reportItemInstances;
     }
 
-    public void setReportItemInstance(ReportItemInstance reportItemInstance) {
-        this.reportItemInstance = reportItemInstance;
+    public void setReportItemInstances(List<ReportItemInstance> reportItemInstances) {
+        this.reportItemInstances = reportItemInstances;
     }
 }

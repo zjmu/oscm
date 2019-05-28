@@ -20,12 +20,6 @@
         <result column="MODIFY_TIME" property="modifyTime"/>
     </resultMap>
 
-    <resultMap id="mapper" type="edu.jmu.oscm.model.ReportItemInstance">
-        <result column="ITEM_NAME" property="itemName"/>
-        <result column="REPORT_NAME" property="reportName"/>
-    </resultMap>
-
-
     <select id="getAllReportItemInstance" resultMap="ReportItemInstanceMapper">
         select * from report_item_instance
     </select>
@@ -34,13 +28,13 @@
         SELECT * FROM report_item_instance WHERE year = #{year} and month = #{month}
     </select>
 
-    <select id="getReportItemInstanceById" resultMap="ReportItemInstanceMapper">
-        SELECT * FROM report_item_instance WHERE ID = #{id}
+    <select id="getReportItemInstanceByReportItemId" resultMap="ReportItemInstanceMapper">
+        SELECT * FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}
     </select>
 
 
-    <select id="getReportItemInstanceByReportItemId" resultMap="mapper">
-        SELECT ITEM_NAME ,REPORT_NAME FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}
+    <select id="getReportItemInstance" resultMap="ReportItemInstanceMapper">
+        SELECT * FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}
          and YEAR=#{year} and MONTH=#{month}
     </select>
 

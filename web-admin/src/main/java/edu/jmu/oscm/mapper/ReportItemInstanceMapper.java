@@ -21,7 +21,7 @@ public interface ReportItemInstanceMapper {
      * 按年月查找记录
      * @return
      */
-    List<ReportItemInstance> getReportItemInstanceByYearAndMonth(String year,String month);
+    List<ReportItemInstance> getReportItemInstanceByYearAndMonth(@Param("year") String year,@Param("month") String month);
 
     /**
      * 按id查找记录
@@ -33,7 +33,7 @@ public interface ReportItemInstanceMapper {
      * 按条件关联查询项目名称
      * @return
      */
-    ReportItemInstance getReportItemInstance(@Param("reportItemId") BigInteger reportItemId,@Param("year")String year,@Param("month")String month);
+    List<ReportItemInstance> getReportItemInstance(@Param("reportItemId") BigInteger reportItemId,@Param("year")String year,@Param("month")String month);
 
 
 }

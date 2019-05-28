@@ -3,18 +3,19 @@
 <mapper namespace="edu.jmu.oscm.mapper.ResponsibilityIndicatorMapper">
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.BalanceTargetValue">
-        <result column="REPORT_ITEM_ID" property="reportItemId"/>
+        <result column="ITEM_ID" property="itemId"/>
         <result column="year" property="year"/>
         <result column="month" property="month"/>
         <result column="last_month_balance" property="lastMonthBalance"/>
         <result column="plan_month_target_value" property="planMonthTargetValue"/>
-        <association property="reportItemInstance" column="{reportItemId=REPORT_ITEM_ID,year=year,month=month}" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstanceByReportItemId"/>
-        <collection property="itemDept" column="REPORT_ITEM_ID" select="edu.jmu.oscm.mapper.ItemDeptMapper.selectItemDept"/>
-        <collection property="itemEmployee" column="REPORT_ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
+        <association property="item" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId"/>
+        <collection property="itemDept" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemDeptMapper.selectItemDept"/>
+        <collection property="itemEmployee" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
     </resultMap>
 
     <select id="getResponsibilityIndicator" resultMap="mapper">
-        SELECT REPORT_ITEM_ID,year,month,last_month_balance,plan_month_target_value
+        SELECT ITEM_ID,year,month,last_month_balance,plan_month_target_value
         FROM ad_balance_target_value WHERE year=#{year} and month=#{month}
     </select>
+
 </mapper>

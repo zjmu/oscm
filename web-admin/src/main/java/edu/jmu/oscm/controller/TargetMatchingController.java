@@ -28,15 +28,15 @@ public class TargetMatchingController {
      * @apiParam {String} year 指定流动资产与流动负债目标匹配表year值
      * @apiParam {String} month 指定流动资产与流动负债目标匹配表month值
      * @apiParamExample {json} Request_Example:
-     * GET: /queryTargetMatching?year= month=
+     * GET: /queryTargetMatching?year= &month=
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
      * <p>
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
-     *{"code":0,"message":"查询订单成功","data":[
-     * {"id":null,"reportItemId":1,"year":"2019","month":"3","lastMonthBalance":20.00,"planMonthTargetValue":33.00,"planTotalReduceValue":null,"actualMonthTargetValue":null,
+     *{"code":0,"message":"查询流动资金占用成本管控责任指标成功","data":[
+     * {"id":null,"reportItemId":1,"year":"2018","month":"03","lastMonthBalance":20.00,"planMonthTargetValue":33.00,"planTotalReduceValue":null,"actualMonthTargetValue":null,
      * "actualTotalReduceValue":null,"monthIncrementalValue":null,"totalIncrementalValue":null,"monthReward":null,"totalReward":null,"createDate":null,"itemDept":null,
      * "itemEmployee":[
      * {"id":1,"reportItemId":1,"isCharge":0,"employeeId":449,"employee":
@@ -50,8 +50,16 @@ public class TargetMatchingController {
     @GetMapping("/queryTargetMatching")
     public BasicResponse<List<BalanceTargetValue>> queryTargetMatching(@RequestParam("year")String year, @RequestParam("month")String month) {
         return BusinessWrapper.wrap(response -> {
+            String message;
             List<BalanceTargetValue> result = targetMatchingMapper.getTargetMatching(year,month);
-            ResponseUtil.set(response, 0, "查询订单成功", result);
+            if(result.size()==0){
+                message="请先计算当月的值";
+                result=null;
+            }
+            else{
+                message="查询流动资金占用成本管控责任指标成功";
+            }
+            ResponseUtil.set(response, 0,message, result);
         }, logger);
     }
 }

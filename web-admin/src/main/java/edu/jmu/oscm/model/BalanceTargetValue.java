@@ -25,18 +25,10 @@ public class BalanceTargetValue {
     private BigDecimal monthReward;
     private BigDecimal totalReward;
     private Timestamp createDate;
-    private Boolean assetOrDebt;
+    private Item item;
     private List<ItemDept> itemDept;
     private List<ItemEmployee> itemEmployee;
-    private ReportItemInstance reportItemInstance;
 
-    public Boolean getAssetOrDebt() {
-        return assetOrDebt;
-    }
-
-    public void setAssetOrDebt(Boolean assetOrDebt) {
-        this.assetOrDebt = assetOrDebt;
-    }
 
     public Integer getId() {
         return id;
@@ -166,11 +158,11 @@ public class BalanceTargetValue {
         this.itemEmployee = itemEmployee;
     }
 
-    public ReportItemInstance getReportItemInstance() {
-        return reportItemInstance;
+    public Item getItem() {
+        return item;
     }
 
-    public void setReportItemInstance(ReportItemInstance reportItemInstance) {
-        this.reportItemInstance = reportItemInstance;
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

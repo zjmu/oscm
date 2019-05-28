@@ -9,5 +9,10 @@ import java.util.List;
 @Mapper
 public interface ItemEmployeeMapper {
 
-    List<ItemEmployee> selectItemEmployee(BigInteger reportItemId);
+    /**
+     * @description 获取主责任人信息
+     * @param itemId
+     * @author zjm
+     */
+    List<ItemEmployee> selectItemEmployee(BigInteger itemId);
 }

@@ -3,13 +3,19 @@
 <mapper namespace="edu.jmu.oscm.mapper.ItemDeptMapper">
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.ItemDept">
-        <result property="reportItemId" column="REPORT_ITEM_iD"/>
+        <result property="itemId" column="ITEM_ID"/>
         <result property="isCharge" column="is_charge"/>
         <result property="deptCode" column="DEPT_CODE"/>
         <association property="department" column="DEPT_CODE" select="edu.jmu.oscm.mapper.DepartmentMapper.selectDepartment"/>
     </resultMap>
 
     <select id="selectItemDept" resultMap="mapper">
-        SELECT  REPORT_ITEM_ID,DEPT_CODE,is_charge FROM  ad_item_dept WHERE REPORT_ITEM_ID = #{reportItemId}
+        SELECT  ITEM_ID,DEPT_CODE,is_charge FROM  ad_item_dept WHERE ITEM_ID = #{itemId}
     </select>
+
+    <select id="getResponsibleItemDept" resultMap="mapper">
+        SELECT  ITEM_ID,DEPT_CODE,is_charge FROM  ad_item_dept
+        WHERE ITEM_ID = #{itemId} AND is_charge=1
+    </select>
+
 </mapper>

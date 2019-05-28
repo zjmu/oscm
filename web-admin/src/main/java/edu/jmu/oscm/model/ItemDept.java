@@ -9,7 +9,7 @@ import java.math.BigInteger;
 public class ItemDept {
 
     private Integer id;
-    private BigInteger reportItemId;
+    private BigInteger itemId;
     private Integer isCharge;
     private String deptCode;
     private Department department;
@@ -22,12 +22,12 @@ public class ItemDept {
         this.id = id;
     }
 
-    public BigInteger getReportItemId() {
-        return reportItemId;
+    public BigInteger getItemId() {
+        return itemId;
     }
 
-    public void setReportItemId(BigInteger reportItemId) {
-        this.reportItemId = reportItemId;
+    public void setItemId(BigInteger itemId) {
+        this.itemId = itemId;
     }
 
     public Integer getIsCharge() {
