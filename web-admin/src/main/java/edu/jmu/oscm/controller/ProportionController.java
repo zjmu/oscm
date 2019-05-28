@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zyx
@@ -262,13 +263,40 @@ public class ProportionController {
 
             List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportIdAndType(year, month,reportId,type);
 
-            //List<Proportion> proportions = proportionMapper.selectProportionAndReportItemInstanceByYearAndMonth(year, month);
-
-            //Map<String,Object> map = proportionService.getListByType(proportions,reportId);
-
             ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
         }, logger);
     }
 
+    /**
+     * 计算项目占比表成功
+     *
+     * @api {GET} /updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type  计算指定项目占比
+     * @apiName updateProportionAndReport 查询项目占比信息
+     * @apiGroup Proportion
+     * @apiParam {String} year 指定项目占比表年
+     * @apiParam {String} month 指定项目占比表月
+     * @apiparam {int} reportId 指定报表的Id
+     * @apiParam {int} type 查询指定项目占比（资产和负债）
+     * @apiParamExample {json} Request_Example:
+     * GET: /updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"查找项目占比表成功",
+     * "data":{}
+     */
+    @GetMapping("/updateProportionAndReport")
+    public BasicResponse<Map<String,Object>> updateProportionData(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("reportId") int reportId, @RequestParam("type") int type){
 
+        return BusinessWrapper.wrap(response -> {
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportIdAndType(year, month,reportId,type);
+            Map<String,Object> map = proportionService.getListByType(proportions,type,year,month);
+            ResponseUtil.set(response, 0, "返回map成功",map);
+        }, logger);
+    }
 }

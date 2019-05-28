@@ -3,6 +3,7 @@ package edu.jmu.oscm.mapper;
 import edu.jmu.oscm.model.Proportion;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Mapper
@@ -26,6 +27,17 @@ public interface ProportionMapper {
      * @return
      */
     Boolean insertProportion(Proportion proportion);
+
+    /**
+     * 根据指定id更新信息
+     * @param id
+     * @param prop
+     * @param accumProp
+     * @return
+     */
+    Boolean
+
+    updateProportion(BigInteger id,String prop,String accumProp);
 
     /**
      * 根据id查找一条

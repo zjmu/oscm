@@ -1562,6 +1562,71 @@ define({ "api": [
     ]
   },
   {
+    "type": "GET",
+    "url": "/updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type",
+    "title": "计算指定项目占比",
+    "name": "updateProportionAndReport_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定项目占比表年</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定项目占比表月</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定报表的Id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "type",
+            "description": "<p>查询指定项目占比（资产和负债）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type"
+      }
+    ]
+  },
+  {
     "type": "DELETE",
     "url": "/reduceTargets",
     "title": "删除所有项目降低目标设置",

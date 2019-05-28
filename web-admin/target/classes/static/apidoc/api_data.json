@@ -1403,7 +1403,7 @@
   },
   {
     "type": "GET",
-    "url": "/selectProportionAndReport?year=year&&month=month&&type=type",
+    "url": "/selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type",
     "title": "查询指定项目占比",
     "name": "selectProportionAndReport_________",
     "group": "Proportion",
@@ -1426,7 +1426,14 @@
           },
           {
             "group": "Parameter",
-            "type": "Boolean",
+            "type": "int",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定报表的Id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
             "optional": false,
             "field": "type",
             "description": "<p>查询指定项目占比（资产和负债）</p>"
@@ -1436,7 +1443,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /selectProportionAndReport?year=year&&month=month&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1455,7 +1462,51 @@
     "groupTitle": "Proportion",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/selectProportionAndReport?year=year&&month=month&&type=type"
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/selectProportionById?id=",
+    "title": "查询指定项目占比",
+    "name": "selectProportionById_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目占比表记录id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /selectProportionById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
       }
     ]
   },
@@ -1507,50 +1558,6 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/selectProportionByYearAndMonth?year=year&&month=month"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/selectProportionById?id=",
-    "title": "查询指定项目占比",
-    "name": "selectProportionById_________",
-    "group": "Proportion",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "id",
-            "description": "<p>指定项目占比表记录id</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /selectProportionById?id=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
       }
     ]
   },

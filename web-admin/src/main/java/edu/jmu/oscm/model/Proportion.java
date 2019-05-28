@@ -15,7 +15,7 @@ import java.util.List;
 
 @Data
 public class Proportion {
-    private int id;
+    private BigInteger id;
     private BigInteger itemId;
     private String itemCode;
     private String itemName;
@@ -28,11 +28,11 @@ public class Proportion {
     private ReportItem reportItem;
     private List<ReportItemInstance> reportItemInstanceList;
 
-    public int getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 

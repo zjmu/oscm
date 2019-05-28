@@ -1,9 +1,12 @@
 package edu.jmu.oscm.service;
 
+import edu.jmu.oscm.mapper.ProportionMapper;
 import edu.jmu.oscm.model.Proportion;
 import edu.jmu.oscm.modelView.ProportionView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +21,11 @@ import java.util.Map;
 @Service
 public class ProportionService {
 
+    @Autowired
+    private ProportionMapper proportionMapper;
+
     private List<Proportion> proportions = new ArrayList<>();
+    private List<ProportionView> proportionViewList = new ArrayList<>();
 
 //    private ProportionView balanceProportionTable,debtProportionTable;
 //
@@ -45,7 +52,6 @@ public class ProportionService {
 //
 //
 //    }
-
 
 
 //    private ProportionView generator(ProportionView tableImpl, List<Proportion> proportions){
@@ -76,32 +82,34 @@ public class ProportionService {
 //        return tableImpl;
 //    }
 
-    public Map<String,Object> getListByType(List<Proportion> proportions, int type) {
+    private void updateInfo(BigInteger proportionId, float proportion, float accumProp){
+        proportionMapper.updateProportion(proportionId,String.valueOf(proportion),String.valueOf(accumProp));
+    }
 
-        Map<String,Object> map = new HashMap<>();
+    public Map<String, Object> getListByType(List<Proportion> proportions, int type,String year,String month) {
 
-        List<ProportionView> proportionViewList = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+
         ProportionView proportionView;
-        float total = 0;
-        float accumProp = 0;
+        float[] total = new float[1];
+        float[] accumProp = new float[1];
         boolean flag = type != 0;
 
         // 获得总计
-        for(int i = 0;i<proportions.size();i++){
-            if (proportions.get(i).getAssetOrDebt()==flag) {
-                total = total + Float.valueOf(proportions.get(i).getReportItemInstanceList().get(0).getValue());
-                if (i == proportions.size() - 1) {
-                    break;
-                }
+        for (Proportion value : proportions) {
+            if (value.getAssetOrDebt() == flag) {
+                total[0] = total[0] + Float.parseFloat(value.getReportItemInstanceList().get(0).getEndValue());
             }
         }
 
         // 填充每一项
         for (Proportion proportion : proportions) {
-            if (proportion.getAssetOrDebt()==flag) {
-                accumProp = accumProp + Float.valueOf(proportion.getReportItemInstanceList().get(0).getEndValue()) / total;
-                proportionView = new ProportionView(proportion.getReportItemInstanceList().get(0).getItemName(), Float.valueOf(proportion.getReportItemInstanceList().get(0).getValue()), Float.valueOf(proportion.getReportItemInstanceList().get(0).getValue()) / total, accumProp);
+            if (proportion.getAssetOrDebt() == flag) {
+                accumProp[0] = accumProp[0] + Float.valueOf(proportion.getReportItemInstanceList().get(0).getEndValue()) / total[0];
+                System.out.println(accumProp[0] + proportion.getReportItem().getItem().getItem_name()+Float.valueOf(proportion.getReportItemInstanceList().get(0).getEndValue())+Float.valueOf(proportion.getReportItemInstanceList().get(0).getEndValue()) / total[0]);
+                proportionView = new ProportionView(proportion.getReportItem().getItem().getItem_name(), Float.valueOf(proportion.getReportItemInstanceList().get(0).getEndValue()), Float.valueOf(proportion.getReportItemInstanceList().get(0).getEndValue()) / total[0], accumProp[0]);
                 proportionViewList.add(proportionView);
+                updateInfo(proportion.getId(),Float.valueOf(proportion.getReportItemInstanceList().get(0).getEndValue()) / total[0], accumProp[0]);
             }
         }
 
