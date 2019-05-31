@@ -17,12 +17,12 @@
 
     <insert id="add">
         INSERT INTO ad_incentive_ratio (`year`, interest_rate, incentive_ratio, max_limit)
-        VALUE (#{year}, #{interest_rate}, #{incentive_ratio}, #{max_limit})
+        VALUE (#{year}, #{interestRate}, #{incentiveRatio}, #{maxLimit})
     </insert>
 
     <update id="update" parameterType="edu.jmu.oscm.model.IncentiveRatio">
         UPDATE ad_incentive_ratio
-        SET `year` = #{year}, interest_rate = #{interest_rate}, incentive_ratio = #{incentive_ratio}, max_limit = #{max_limit}
+        SET `year` = #{year}, interest_rate = #{interestRate}, incentive_ratio = #{incentiveRatio}, max_limit = #{maxLimit}
         WHERE id = #{id}
     </update>
 
@@ -36,17 +36,17 @@
             </trim>
             <trim prefix="interest_rate = case" suffix="end,">
                 <foreach collection="list" item="incentiveRatio">
-                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.interest_rate}
+                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.interestRate}
                 </foreach>
             </trim>
             <trim prefix="incentive_ratio = case" suffix="end,">
                 <foreach collection="list" item="incentiveRatio">
-                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.incentive_ratio}
+                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.incentiveRatio}
                 </foreach>
             </trim>
             <trim prefix="max_limit = case" suffix="end,">
                 <foreach collection="list" item="incentiveRatio">
-                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.max_limit}
+                    WHEN id = #{incentiveRatio.id} THEN #{incentiveRatio.maxLimit}
                 </foreach>
             </trim>
         </trim>
@@ -69,12 +69,12 @@
         WHERE 1 = 1
     </delete>
 
-    <select id="queryAll" resultType="edu.jmu.oscm.model.IncentiveRatio">
+    <select id="queryAll" resultMap="mapper">
         SELECT *
         FROM ad_incentive_ratio
     </select>
 
-    <select id="queryByID" resultType="edu.jmu.oscm.model.IncentiveRatio" parameterType="integer">
+    <select id="queryByID" resultMap="mapper" parameterType="integer">
         SELECT *
         FROM ad_incentive_ratio
         WHERE id = #{id}

@@ -40,18 +40,18 @@ public class IncentiveRatioController {
      *      {
      *          "id":200,
      *          "year":"2018",
-     *          "interest_rate":10.01,
-     *          "incentive_ratio":12.01,
-     *          "max_limit":15.02,
-     *          "create_date":2019-05-09T13:14:48.000+0000
+     *          "interestRate":10.01,
+     *          "incentiveRatio":12.01,
+     *          "maxLimit":15.02,
+     *          "createDate":2019-05-09T13:14:48.000+0000
      *      },
      *      {
      *          "id":201,
      *          "year":"2018",
-     *          "interest_rate":12.55,
-     *          "incentive_ratio":14,
-     *          "max_limit":18.1,
-     *          "create_date":2019-05-09T13:15:01.000+0000
+     *          "interestRate":12.55,
+     *          "incentiveRatio":14,
+     *          "maxLimit":18.1,
+     *          "createDate":2019-05-09T13:15:01.000+0000
      *      }
      * ])
      * */
@@ -71,7 +71,7 @@ public class IncentiveRatioController {
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParamExample {json} Request_Example:
-     * GET: /incentiveRatio?id=200
+     * GET: /incentiveRatio?id=201
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -82,12 +82,12 @@ public class IncentiveRatioController {
      * <p>
      * ("code":0, "message":"查询指定部门奖励比例成功",
      * "data":{
-     *          "id":200,
+     *          "id":201,
      *          "year":"2018",
-     *          "interest_rate":10.01,
-     *          "incentive_ratio":12.01,
-     *          "max_limit":15.02,
-     *          "create_date":2019-05-09T13:14:48.000+0000
+     *          "interestRate":12.55,
+     *          "incentiveRatio":14,
+     *          "maxLimit":18.1,
+     *          "createDate":2019-05-09T13:15:01.000+0000
      *      }
      * */
     @GetMapping("/incentiveRatio")
@@ -105,15 +105,15 @@ public class IncentiveRatioController {
      * @apiName addIncentiveRatio 添加一条部门奖励比例
      * @apiGroup IncentiveRatio
      * @apiParam {String} year 年份（每年一月，设置）
-     * @apiParam {BigDecimal} interest_rate 利率
-     * @apiParam {BigDecimal} incentive_ratio 奖励比例
-     * @apiParam {BigDecimal} max_limit 大额资金限制
+     * @apiParam {BigDecimal} interestRate 利率
+     * @apiParam {BigDecimal} incentiveRatio 奖励比例
+     * @apiParam {BigDecimal} maxLimit 大额资金限制
      * @apiParamExample {json} Request_Example:
      * {
      *          "year":"2019",
-     *          "interest_rate":35.03,
-     *          "incentive_ratio":35.03,
-     *          "max_limit":35.03
+     *          "interestRate":35.03,
+     *          "incentiveRatio":35.03,
+     *          "maxLimit":35.03
      * }
      * POST: /incentiveRatio
      * <p>
@@ -195,16 +195,16 @@ public class IncentiveRatioController {
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParam {String} year 年份（每年一月，设置）
-     * @apiParam {BigDecimal} interest_rate 利率
-     * @apiParam {BigDecimal} incentive_ratio 奖励比例
-     * @apiParam {BigDecimal} max_limit 大额资金限制
+     * @apiParam {BigDecimal} interestRate 利率
+     * @apiParam {BigDecimal} incentiveRatio 奖励比例
+     * @apiParam {BigDecimal} maxLimit 大额资金限制
      * @apiParamExample {json} Request_Example:
      * {
-     *          "id":200,
+     *          "id":201,
      *          "year":"2019",
-     *          "interest_rate":35.03,
-     *          "incentive_ratio":35.03,
-     *          "max_limit":35.03
+     *          "interestRate":35.03,
+     *          "incentiveRatio":35.03,
+     *          "maxLimit":35.03
      * }
      * PUT: /incentiveRatio
      * <p>
@@ -233,24 +233,24 @@ public class IncentiveRatioController {
      * @apiGroup IncentiveRatio
      * @apiParam {int} id 指定部门奖励比例id
      * @apiParam {String} year 年份（每年一月，设置）
-     * @apiParam {BigDecimal} interest_rate 利率
-     * @apiParam {BigDecimal} incentive_ratio 奖励比例
-     * @apiParam {BigDecimal} max_limit 大额资金限制
+     * @apiParam {BigDecimal} interestRate 利率
+     * @apiParam {BigDecimal} incentiveRatio 奖励比例
+     * @apiParam {BigDecimal} maxLimit 大额资金限制
      * @apiParamExample {json} Request_Example:
      * [
      *      {
-     *          "id":200,
-     *          "year":"2019",
-     *          "interest_rate":35.03,
-     *          "incentive_ratio":35.03,
-     *          "max_limit":35.03
-     *      },
-     *      {
      *          "id":201,
      *          "year":"2019",
-     *          "interest_rate":45.04,
-     *          "incentive_ratio":45.04,
-     *          "max_limit":45.04
+     *          "interestRate":35.04,
+     *          "incentiveRatio":35.04,
+     *          "maxLimit":35.04
+     *      },
+     *      {
+     *          "id":202,
+     *          "year":"2019",
+     *          "interestRate":45.04,
+     *          "incentiveRatio":45.04,
+     *          "maxLimit":45.04
      *      }
      * ]
      * PUT: /incentiveRatios
