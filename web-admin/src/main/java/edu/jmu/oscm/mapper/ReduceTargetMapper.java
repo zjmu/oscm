@@ -1,6 +1,8 @@
 package edu.jmu.oscm.mapper;
 
+import edu.jmu.oscm.model.Item;
 import edu.jmu.oscm.model.ReduceTarget;
+import edu.jmu.oscm.model.Report;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,12 +18,20 @@ public interface ReduceTargetMapper {
      * */
     List<ReduceTarget> queryAll();
 
+    /***
+     * 根据年份查询所有降低目标设置 type=1 查询资产； type=2 查询负债
+     * @param year String
+     * @param type Integer
+     * @return 所有资产降低目标设置 or 所有负债降低目标设置
+     */
+    List<ReduceTarget> queryReduceTargetsByYear(@Param("year") String year, @Param("type") Integer type);
+
     /**
      * 添加一条项目降低目标设置
-     * @param reduceTarget
+     * @param reduceTargets List<ReduceTarget>
      * @return true or false
      * */
-    Boolean add(ReduceTarget reduceTarget);
+    Boolean add(List<ReduceTarget> reduceTargets);
 
     /**
      * 删除指定项目降低目标设置
@@ -36,19 +46,20 @@ public interface ReduceTargetMapper {
      * */
     Boolean deleteAll();
 
+    /***
+     * 根据年份删除流动资产(type = 1)或流动负债表(type = 2)
+     * @param year String
+     * @param type Integer
+     * @return true or false
+     */
+    Boolean deleteByYearAndType(@Param("year") String year, @Param("type") Integer type);
+
     /**
      * 查询一条项目降低目标设置
      * @param id
      * @return 一条项目降低目标设置
      * */
     ReduceTarget queryByID(int id);
-
-    /**
-     * 更新指定项目降低目标设置
-     * @param reduceTarget
-     * @return true or false
-     * */
-    Boolean update(ReduceTarget reduceTarget);
 
     /**
      * 批量更新项目降低目标设置
@@ -64,12 +75,26 @@ public interface ReduceTargetMapper {
      * */
     Boolean updateYearPercent(ReduceTarget reduceTarget);
 
+    /***
+     * 批量更改项目降低目标比例
+     * @param reduceTargets List<ReduceTarget>
+     * @return true or false
+     */
+    Boolean updateYearPercents(List<ReduceTarget> reduceTargets);
+
     /**
-     * 更改项目月降低目标成功
+     * 更改项目月降低目标
      * @param reduceTarget ReduceTarget
      * @return true or false
      * */
     Boolean updateMonth(ReduceTarget reduceTarget);
+
+    /***
+     * 批量更改项目月降低目标
+     * @param reduceTargets
+     * @return
+     */
+    Boolean updateMonths(List<ReduceTarget> reduceTargets);
 
     /**
      * 查询去年实际降低额
@@ -85,5 +110,20 @@ public interface ReduceTargetMapper {
      * @param item_id BigInteger
      * @return true or false
      * */
-    Boolean selectYearAndReportID(@Param("year") String year, @Param("item_id") BigInteger item_id);
+    Boolean selectYearAndItemID(@Param("year") String year, @Param("item_id") BigInteger item_id);
+
+    /***
+     * 查询所有流动资产项目或者流动负债项目
+     * @param startID BigInteger
+     * @param endID BigInteger
+     * @return 所有流动资产项目或者流动负债项目
+     */
+    List<Item> queryItems(@Param("startID") BigInteger startID, @Param("endID") BigInteger endID );
+
+    /***
+     * 群钊数据库最新的年份
+     * @return 年份
+     */
+    String queryMaxYear();
+
 }
