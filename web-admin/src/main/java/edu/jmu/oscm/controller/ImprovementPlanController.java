@@ -1,7 +1,10 @@
 package edu.jmu.oscm.controller;
 
+import edu.jmu.oscm.mapper.BalanceTargetValueMapper;
 import edu.jmu.oscm.mapper.ImprovementPlanMapper;
+import edu.jmu.oscm.model.BalanceTargetValue;
 import edu.jmu.oscm.model.ImprovementPlan;
+import edu.jmu.oscm.service.ImprovementPlanService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -18,8 +22,13 @@ public class ImprovementPlanController {
     private static final Logger logger = LoggerFactory.getLogger(ImprovementPlanController.class);
 
     @Autowired
+    private ImprovementPlanService improvementPlanService;
+
+    @Autowired
     private ImprovementPlanMapper improvementPlanMapper;
 
+    @Autowired
+    private BalanceTargetValueMapper balanceTargetValueMapper;
     /**
      * 获取指定提升和改善计划表记录
      *
@@ -28,7 +37,7 @@ public class ImprovementPlanController {
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 指定提升和改善计划表记录id
      * @apiParamExample {json} Request_Example:
-     * GET: /improvementPlan?year=2019 && month = 5
+     * GET: /improvementPlan?year=2018 && month = 2
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -51,6 +60,7 @@ public class ImprovementPlanController {
      * "remark":"1",
      * "create_date":"2019-01-01 00:00:00"
      * "item":{
+     *          "id":"1001"
      *          "item_code"="短期投资"
      *          "item_name"="短期投资"
      *          "calc_expr="1101-1102"
@@ -58,6 +68,16 @@ public class ImprovementPlanController {
      *          "state"="1"
      *          "modify_time"= "2019-04-28 09:59:00"
      *          }
+     *  "employee":{
+     *          "id":"450"
+     *          "employee_code"="14"
+     *          "simple_code"="G01"
+     *          "employee_name"="林*香"
+     *          "employee_type"=""
+     *          "dept_code"="C301"
+     *           "state"="1"
+     *           "modify_time"="2019-04-11 19:10:00"
+     *  }
      * }
      * {
      * "id":2,
@@ -76,6 +96,16 @@ public class ImprovementPlanController {
      *          "state"="1"
      *          "modify_time"= "2019-04-28 09:59:00"
      *          }
+     *  "employee":{
+     *          "id":"450"
+     *          "employee_code"="14"
+     *          "simple_code"="G01"
+     *          "employee_name"="林*香"
+     *          "employee_type"=""
+     *          "dept_code"="C301"
+     *           "state"="1"
+     *           "modify_time"="2019-04-11 19:10:00"
+     *  }
      * }
      * }
      *
@@ -84,7 +114,7 @@ public class ImprovementPlanController {
     @GetMapping("/improvementPlan")
     public BasicResponse<List<ImprovementPlan>> selectImprovementPlanByDate(@RequestParam("year") String year,@RequestParam("month") String month) {
         return BusinessWrapper.wrap(response -> {
-            List<ImprovementPlan> improvementPlans = improvementPlanMapper.selectImprovementPlanByDate(year,month);
+            List<ImprovementPlan> improvementPlans = improvementPlanService.selectImprovementPlanByDate(year,month);
             ResponseUtil.set(response, 0, "查找指定提升和改善计划表成功",improvementPlans);
         }, logger);
     }
@@ -295,6 +325,14 @@ public class ImprovementPlanController {
             System.out.println(improvementPlan.toString());
             boolean flag = improvementPlanMapper.updateImprovementPlan(improvementPlan);
             ResponseUtil.set(response, 0, "更新提升和改善计划表成功");
+        }, logger);
+    }
+
+    @GetMapping("zwltest")
+    public BasicResponse<BalanceTargetValue> selectImprovementPlanByDate111(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("item_id")BigInteger item_id) {
+        return BusinessWrapper.wrap(response -> {
+            BalanceTargetValue balanceTargetValue=balanceTargetValueMapper.selectByDateAndItemId(item_id,year,month);
+            ResponseUtil.set(response, 0, "查找指定提升和改善计划表成功",balanceTargetValue);
         }, logger);
     }
 }

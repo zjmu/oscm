@@ -48,5 +48,9 @@
     <select id="selectByDate" resultMap="mapper">
         SELECT * FROM ad_balance_target_value WHERE year=#{year} AND month=#{month}
     </select>
+    <select id="selectByDateAndItemId" resultMap="mapper">
+        SELECT * FROM ad_balance_target_value WHERE year=#{year} AND month=#{month} and item_id=#{item_id}
+
+    </select>
 
 </mapper>

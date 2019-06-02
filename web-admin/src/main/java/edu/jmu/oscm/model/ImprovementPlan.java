@@ -2,7 +2,7 @@ package edu.jmu.oscm.model;
 import lombok.Data;
 
 import java.math.BigInteger;
-
+import java.util.List;
 import java.sql.Timestamp;
 @Data
 public class ImprovementPlan {
@@ -33,5 +33,7 @@ public class ImprovementPlan {
 
     //外键对应的Item对象
     private  Item item;
+
+    private List<Employee> employee;
 
 }
