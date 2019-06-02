@@ -28,9 +28,9 @@ public class ReduceTargetController {
     private ReduceTargetService reduceTargetService;
 
     /**
-     * 查——查询所有项目降低目标设置
-     * @api {GET} /reduceTargets 查询所有项目降低目标设置
-     * @apiName queryAllReduceTargets 查询所有项目降低目标设置
+     * 查.查询所有项目降低目标设置
+     * @api {GET} /reduceTargets 查——查询所有项目降低目标设置
+     * @apiName queryAllReduceTargets 查——查询所有项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParamExample {json} Request_Example:
      * GET: /reduceTargets
@@ -114,9 +114,9 @@ public class ReduceTargetController {
     }
 
     /**
-     * 查——根据年份查询项目降低目标（流动资产或流动负债）
-     * @api {GET} /reduceTargets_year_type?year= &type= 根据年份查询项目降低目标（流动资产或流动负债）
-     * @apiName reduceTargets_year_type 根据年份查询项目降低目标（流动资产或流动负债）
+     * 查.根据年份查询项目降低目标（流动资产或流动负债）
+     * @api {GET} /reduceTargets_year_type?year=&type= 查——根据年份查询项目降低目标（流动资产或流动负债）
+     * @apiName reduceTargets_year_type 查——根据年份查询项目降低目标（流动资产或流动负债）
      * @apiGroup ReduceTarget
      * @apiParam {String} year 年份
      * @apiParam {Integer} type  1:流动资产 2;流动负债
@@ -203,9 +203,9 @@ public class ReduceTargetController {
     }
 
     /**
-     * 查——询指定项目降低目标设置
-     * @api {GET} /reduceTarget?id=  查询指定项目降低目标设置
-     * @apiName queryReduceTarget 查询指定项目降低目标设置
+     * 查.询指定项目降低目标设置
+     * @api {GET} /reduceTarget?id=  查——查询指定项目降低目标设置
+     * @apiName queryReduceTarget 查——查询指定项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParamExample {json} Request_Example:
@@ -269,10 +269,10 @@ public class ReduceTargetController {
 */
 
     /**
-     * 增——添加项目降低目标设置
+     * 增.添加项目降低目标设置
      *
-     * @api {POST} /reduceTargets 添加项目降低目标设置
-     * @apiName insertReduceTargets 添加项目降低目标设置
+     * @api {POST} /reduceTargets 增——添加项目降低目标设置
+     * @apiName insertReduceTargets 增——添加项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {BigInteger} item_id 报告条目id
      * @apiParam {String} year 年份
@@ -323,10 +323,10 @@ public class ReduceTargetController {
     }
 
     /**
-     * 删——删除指定项目降低目标设置
+     * 删.删除指定项目降低目标设置
      *
-     * @api {DELETE} /reduceTarget?id= 删除指定项目降低目标设置
-     * @apiName deleteReduceTarget 删除指定项目降低目标设置
+     * @api {DELETE} /reduceTarget?id= 删——删除指定项目降低目标设置
+     * @apiName deleteReduceTarget 删——删除指定项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParamExample {json} Request_Example:
@@ -350,15 +350,15 @@ public class ReduceTargetController {
     }
 
     /**
-     * 删——根据年份删除项目降低目标设置（流动资产或流动负债）
+     * 删.根据年份删除项目降低目标设置（流动资产或流动负债）
      *
-     * @api {DELETE} /reduceTargets_year?year= type= 根据年份删除项目降低目标设置（流动资产或流动负债）
-     * @apiName deleteReduceTarget 根据年份删除项目降低目标设置（流动资产或流动负债）
+     * @api {DELETE} /reduceTargets_year?year=type= 删——根据年份删除项目降低目标设置（流动资产或流动负债）
+     * @apiName deleteReduceTarget 删——根据年份删除项目降低目标设置（流动资产或流动负债）
      * @apiGroup ReduceTarget
      * @apiParam {String} year 年份
      * @apiParam {Integer} type  1:流动资产 2;流动负债
      * @apiParamExample {json} Request_Example:
-     * DELETE: /reduceTargets_year?year=2019type=1
+     * DELETE: /reduceTargets_year?year=2019?type=1
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -378,10 +378,10 @@ public class ReduceTargetController {
     }
 
     /**
-     * 删——删除所有项目降低目标设置
+     * 删.删除所有项目降低目标设置
      *
-     * @api {DELETE} /reduceTargets 删除所有项目降低目标设置
-     * @apiName deleteAllReduceTargets 删除所有项目降低目标设置
+     * @api {DELETE} /reduceTargets 删——删除所有项目降低目标设置
+     * @apiName deleteAllReduceTargets 删——删除所有项目降低目标设置
      * @apiGroup ReduceTarget
      * @apiParamExample {json} Request_Example:
      * DELETE: /reduceTargets
@@ -420,9 +420,9 @@ public class ReduceTargetController {
     }*/
 
     /**
-     * 改——批量更改项目降低目标
-     * @api {PUT} /reduceTargets_yearPercent 批量更改项目降低目标
-     * @apiName updateReduceTargets_yearPercent 批量更改项目降低目标
+     * 改.批量更改项目年降低目标
+     * @api {PUT} /reduceTargets_yearPercent 改——批量更改项目年降低目标
+     * @apiName updateReduceTargets_yearPercent 改——批量更改项目年降低目标
      * @apiGroup ReduceTarget
      * @apiParam {int}     id 指定项目降低目标设置id
      * @apiParam {Double}  year_percent 年度百分比，单位%
@@ -479,9 +479,9 @@ public class ReduceTargetController {
     }*/
 
     /**
-     * 改——批量更改项目月降低目标
-     * @api {PUT} /reduceTargets_monthValue 批量更改项目月降低目标
-     * @apiName updateReduceTargets_monthValue 批量更改项目月降低目标
+     * 改.批量更改项目月降低目标
+     * @api {PUT} /reduceTargets_monthValue 改——批量更改项目月降低目标
+     * @apiName updateReduceTargets_monthValue 改——批量更改项目月降低目标
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
      * @apiParam jan 一月份
@@ -549,9 +549,9 @@ public class ReduceTargetController {
     }
 
     /**
-     * 查——查询流动资产（或流动负债）条目
-     * @api {GET} /items?type= 查询流动资产（或流动负债）条目
-     * @apiName queryItemsByType 查询流动资产（或流动负债）条目
+     * 查.查询流动资产（或流动负债）条目
+     * @api {GET} /items?type= 查——查询流动资产（或流动负债）条目
+     * @apiName queryItemsByType 查——查询流动资产（或流动负债）条目
      * @apiGroup ReduceTarget
      * @apiParam {Integer} type  1:流动资产 2;流动负债
      * @apiParamExample {json} Request_Example:
