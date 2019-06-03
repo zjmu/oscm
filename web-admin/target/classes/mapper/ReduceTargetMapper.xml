@@ -22,6 +22,7 @@
         <result column="nov" property="nov"/>
         <result column="dec" property="dec"/>
         <result column="asset_or_debt" property="asset_or_debt"/>
+        <result column="item_name" property="item_name"/>
         <result column="create_date" property="create_date"/>
         <association property="item" javaType="edu.jmu.oscm.model.Item">
             <result column="item_code" property="item_code"/>
