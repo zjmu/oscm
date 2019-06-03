@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 public class MonthReport {
@@ -53,5 +54,8 @@ public class MonthReport {
     //外键对应的Item对象
     private  Item item;
 
-
+    private List<Employee> responsibleEmployee;
+    private List<Employee> collaborativeEmployee;
+    private List<Department> responsibleDepartments;
+    private List<Department> collaborativeDepartments;
 }

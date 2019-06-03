@@ -15,4 +15,16 @@ public interface ItemEmployeeMapper {
      * @author zjm
      */
     List<ItemEmployee> selectItemEmployee(BigInteger itemId);
+
+    /**
+     * @description 获取协同责任人信息
+     * @param itemId
+     */
+    List<ItemEmployee> selectCollaborativeEmployee(BigInteger itemId);
+
+    /**
+     * @description 获取所有责任人信息
+     * @param itemId
+     */
+    List<ItemEmployee> selectAllItemEmployee(BigInteger itemId);
 }

@@ -1,11 +1,11 @@
 package edu.jmu.oscm.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-
+import edu.jmu.oscm.model.Department;
 import java.util.List;
 
 @Mapper
 public interface DepartmentMapper {
 
-    DepartmentMapper selectDepartment(String deptCode);
+    Department selectDepartment(String deptCode);
 }

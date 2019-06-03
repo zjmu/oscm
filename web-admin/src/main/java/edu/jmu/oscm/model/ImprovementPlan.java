@@ -36,4 +36,6 @@ public class ImprovementPlan {
 
     private List<Employee> employee;
 
+    private List<Department> departments;
+
 }

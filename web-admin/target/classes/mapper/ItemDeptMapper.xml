@@ -18,4 +18,9 @@
         WHERE ITEM_ID = #{itemId} AND is_charge=1
     </select>
 
+    <select id="getCollaborativeDepartments" resultMap="mapper">
+         SELECT  ITEM_ID,DEPT_CODE,is_charge FROM  ad_item_dept
+        WHERE ITEM_ID = #{itemId} AND is_charge=0
+    </select>
+
 </mapper>
