@@ -37,6 +37,9 @@ public class ReduceTarget {
     private Boolean asset_or_debt;
     //创建时间
     private Timestamp create_date;
+
+    //条目名称
+    private  String item_name;
     //条目表 定义条目表
     private Item item;
 

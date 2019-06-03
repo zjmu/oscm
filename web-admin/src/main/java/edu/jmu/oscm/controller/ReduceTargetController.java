@@ -42,7 +42,7 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * {"code":0,"message":"查询所有项目降低目标设置成功","data":[
-     * "data":{"id":208,
+     *         {"id":208,
      *          "item_id":1003,
      *          "year":"2018",
      *          "year_percent":99,
@@ -62,6 +62,7 @@ public class ReduceTargetController {
      *          "dec":9.9,
      *          "asset_or_debt":true,
      *          "create_date":2019-06-01T05:13:02.000+0000
+     *          "item_name"="货币资金",
      *          "item":{
      *              "item_code"="货币资金",
      *              "item_name"="货币资金",
@@ -74,7 +75,7 @@ public class ReduceTargetController {
      *        .
      *        .
      *        .
-     * "data":{"id":233,
+     * {"id":233,
      *          "item_id":2015,
      *          "year":"2018",
      *          "year_percent":97,
@@ -94,6 +95,7 @@ public class ReduceTargetController {
      *          "dec":9.7,
      *          "asset_or_debt":true
      *          "create_date":2019-06-01T06:39:58.000+0000
+     *          "item_name"="其他流动负债",
      *          "item":{
      *              "item_code"="其他流动负债",
      *              "item_name"="其他流动负债",
@@ -130,7 +132,7 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * {"code":0,"message":"查询所有项目降低目标设置成功","data":[
-     * "data":{"id":208,
+     *         {"id":208,
      *          "item_id":1003,
      *          "year":"2018",
      *          "year_percent":99,
@@ -150,6 +152,7 @@ public class ReduceTargetController {
      *          "dec":9.9,
      *          "asset_or_debt":true,
      *          "create_date":2019-06-01T05:13:02.000+0000
+     *          "item_name"="货币资金",
      *          "item":{
      *              "item_code"="货币资金",
      *              "item_name"="货币资金",
@@ -162,7 +165,7 @@ public class ReduceTargetController {
      *        .
      *        .
      *        .
-     * "data":{"id":220,
+     * {"id":220,
      *          "item_id":1015,
      *          "year":"2018",
      *          "year_percent":97,
@@ -182,6 +185,7 @@ public class ReduceTargetController {
      *          "dec":9.7,
      *          "asset_or_debt":true
      *          "create_date":2019-05-06T02:43:09.000+0000
+     *          "item_name"="待摊费用",
      *          "item":{
      *              "item_code"="待摊费用",
      *              "item_name"="待摊费用",
@@ -219,7 +223,7 @@ public class ReduceTargetController {
      * HTTP/1.1 200 OK
      * <p>
      * {"code":0,"message":"查询指定项目降低目标设置",
-     * "data":{"id":208,
+     *      {"id":208,
      *          "item_id":1003,
      *          "year":"2018",
      *          "year_percent":99,
@@ -239,6 +243,7 @@ public class ReduceTargetController {
      *          "dec":9.9,
      *          "asset_or_debt":true,
      *          "create_date":2019-06-01T05:13:02.000+0000
+     *          "item_name"="货币资金",
      *          "item":{
      *              "item_code"="货币资金",
      *              "item_name"="货币资金",
