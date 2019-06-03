@@ -4,7 +4,7 @@
 
     <resultMap id = "reduceTargetMapper" type="edu.jmu.oscm.model.ReduceTarget">
         <id column="id" property="id"/>
-        <result column="REPORT_ITEM_ID" property="item_id"/>
+        <result column="ITEM_ID" property="item_id"/>
         <result column="year" property="year"/>
         <result column="year_percent" property="year_percent"/>
         <result column="year_value" property="year_value"/>
@@ -33,20 +33,102 @@
         </association>
     </resultMap>
 
-   <insert id="add" parameterType="edu.jmu.oscm.model.ReduceTarget" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO ad_item_reduce_target (ITEM_ID, `year`, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt, create_date)
-        VALUE (#{item_id}, #{year}, #{year_percent}, #{year_value}, #{last_year_value}, #{jan},#{feb}, #{mar}, #{apr}, #{may}, #{jun},#{jul}, #{aug}, #{sept}, #{oct}, #{nov}, #{dec}, #{asset_or_debt}, #{create_date})
+   <insert id="add" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ad_item_reduce_target (ITEM_ID, year, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt, create_date)
+        VALUE
+            <foreach collection="list" item="reduceTarget" index="index" separator=",">
+            (
+                #{reduceTarget.item_id},
+                #{reduceTarget.year},
+                #{reduceTarget.year_percent},
+                #{reduceTarget.year_value},
+                #{reduceTarget.last_year_value},
+                #{reduceTarget.jan},  #{reduceTarget.feb},
+                #{reduceTarget.mar},  #{reduceTarget.apr},
+                #{reduceTarget.may},  #{reduceTarget.jun},
+                #{reduceTarget.jul},  #{reduceTarget.aug},
+                #{reduceTarget.sept}, #{reduceTarget.oct},
+                #{reduceTarget.nov},  #{reduceTarget.dec},
+                #{reduceTarget.asset_or_debt},  #{reduceTarget.create_date}
+            )
+            </foreach>
     </insert>
+
     <update id="updateYearPercent" parameterType="edu.jmu.oscm.model.ReduceTarget">
         UPDATE ad_item_reduce_target
         SET year_percent = #{year_percent}, year_value = #{year_value}, jan = #{jan}, feb = #{feb}, mar = #{mar}, apr = #{apr}, may = #{may}, jun = #{jun}, jul = #{jul}, aug = #{aug}, sept = #{sept}, oct = #{oct}, nov = #{nov}, `dec` = #{dec}
         WHERE id = #{id}
     </update>
-    <update id="update" parameterType="edu.jmu.oscm.model.ReduceTarget">
-        UPDATE ad_item_reduce_target
-        SET year_value = #{year_value}, jan = #{jan}, feb = #{feb}, mar = #{mar}, apr = #{apr}, may = #{may}, jun = #{jun}, jul = #{jul}, aug = #{aug}, sept = #{sept}, oct = #{oct}, nov = #{nov}, `dec` = #{dec}
-        WHERE id = #{id}
-    </update>
+
+    <sql id="sql_foreach">
+        <trim prefix="jan = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.jan}
+            </foreach>
+        </trim>
+        <trim prefix="feb = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.feb}
+            </foreach>
+        </trim>
+        <trim prefix="mar = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.mar}
+            </foreach>
+        </trim>
+        <trim prefix="apr = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.apr}
+            </foreach>
+        </trim>
+        <trim prefix="may = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.may}
+            </foreach>
+        </trim>
+        <trim prefix="jun = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.jun}
+            </foreach>
+        </trim>
+        <trim prefix="jul = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.jul}
+            </foreach>
+        </trim>
+        <trim prefix="aug = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.aug}
+            </foreach>
+        </trim>
+        <trim prefix="sept = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.sept}
+            </foreach>
+        </trim>
+        <trim prefix="oct = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.oct}
+            </foreach>
+        </trim>
+        <trim prefix="nov = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.nov}
+            </foreach>
+        </trim>
+        <trim prefix="`dec` = case" suffix="end,">
+            <foreach collection="list" item="reduceTarget">
+                WHEN id = #{reduceTarget.id} THEN #{reduceTarget.dec}
+            </foreach>
+        </trim>
+    </sql>
+    <sql id="sql_where">
+        <where>
+            <foreach collection="list" item="reduceTarget" separator="or">
+                id = #{reduceTarget.id}
+            </foreach>
+        </where>
+    </sql>
 
     <update id="updates" parameterType="java.util.List">
         UPDATE ad_item_reduce_target
@@ -56,73 +138,11 @@
                     WHEN id = #{reduceTarget.id} THEN #{reduceTarget.year_value}
                 </foreach>
             </trim>
-            <trim prefix="jan = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.jan}
-                </foreach>
-            </trim>
-            <trim prefix="feb = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.feb}
-                </foreach>
-            </trim>
-            <trim prefix="mar = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.mar}
-                </foreach>
-            </trim>
-            <trim prefix="apr = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.apr}
-                </foreach>
-            </trim>
-            <trim prefix="may = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.may}
-                </foreach>
-            </trim>
-            <trim prefix="jun = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.jun}
-                </foreach>
-            </trim>
-            <trim prefix="jul = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.jul}
-                </foreach>
-            </trim>
-            <trim prefix="aug = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.aug}
-                </foreach>
-            </trim>
-            <trim prefix="sept = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.sept}
-                </foreach>
-            </trim>
-            <trim prefix="oct = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.oct}
-                </foreach>
-            </trim>
-            <trim prefix="nov = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.nov}
-                </foreach>
-            </trim>
-            <trim prefix="`dec` = case" suffix="end,">
-                <foreach collection="list" item="reduceTarget">
-                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.dec}
-                </foreach>
-            </trim>
+            <include refid="sql_foreach"/>
         </trim>
-        <where>
-            <foreach collection="list" item="reduceTarget" separator="or">
-                id = #{reduceTarget.id}
-            </foreach>
-        </where>
+        <include refid="sql_where"/>
     </update>
+
     <update id="updateMonth" parameterType="edu.jmu.oscm.model.ReduceTarget">
         UPDATE ad_item_reduce_target
         <trim prefix="set" suffixOverrides=",">
@@ -143,37 +163,90 @@
         WHERE id=#{id}
     </update>
 
+    <update id="updateYearPercents" parameterType="java.util.List">
+        UPDATE ad_item_reduce_target
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="year_percent = case" suffix="end,">
+                <foreach collection="list" item="reduceTarget">
+                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.year_percent}
+                </foreach>
+            </trim>
+            <trim prefix="year_value = case" suffix="end,">
+                <foreach collection="list" item="reduceTarget">
+                    WHEN id = #{reduceTarget.id} THEN #{reduceTarget.year_value}
+                </foreach>
+            </trim>
+            <include refid="sql_foreach"/>
+        </trim>
+        <include refid="sql_where"/>
+    </update>
+
+    <update id="updateMonths" parameterType="java.util.List">
+        UPDATE ad_item_reduce_target
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="sql_foreach"/>
+        </trim>
+        <include refid="sql_where"/>
+    </update>
+
     <delete id="deleteByID" parameterType="integer" >
         DELETE FROM ad_item_reduce_target
         WHERE id = #{id}
     </delete>
+
     <delete id="deleteAll">
         DELETE
         FROM ad_item_reduce_target
         WHERE 1 = 1
     </delete>
+
+    <delete id="deleteByYearAndType">
+        DELETE
+        FROM ad_item_reduce_target
+        WHERE `year` = #{year} and item_id Like concat(#{type},'%')
+    </delete>
+
     <select id="queryAll" resultMap="reduceTargetMapper">
-        SELECT reduce.*, item_code, item_name, calc_expr, calc_explain, state, modify_time
+        SELECT reduce.*, item.*
         from ad_item_reduce_target reduce
-        inner join item
+        left join item
         on reduce.item_id = item.id
     </select>
+
     <select id="queryByID" resultMap="reduceTargetMapper" parameterType="integer">
-        SELECT reduce.*, item_code, item_name, calc_expr, calc_explain, state, modify_time
+        SELECT reduce.*, item.*
         FROM ad_item_reduce_target reduce
         inner join item
         on reduce.item_id = item.id
         WHERE reduce.id = #{id}
     </select>
+
     <select id="selectLastYearValue" resultType="java.math.BigDecimal">
         SELECT year_value
         FROM ad_item_reduce_target
         WHERE `year` = #{year} AND item_id = #{item_id}
     </select>
-    <select id="selectYearAndReportID" resultType="java.lang.Boolean">
+
+    <select id="selectYearAndItemID" resultType="java.lang.Boolean">
         SELECT *
         FROM ad_item_reduce_target
         WHERE `year` = #{year} AND item_id = #{item_id}
+    </select>
+
+    <select id="queryItems" resultMap="edu.jmu.oscm.mapper.ItemMapper.itemMapperResult">
+        SELECT * FROM item WHERE id <![CDATA[ >= ]]> #{startID} AND id <![CDATA[ <= ]]> #{endID}
+    </select>
+
+    <select id="queryReduceTargetsByYear" resultMap="reduceTargetMapper">
+        SELECT reduce.*, item.*
+        from ad_item_reduce_target reduce
+        left join item
+        on reduce.item_id = item.id
+        where `year` = #{year} and reduce.item_id like concat(#{type},'%')
+    </select>
+
+    <select id="queryMaxYear" resultType="java.lang.String">
+        SELECT MAX(`year`) FROM ad_item_reduce_target
     </select>
 
 

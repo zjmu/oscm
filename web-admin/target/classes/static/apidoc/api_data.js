@@ -477,7 +477,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定提升和改善计划表成功\",\n\"data\":\n{\n{\n\"id\":1,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"id\":\"1001\"\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n \"employee\":{\n         \"id\":\"450\"\n         \"employee_code\"=\"14\"\n         \"simple_code\"=\"G01\"\n         \"employee_name\"=\"林*香\"\n         \"employee_type\"=\"\"\n         \"dept_code\"=\"C301\"\n          \"state\"=\"1\"\n          \"modify_time\"=\"2019-04-11 19:10:00\"\n }\n}\n{\n\"id\":2,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n \"employee\":{\n         \"id\":\"450\"\n         \"employee_code\"=\"14\"\n         \"simple_code\"=\"G01\"\n         \"employee_name\"=\"林*香\"\n         \"employee_type\"=\"\"\n         \"dept_code\"=\"C301\"\n          \"state\"=\"1\"\n          \"modify_time\"=\"2019-04-11 19:10:00\"\n }\n}\n}\n\n}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定提升和改善计划表成功\",\n\"data\":\n{\n{\n\"id\":1,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"id\":\"1001\"\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n \"employee\":{\n         \"id\":\"450\"\n         \"employee_code\"=\"14\"\n         \"simple_code\"=\"G01\"\n         \"employee_name\"=\"林*香\"\n         \"employee_type\"=\"\"\n         \"dept_code\"=\"C301\"\n          \"state\"=\"1\"\n          \"modify_time\"=\"2019-04-11 19:10:00\"\n }\n \"department\":{\n     \"id\":\"2\"\n     dept_code:\"BIZ01\"\n     dept_name:\"大客户业务\"\n     parent_dept_code:\"CO001\"\n     liable_employee:\"\"\n     level=\"2\"\n     state=\"1\"\n     modify_time=\"2019-04-12 09:06:53\"\n }\n}\n{\n\"id\":2,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\n\"ok\":1,\n\"plan\":\"1\",\n\"remark\":\"1\",\n\"create_date\":\"2019-01-01 00:00:00\"\n\"item\":{\n         \"item_code\"=\"短期投资\"\n         \"item_name\"=\"短期投资\"\n         \"calc_expr=\"1101-1102\"\n         \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n         \"state\"=\"1\"\n         \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n \"employee\":{\n         \"id\":\"450\"\n         \"employee_code\"=\"14\"\n         \"simple_code\"=\"G01\"\n         \"employee_name\"=\"林*香\"\n         \"employee_type\"=\"\"\n         \"dept_code\"=\"C301\"\n          \"state\"=\"1\"\n          \"modify_time\"=\"2019-04-11 19:10:00\"\n }\n \"department\":{\n     \"id\":\"2\"\n     dept_code:\"BIZ01\"\n     dept_name:\"大客户业务\"\n     parent_dept_code:\"CO001\"\n     liable_employee:\"\"\n     level=\"2\"\n     state=\"1\"\n     modify_time=\"2019-04-12 09:06:53\"\n }\n}\n}\n\n}",
           "type": "json"
         }
       ]
@@ -1387,7 +1387,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{\n{\n     \"id\":1,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n   }\n{\n     \"id\":2,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n   }\n}\n}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{\n{\n     \"id\":1,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n      \"responsibleDepartments\":{\n          \"deptCode\"=\"C500\"\n          \"deptName\"=\"战略客户部公共\"\n      }\n      \"responsibleEmployee\":{\n          \"employeeName\"=\"陈*坤\"\n          \"id\"=\"456\"\n      }\n      \"collaborativeDepartments\":{\n          \"deptCode\":\"B101\"\n          \"deptName\":\"桌面产品营销处\"\n      }\n      \"collaborativeEmployee\":{\n          \"employeeName\"=\"袁*娟\"\n          \"id\"=\"455\"\n      }\n   }\n{\n     \"id\":2,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n      \"responsibleDepartments\":{\n          \"deptCode\"=\"C500\"\n          \"deptName\"=\"战略客户部公共\"\n      }\n      \"responsibleEmployee\":{\n          \"employeeName\"=\"陈*坤\"\n          \"id\"=\"456\"\n      }\n      \"collaborativeDepartments\":{\n          \"deptCode\":\"B101\"\n          \"deptName\":\"桌面产品营销处\"\n      }\n      \"collaborativeEmployee\":{\n          \"employeeName\"=\"袁*娟\"\n          \"id\"=\"455\"\n      }\n   }\n}\n}",
           "type": "json"
         }
       ]
@@ -1629,8 +1629,8 @@ define({ "api": [
   {
     "type": "DELETE",
     "url": "/reduceTargets",
-    "title": "删除所有项目降低目标设置",
-    "name": "deleteAllReduceTargets_____________",
+    "title": "删——删除所有项目降低目标设置",
+    "name": "deleteAllReduceTargets________________",
     "group": "ReduceTarget",
     "parameter": {
       "examples": [
@@ -1662,8 +1662,8 @@ define({ "api": [
   {
     "type": "DELETE",
     "url": "/reduceTarget?id=",
-    "title": "删除指定项目降低目标设置",
-    "name": "deleteReduceTarget_____________",
+    "title": "删——删除指定项目降低目标设置",
+    "name": "deleteReduceTarget________________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1705,9 +1705,9 @@ define({ "api": [
   },
   {
     "type": "DELETE",
-    "url": "/reduceTargets_year?year=",
-    "title": "type= 根据年份删除项目降低目标设置（流动资产或流动负债）",
-    "name": "deleteReduceTarget__________________________",
+    "url": "/reduceTargets_year?year=type=",
+    "title": "删——根据年份删除项目降低目标设置（流动资产或流动负债）",
+    "name": "deleteReduceTarget_____________________________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1731,7 +1731,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "DELETE: /reduceTargets_year?year=2019type=1\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "DELETE: /reduceTargets_year?year=2019?type=1\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1750,15 +1750,15 @@ define({ "api": [
     "groupTitle": "ReduceTarget",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets_year?year="
+        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets_year?year=type="
       }
     ]
   },
   {
     "type": "POST",
     "url": "/reduceTargets",
-    "title": "添加项目降低目标设置",
-    "name": "insertReduceTargets___________",
+    "title": "增——添加项目降低目标设置",
+    "name": "insertReduceTargets______________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1822,8 +1822,8 @@ define({ "api": [
   {
     "type": "GET",
     "url": "/reduceTargets",
-    "title": "查询所有项目降低目标设置",
-    "name": "queryAllReduceTargets_____________",
+    "title": "查——查询所有项目降低目标设置",
+    "name": "queryAllReduceTargets________________",
     "group": "ReduceTarget",
     "parameter": {
       "examples": [
@@ -1855,8 +1855,8 @@ define({ "api": [
   {
     "type": "GET",
     "url": "/items?type=",
-    "title": "查询流动资产（或流动负债）条目",
-    "name": "queryItemsByType________________",
+    "title": "查——查询流动资产（或流动负债）条目",
+    "name": "queryItemsByType___________________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1899,8 +1899,8 @@ define({ "api": [
   {
     "type": "GET",
     "url": "/reduceTarget?id=",
-    "title": "查询指定项目降低目标设置",
-    "name": "queryReduceTarget_____________",
+    "title": "查——查询指定项目降低目标设置",
+    "name": "queryReduceTarget________________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1942,9 +1942,9 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/reduceTargets_year_type?year=",
-    "title": "&type= 根据年份查询项目降低目标（流动资产或流动负债）",
-    "name": "reduceTargets_year_type________________________",
+    "url": "/reduceTargets_year_type?year=&type=",
+    "title": "查——根据年份查询项目降低目标（流动资产或流动负债）",
+    "name": "reduceTargets_year_type___________________________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -1987,15 +1987,15 @@ define({ "api": [
     "groupTitle": "ReduceTarget",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets_year_type?year="
+        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets_year_type?year=&type="
       }
     ]
   },
   {
     "type": "PUT",
     "url": "/reduceTargets_monthValue",
-    "title": "批量更改项目月降低目标",
-    "name": "updateReduceTargets_monthValue____________",
+    "title": "改——批量更改项目月降低目标",
+    "name": "updateReduceTargets_monthValue_______________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -2110,8 +2110,8 @@ define({ "api": [
   {
     "type": "PUT",
     "url": "/reduceTargets_yearPercent",
-    "title": "批量更改项目降低目标",
-    "name": "updateReduceTargets_yearPercent___________",
+    "title": "改——批量更改项目年降低目标",
+    "name": "updateReduceTargets_yearPercent_______________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {

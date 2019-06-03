@@ -3,19 +3,18 @@
 <mapper namespace="edu.jmu.oscm.mapper.TargetMatchingMapper">
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.BalanceTargetValue">
-        <result column="REPORT_ITEM_ID" property="reportItemId"/>
+        <result column="ITEM_ID" property="itemId"/>
         <result column="year" property="year"/>
         <result column="month" property="month"/>
         <result column="last_month_balance" property="lastMonthBalance"/>
         <result column="plan_month_target_value" property="planMonthTargetValue"/>
         <result column="actual_month_target_value" property="actualMonthTargetValue"/>
-        <result column="asset_or_debt" property="assetOrDebt"/>
-        <association property="reportItemInstance" column="{reportItemId=REPORT_ITEM_ID,year=year,month=month}" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstanceByReportItemId"/>
-        <collection property="itemEmployee" column="REPORT_ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
+        <association property="item" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId"/>
+        <collection property="itemEmployee" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
     </resultMap>
 
     <select id="getTargetMatching" resultMap="mapper">
-        SELECT b.REPORT_ITEM_ID REPORT_ITEM_ID,b.year year,b.month month,b.last_month_balance last_month_balance,b.plan_month_target_value plan_month_target_value,b.actual_month_target_value actual_month_target_value,i.asset_or_debt asset_or_debt
-        FROM ad_balance_target_value b join ad_item_reduce_target i on b.REPORT_ITEM_ID = i.REPORT_ITEM_ID WHERE b.year=#{year} and b.month=#{month}
+        SELECT ITEM_ID, last_month_balance, plan_month_target_value
+        FROM ad_balance_target_value WHERE year=#{year} and month=#{month}
     </select>
 </mapper>

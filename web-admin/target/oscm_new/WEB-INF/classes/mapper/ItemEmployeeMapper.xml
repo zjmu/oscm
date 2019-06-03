@@ -5,13 +5,19 @@
     <resultMap id="mapper" type="edu.jmu.oscm.model.ItemEmployee">
         <id property="id" column="id"/>
         <result property="employeeId" column="EMPLOYEE_ID"/>
-        <result property="reportItemId" column="REPORT_ITEM_ID"/>
+        <result property="itemId" column="ITEM_ID"/>
         <result property="isCharge" column="is_charge"/>
         <association property="employee" column="EMPLOYEE_ID" select="edu.jmu.oscm.mapper.EmployeeMapper.selectEmployee"/>
     </resultMap>
 
     <select id="selectItemEmployee" resultMap="mapper">
-        SELECT * FROM ad_item_employee WHERE REPORT_ITEM_ID=#{reportItemId}
+        SELECT * FROM ad_item_employee WHERE ITEM_ID=#{itemId} AND is_charge=1
+    </select>
+    <select id="selectCollaborativeEmployee" resultMap="mapper">
+         SELECT * FROM ad_item_employee WHERE ITEM_ID=#{itemId} AND is_charge=0
+    </select>
+    <select id="selectAllItemEmployee" resultMap="mapper">
+        SELECT * FROM ad_item_employee WHERE ITEM_ID=#{itemId}
     </select>
 
 
