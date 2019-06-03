@@ -5,7 +5,6 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
