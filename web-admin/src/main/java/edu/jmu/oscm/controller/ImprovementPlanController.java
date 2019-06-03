@@ -78,6 +78,16 @@ public class ImprovementPlanController {
      *           "state"="1"
      *           "modify_time"="2019-04-11 19:10:00"
      *  }
+     *  "department":{
+     *      "id":"2"
+     *      dept_code:"BIZ01"
+     *      dept_name:"大客户业务"
+     *      parent_dept_code:"CO001"
+     *      liable_employee:""
+     *      level="2"
+     *      state="1"
+     *      modify_time="2019-04-12 09:06:53"
+     *  }
      * }
      * {
      * "id":2,
@@ -105,6 +115,16 @@ public class ImprovementPlanController {
      *          "dept_code"="C301"
      *           "state"="1"
      *           "modify_time"="2019-04-11 19:10:00"
+     *  }
+     *  "department":{
+     *      "id":"2"
+     *      dept_code:"BIZ01"
+     *      dept_name:"大客户业务"
+     *      parent_dept_code:"CO001"
+     *      liable_employee:""
+     *      level="2"
+     *      state="1"
+     *      modify_time="2019-04-12 09:06:53"
      *  }
      * }
      * }

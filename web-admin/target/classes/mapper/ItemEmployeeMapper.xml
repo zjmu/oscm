@@ -13,6 +13,12 @@
     <select id="selectItemEmployee" resultMap="mapper">
         SELECT * FROM ad_item_employee WHERE ITEM_ID=#{itemId} AND is_charge=1
     </select>
+    <select id="selectCollaborativeEmployee" resultMap="mapper">
+         SELECT * FROM ad_item_employee WHERE ITEM_ID=#{itemId} AND is_charge=0
+    </select>
+    <select id="selectAllItemEmployee" resultMap="mapper">
+        SELECT * FROM ad_item_employee WHERE ITEM_ID=#{itemId}
+    </select>
 
 
 </mapper>

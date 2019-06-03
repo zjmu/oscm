@@ -1,5 +1,6 @@
 package edu.jmu.oscm.controller;
 import edu.jmu.oscm.model.MonthReport;
+import edu.jmu.oscm.service.MonthReportService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.oscm.mapper.MonthReportMapper;
 import edu.jmu.util.BusinessWrapper;
@@ -13,7 +14,8 @@ import java.util.List;
 @RestController
 public class MonthReportController {
     private static final Logger logger = LoggerFactory.getLogger(MonthReportController.class);
-
+    @Autowired
+    private MonthReportService monthReportService;
     @Autowired
     private MonthReportMapper monthReportMapper;
 
@@ -56,6 +58,22 @@ public class MonthReportController {
      *                      "state"="1"
      *                      "modify_time"= "2019-04-28 09:59:00"
      *          }
+     *       "responsibleDepartments":{
+     *           "deptCode"="C500"
+     *           "deptName"="战略客户部公共"
+     *       }
+     *       "responsibleEmployee":{
+     *           "employeeName"="陈*坤"
+     *           "id"="456"
+     *       }
+     *       "collaborativeDepartments":{
+     *           "deptCode":"B101"
+     *           "deptName":"桌面产品营销处"
+     *       }
+     *       "collaborativeEmployee":{
+     *           "employeeName"="袁*娟"
+     *           "id"="455"
+     *       }
      *    }
      * {
      *      "id":2,
@@ -74,6 +92,22 @@ public class MonthReportController {
      *                      "state"="1"
      *                      "modify_time"= "2019-04-28 09:59:00"
      *          }
+     *       "responsibleDepartments":{
+     *           "deptCode"="C500"
+     *           "deptName"="战略客户部公共"
+     *       }
+     *       "responsibleEmployee":{
+     *           "employeeName"="陈*坤"
+     *           "id"="456"
+     *       }
+     *       "collaborativeDepartments":{
+     *           "deptCode":"B101"
+     *           "deptName":"桌面产品营销处"
+     *       }
+     *       "collaborativeEmployee":{
+     *           "employeeName"="袁*娟"
+     *           "id"="455"
+     *       }
      *    }
      * }
      * }
@@ -81,7 +115,7 @@ public class MonthReportController {
     @GetMapping("/monthReport")
     public BasicResponse<List<MonthReport>> selectMonthReportByDate(@RequestParam("year") String year,@RequestParam("month") String month) {
         return BusinessWrapper.wrap(response -> {
-            List<MonthReport> monthReports = monthReportMapper.selectMonthReportByDate(year,month);
+            List<MonthReport> monthReports = monthReportService.selectMonthReportByDate(year,month);
             ResponseUtil.set(response, 0, "查找指定流动资金成本管控情况月度总结情况报告表成功",monthReports);
         }, logger);
     }
