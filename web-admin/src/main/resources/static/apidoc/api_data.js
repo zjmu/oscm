@@ -1838,7 +1838,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询所有项目降低目标设置成功\",\"data\":[\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":99,\n         \"year_value\":118.8000,\n         \"last_year_value\":120,\n         \"jan\":9.9,\n         \"feb\":9.9,\n         \"mar\":9.9,\n         \"apr\":9.9,\n         \"may\":9.9,\n         \"jun\":9.9,\n         \"jul\":9.9,\n         \"aug\":9.9,\n         \"sept\":9.9,\n         \"oct\":9.9,\n         \"nov\":9.9,\n         \"dec\":9.9,\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":233,\n         \"item_id\":2015,\n         \"year\":\"2018\",\n         \"year_percent\":97,\n         \"year_value\":116.4000,\n         \"last_year_value\":120,\n         \"jan\":9.7,\n         \"feb\":9.7,\n         \"mar\":9.7,\n         \"apr\":9.7,\n         \"may\":9.7,\n         \"jun\":9.7,\n         \"jul\":9.7,\n         \"aug\":9.7,\n         \"sept\":9.7,\n         \"oct\":9.7,\n         \"nov\":9.7,\n         \"dec\":9.7,\n         \"asset_or_debt\":true\n         \"create_date\":2019-06-01T06:39:58.000+0000\n         \"item_name\"=\"其他流动负债\",\n         \"item\":{\n             \"item_code\"=\"其他流动负债\",\n             \"item_name\"=\"其他流动负债\",\n             \"calc_expr=\"0\",\n             \"calc_explain\"=\"\",\n             \"state\"=\"1\",\n             \"modify_time\"=2019-05-06T09:31:40.000+0000\n         }\n       }\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询所有项目降低目标设置成功\",\"data\":[\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":233,\n         \"item_id\":2015,\n         \"year\":\"2018\",\n         \"year_percent\":50,\n         \"year_value\":60.0000,\n         \"last_year_value\":120,\n         \"jan\":4.1667,\n         \"feb\":4.1667,\n         \"mar\":4.1667,\n         \"apr\":4.1667,\n         \"may\":4.1667,\n         \"jun\":4.1667,\n         \"jul\":4.1667,\n         \"aug\":4.1667,\n         \"sept\":4.1667,\n         \"oct\":4.1667,\n         \"nov\":4.1667,\n         \"dec\":4.1663,\n         \"asset_or_debt\":true\n         \"create_date\":2019-06-01T06:39:58.000+0000\n         \"item_name\"=\"其他流动负债\",\n         \"item\":{\n             \"item_code\"=\"其他流动负债\",\n             \"item_name\"=\"其他流动负债\",\n             \"calc_expr=\"0\",\n             \"calc_explain\"=\"\",\n             \"state\"=\"1\",\n             \"modify_time\"=2019-05-06T09:31:40.000+0000\n         }\n       }\n}",
           "type": "json"
         }
       ]
@@ -1926,7 +1926,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询指定项目降低目标设置\",\n     {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":99,\n         \"year_value\":118.8000,\n         \"last_year_value\":120,\n         \"jan\":9.9,\n         \"feb\":9.9,\n         \"mar\":9.9,\n         \"apr\":9.9,\n         \"may\":9.9,\n         \"jun\":9.9,\n         \"jul\":9.9,\n         \"aug\":9.9,\n         \"sept\":9.9,\n         \"oct\":9.9,\n         \"nov\":9.9,\n         \"dec\":9.9,\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       }",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询指定项目降低目标设置\",\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       }",
           "type": "json"
         }
       ]
@@ -1977,7 +1977,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询所有项目降低目标设置成功\",\"data\":[\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":99,\n         \"year_value\":118.8000,\n         \"last_year_value\":120,\n         \"jan\":9.9,\n         \"feb\":9.9,\n         \"mar\":9.9,\n         \"apr\":9.9,\n         \"may\":9.9,\n         \"jun\":9.9,\n         \"jul\":9.9,\n         \"aug\":9.9,\n         \"sept\":9.9,\n         \"oct\":9.9,\n         \"nov\":9.9,\n         \"dec\":9.9,\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":220,\n         \"item_id\":1015,\n         \"year\":\"2018\",\n         \"year_percent\":97,\n         \"year_value\":116.4000,\n         \"last_year_value\":120,\n         \"jan\":9.7,\n         \"feb\":9.7,\n         \"mar\":9.7,\n         \"apr\":9.7,\n         \"may\":9.7,\n         \"jun\":9.7,\n         \"jul\":9.7,\n         \"aug\":9.7,\n         \"sept\":9.7,\n         \"oct\":9.7,\n         \"nov\":9.7,\n         \"dec\":9.7,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-06T02:43:09.000+0000\n         \"item_name\"=\"待摊费用\",\n         \"item\":{\n             \"item_code\"=\"待摊费用\",\n             \"item_name\"=\"待摊费用\",\n             \"calc_expr=\"$1301\",\n             \"calc_explain\"=\"待摊费用\",\n             \"state\"=\"1\",\n             \"modify_time\"=2019-05-06T02:43:09.000+0000\n         }\n       }\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"根据年份查询项目降低目标成功\",\"data\":[\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":220,\n         \"item_id\":1015,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-06T02:43:09.000+0000\n         \"item_name\"=\"待摊费用\",\n         \"item\":{\n             \"item_code\"=\"待摊费用\",\n             \"item_name\"=\"待摊费用\",\n             \"calc_expr=\"$1301\",\n             \"calc_explain\"=\"待摊费用\",\n             \"state\"=\"1\",\n             \"modify_time\"=2019-05-06T02:43:09.000+0000\n         }\n       }\n}",
           "type": "json"
         }
       ]
@@ -2009,72 +2009,84 @@ define({ "api": [
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "jan",
             "description": "<p>一月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "feb",
             "description": "<p>二月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "mar",
             "description": "<p>三月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "apr",
             "description": "<p>四月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "may",
             "description": "<p>五月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "jun",
             "description": "<p>六月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "jul",
             "description": "<p>七月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "aug",
             "description": "<p>八月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "sept",
             "description": "<p>九月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "oct",
             "description": "<p>十月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "nov",
             "description": "<p>十一月份</p>"
           },
           {
             "group": "Parameter",
+            "type": "BigDecimal",
             "optional": false,
             "field": "dec",
             "description": "<p>十二月份</p>"
@@ -2084,7 +2096,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "[\n     {\n      \"id\":208,\n      \"jan\":10,\n      \"feb\":9.8,\n      \"mar\":9.9,\n      \"apr\":9.9,\n      \"may\":9.9,\n      \"jun\":9.9,\n      \"jul\":9.9,\n      \"aug\":9.9,\n      \"sept\":9.9,\n      \"oct\":9.9,\n      \"nov\":9.9,\n      \"dec\":9.9\n      },\n     {\n      \"id\":209,\n      \"jan\":9.8,\n      \"feb\":9.8,\n      \"mar\":9.8,\n      \"apr\":9.8,\n      \"may\":9.8,\n      \"jun\":9.8,\n      \"jul\":9.7,\n      \"aug\":9.8,\n      \"sept\":9.7,\n      \"oct\":9.8,\n      \"nov\":10,\n      \"dec\":9.8\n      }\n]\nPUT: /reduceTargets_monthValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "[\n     {\n      \"id\":208,\n      \"jan\":5.0001,\n      \"feb\":4.9999,\n      \"mar\":5,\n      \"apr\":5,\n      \"may\":5,\n      \"jun\":5,\n      \"jul\":5,\n      \"aug\":5,\n      \"sept\":5,\n      \"oct\":5,\n      \"nov\":5,\n      \"dec\":5\n      },\n     {\n      \"id\":209,\n      \"jan\":5.0002,\n      \"feb\":4.9998,\n      \"mar\":5,\n      \"apr\":5,\n      \"may\":5,\n      \"jun\":5,\n      \"jul\":5,\n      \"aug\":5,\n      \"sept\":5,\n      \"oct\":5,\n      \"nov\":5,\n      \"dec\":5\n      }\n]\nPUT: /reduceTargets_monthValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
