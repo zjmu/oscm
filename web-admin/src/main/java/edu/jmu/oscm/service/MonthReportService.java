@@ -32,6 +32,7 @@ public class MonthReportService {
     {
         List<MonthReport> monthReports = monthReportMapper.selectMonthReportByDate(year, month);
         for(MonthReport monthReport:monthReports){
+            monthReport.setItem_name(monthReport.getItem().getItem_name());
             BigInteger item_id=monthReport.getItem_id();
             List<ItemEmployee> itemEmployees=itemEmployeeMapper.selectAllItemEmployee(item_id);
             List<Employee> responsibleEmployee=new ArrayList<>();

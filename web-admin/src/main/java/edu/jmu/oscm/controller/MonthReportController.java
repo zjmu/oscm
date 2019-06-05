@@ -50,6 +50,7 @@ public class MonthReportController {
      *      "plan":"1",
      *      "remark":"1",
      *      "create_date":"2019-01-01 00:00:00"
+     *      "item_name":"短期投资"
      *       "item":{
      *                      "item_code"="短期投资"
      *                      "item_name"="短期投资"
@@ -84,6 +85,7 @@ public class MonthReportController {
      *      "plan":"1",
      *      "remark":"1",
      *      "create_date":"2019-01-01 00:00:00"
+     *      "item_name":"短期投资"
      *       "item":{
      *                      "item_code"="短期投资"
      *                      "item_name"="短期投资"

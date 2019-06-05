@@ -53,7 +53,7 @@ public class MonthReport {
 
     //外键对应的Item对象
     private  Item item;
-
+    private  String item_name;
     private List<Employee> responsibleEmployee;
     private List<Employee> collaborativeEmployee;
     private List<Department> responsibleDepartments;
