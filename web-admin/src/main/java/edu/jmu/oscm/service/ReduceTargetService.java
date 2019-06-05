@@ -122,6 +122,17 @@ public class ReduceTargetService {
             if(rt == null){
                 return false;
             }
+            //数据库中有数据
+            if(reduceTargetMapper.queryMaxYear()!=null){
+                int year = Integer.parseInt(reduceTargetMapper.queryMaxYear());
+                int newYear = Integer.parseInt(rt.getYear());
+
+                //year == newYear       只能更改最新年份
+                if(year != newYear){
+                    return false;
+                }
+            }
+
             //重新计算yearValue
             BigDecimal num = new BigDecimal("100");
             BigDecimal yearPercent = new BigDecimal(reduceTarget.getYear_percent());
@@ -189,7 +200,8 @@ public class ReduceTargetService {
     private ReduceTarget caculateAverage(ReduceTarget reduceTarget){
         //计算12个月的平均降低值
         BigDecimal monthCount = new BigDecimal(12);
-        BigDecimal averageValue = reduceTarget.getYear_value().divide(monthCount,4,BigDecimal.ROUND_HALF_DOWN);
+        BigDecimal yearPercent = new BigDecimal(reduceTarget.getYear_percent());
+        BigDecimal averageValue = yearPercent.divide(monthCount,4,BigDecimal.ROUND_HALF_DOWN);
         //前11个月
         BigDecimal num = new BigDecimal(11);
         BigDecimal value;
@@ -206,7 +218,7 @@ public class ReduceTargetService {
         reduceTarget.setOct(averageValue);
         reduceTarget.setNov(averageValue);
         //设置第12个月的降低值
-        value = reduceTarget.getYear_value().subtract(averageValue.multiply(num));
+        value = yearPercent.subtract(averageValue.multiply(num));
         reduceTarget.setDec(value);
         return reduceTarget;
     }
@@ -283,8 +295,11 @@ public class ReduceTargetService {
             rt.setDec(reduceTarget.getDec());
         }
         sum = sum.add(rt.getDec());
+
+        Double s=sum.doubleValue();
+
         //是否可以修改
-        if(sum.compareTo(rt.getYear_value())==0){
+        if(s.compareTo(rt.getYear_percent())==0){
             return rt;
         }else{
             return null;

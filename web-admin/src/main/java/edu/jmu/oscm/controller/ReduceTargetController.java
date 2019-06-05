@@ -45,21 +45,21 @@ public class ReduceTargetController {
      *         {"id":208,
      *          "item_id":1003,
      *          "year":"2018",
-     *          "year_percent":99,
-     *          "year_value":118.8000,
+     *          "year_percent":60,
+     *          "year_value":72.0000,
      *          "last_year_value":120,
-     *          "jan":9.9,
-     *          "feb":9.9,
-     *          "mar":9.9,
-     *          "apr":9.9,
-     *          "may":9.9,
-     *          "jun":9.9,
-     *          "jul":9.9,
-     *          "aug":9.9,
-     *          "sept":9.9,
-     *          "oct":9.9,
-     *          "nov":9.9,
-     *          "dec":9.9,
+     *          "jan":5,
+     *          "feb":5,
+     *          "mar":5,
+     *          "apr":5,
+     *          "may":5,
+     *          "jun":5,
+     *          "jul":5,
+     *          "aug":5,
+     *          "sept":5,
+     *          "oct":5,
+     *          "nov":5,
+     *          "dec":5,
      *          "asset_or_debt":true,
      *          "create_date":2019-06-01T05:13:02.000+0000
      *          "item_name"="货币资金",
@@ -78,21 +78,21 @@ public class ReduceTargetController {
      * {"id":233,
      *          "item_id":2015,
      *          "year":"2018",
-     *          "year_percent":97,
-     *          "year_value":116.4000,
+     *          "year_percent":50,
+     *          "year_value":60.0000,
      *          "last_year_value":120,
-     *          "jan":9.7,
-     *          "feb":9.7,
-     *          "mar":9.7,
-     *          "apr":9.7,
-     *          "may":9.7,
-     *          "jun":9.7,
-     *          "jul":9.7,
-     *          "aug":9.7,
-     *          "sept":9.7,
-     *          "oct":9.7,
-     *          "nov":9.7,
-     *          "dec":9.7,
+     *          "jan":4.1667,
+     *          "feb":4.1667,
+     *          "mar":4.1667,
+     *          "apr":4.1667,
+     *          "may":4.1667,
+     *          "jun":4.1667,
+     *          "jul":4.1667,
+     *          "aug":4.1667,
+     *          "sept":4.1667,
+     *          "oct":4.1667,
+     *          "nov":4.1667,
+     *          "dec":4.1663,
      *          "asset_or_debt":true
      *          "create_date":2019-06-01T06:39:58.000+0000
      *          "item_name"="其他流动负债",
@@ -131,25 +131,25 @@ public class ReduceTargetController {
      * <p>
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
-     * {"code":0,"message":"查询所有项目降低目标设置成功","data":[
+     * {"code":0,"message":"根据年份查询项目降低目标成功","data":[
      *         {"id":208,
      *          "item_id":1003,
      *          "year":"2018",
-     *          "year_percent":99,
-     *          "year_value":118.8000,
+     *          "year_percent":60,
+     *          "year_value":72.0000,
      *          "last_year_value":120,
-     *          "jan":9.9,
-     *          "feb":9.9,
-     *          "mar":9.9,
-     *          "apr":9.9,
-     *          "may":9.9,
-     *          "jun":9.9,
-     *          "jul":9.9,
-     *          "aug":9.9,
-     *          "sept":9.9,
-     *          "oct":9.9,
-     *          "nov":9.9,
-     *          "dec":9.9,
+     *          "jan":5,
+     *          "feb":5,
+     *          "mar":5,
+     *          "apr":5,
+     *          "may":5,
+     *          "jun":5,
+     *          "jul":5,
+     *          "aug":5,
+     *          "sept":5,
+     *          "oct":5,
+     *          "nov":5,
+     *          "dec":5,
      *          "asset_or_debt":true,
      *          "create_date":2019-06-01T05:13:02.000+0000
      *          "item_name"="货币资金",
@@ -168,21 +168,21 @@ public class ReduceTargetController {
      * {"id":220,
      *          "item_id":1015,
      *          "year":"2018",
-     *          "year_percent":97,
-     *          "year_value":116.4000,
+     *          "year_percent":60,
+     *          "year_value":72.0000,
      *          "last_year_value":120,
-     *          "jan":9.7,
-     *          "feb":9.7,
-     *          "mar":9.7,
-     *          "apr":9.7,
-     *          "may":9.7,
-     *          "jun":9.7,
-     *          "jul":9.7,
-     *          "aug":9.7,
-     *          "sept":9.7,
-     *          "oct":9.7,
-     *          "nov":9.7,
-     *          "dec":9.7,
+     *          "jan":5,
+     *          "feb":5,
+     *          "mar":5,
+     *          "apr":5,
+     *          "may":5,
+     *          "jun":5,
+     *          "jul":5,
+     *          "aug":5,
+     *          "sept":5,
+     *          "oct":5,
+     *          "nov":5,
+     *          "dec":5,
      *          "asset_or_debt":true
      *          "create_date":2019-05-06T02:43:09.000+0000
      *          "item_name"="待摊费用",
@@ -223,24 +223,24 @@ public class ReduceTargetController {
      * HTTP/1.1 200 OK
      * <p>
      * {"code":0,"message":"查询指定项目降低目标设置",
-     *      {"id":208,
+     *         {"id":208,
      *          "item_id":1003,
      *          "year":"2018",
-     *          "year_percent":99,
-     *          "year_value":118.8000,
+     *          "year_percent":60,
+     *          "year_value":72.0000,
      *          "last_year_value":120,
-     *          "jan":9.9,
-     *          "feb":9.9,
-     *          "mar":9.9,
-     *          "apr":9.9,
-     *          "may":9.9,
-     *          "jun":9.9,
-     *          "jul":9.9,
-     *          "aug":9.9,
-     *          "sept":9.9,
-     *          "oct":9.9,
-     *          "nov":9.9,
-     *          "dec":9.9,
+     *          "jan":5,
+     *          "feb":5,
+     *          "mar":5,
+     *          "apr":5,
+     *          "may":5,
+     *          "jun":5,
+     *          "jul":5,
+     *          "aug":5,
+     *          "sept":5,
+     *          "oct":5,
+     *          "nov":5,
+     *          "dec":5,
      *          "asset_or_debt":true,
      *          "create_date":2019-06-01T05:13:02.000+0000
      *          "item_name"="货币资金",
@@ -489,49 +489,49 @@ public class ReduceTargetController {
      * @apiName updateReduceTargets_monthValue 改——批量更改项目月降低目标
      * @apiGroup ReduceTarget
      * @apiParam {int} id 指定项目降低目标设置id
-     * @apiParam jan 一月份
-     * @apiParam feb 二月份
-     * @apiParam mar 三月份
-     * @apiParam apr 四月份
-     * @apiParam may 五月份
-     * @apiParam jun 六月份
-     * @apiParam jul 七月份
-     * @apiParam aug 八月份
-     * @apiParam sept 九月份
-     * @apiParam oct 十月份
-     * @apiParam nov 十一月份
-     * @apiParam dec 十二月份
+     * @apiParam {BigDecimal} jan 一月份
+     * @apiParam {BigDecimal} feb 二月份
+     * @apiParam {BigDecimal} mar 三月份
+     * @apiParam {BigDecimal} apr 四月份
+     * @apiParam {BigDecimal} may 五月份
+     * @apiParam {BigDecimal} jun 六月份
+     * @apiParam {BigDecimal} jul 七月份
+     * @apiParam {BigDecimal} aug 八月份
+     * @apiParam {BigDecimal} sept 九月份
+     * @apiParam {BigDecimal} oct 十月份
+     * @apiParam {BigDecimal} nov 十一月份
+     * @apiParam {BigDecimal} dec 十二月份
      * @apiParamExample {json} Request_Example:
      * [
      *      {
      *       "id":208,
-     *       "jan":10,
-     *       "feb":9.8,
-     *       "mar":9.9,
-     *       "apr":9.9,
-     *       "may":9.9,
-     *       "jun":9.9,
-     *       "jul":9.9,
-     *       "aug":9.9,
-     *       "sept":9.9,
-     *       "oct":9.9,
-     *       "nov":9.9,
-     *       "dec":9.9
+     *       "jan":5.0001,
+     *       "feb":4.9999,
+     *       "mar":5,
+     *       "apr":5,
+     *       "may":5,
+     *       "jun":5,
+     *       "jul":5,
+     *       "aug":5,
+     *       "sept":5,
+     *       "oct":5,
+     *       "nov":5,
+     *       "dec":5
      *       },
      *      {
      *       "id":209,
-     *       "jan":9.8,
-     *       "feb":9.8,
-     *       "mar":9.8,
-     *       "apr":9.8,
-     *       "may":9.8,
-     *       "jun":9.8,
-     *       "jul":9.7,
-     *       "aug":9.8,
-     *       "sept":9.7,
-     *       "oct":9.8,
-     *       "nov":10,
-     *       "dec":9.8
+     *       "jan":5.0002,
+     *       "feb":4.9998,
+     *       "mar":5,
+     *       "apr":5,
+     *       "may":5,
+     *       "jun":5,
+     *       "jul":5,
+     *       "aug":5,
+     *       "sept":5,
+     *       "oct":5,
+     *       "nov":5,
+     *       "dec":5
      *       }
      * ]
      * PUT: /reduceTargets_monthValue
