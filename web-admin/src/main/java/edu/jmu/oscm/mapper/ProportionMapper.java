@@ -1,7 +1,9 @@
 package edu.jmu.oscm.mapper;
 
 import edu.jmu.oscm.model.Proportion;
+import edu.jmu.oscm.model.ReportItemInstance;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -29,15 +31,20 @@ public interface ProportionMapper {
     Boolean insertProportion(Proportion proportion);
 
     /**
+     * 批量增加
+     * @param list
+     * @return
+     */
+    Boolean insertProportions(List<Proportion> list);
+
+    /**
      * 根据指定id更新信息
      * @param id
      * @param prop
      * @param accumProp
      * @return
      */
-    Boolean
-
-    updateProportion(BigInteger id,String prop,String accumProp);
+    Boolean updateProportion(BigInteger id,String prop,String accumProp);
 
     /**
      * 根据id查找一条
@@ -50,9 +57,11 @@ public interface ProportionMapper {
      * 根据年月查找相关的记录
      * @param year
      * @param month
+     * @param reportId
+     * @param type
      * @return
      */
-    List<Proportion> selectProportionByYearAndMonth(String year,String month);
+    List<Proportion> selectProportionByYearAndMonthAndType(String year,String month,int reportId,Boolean type);
 
     /**
      * 查找所有记录
@@ -75,9 +84,8 @@ public interface ProportionMapper {
      * 占比计算接口
      * @param year
      * @param month
-     * @param reportId
      * @param type
      * @return
      */
-    Boolean calculateProportionOfYearAndMonth(String year,String month,int reportId,int type);
+    List<ReportItemInstance> calculateProportionOfYearAndMonth(@Param("year") String year, @Param("month") String month, @Param("type") String type);
 }

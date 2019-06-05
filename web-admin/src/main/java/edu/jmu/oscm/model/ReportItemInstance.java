@@ -26,6 +26,8 @@ public class ReportItemInstance {
     private String endValue;
     private Date modifyTime;
 
+    private String itemId;
+
     public BigInteger getId() {
         return id;
     }
@@ -160,5 +162,13 @@ public class ReportItemInstance {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 }
