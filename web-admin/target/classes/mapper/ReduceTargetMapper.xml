@@ -246,7 +246,7 @@
     </select>
     <select id="queryItems" resultType="edu.jmu.oscm.model.Item">
         select * from item where item_code  in
-        <foreach collection="list" index="index" item="itemCode" open="(" separator="," close=")">
+        <foreach collection="itemCodes" index="index" item="itemCode" open="(" separator="," close=")">
             #{itemCode}
         </foreach>
     </select>
