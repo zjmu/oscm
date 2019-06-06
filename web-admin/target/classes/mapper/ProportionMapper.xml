@@ -14,6 +14,15 @@
         <result column="create_date" property="createDate"/>
     </resultMap>
 
+    <resultMap id="ProportionItemAndId" type="edu.jmu.oscm.model.ReportItemInstance">
+        <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+        <result column="YEAR" property="year"/>
+        <result column="MONTH" property="month"/>
+        <result column="sum" property="endValue"/>
+        <result column="ID" property="itemId"/>
+    </resultMap>
+
     <resultMap id="ProportionItemByYearAndMonthAndReportId" type="edu.jmu.oscm.model.Proportion">
         <id column="id" property="id"/>
         <result column="ITEM_ID" property="itemId"/>
@@ -92,6 +101,16 @@
                 #{create_date})
     </insert>
 
+    <insert id="insertProportions" parameterType="java.util.List">
+        INSERT INTO ad_item_proportion(ITEM_ID, ITEM_CODE,ITEM_NAME, year, month, proportion, accumulate_proportion, asset_or_debt,
+                                       create_date)
+        values
+               <foreach collection="list" item="proportion" separator=",">
+                   (#{proportion.itemId}, #{proportion.itemCode},#{proportion.itemName} , #{proportion.year}, #{proportion.month}, #{proportion.proportion},
+                    #{proportion.accumulateProportion}, #{proportion.assetOrDebt}, #{proportion.createDate})
+               </foreach>
+    </insert>
+
     <delete id="deleteById">
         delete
         from ad_item_proportion
@@ -115,11 +134,12 @@
         where id = #{id}
     </select>
 
-    <select id="selectProportionByYearAndMonth" resultMap="ProportionItem">
+    <select id="selectProportionByYearAndMonthAndType" resultMap="ProportionItem">
         select *
         from ad_item_proportion
         where year = #{year}
           and month = #{month}
+          and asset_or_debt = #{type}
     </select>
 
     <select id="selectProportionByYearAndMonthAndReportIdAndType" resultMap="ProportionItemByYearAndMonthAndReportId">
@@ -137,11 +157,14 @@
         where id=#{id}
     </update>
 
-    <update id="calculateProportionOfYearAndMonth">
-#         SELECT table0.*,table1.*,SUM(table2.VALUE) AS VALUE FROM ad_item_proportion table0, report_item table1, report_item_instance table2
-#         WHERE table1.REPORT_ID = #{reportId} AND table2.REPORT_ITEM_ID = table1.ID AND table0.ITEM_ID = table1.ITEM_ID AND table0.year = #{year} AND table0.month = #{month} AND table0.year = table2.YEAR AND table0.month = table2.MONTH AND table0.asset_or_debt = #{type}
-#         GROUP BY table0.id,table1.ID,table2.REPORT_ITEM_ID
-    </update>
+<!--    SELECT item_code, sum(end_value) from report_item_instance where parent_item_code = #{type} AND year = #{year} AND month = #{month} group by  item_code;-->
+
+    <select id="calculateProportionOfYearAndMonth" resultMap="ProportionItemAndId">
+        SELECT parent_item_code , report_item_instance.ITEM_CODE ,  YEAR , MONTH , sum(end_value) AS sum,item.ID
+        from report_item_instance ,item
+        where parent_item_code = #{type} AND YEAR = #{year} AND MONTH = #{month} AND  report_item_instance.ITEM_CODE=item.ITEM_CODE group by  report_item_instance.item_code,item.ID ORDER BY item.ID;
+
+    </select>
 
 <!--    SELECT *-->
 <!--    FROM ad_item_proportion table1-->

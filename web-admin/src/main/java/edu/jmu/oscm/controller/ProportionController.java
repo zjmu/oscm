@@ -2,6 +2,7 @@ package edu.jmu.oscm.controller;
 
 import edu.jmu.oscm.mapper.ProportionMapper;
 import edu.jmu.oscm.model.Proportion;
+import edu.jmu.oscm.model.ReportItemInstance;
 import edu.jmu.oscm.service.ProportionService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -56,35 +58,6 @@ public class ProportionController {
         return BusinessWrapper.wrap(response -> {
             Proportion proportion = proportionMapper.selectProportionById(id);
             ResponseUtil.set(response, 0, "查找项目占比表成功", proportion);
-        }, logger);
-    }
-
-    /**
-     * 查找项目占比表成功
-     *
-     * @api {GET} /selectProportionByYearAndMonth?year=year&&month=month  查询指定项目占比
-     * @apiName selectProportionById 查询项目占比信息
-     * @apiGroup Proportion
-     * @apiParam {String} year 指定项目占比表年
-     * @apiParam {String} month 指定项目占比表月
-     * @apiParamExample {json} Request_Example:
-     * GET: /selectProportionByYearAndMonth?year=&&month=
-     * <p>
-     * Request Header 如下
-     * Content-Type:application/json;charset=utf-8
-     * Authorization:Bearer {jwt}
-     * <p>
-     * @apiSuccessExample {json} Success-Response:
-     * HTTP/1.1 200 OK
-     * <p>
-     * {"code":0,"message":"查找项目占比表成功",
-     * "data":{"id":1,"report_item_id":0,"year":"2019","month":"5","proportion":0.0,"accumulate_proportion":"1.0","asset_or_debt":"0","create_date":"2019-01"}}
-     */
-    @GetMapping("/selectProportionByYearAndMonth")
-    public BasicResponse<List<Proportion>> selectProportionByYearAndMonth(@RequestParam("year") String year, @RequestParam("month") String month) {
-        return BusinessWrapper.wrap(response -> {
-            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonth(year, month);
-            ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
         }, logger);
     }
 
@@ -258,24 +231,62 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/selectProportionAndReport")
-    public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("reportId") int reportId,@RequestParam("type") int type) {
+    public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("type") boolean type) {
         return BusinessWrapper.wrap(response -> {
 
-            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportIdAndType(year, month,reportId,type);
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1 , type);
 
             ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
         }, logger);
     }
 
     /**
-     * 计算项目占比表成功
+     * 判断是否计算
      *
-     * @api {GET} /updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type  计算指定项目占比
-     * @apiName updateProportionAndReport 查询项目占比信息
+     * @api {GET} /isCalculateProportion?year=year&&month=month&&type=type  判断是否计算
+     * @apiName selectProportionAndReport 查询项目占比信息
      * @apiGroup Proportion
      * @apiParam {String} year 指定项目占比表年
      * @apiParam {String} month 指定项目占比表月
      * @apiparam {int} reportId 指定报表的Id
+     * @apiParam {int} type 查询指定项目占比（资产和负债）
+     * @apiParamExample {json} Request_Example:
+     * GET: /isCalculateProportion?year=year&&month=month&&reportId=reportId&&type=type
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"判断是否计算成功",
+     * "data":{}
+     */
+    @GetMapping("/isCalculateProportion")
+    public BasicResponse<Boolean> isCalculateProportion(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") boolean type) {
+        return BusinessWrapper.wrap(response -> {
+
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1 , type);
+
+            if(proportions.size() == 0){
+                ResponseUtil.set(response, 0, "本月尚未计算", null);
+            }else{
+                ResponseUtil.set(response, 0, "本月已经计算", null);
+            }
+
+
+        }, logger);
+    }
+
+    /**
+     * 计算项目占比表成功
+     *
+     * @api {GET} /updateProportionAndReport?year=year&&month=month&&type=type  计算指定项目占比
+     * @apiName updateProportionAndReport 计算项目占比信息
+     * @apiGroup Proportion
+     * @apiParam {String} year 指定项目占比表年
+     * @apiParam {String} month 指定项目占比表月
      * @apiParam {int} type 查询指定项目占比（资产和负债）
      * @apiParamExample {json} Request_Example:
      * GET: /updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type
@@ -287,16 +298,32 @@ public class ProportionController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"查找项目占比表成功",
+     * {"code":0,"message":"计算项目占比表成功",
      * "data":{}
      */
-    @GetMapping("/updateProportionAndReport")
-    public BasicResponse<Map<String,Object>> updateProportionData(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("reportId") int reportId, @RequestParam("type") int type){
+    @GetMapping("/calculateProportionAndReport")
+    public BasicResponse<Boolean> calculateProportionData(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") int type){
 
         return BusinessWrapper.wrap(response -> {
-            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndReportIdAndType(year, month,reportId,type);
-            Map<String,Object> map = proportionService.getListByType(proportions,type,year,month);
-            ResponseUtil.set(response, 0, "返回map成功",map);
+
+            String name = null;
+            //type为0 表示流动资产项目 type为1 表示流动负债项目
+            if(type == 0){
+                name = "流动资产";
+            }else{
+                name = "流动负债";
+            }
+
+            List<ReportItemInstance> list = proportionMapper.calculateProportionOfYearAndMonth(year, month, name);
+
+            Boolean flag = proportionService.getList(list,true);
+
+            if(flag){
+                ResponseUtil.set(response, 0, "计算项目占比表成功", null);
+            }else{
+                ResponseUtil.set(response, 0, "计算项目占比表失败", null);
+            }
+
         }, logger);
     }
 }
