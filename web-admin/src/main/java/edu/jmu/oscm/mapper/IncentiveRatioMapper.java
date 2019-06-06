@@ -2,6 +2,7 @@ package edu.jmu.oscm.mapper;
 
 import edu.jmu.oscm.model.IncentiveRatio;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 
 import java.util.List;
@@ -56,4 +57,11 @@ public interface IncentiveRatioMapper {
      * @return true or false
      * */
     Boolean updates(List<IncentiveRatio> incentiveRatios);
+
+    /***
+     * 判断今年是否可以插入
+     * @param year String
+     * @return true or false
+     */
+   IncentiveRatio queryByYear(@Param("year") String year);
 }

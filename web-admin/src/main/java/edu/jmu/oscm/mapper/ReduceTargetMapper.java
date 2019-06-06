@@ -21,10 +21,10 @@ public interface ReduceTargetMapper {
     /***
      * 根据年份查询所有降低目标设置 type=1 查询资产； type=2 查询负债
      * @param year String
-     * @param type Integer
+     * @param itemCodes List<String>
      * @return 所有资产降低目标设置 or 所有负债降低目标设置
      */
-    List<ReduceTarget> queryReduceTargetsByYear(@Param("year") String year, @Param("type") Integer type);
+    List<ReduceTarget> queryReduceTargetsByYear(@Param("year") String year, @Param("itemCodes") List<String> itemCodes);
 
     /**
      * 添加一条项目降低目标设置
@@ -114,11 +114,10 @@ public interface ReduceTargetMapper {
 
     /***
      * 查询所有流动资产项目或者流动负债项目
-     * @param startID BigInteger
-     * @param endID BigInteger
+     * @param itemCodes List<String>
      * @return 所有流动资产项目或者流动负债项目
      */
-    List<Item> queryItems(@Param("startID") BigInteger startID, @Param("endID") BigInteger endID );
+    List<Item> queryItems(@Param("itemCodes") List<String> itemCodes );
 
     /***
      * 群钊数据库最新的年份
@@ -126,4 +125,10 @@ public interface ReduceTargetMapper {
      */
     String queryMaxYear();
 
+    /***
+     * 查找流动资产或流动负债item_code
+     * @param type String
+     * @return 流动资产或流动负债item_code
+     */
+    List<String> queryItemCode(@Param("type") String type);
 }

@@ -150,6 +150,7 @@ public class ReduceTargetController {
      *          "oct":5,
      *          "nov":5,
      *          "dec":5,
+     *          "cnaModify"=False    false表示不可修改    true可修改
      *          "asset_or_debt":true,
      *          "create_date":2019-06-01T05:13:02.000+0000
      *          "item_name"="货币资金",
@@ -196,13 +197,29 @@ public class ReduceTargetController {
      *          }
      *        }
      * }
+     * <p>
+     * @apiErrorExample  {json} Error-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"没有数据","data":null}
+     * <p>
+     * @apiErrorExample  {json} Error-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"没有数据","data":{}}
      * */
     @GetMapping("/reduceTargets_year_type")
     public BasicResponse<List<ReduceTarget>> queryReduceTargetsByYear(@RequestParam("year") String year, @RequestParam("type") Integer type){
         return BusinessWrapper.wrap(response->{
             //获取当前年份的项目
             List<ReduceTarget> reduceTargets = reduceTargetService.queryReduceTargetsByYear(year,type);
-            ResponseUtil.set(response,0,"根据年份查询项目降低目标成功",reduceTargets);
+            String msg = "";
+            if(reduceTargets == null || reduceTargets.size() == 0){
+                msg = "没有数据";
+            }else{
+                msg = "根据年份查询项目降低目标成功";
+            }
+            ResponseUtil.set(response,0,msg,reduceTargets);
         },logger);
     }
 
@@ -460,6 +477,11 @@ public class ReduceTargetController {
      * HTTP/1.1 200 OK
      * <p>
      * {"code":0,"message":"更改项目年降低目标比例成功","data":true}
+     * <p>
+     * @apiErrorExample  {json} Error-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"更改项目年降低目标比例失败","data":false}
      * */
     @PutMapping("/reduceTargets_yearPercent")
     public BasicResponse<Boolean> updateYearPercents(@RequestBody List<ReduceTarget> reduceTargets){
@@ -543,13 +565,31 @@ public class ReduceTargetController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"批量更改项目月降低目标","data":true}
+     * {"code":0,"message":"批量更改项目月降低目标","data":1}
+     * <p>
+     * @apiErrorExample  {json} Error-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"只允许修改今年的项目月降低目标","data":0}
+     * <p>
+     * @apiErrorExample  {json} Error-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"总合不等于year_percent","data":-1}
      * */
     @PutMapping("/reduceTargets_monthValue")
-    public BasicResponse<Boolean> updateMonths(@RequestBody List<ReduceTarget> reduceTargets){
+    public BasicResponse<Integer> updateMonths(@RequestBody List<ReduceTarget> reduceTargets){
         return BusinessWrapper.wrap(response->{
-            Boolean flag = reduceTargetService.updateMonths(reduceTargets);
-            ResponseUtil.set(response,0,"批量更改项目月降低目标",flag);
+            Integer flag = reduceTargetService.updateMonths(reduceTargets);
+            String msg = "";
+            if(flag == -1){
+                msg = "总合不等于year_percent";
+            }else if (flag == 0){
+                msg = "只允许修改今年的项目月降低目标";
+            }else{
+                msg = "批量更改项目月降低目标成功";
+            }
+            ResponseUtil.set(response,0,msg,flag);
         },logger);
     }
 
