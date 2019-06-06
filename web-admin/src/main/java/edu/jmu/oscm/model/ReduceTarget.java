@@ -34,10 +34,11 @@ public class ReduceTarget {
     private BigDecimal nov;
     private BigDecimal dec;
     //资产或负债，0资产  1负债
-    private Boolean asset_or_debt;
+    private Integer asset_or_debt;
     //创建时间
     private Timestamp create_date;
 
+    private Boolean cnaModify;
     //条目名称
     private  String item_name;
     //条目表 定义条目表

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +27,62 @@ public class ReduceTargetService {
     }
 
     public List<ReduceTarget> queryReduceTargetsByYear(String year, Integer type){
-        return reduceTargetMapper.queryReduceTargetsByYear(year,type);
+
+        if(type!=1 && type != 2){
+            return null;
+        }
+
+        List<String> itemCodes = reduceTargetMapper.queryItemCode(parentItemCode[type-1]);
+        System.out.println();
+        //查询
+        List<ReduceTarget> reduceTargets = reduceTargetMapper.queryReduceTargetsByYear(year,itemCodes);
+        //获取当前年份
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String thisYear = "";
+        DateFormat sdf = new SimpleDateFormat("yyyy");
+        thisYear = sdf.format(timestamp);
+        //没有记录的话，插入再查询  且只能为今年插入
+        if(thisYear.equals(year) && reduceTargets.size() == 0 ){
+            List<Item> items = queryItems(type);
+            List<ReduceTarget> reduceTargets1 = new ArrayList<ReduceTarget>();
+            //占比初始化为0
+            Double percent = 0.0;
+            //asset_or_debt 资产或负债，0资产  1负债
+            Integer asset_or_debt = type-1;
+
+            for(Item item:items){
+                System.out.println(item.getID());
+                ReduceTarget reduceTarget = new ReduceTarget();
+                reduceTarget.setItem_id(item.getID());
+                reduceTarget.setYear(thisYear);
+                reduceTarget.setYear_percent(percent);
+                reduceTarget.setAsset_or_debt(asset_or_debt);
+
+                reduceTargets1.add(reduceTarget);
+            }
+            //插入今年数据到数据库
+            add(reduceTargets1);
+            //重新查找
+            reduceTargets = reduceTargetMapper.queryReduceTargetsByYear(year,itemCodes);
+        }
+        //设置标志字段，通过该字段判断该年份是否可修改
+        for(ReduceTarget reduceTarget:reduceTargets){
+            if(thisYear.equals(year)){
+                reduceTarget.setCnaModify(true);
+            }else{
+                reduceTarget.setCnaModify(false);
+            }
+        }
+        return reduceTargets;
     }
 
     public Integer add(List<ReduceTarget> reduceTargets){
         List<ReduceTarget> reduceTargets1 = new ArrayList<ReduceTarget>();
+        //获取当前年份
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String thisYear = "";
+        DateFormat sdf = new SimpleDateFormat("yyyy");
+        thisYear = sdf.format(timestamp);
         //插入当年份的所有数据
         for(ReduceTarget reduceTarget:reduceTargets){
 /*          判断数据库中是否已经有当年份的数据
@@ -46,12 +99,11 @@ public class ReduceTargetService {
             }
             //数据库中有数据
             if(reduceTargetMapper.queryMaxYear()!=null){
-                int year = Integer.parseInt(reduceTargetMapper.queryMaxYear());
-                int newYear = Integer.parseInt(reduceTarget.getYear());
+                //int year = Integer.parseInt(reduceTargetMapper.queryMaxYear());
+                String year = reduceTarget.getYear();
 
-                //year == newYear       为当前年份插入新的项目
-                //year != newYear时     判断年份是当前年份加一
-                if(year != newYear && newYear != (year + 1)){
+                //只能为最新余年添加数据
+                if(!thisYear.equals(year)){
                     return 0;
                 }
             }
@@ -122,29 +174,33 @@ public class ReduceTargetService {
             if(rt == null){
                 return false;
             }
-            //数据库中有数据
-            if(reduceTargetMapper.queryMaxYear()!=null){
-                int year = Integer.parseInt(reduceTargetMapper.queryMaxYear());
-                int newYear = Integer.parseInt(rt.getYear());
 
-                //year == newYear       只能更改最新年份
-                if(year != newYear){
-                    return false;
+            //获取当前年份
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            String thisYear = "";
+            DateFormat sdf = new SimpleDateFormat("yyyy");
+            thisYear = sdf.format(timestamp);
+            //判断是否是今年的，否则不可修改
+            if(thisYear.equals(rt.getYear())){
+                //如果year_percent没变化 则无需更改
+                Boolean flag = rt.getYear_percent().equals(reduceTarget.getYear_percent());
+                //percent 发生改变 重新计算 ，否则不变
+                if(!flag){
+                    //重新计算yearValue
+                    BigDecimal num = new BigDecimal("100");
+                    BigDecimal yearPercent = new BigDecimal(reduceTarget.getYear_percent());
+                    BigDecimal yearValue = rt.getLast_year_value().multiply(yearPercent).divide(num,4, BigDecimal.ROUND_HALF_DOWN);
+                    rt.setYear_percent(reduceTarget.getYear_percent());
+                    rt.setYear_value(yearValue);
+                    //计算十二个月的value
+                    rt = caculateAverage(rt);
                 }
+                reduceTargets1.add(rt);
+            }else{
+                return false;
             }
-
-            //重新计算yearValue
-            BigDecimal num = new BigDecimal("100");
-            BigDecimal yearPercent = new BigDecimal(reduceTarget.getYear_percent());
-            BigDecimal yearValue = rt.getLast_year_value().multiply(yearPercent).divide(num,4, BigDecimal.ROUND_HALF_DOWN);
-            rt.setYear_percent(reduceTarget.getYear_percent());
-            rt.setYear_value(yearValue);
-            //计算十二个月的value
-            rt = caculateAverage(rt);
-            reduceTargets1.add(rt);
         }
         return reduceTargetMapper.updateYearPercents(reduceTargets1);
-
     }
 
     public BigDecimal selectLastYearValue(ReduceTarget reduceTarget){
@@ -184,17 +240,35 @@ public class ReduceTargetService {
         }
     }
 
-    public Boolean updateMonths(List<ReduceTarget> reduceTargets){
+    public Integer updateMonths(List<ReduceTarget> reduceTargets){
         List<ReduceTarget> reduceTargets1 = new ArrayList<ReduceTarget>();
+
+        //获取当前年份
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String thisYear = "";
+        DateFormat sdf = new SimpleDateFormat("yyyy");
+        thisYear = sdf.format(timestamp);
+
         for(ReduceTarget reduceTarget:reduceTargets){
-            ReduceTarget rt = judge(reduceTarget);
-            if(rt != null){
-                reduceTargets1.add(rt);
+            ReduceTarget reduceTarget1 = queryByID(reduceTarget.getId());
+            if(reduceTarget1 == null){
+                return -2;
+            }
+            //判断是否是今年的，否则不可修改
+            if(thisYear.equals(reduceTarget1.getYear())){
+                ReduceTarget rt = judge(reduceTarget);
+                if(rt != null){
+                    reduceTargets1.add(rt);
+                }else{
+                    return -1;
+                }
             }else{
-                return false;
+                //不是今年的，不可修改
+                return 0;
             }
         }
-        return  reduceTargetMapper.updateMonths(reduceTargets1);
+        reduceTargetMapper.updateMonths(reduceTargets1);
+        return 1;
     }
 
     private ReduceTarget caculateAverage(ReduceTarget reduceTarget){
@@ -223,30 +297,20 @@ public class ReduceTargetService {
         return reduceTarget;
     }
 
-    private String assetStartID = "1003";
-    private String assertCount = "13";
-    private String debtStartID = "2003";
-    private String debtCount = "13";
+    private String[] parentItemCode = {"流动资产","流动负债"};
     public List<Item> queryItems(int type){
-        BigInteger num = new BigInteger("1");
-        BigInteger startID = new BigInteger("0");
-        BigInteger endID = new BigInteger("0");
-        if (type ==1){
-            //1 查询资产项目
-            startID = new BigInteger(assetStartID);
-            endID = startID.add((new BigInteger(assertCount)).subtract(num));
-        }else if (type == 2){
-            //2 查询负债项目
-            startID = new BigInteger(debtStartID);
-            endID = startID.add((new BigInteger(debtCount)).subtract(num));
-        }
-        return reduceTargetMapper.queryItems(startID,endID);
+        List<String> itemCodes = reduceTargetMapper.queryItemCode(parentItemCode[type-1]);
+        return reduceTargetMapper.queryItems(itemCodes);
     }
 
     private ReduceTarget judge(ReduceTarget reduceTarget){
         //校验是否是合法修改
         BigDecimal sum = new BigDecimal(0);
         ReduceTarget rt = reduceTargetMapper.queryByID(reduceTarget.getId());
+        if(rt == null){
+            return null;
+        }
+
         if (reduceTarget.getJan() != null){
             rt.setJan(reduceTarget.getJan());
         }

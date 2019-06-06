@@ -110,10 +110,9 @@ public class IncentiveRatioController {
      * @apiParam {BigDecimal} maxLimit 大额资金限制
      * @apiParamExample {json} Request_Example:
      * {
-     *          "year":"2019",
-     *          "interestRate":35.03,
-     *          "incentiveRatio":35.03,
-     *          "maxLimit":35.03
+     *          "interestRate":0.55,
+     *          "incentiveRatio":0.55,
+     *          "maxLimit":0.55
      * }
      * POST: /incentiveRatio
      * <p>
@@ -130,7 +129,7 @@ public class IncentiveRatioController {
     public BasicResponse<Boolean> add(@RequestBody IncentiveRatio incentiveRatio){
         return BusinessWrapper.wrap(response ->{
             Boolean flag = incentiveRatioService.add(incentiveRatio);
-            ResponseUtil.set(response,0,"添加一条部门奖励比例成功",flag);
+            ResponseUtil.set(response,0,"添加一条部门奖励比例",flag);
         },logger);
     }
 
