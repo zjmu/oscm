@@ -55,7 +55,6 @@ public class BalanceTargetValueService {
 //        if(incentiveRatios.size()>1)
 //            return "您设置了多条当年的奖励比例";
 
-
         for(ReportItem reportItem:thisMonthReportItems){
             BalanceTargetValue balanceTargetValue = new BalanceTargetValue();
             balanceTargetValue.setItemId(reportItem.getItemId());
