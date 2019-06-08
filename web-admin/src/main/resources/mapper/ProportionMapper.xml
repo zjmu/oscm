@@ -111,6 +111,11 @@
                </foreach>
     </insert>
 
+    <delete id="deleteByYearAndMonthAndType">
+        DELETE FROM ad_item_proportion
+        WHERE year = #{year} AND month = #{month} AND asset_or_debt = #{type}
+    </delete>
+
     <delete id="deleteById">
         delete
         from ad_item_proportion

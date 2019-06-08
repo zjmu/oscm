@@ -260,19 +260,20 @@ public class ProportionController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"判断是否计算成功",
+     * {"code":0,"message":"判断是否计算",
      * "data":{}
      */
     @GetMapping("/isCalculateProportion")
-    public BasicResponse<Boolean> isCalculateProportion(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") boolean type) {
+    public BasicResponse<List<Proportion>> isCalculateProportion(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") boolean type) {
         return BusinessWrapper.wrap(response -> {
 
             List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1 , type);
 
             if(proportions.size() == 0){
-                ResponseUtil.set(response, 0, "本月尚未计算", null);
+                ResponseUtil.set(response, 0, "本月尚未计算，请进行计算", null);
             }else{
-                ResponseUtil.set(response, 0, "本月已经计算", null);
+                // 已经计算 直接返回本月的信息
+                ResponseUtil.set(response, 0, "本月已经计算", proportions);
             }
 
 
@@ -314,14 +315,19 @@ public class ProportionController {
                 name = "流动负债";
             }
 
+            // 先把原有的记录删掉 再重新进行计算
+            Boolean flag1 = proportionMapper.deleteByYearAndMonthAndType(year,name,type);
+
+            // 得到数据
             List<ReportItemInstance> list = proportionMapper.calculateProportionOfYearAndMonth(year, month, name);
 
+            // 写入
             Boolean flag = proportionService.getList(list,true);
 
             if(flag){
-                ResponseUtil.set(response, 0, "计算项目占比表成功", null);
+                ResponseUtil.set(response, 0, "计算项目占比表成功,请查询", null);
             }else{
-                ResponseUtil.set(response, 0, "计算项目占比表失败", null);
+                ResponseUtil.set(response, 0, "计算项目占比表失败,请检查数据库", null);
             }
 
         }, logger);
