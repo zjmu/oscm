@@ -25,7 +25,7 @@
 
     </insert>
     <update id="updateImprovementPlan" parameterType="edu.jmu.oscm.model.ImprovementPlan">
-        UPDATE ad_improvement_plan SET item_id = #{item_id} , year = #{year} , month = #{month} , ok = #{ok} , plan = #{plan} , remark =#{remark} ,create_date =#{create_date}
+        UPDATE ad_improvement_plan SET  plan = #{plan} , remark =#{remark}
         WHERE id = #{id}
     </update>
 

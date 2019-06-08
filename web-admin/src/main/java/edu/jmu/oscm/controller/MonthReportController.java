@@ -43,6 +43,7 @@ public class MonthReportController {
      * {
      * {
      *      "id":1,
+     *      "index":0,
      *      "item_id":1,
      *      "year":"2019",
      *      "month":"5",
@@ -78,6 +79,7 @@ public class MonthReportController {
      *    }
      * {
      *      "id":2,
+     *      "index:1,
      *      "item_id":1,
      *      "year":"2019",
      *      "month":"5",
@@ -313,35 +315,21 @@ public class MonthReportController {
      * @api {PUT} /monthReport 更新指定流动资金成本管控情况月度总结情况报告表信息
      * @apiName monthReport 更新指定流动资金成本管控情况月度总结情况报告表信息
      * @apiParam {int} id 流动资金成本管控情况月度总结情况报告表id
-     * @apiParam {bigint} item_id 报告条目id
-     * @apiParam {String} year 年度
-     * @apiParam {String} month 月份
-     * @apiParam {BigDecimal} target 目标值
-     * @apiParam {BigDecimal} value 末余额
-     * @apiParam {BigDecimal} difference 偏差值
      * @apiParam {String} measure 本期主要管控措施
      * @apiParam {String} experience 经验
      * @apiParam {String} deficiency 不足
      * @apiParam {String} evaluate 考核人评价
      * @apiParam {String} remark 备注
-     * @apiParam {Timestamp} create_date 创建时间
      * @apiGroup MonthReport
      * @apiParamExample {json} Request_Example:
      * {
-     * "id":1,
-     * "item_id":1,
-     * "year":"2019",
-     * "month":"5","
-     * "target":1000.1,
-     * "value":2000.1,
-     * "difference":3000.1,
-     * "measure":"1111",
-     * "experience":"111",
-     * "deficiency":"111",
-     * "evaluate":"111",
-     * "remark":"111",
-     * "create_date":"2019-01-01 00:00:00"
-     *  }
+     * "id":80,
+     * "measure":"1",
+     * "experience":"1",
+     * "deficiency":"1",
+     * "evaluate":"1",
+     * "remark":"1"
+     * }
      * PUT /monthReport
      * <p>
      * Request Header 如下

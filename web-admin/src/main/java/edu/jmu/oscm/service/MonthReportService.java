@@ -35,6 +35,7 @@ public class MonthReportService {
 
     public List<MonthReport> selectMonthReportByDate(String year,String month)
     {
+        int i=0;
         ArrayList<MonthReport> monthReports=new ArrayList<MonthReport>();
         List<BalanceTargetValue> balanceTargetValues=balanceTargetValueMapper.selectByDate(year, month);
         for(BalanceTargetValue balanceTargetValue:balanceTargetValues) {
@@ -43,7 +44,7 @@ public class MonthReportService {
                 MonthReport monthReport1=monthReportMapper.selectMonthReportByDateAndItemId(balanceTargetValue.getItemId(),year,month);
                 BigInteger item_id=monthReport1.getItem_id();
                 monthReport1.setItem(itemMapper.getItemByItemId(item_id));
-
+                monthReport1.setIndex(i++);
                 List<ItemEmployee> responsibleItemEmployees=itemEmployeeMapper.selectItemEmployee(item_id);
                 List<Employee> responsibleEmployees =new ArrayList<>();
                 for(ItemEmployee itemEmployee:responsibleItemEmployees)
@@ -87,6 +88,7 @@ public class MonthReportService {
                 monthReport2.setValue(value);
                 monthReport2.setDifference(value.subtract(monthReport2.getTarget()));
                 monthReport2.setItem_id(balanceTargetValue.getItemId());
+                monthReport2.setIndex(i++);
                 BigInteger item_id=monthReport2.getItem_id();
                 monthReport2.setItem(itemMapper.getItemByItemId(item_id));
                 monthReport2.setMonth(month);

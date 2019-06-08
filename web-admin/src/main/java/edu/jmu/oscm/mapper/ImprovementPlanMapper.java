@@ -36,6 +36,7 @@ public interface ImprovementPlanMapper {
      * @return
      */
     List<ImprovementPlan> selectImprovementPlanByDate(String year,String month);
+
     ImprovementPlan selectImprovementPlanByDateAndItemId(BigInteger item_id,String year, String month);
     /**
      * 查找所有记录

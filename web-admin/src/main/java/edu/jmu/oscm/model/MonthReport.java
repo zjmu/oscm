@@ -51,6 +51,8 @@ public class MonthReport {
     //创建日期
     private  Timestamp create_date;
 
+    private  int index;
+
     //外键对应的Item对象
     private  Item item;
     private  String item_name;
