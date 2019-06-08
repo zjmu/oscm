@@ -1517,7 +1517,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"判断是否计算成功\",\n\"data\":{}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"判断是否计算\",\n\"data\":{}",
           "type": "json"
         }
       ]
