@@ -24,6 +24,16 @@ public interface ProportionMapper {
     Boolean deleteById(int id);
 
     /**
+     * 重新计算的时候调用
+     * 把原有的数据删掉
+     * @param year
+     * @param month
+     * @param type
+     * @return
+     */
+    Boolean deleteByYearAndMonthAndType(@Param("year") String year, @Param("month") String month, @Param("type") int type);
+
+    /**
      * 增加一条
      * @param proportion
      * @return
