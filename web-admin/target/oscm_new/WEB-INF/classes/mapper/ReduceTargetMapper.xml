@@ -21,6 +21,7 @@
         <result column="oct" property="oct"/>
         <result column="nov" property="nov"/>
         <result column="dec" property="dec"/>
+        <result column="cnaModify" property="cnaModify"/>
         <result column="asset_or_debt" property="asset_or_debt"/>
         <result column="item_name" property="item_name"/>
         <result column="create_date" property="create_date"/>
@@ -234,20 +235,30 @@
         WHERE `year` = #{year} AND item_id = #{item_id}
     </select>
 
-    <select id="queryItems" resultMap="edu.jmu.oscm.mapper.ItemMapper.itemMapperResult">
-        SELECT * FROM item WHERE id <![CDATA[ >= ]]> #{startID} AND id <![CDATA[ <= ]]> #{endID}
-    </select>
 
+
+
+    <select id="queryMaxYear" resultType="java.lang.String">
+        SELECT MAX(`year`) FROM ad_item_reduce_target
+    </select>
+    <select id="queryItemCode" resultType="java.lang.String">
+        SELECT item_code from report_item_instance where parent_item_code = #{type}  group by  item_code;
+    </select>
+    <select id="queryItems" resultType="edu.jmu.oscm.model.Item">
+        select * from item where item_code  in
+        <foreach collection="itemCodes" index="index" item="itemCode" open="(" separator="," close=")">
+            #{itemCode}
+        </foreach>
+    </select>
     <select id="queryReduceTargetsByYear" resultMap="reduceTargetMapper">
         SELECT reduce.*, item.*
         from ad_item_reduce_target reduce
         left join item
         on reduce.item_id = item.id
-        where `year` = #{year} and reduce.item_id like concat(#{type},'%')
-    </select>
-
-    <select id="queryMaxYear" resultType="java.lang.String">
-        SELECT MAX(`year`) FROM ad_item_reduce_target
+        where `year` = #{year} and item_code in
+        <foreach collection="itemCodes" index="index" item="itemCode" open="(" separator="," close=")">
+            #{itemCode}
+        </foreach>
     </select>
 
 

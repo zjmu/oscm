@@ -79,5 +79,9 @@
         FROM ad_incentive_ratio
         WHERE id = #{id}
     </select>
+    <select id="queryByYear" resultType="edu.jmu.oscm.model.IncentiveRatio">
+        SELECT * FROM ad_incentive_ratio WHERE `year` = #{year}
+    </select>
+
 
 </mapper>

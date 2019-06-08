@@ -626,7 +626,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n         \"year\":\"2019\",\n         \"interestRate\":35.03,\n         \"incentiveRatio\":35.03,\n         \"maxLimit\":35.03\n}\nPOST: /incentiveRatio\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n         \"interestRate\":0.55,\n         \"incentiveRatio\":0.55,\n         \"maxLimit\":0.55\n}\nPOST: /incentiveRatio\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1468,6 +1468,71 @@ define({ "api": [
   },
   {
     "type": "GET",
+    "url": "/isCalculateProportion?year=year&&month=month&&type=type",
+    "title": "判断是否计算",
+    "name": "selectProportionAndReport_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定项目占比表年</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定项目占比表月</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定报表的Id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "type",
+            "description": "<p>查询指定项目占比（资产和负债）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /isCalculateProportion?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"判断是否计算成功\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/isCalculateProportion?year=year&&month=month&&type=type"
+      }
+    ]
+  },
+  {
+    "type": "GET",
     "url": "/selectProportionById?id=",
     "title": "查询指定项目占比",
     "name": "selectProportionById_________",
@@ -1512,58 +1577,7 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/selectProportionByYearAndMonth?year=year&&month=month",
-    "title": "查询指定项目占比",
-    "name": "selectProportionById_________",
-    "group": "Proportion",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>指定项目占比表年</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>指定项目占比表月</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /selectProportionByYearAndMonth?year=&&month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{\"id\":1,\"report_item_id\":0,\"year\":\"2019\",\"month\":\"5\",\"proportion\":0.0,\"accumulate_proportion\":\"1.0\",\"asset_or_debt\":\"0\",\"create_date\":\"2019-01\"}}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/selectProportionByYearAndMonth?year=year&&month=month"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type",
+    "url": "/updateProportionAndReport?year=year&&month=month&&type=type",
     "title": "计算指定项目占比",
     "name": "updateProportionAndReport_________",
     "group": "Proportion",
@@ -1588,13 +1602,6 @@ define({ "api": [
             "group": "Parameter",
             "type": "int",
             "optional": false,
-            "field": "reportId",
-            "description": "<p>指定报表的Id</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
             "field": "type",
             "description": "<p>查询指定项目占比（资产和负债）</p>"
           }
@@ -1612,7 +1619,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查找项目占比表成功\",\n\"data\":{}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"计算项目占比表成功\",\n\"data\":{}",
           "type": "json"
         }
       ]
@@ -1622,7 +1629,7 @@ define({ "api": [
     "groupTitle": "Proportion",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type"
+        "url": "http://oscm.xmiss.top/oscm_new/updateProportionAndReport?year=year&&month=month&&type=type"
       }
     ]
   },
@@ -1977,7 +1984,21 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"根据年份查询项目降低目标成功\",\"data\":[\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":220,\n         \"item_id\":1015,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-06T02:43:09.000+0000\n         \"item_name\"=\"待摊费用\",\n         \"item\":{\n             \"item_code\"=\"待摊费用\",\n             \"item_name\"=\"待摊费用\",\n             \"calc_expr=\"$1301\",\n             \"calc_explain\"=\"待摊费用\",\n             \"state\"=\"1\",\n             \"modify_time\"=2019-05-06T02:43:09.000+0000\n         }\n       }\n}",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"根据年份查询项目降低目标成功\",\"data\":[\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"cnaModify\"=False    false表示不可修改    true可修改\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":220,\n         \"item_id\":1015,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-06T02:43:09.000+0000\n         \"item_name\"=\"待摊费用\",\n         \"item\":{\n             \"item_code\"=\"待摊费用\",\n             \"item_name\"=\"待摊费用\",\n             \"calc_expr=\"$1301\",\n             \"calc_explain\"=\"待摊费用\",\n             \"state\"=\"1\",\n             \"modify_time\"=2019-05-06T02:43:09.000+0000\n         }\n       }\n}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"没有数据\",\"data\":null}\n<p>",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"没有数据\",\"data\":{}}",
           "type": "json"
         }
       ]
@@ -2105,7 +2126,21 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量更改项目月降低目标\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"批量更改项目月降低目标\",\"data\":1}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"只允许修改今年的项目月降低目标\",\"data\":0}\n<p>",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"总合不等于year_percent\",\"data\":-1}",
           "type": "json"
         }
       ]
@@ -2156,7 +2191,16 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改项目年降低目标比例成功\",\"data\":true}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改项目年降低目标比例成功\",\"data\":true}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改项目年降低目标比例失败\",\"data\":false}",
           "type": "json"
         }
       ]
