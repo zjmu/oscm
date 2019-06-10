@@ -28,6 +28,9 @@ public class Proportion {
     private ReportItem reportItem;
     private List<ReportItemInstance> reportItemInstanceList;
 
+    //返回的金额
+    private String value;
+
     public BigInteger getId() {
         return id;
     }
@@ -122,5 +125,13 @@ public class Proportion {
 
     public void setReportItemInstanceList(List<ReportItemInstance> reportItemInstanceList) {
         this.reportItemInstanceList = reportItemInstanceList;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
