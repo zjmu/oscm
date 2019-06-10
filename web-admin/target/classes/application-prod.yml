@@ -1,0 +1,12 @@
+spring:
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:mysql://47.106.186.106:3306/aderi?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: jmu@2018@db
+    driver-class-name: com.mysql.jdbc.Driver
+debug: true
+logging:
+  level:
+    edu.jmu: debug

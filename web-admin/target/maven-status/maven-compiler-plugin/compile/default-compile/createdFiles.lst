@@ -48,7 +48,6 @@ edu\jmu\oscm\mapper\DepartmentMapper.class
 edu\jmu\oscm\controller\IncrementalValueController.class
 edu\jmu\oscm\model\ReportItemInstance.class
 edu\jmu\oscm\controller\ReportItemInstanceMapperController.class
-edu\jmu\oscm\modelView\ProportionView.class
 edu\jmu\oscm\ServletInitializer.class
 edu\jmu\oscm\controller\CompletionController.class
 edu\jmu\oscm\model\ReduceTarget.class

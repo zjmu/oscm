@@ -270,7 +270,7 @@ public class ProportionController {
             List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1 , type);
 
             if(proportions.size() == 0){
-                ResponseUtil.set(response, 0, "本月尚未计算，请进行计算", null);
+                ResponseUtil.set(response, 1, "本月尚未计算，请进行计算", null);
             }else{
                 // 已经计算 直接返回本月的信息
                 ResponseUtil.set(response, 0, "本月已经计算", proportions);
