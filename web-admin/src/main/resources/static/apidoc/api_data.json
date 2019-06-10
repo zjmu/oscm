@@ -1319,7 +1319,123 @@
   },
   {
     "type": "GET",
-    "url": "/selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type",
+    "url": "/calculateProportionAndReport?year=year&&month=month&&type=type",
+    "title": "计算指定项目占比",
+    "name": "calculateProportionAndReport_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定项目占比表年</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定项目占比表月</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "type",
+            "description": "<p>查询指定项目占比（资产和负债）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "删掉数据库本月的所有记录并且重新生成、写入数据库中\nGET: /calculateProportionAndReport?year=year&&month=month&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"计算项目占比表成功,请查询\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/calculateProportionAndReport?year=year&&month=month&&type=type"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/isCalculateProportion?year=year&&month=month&&type=type",
+    "title": "判断是否计算",
+    "name": "isCalculateProportion___________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定项目占比表年</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定项目占比表月</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "type",
+            "description": "<p>查询指定项目占比（资产和负债）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "如果已经计算，返回所有的信息。没有计算，提示用户进行计算\nGET: /isCalculateProportion?year=year&&month=month&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"本月已经计算\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/isCalculateProportion?year=year&&month=month&&type=type"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/selectProportionAndReport?year=year&&month=month&&type=type",
     "title": "查询指定项目占比",
     "name": "selectProportionAndReport_________",
     "group": "Proportion",
@@ -1359,7 +1475,7 @@
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /selectProportionAndReport?year=year&&month=month&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1378,79 +1494,14 @@
     "groupTitle": "Proportion",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/isCalculateProportion?year=year&&month=month&&type=type",
-    "title": "判断是否计算",
-    "name": "selectProportionAndReport_________",
-    "group": "Proportion",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>指定项目占比表年</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>指定项目占比表月</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "reportId",
-            "description": "<p>指定报表的Id</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "type",
-            "description": "<p>查询指定项目占比（资产和负债）</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /isCalculateProportion?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"判断是否计算\",\n\"data\":{}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/isCalculateProportion?year=year&&month=month&&type=type"
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionAndReport?year=year&&month=month&&type=type"
       }
     ]
   },
   {
     "type": "GET",
     "url": "/selectProportionById?id=",
-    "title": "查询指定项目占比",
+    "title": "根据id查询指定项目占比",
     "name": "selectProportionById_________",
     "group": "Proportion",
     "parameter": {
@@ -1488,64 +1539,6 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/updateProportionAndReport?year=year&&month=month&&type=type",
-    "title": "计算指定项目占比",
-    "name": "updateProportionAndReport_________",
-    "group": "Proportion",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>指定项目占比表年</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>指定项目占比表月</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "type",
-            "description": "<p>查询指定项目占比（资产和负债）</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"计算项目占比表成功\",\n\"data\":{}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/updateProportionAndReport?year=year&&month=month&&type=type"
       }
     ]
   },
