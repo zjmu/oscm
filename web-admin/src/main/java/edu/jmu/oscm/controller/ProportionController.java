@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -264,16 +265,44 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/isCalculateProportion")
-    public BasicResponse<List<Proportion>> isCalculateProportion(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") boolean type) {
+    public BasicResponse<Map<String,Object>> isCalculateProportion(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") boolean type) {
         return BusinessWrapper.wrap(response -> {
 
+            // 得到的数据
             List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1 , type);
 
             if(proportions.size() == 0){
-                ResponseUtil.set(response, 0, "本月尚未计算，请进行计算", null);
+                ResponseUtil.set(response, 1, "本月尚未计算，请进行计算", null);
             }else{
+                Map<String,Object> result = new HashMap<>();
+
+                float[] total = new float[1];
+                String name = null;
+                //type为0 表示流动资产项目 type为1 表示流动负债项目
+                if(!type){
+                    name = "流动资产";
+                }else{
+                    name = "流动负债";
+                }
+
+                // 得到数据
+                List<ReportItemInstance> list = proportionMapper.calculateProportionOfYearAndMonth(year, month, name);
+
+                // 查找到每一项的金额
+                for(int i=0;i<list.size();i++){
+                    proportions.get(i).setValue(list.get(i).getEndValue());
+                }
+
+                // 获得总计
+                for (ReportItemInstance value : list) {
+                    total[0] = total[0] + Float.parseFloat(value.getEndValue());
+                }
+
+                result.put("list",proportions);
+                result.put("total",total[0]);
+
                 // 已经计算 直接返回本月的信息
-                ResponseUtil.set(response, 0, "本月已经计算", proportions);
+                ResponseUtil.set(response, 0, "本月已经计算", result);
             }
 
 
@@ -317,7 +346,7 @@ public class ProportionController {
             }
 
             // 先把原有的记录删掉 再重新进行计算
-            Boolean flag1 = proportionMapper.deleteByYearAndMonthAndType(year,name,type);
+            Boolean flag1 = proportionMapper.deleteByYearAndMonthAndType(year,month,type);
 
             // 得到数据
             List<ReportItemInstance> list = proportionMapper.calculateProportionOfYearAndMonth(year, month, name);

@@ -23,17 +23,13 @@ public class ProportionService {
     @Autowired
     private ProportionMapper proportionMapper;
 
-    private List<ReportItemInstance> ReportItemInstanceList = new ArrayList<>();
-
-    private List<Proportion> proportions = new ArrayList<>();
-
     private void updateInfo(BigInteger proportionId, float proportion, float accumProp){
         proportionMapper.updateProportion(proportionId,String.valueOf(proportion),String.valueOf(accumProp));
     }
 
     public Boolean getList(List<ReportItemInstance> ReportItemInstanceList,boolean type) {
 
-        this.ReportItemInstanceList = ReportItemInstanceList;
+        List<Proportion> proportions = new ArrayList<>();
 
         Proportion proportion;
         float[] total = new float[1];
