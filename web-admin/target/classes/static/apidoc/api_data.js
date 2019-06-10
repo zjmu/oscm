@@ -509,34 +509,6 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "bigint",
-            "optional": false,
-            "field": "item_id",
-            "description": "<p>报告条目id</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>年度</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>月份</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "ok",
-            "description": "<p>完成情况</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "plan",
@@ -548,20 +520,13 @@ define({ "api": [
             "optional": false,
             "field": "remark",
             "description": "<p>备注</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Timestamp",
-            "optional": false,
-            "field": "create_date",
-            "description": "<p>创建时间</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n \"id\":1,\n \"item_id\":1,\n \"year\":\"2019\",\n \"month\":\"5\",\n \"ok\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n \"create_date\":\"2019-01-01 00:00:00\"\n }\nPOST: /improvementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n \"id\":1,\n \"plan\":\"1\",\n \"remark\":\"1\",\n }\nPOST: /improvementPlan\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1213,48 +1178,6 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "bigint",
-            "optional": false,
-            "field": "item_id",
-            "description": "<p>报告条目id</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>年度</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>月份</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "BigDecimal",
-            "optional": false,
-            "field": "target",
-            "description": "<p>目标值</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "BigDecimal",
-            "optional": false,
-            "field": "value",
-            "description": "<p>末余额</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "BigDecimal",
-            "optional": false,
-            "field": "difference",
-            "description": "<p>偏差值</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "measure",
@@ -1287,20 +1210,13 @@ define({ "api": [
             "optional": false,
             "field": "remark",
             "description": "<p>备注</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Timestamp",
-            "optional": false,
-            "field": "create_date",
-            "description": "<p>创建时间</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "{\n\"id\":1,\n\"item_id\":1,\n\"year\":\"2019\",\n\"month\":\"5\",\"\n\"target\":1000.1,\n\"value\":2000.1,\n\"difference\":3000.1,\n\"measure\":\"1111\",\n\"experience\":\"111\",\n\"deficiency\":\"111\",\n\"evaluate\":\"111\",\n\"remark\":\"111\",\n\"create_date\":\"2019-01-01 00:00:00\"\n }\nPUT /monthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "{\n\"id\":80,\n\"measure\":\"1\",\n\"experience\":\"1\",\n\"deficiency\":\"1\",\n\"evaluate\":\"1\",\n\"remark\":\"1\"\n}\nPUT /monthReport\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1387,7 +1303,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{\n{\n     \"id\":1,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n     \"item_name\":\"短期投资\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n      \"responsibleDepartments\":{\n          \"deptCode\"=\"C500\"\n          \"deptName\"=\"战略客户部公共\"\n      }\n      \"responsibleEmployee\":{\n          \"employeeName\"=\"陈*坤\"\n          \"id\"=\"456\"\n      }\n      \"collaborativeDepartments\":{\n          \"deptCode\":\"B101\"\n          \"deptName\":\"桌面产品营销处\"\n      }\n      \"collaborativeEmployee\":{\n          \"employeeName\"=\"袁*娟\"\n          \"id\"=\"455\"\n      }\n   }\n{\n     \"id\":2,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n     \"item_name\":\"短期投资\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n      \"responsibleDepartments\":{\n          \"deptCode\"=\"C500\"\n          \"deptName\"=\"战略客户部公共\"\n      }\n      \"responsibleEmployee\":{\n          \"employeeName\"=\"陈*坤\"\n          \"id\"=\"456\"\n      }\n      \"collaborativeDepartments\":{\n          \"deptCode\":\"B101\"\n          \"deptName\":\"桌面产品营销处\"\n      }\n      \"collaborativeEmployee\":{\n          \"employeeName\"=\"袁*娟\"\n          \"id\"=\"455\"\n      }\n   }\n}\n}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\n\"message\":\"查找指定流动资金成本管控情况月度总结情况报告表成功\",\n\"data\":\n{\n{\n     \"id\":1,\n     \"index\":0,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n     \"item_name\":\"短期投资\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n      \"responsibleDepartments\":{\n          \"deptCode\"=\"C500\"\n          \"deptName\"=\"战略客户部公共\"\n      }\n      \"responsibleEmployee\":{\n          \"employeeName\"=\"陈*坤\"\n          \"id\"=\"456\"\n      }\n      \"collaborativeDepartments\":{\n          \"deptCode\":\"B101\"\n          \"deptName\":\"桌面产品营销处\"\n      }\n      \"collaborativeEmployee\":{\n          \"employeeName\"=\"袁*娟\"\n          \"id\"=\"455\"\n      }\n   }\n{\n     \"id\":2,\n     \"index:1,\n     \"item_id\":1,\n     \"year\":\"2019\",\n     \"month\":\"5\",\n     \"ok\":1,\n     \"plan\":\"1\",\n     \"remark\":\"1\",\n     \"create_date\":\"2019-01-01 00:00:00\"\n     \"item_name\":\"短期投资\"\n      \"item\":{\n                     \"item_code\"=\"短期投资\"\n                     \"item_name\"=\"短期投资\"\n                     \"calc_expr=\"1101-1102\"\n                     \"calc_explain\"=\"短期投资-短期投资跌价准备\"\n                     \"state\"=\"1\"\n                     \"modify_time\"= \"2019-04-28 09:59:00\"\n         }\n      \"responsibleDepartments\":{\n          \"deptCode\"=\"C500\"\n          \"deptName\"=\"战略客户部公共\"\n      }\n      \"responsibleEmployee\":{\n          \"employeeName\"=\"陈*坤\"\n          \"id\"=\"456\"\n      }\n      \"collaborativeDepartments\":{\n          \"deptCode\":\"B101\"\n          \"deptName\":\"桌面产品营销处\"\n      }\n      \"collaborativeEmployee\":{\n          \"employeeName\"=\"袁*娟\"\n          \"id\"=\"455\"\n      }\n   }\n}\n}",
           "type": "json"
         }
       ]
@@ -1403,7 +1319,123 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type",
+    "url": "/calculateProportionAndReport?year=year&&month=month&&type=type",
+    "title": "计算指定项目占比",
+    "name": "calculateProportionAndReport_________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定项目占比表年</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定项目占比表月</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "type",
+            "description": "<p>查询指定项目占比（资产和负债）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "删掉数据库本月的所有记录并且重新生成、写入数据库中\nGET: /calculateProportionAndReport?year=year&&month=month&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"计算项目占比表成功,请查询\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/calculateProportionAndReport?year=year&&month=month&&type=type"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/isCalculateProportion?year=year&&month=month&&type=type",
+    "title": "判断是否计算",
+    "name": "isCalculateProportion___________",
+    "group": "Proportion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定项目占比表年</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定项目占比表月</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "type",
+            "description": "<p>查询指定项目占比（资产和负债）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "如果已经计算，返回所有的信息。没有计算，提示用户进行计算\nGET: /isCalculateProportion?year=year&&month=month&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"本月已经计算\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/isCalculateProportion?year=year&&month=month&&type=type"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/selectProportionAndReport?year=year&&month=month&&type=type",
     "title": "查询指定项目占比",
     "name": "selectProportionAndReport_________",
     "group": "Proportion",
@@ -1443,7 +1475,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /selectProportionAndReport?year=year&&month=month&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -1462,79 +1494,14 @@ define({ "api": [
     "groupTitle": "Proportion",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/isCalculateProportion?year=year&&month=month&&type=type",
-    "title": "判断是否计算",
-    "name": "selectProportionAndReport_________",
-    "group": "Proportion",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>指定项目占比表年</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>指定项目占比表月</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "reportId",
-            "description": "<p>指定报表的Id</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "type",
-            "description": "<p>查询指定项目占比（资产和负债）</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /isCalculateProportion?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"判断是否计算\",\n\"data\":{}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/isCalculateProportion?year=year&&month=month&&type=type"
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportionAndReport?year=year&&month=month&&type=type"
       }
     ]
   },
   {
     "type": "GET",
     "url": "/selectProportionById?id=",
-    "title": "查询指定项目占比",
+    "title": "根据id查询指定项目占比",
     "name": "selectProportionById_________",
     "group": "Proportion",
     "parameter": {
@@ -1572,64 +1539,6 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/updateProportionAndReport?year=year&&month=month&&type=type",
-    "title": "计算指定项目占比",
-    "name": "updateProportionAndReport_________",
-    "group": "Proportion",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "year",
-            "description": "<p>指定项目占比表年</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "month",
-            "description": "<p>指定项目占比表月</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "type",
-            "description": "<p>查询指定项目占比（资产和负债）</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"计算项目占比表成功\",\n\"data\":{}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/updateProportionAndReport?year=year&&month=month&&type=type"
       }
     ]
   },
