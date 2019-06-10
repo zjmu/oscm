@@ -36,7 +36,7 @@ public class ProportionController {
     /**
      * 查找项目占比表成功
      *
-     * @api {GET} /selectProportionById?id=  查询指定项目占比
+     * @api {GET} /selectProportionById?id=  根据id查询指定项目占比
      * @apiName selectProportionById 查询项目占比信息
      * @apiGroup Proportion
      * @apiParam {int} id 指定项目占比表记录id
@@ -210,7 +210,7 @@ public class ProportionController {
     /**
      * 查找项目占比表成功
      *
-     * @api {GET} /selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type  查询指定项目占比
+     * @api {GET} /selectProportionAndReport?year=year&&month=month&&type=type  查询指定项目占比
      * @apiName selectProportionAndReport 查询项目占比信息
      * @apiGroup Proportion
      * @apiParam {String} year 指定项目占比表年
@@ -218,7 +218,7 @@ public class ProportionController {
      * @apiparam {int} reportId 指定报表的Id
      * @apiParam {int} type 查询指定项目占比（资产和负债）
      * @apiParamExample {json} Request_Example:
-     * GET: /selectProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type
+     * GET: /selectProportionAndReport?year=year&&month=month&&type=type
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -244,14 +244,14 @@ public class ProportionController {
      * 判断是否计算
      *
      * @api {GET} /isCalculateProportion?year=year&&month=month&&type=type  判断是否计算
-     * @apiName selectProportionAndReport 查询项目占比信息
+     * @apiName isCalculateProportion 判断项目占比是否计算
      * @apiGroup Proportion
      * @apiParam {String} year 指定项目占比表年
      * @apiParam {String} month 指定项目占比表月
-     * @apiparam {int} reportId 指定报表的Id
      * @apiParam {int} type 查询指定项目占比（资产和负债）
      * @apiParamExample {json} Request_Example:
-     * GET: /isCalculateProportion?year=year&&month=month&&reportId=reportId&&type=type
+     * 如果已经计算，返回所有的信息。没有计算，提示用户进行计算
+     * GET: /isCalculateProportion?year=year&&month=month&&type=type
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -260,7 +260,7 @@ public class ProportionController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"判断是否计算",
+     * {"code":0,"message":"本月已经计算",
      * "data":{}
      */
     @GetMapping("/isCalculateProportion")
@@ -283,14 +283,15 @@ public class ProportionController {
     /**
      * 计算项目占比表成功
      *
-     * @api {GET} /updateProportionAndReport?year=year&&month=month&&type=type  计算指定项目占比
-     * @apiName updateProportionAndReport 计算项目占比信息
+     * @api {GET} /calculateProportionAndReport?year=year&&month=month&&type=type  计算指定项目占比
+     * @apiName calculateProportionAndReport 计算项目占比信息
      * @apiGroup Proportion
      * @apiParam {String} year 指定项目占比表年
      * @apiParam {String} month 指定项目占比表月
      * @apiParam {int} type 查询指定项目占比（资产和负债）
      * @apiParamExample {json} Request_Example:
-     * GET: /updateProportionAndReport?year=year&&month=month&&reportId=reportId&&type=type
+     * 删掉数据库本月的所有记录并且重新生成、写入数据库中
+     * GET: /calculateProportionAndReport?year=year&&month=month&&type=type
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -299,7 +300,7 @@ public class ProportionController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"计算项目占比表成功",
+     * {"code":0,"message":"计算项目占比表成功,请查询",
      * "data":{}
      */
     @GetMapping("/calculateProportionAndReport")

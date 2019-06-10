@@ -3,13 +3,13 @@ package edu.jmu.oscm.service;
 import edu.jmu.oscm.mapper.ProportionMapper;
 import edu.jmu.oscm.model.Proportion;
 import edu.jmu.oscm.model.ReportItemInstance;
-import edu.jmu.oscm.modelView.ProportionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author zyx
@@ -26,7 +26,6 @@ public class ProportionService {
     private List<ReportItemInstance> ReportItemInstanceList = new ArrayList<>();
 
     private List<Proportion> proportions = new ArrayList<>();
-    private List<ProportionView> proportionViewList = new ArrayList<>();
 
     private void updateInfo(BigInteger proportionId, float proportion, float accumProp){
         proportionMapper.updateProportion(proportionId,String.valueOf(proportion),String.valueOf(accumProp));
@@ -37,7 +36,6 @@ public class ProportionService {
         this.ReportItemInstanceList = ReportItemInstanceList;
 
         Proportion proportion;
-        ProportionView proportionView;
         float[] total = new float[1];
         float[] accumProp = new float[1];
         float[] prop = new float[1];
