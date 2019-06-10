@@ -235,19 +235,16 @@
         WHERE `year` = #{year} AND item_id = #{item_id}
     </select>
 
-
-
-
     <select id="queryMaxYear" resultType="java.lang.String">
         SELECT MAX(`year`) FROM ad_item_reduce_target
     </select>
-    <select id="queryItemCode" resultType="java.lang.String">
-        SELECT item_code from report_item_instance where parent_item_code = #{type}  group by  item_code;
+    <select id="queryItemNames" resultType="java.lang.String">
+        SELECT item_name from report_item_instance where parent_item_code = #{type}  group by  item_name;
     </select>
     <select id="queryItems" resultType="edu.jmu.oscm.model.Item">
-        select * from item where item_code  in
-        <foreach collection="itemCodes" index="index" item="itemCode" open="(" separator="," close=")">
-            #{itemCode}
+        select * from item where item_name  in
+        <foreach collection="itemNames" index="index" item="itemName" open="(" separator="," close=")">
+            #{itemName}
         </foreach>
     </select>
     <select id="queryReduceTargetsByYear" resultMap="reduceTargetMapper">
@@ -255,15 +252,31 @@
         from ad_item_reduce_target reduce
         left join item
         on reduce.item_id = item.id
-        where `year` = #{year} and item_code in
-        <foreach collection="itemCodes" index="index" item="itemCode" open="(" separator="," close=")">
-            #{itemCode}
+        where `year` = #{year} and item_name in
+        <foreach collection="itemNames" index="index" item="itemName" open="(" separator="," close=")">
+            #{itemName}
         </foreach>
     </select>
 
+    <select id="queryItemIDByName" resultType="java.lang.String">
+        SELECT id from item where item_name = #{item_name}
+    </select>
+
+    <select id="queryEndValue" resultMap="edu.jmu.oscm.mapper.ReportItemInstanceMapper.ReportItemInstanceMapper1">
+        SELECT SUM(END_VALUE) as endValueSum,item_name from report_item_instance WHERE year = #{year} and ITEM_NAME in
+        <foreach collection="itemNames" index="index" item="itemName" open="(" separator="," close=")">
+            #{itemName}
+        </foreach>
+        GROUP BY ITEM_NAME
+    </select>
+
+    <select id="queryFirstYear" resultType="java.lang.String">
+        SELECT MIN(`year`) from report_item_instance
+    </select>
 
     <!--    使用了druid数据源，则配置的时候要注意：
         不能配置wall拦截器，否则批量更新不成功。
+
         url: jdbc:mysql://127.0.0.1:3306/aderi?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
         <update id="updates" parameterType="java.util.List">
             <foreach collection = "list" item="reduceTarget" separator=";">

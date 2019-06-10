@@ -4,6 +4,7 @@ import edu.jmu.oscm.mapper.ReduceTargetMapper;
 import edu.jmu.oscm.model.Item;
 import edu.jmu.oscm.model.ReduceTarget;
 import edu.jmu.oscm.model.Report;
+import edu.jmu.oscm.model.ReportItemInstance;
 import edu.jmu.oscm.service.ReduceTargetService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
