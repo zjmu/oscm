@@ -4,6 +4,7 @@ import edu.jmu.oscm.mapper.ReduceTargetMapper;
 import edu.jmu.oscm.model.Item;
 import edu.jmu.oscm.model.ReduceTarget;
 import edu.jmu.oscm.model.Report;
+import edu.jmu.oscm.model.ReportItemInstance;
 import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.text.Collator;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ReduceTargetService {
@@ -22,21 +23,81 @@ public class ReduceTargetService {
     @Autowired
     private ReduceTargetMapper reduceTargetMapper;
 
+    private String[] parentItemName = {"流动资产","流动负债"};
+
     public List<ReduceTarget> queryAll(){
         return reduceTargetMapper.queryAll();
     }
 
     public List<ReduceTarget> queryReduceTargetsByYear(String year, Integer type){
-
         if(type!=1 && type != 2){
             return null;
         }
+        //初始化
+        List<ReduceTarget> reduceTargets0 = reduceTargetMapper.queryAll();
+        if(reduceTargets0.size() == 0){
+            init();
+        }
+            //表中已经有数据
+            //如果是新的一年则新加入
+            List<String> itemNames = reduceTargetMapper.queryItemName(parentItemName[type-1]);
+        if (itemNames.size() == 0){
+            return null;
+        }
+            //查询
+            List<ReduceTarget> reduceTargets = reduceTargetMapper.queryReduceTargetsByYear(year,itemNames);
+            Integer yearInt = Integer.valueOf(year);
+            //计算去年
+            yearInt = yearInt - 1;
+            String lastYear = "";
+            lastYear = yearInt.toString();
+            //查询去年目标值
+            List<ReportItemInstance> reportItemInstances = reduceTargetMapper.queryEndValue(lastYear, itemNames);
 
-        List<String> itemCodes = reduceTargetMapper.queryItemCode(parentItemCode[type-1]);
-        System.out.println();
-        //查询
-        List<ReduceTarget> reduceTargets = reduceTargetMapper.queryReduceTargetsByYear(year,itemCodes);
-        //获取当前年份
+            //ReduceTarget中没有当年数据，需要初始化
+            if (reduceTargets.size() == 0  && reportItemInstances.size() > 0){
+                List<Item> items = queryItems(type);
+                List<ReduceTarget> reduceTargets1 = new ArrayList<ReduceTarget>();
+                //占比初始化为0
+                Double percent = 100.0;
+                //asset_or_debt 资产或负债，0资产  1负债
+                Integer asset_or_debt = type-1;
+                for(ReportItemInstance reportItemInstance : reportItemInstances){
+                    ReduceTarget reduceTarget = new ReduceTarget();
+                    reduceTarget.setYear(year);
+                    reduceTarget.setYear_percent(percent);
+                    reduceTarget.setAsset_or_debt(asset_or_debt);
+                    for(Item item:items){
+                        if(item.getItem_name().equals(reportItemInstance.getItemName())){
+                            reduceTarget.setItem_id(item.getID());
+                            items.remove(item);
+                            break;
+                        }
+                    }
+                    reduceTarget.setLast_year_value(new BigDecimal(reportItemInstance.getEndValueSum()));
+                    reduceTargets.add(reduceTarget);
+                }
+                //排序
+                Collections.sort(reduceTargets, new Comparator<ReduceTarget>() {
+                    @Override
+                    public int compare(ReduceTarget o1, ReduceTarget o2) {
+                        Collator collator = Collator.getInstance();
+                        return Integer.valueOf(o1.getItem_id().subtract(o2.getItem_id()).toString());
+                    }
+                });
+                //插入
+                add(reduceTargets);
+                //插入后重新查询
+                return reduceTargetMapper.queryReduceTargetsByYear(year,itemNames);
+            }else if(reduceTargets.size() == 0 && reportItemInstances.size() == 0){
+                //没有该年份数据，且没有去年值
+                return null;
+            }else if(reduceTargets.size() > 0){
+                //已有当年数据，返回
+                return reduceTargets;
+            }
+        return null;
+/*        //获取当前年份
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String thisYear = "";
         DateFormat sdf = new SimpleDateFormat("yyyy");
@@ -73,59 +134,22 @@ public class ReduceTargetService {
                 reduceTarget.setCnaModify(false);
             }
         }
-        return reduceTargets;
+        return reduceTargets;*/
     }
 
     public Integer add(List<ReduceTarget> reduceTargets){
         List<ReduceTarget> reduceTargets1 = new ArrayList<ReduceTarget>();
-        //获取当前年份
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String thisYear = "";
-        DateFormat sdf = new SimpleDateFormat("yyyy");
-        thisYear = sdf.format(timestamp);
-        //插入当年份的所有数据
         for(ReduceTarget reduceTarget:reduceTargets){
-/*          判断数据库中是否已经有当年份的数据
-                存在则退出
-                否则
-                    判断是否是数据库中最高年份加1
-                        是则插入
-                        否则退出
-        */
-
-            //判断是否存在，是则不可添加
-            if(reduceTargetMapper.selectYearAndItemID(reduceTarget.getYear(),reduceTarget.getItem_id())!=null){
-                return -1;
-            }
-            //数据库中有数据
-            if(reduceTargetMapper.queryMaxYear()!=null){
-                //int year = Integer.parseInt(reduceTargetMapper.queryMaxYear());
-                String year = reduceTarget.getYear();
-
-                //只能为最新余年添加数据
-                if(!thisYear.equals(year)){
-                    return 0;
-                }
-            }
 
             /*获取系统当前时间*/
             Timestamp d = new Timestamp(System.currentTimeMillis());
             reduceTarget.setCreate_date(d);
             ReduceTarget rt ;
-            //根据percent设置year_value = percent * last_year_value
-            int lastYear = Integer.parseInt(reduceTarget.getYear()) - 1;
-            String lastYear_string = String.valueOf(lastYear);
-            //获取去年的year_value,设为今年的last_year_value
-            BigDecimal lastYearValue = reduceTargetMapper.selectLastYearValue(lastYear_string,reduceTarget.getItem_id());
-            //去年没有这个项目，置lastYearValue为0
-            if(lastYearValue == null){
-                lastYearValue = new BigDecimal("0");
-            }
-            reduceTarget.setLast_year_value(lastYearValue);
+
             //计算今年的year_value
             BigDecimal num = new BigDecimal("100");
             BigDecimal yearPercent = new BigDecimal(reduceTarget.getYear_percent());
-            BigDecimal yearValue = (lastYearValue.multiply(yearPercent)).divide(num,4, BigDecimal.ROUND_HALF_DOWN);
+            BigDecimal yearValue = (reduceTarget.getLast_year_value().multiply(yearPercent)).divide(num,4, BigDecimal.ROUND_HALF_DOWN);
             reduceTarget.setYear_value(yearValue);
 
             //根据year_value初始化所有月份
@@ -297,10 +321,13 @@ public class ReduceTargetService {
         return reduceTarget;
     }
 
-    private String[] parentItemCode = {"流动资产","流动负债"};
+
     public List<Item> queryItems(int type){
-        List<String> itemCodes = reduceTargetMapper.queryItemCode(parentItemCode[type-1]);
-        return reduceTargetMapper.queryItems(itemCodes);
+        if(type!=1 && type != 2){
+            return null;
+        }
+        List<String> itemNames = reduceTargetMapper.queryItemName(parentItemName[type-1]);
+        return reduceTargetMapper.queryItems(itemNames);
     }
 
     private ReduceTarget judge(ReduceTarget reduceTarget){
@@ -368,5 +395,70 @@ public class ReduceTargetService {
         }else{
             return null;
         }
+    }
+
+    private void init() {
+        //获取当前年份
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String thisYear = "";
+        DateFormat sdf = new SimpleDateFormat("yyyy");
+        thisYear = sdf.format(timestamp);
+        String firstYear = reduceTargetMapper.queryFirstYear();
+        if (firstYear == null) {
+            firstYear = "2000";
+        }
+        for (int i = Integer.valueOf(firstYear) + 1; i <= Integer.valueOf(thisYear); i++) {
+            String yearString = String.valueOf(i);
+            for (int j = 1; j <= 2; j++) {
+                List<String> itemNames = reduceTargetMapper.queryItemName(parentItemName[j - 1]);
+                if (itemNames.size() == 0) {
+                    return;
+                }
+
+                //查询
+                List<ReduceTarget> reduceTargets = reduceTargetMapper.queryReduceTargetsByYear(yearString, itemNames);
+                Integer yearInt = Integer.valueOf(yearString);
+                //计算去年
+                yearInt = yearInt - 1;
+                String lastYear = "";
+                lastYear = yearInt.toString();
+                //查询去年目标值
+                List<ReportItemInstance> reportItemInstances = reduceTargetMapper.queryEndValue(lastYear, itemNames);
+
+                if (reduceTargets.size() == 0 && reportItemInstances.size() > 0) {
+                    List<Item> items = queryItems(j);
+                    List<ReduceTarget> reduceTargets1 = new ArrayList<ReduceTarget>();
+                    //占比初始化为0
+                    Double percent = 100.0;
+                    //asset_or_debt 资产或负债，0资产  1负债
+                    Integer asset_or_debt = j - 1;
+                    for (ReportItemInstance reportItemInstance : reportItemInstances) {
+                        ReduceTarget reduceTarget = new ReduceTarget();
+                        reduceTarget.setYear(yearString);
+                        reduceTarget.setYear_percent(percent);
+                        reduceTarget.setAsset_or_debt(asset_or_debt);
+                        for (Item item : items) {
+                            if (item.getItem_name().equals(reportItemInstance.getItemName())) {
+                                reduceTarget.setItem_id(item.getID());
+                                items.remove(item);
+                                break;
+                            }
+                        }
+                        reduceTarget.setLast_year_value(new BigDecimal(reportItemInstance.getEndValueSum()));
+                        reduceTargets1.add(reduceTarget);
+                    }
+                    //排序
+                    Collections.sort(reduceTargets1, new Comparator<ReduceTarget>() {
+                        @Override
+                        public int compare(ReduceTarget o1, ReduceTarget o2) {
+                            return Integer.valueOf(o1.getItem_id().subtract(o2.getItem_id()).toString());
+                        }
+                    });
+                    //插入
+                    add(reduceTargets1);
+                }
+            }
+        }
+
     }
 }

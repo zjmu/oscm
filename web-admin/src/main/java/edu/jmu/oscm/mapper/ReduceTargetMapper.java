@@ -3,12 +3,16 @@ package edu.jmu.oscm.mapper;
 import edu.jmu.oscm.model.Item;
 import edu.jmu.oscm.model.ReduceTarget;
 import edu.jmu.oscm.model.Report;
+import edu.jmu.oscm.model.ReportItemInstance;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ReduceTargetMapper {
@@ -21,10 +25,10 @@ public interface ReduceTargetMapper {
     /***
      * 根据年份查询所有降低目标设置 type=1 查询资产； type=2 查询负债
      * @param year String
-     * @param itemCodes List<String>
+     * @param itemNames List<String>
      * @return 所有资产降低目标设置 or 所有负债降低目标设置
      */
-    List<ReduceTarget> queryReduceTargetsByYear(@Param("year") String year, @Param("itemCodes") List<String> itemCodes);
+    List<ReduceTarget> queryReduceTargetsByYear(@Param("year") String year, @Param("itemNames") List<String> itemNames);
 
     /**
      * 添加一条项目降低目标设置
@@ -114,10 +118,10 @@ public interface ReduceTargetMapper {
 
     /***
      * 查询所有流动资产项目或者流动负债项目
-     * @param itemCodes List<String>
+     * @param itemNames List<String>
      * @return 所有流动资产项目或者流动负债项目
      */
-    List<Item> queryItems(@Param("itemCodes") List<String> itemCodes );
+    List<Item> queryItems(@Param("itemNames") List<String> itemNames );
 
     /***
      * 群钊数据库最新的年份
@@ -130,5 +134,13 @@ public interface ReduceTargetMapper {
      * @param type String
      * @return 流动资产或流动负债item_code
      */
-    List<String> queryItemCode(@Param("type") String type);
+    List<String> queryItemName(@Param("type") String type);
+
+
+    List<ReportItemInstance> queryEndValue(@Param("year") String year, @Param("itemNames") List<String> itemNames);
+
+    String queryItemIDByName(@Param("item_name") String item_name);
+
+    String queryFirstYear();
+
 }

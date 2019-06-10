@@ -32,7 +32,7 @@
 
     </insert>
     <update id="updateMonthReport" parameterType="edu.jmu.oscm.model.MonthReport">
-        UPDATE ad_month_report SET  measure = #{measure},experience = #{experience},deficiency = #{deficiency},evaluate = #{evaluate}, remark =#{remark} 
+        UPDATE ad_month_report SET  measure = #{measure},experience = #{experience},deficiency = #{deficiency},evaluate = #{evaluate}, remark =#{remark}
         WHERE id = #{id}
     </update>
     <delete id="deleteAll">

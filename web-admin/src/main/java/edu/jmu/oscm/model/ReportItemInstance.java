@@ -28,6 +28,8 @@ public class ReportItemInstance {
 
     private String itemId;
 
+    private String endValueSum;
+
     public BigInteger getId() {
         return id;
     }
