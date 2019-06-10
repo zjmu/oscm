@@ -235,13 +235,10 @@
         WHERE `year` = #{year} AND item_id = #{item_id}
     </select>
 
-
-
-
     <select id="queryMaxYear" resultType="java.lang.String">
         SELECT MAX(`year`) FROM ad_item_reduce_target
     </select>
-    <select id="queryItemName" resultType="java.lang.String">
+    <select id="queryItemNames" resultType="java.lang.String">
         SELECT item_name from report_item_instance where parent_item_code = #{type}  group by  item_name;
     </select>
     <select id="queryItems" resultType="edu.jmu.oscm.model.Item">

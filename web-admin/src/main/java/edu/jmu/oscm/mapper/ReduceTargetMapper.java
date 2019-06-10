@@ -134,8 +134,7 @@ public interface ReduceTargetMapper {
      * @param type String
      * @return 流动资产或流动负债item_code
      */
-    List<String> queryItemName(@Param("type") String type);
-
+    List<String> queryItemNames(@Param("type") String type);
 
     List<ReportItemInstance> queryEndValue(@Param("year") String year, @Param("itemNames") List<String> itemNames);
 

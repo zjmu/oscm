@@ -22,6 +22,11 @@
         <result column="MODIFY_TIME" property="modifyTime"/>
     </resultMap>
 
+    <resultMap id="ReportItemInstanceMapper1" type="edu.jmu.oscm.model.ReportItemInstance">
+        <result column="ITEM_NAME" property="itemName"/>
+        <result column="endValueSum" property="endValueSum"/>
+    </resultMap>
+
     <select id="getAllReportItemInstance" resultMap="ReportItemInstanceMapper">
         select * from report_item_instance
     </select>

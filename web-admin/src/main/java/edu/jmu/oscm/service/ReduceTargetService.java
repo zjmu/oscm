@@ -40,7 +40,7 @@ public class ReduceTargetService {
         }
             //表中已经有数据
             //如果是新的一年则新加入
-            List<String> itemNames = reduceTargetMapper.queryItemName(parentItemName[type-1]);
+            List<String> itemNames = reduceTargetMapper.queryItemNames(parentItemName[type-1]);
         if (itemNames.size() == 0){
             return null;
         }
@@ -326,7 +326,7 @@ public class ReduceTargetService {
         if(type!=1 && type != 2){
             return null;
         }
-        List<String> itemNames = reduceTargetMapper.queryItemName(parentItemName[type-1]);
+        List<String> itemNames = reduceTargetMapper.queryItemNames(parentItemName[type-1]);
         return reduceTargetMapper.queryItems(itemNames);
     }
 
@@ -410,7 +410,7 @@ public class ReduceTargetService {
         for (int i = Integer.valueOf(firstYear) + 1; i <= Integer.valueOf(thisYear); i++) {
             String yearString = String.valueOf(i);
             for (int j = 1; j <= 2; j++) {
-                List<String> itemNames = reduceTargetMapper.queryItemName(parentItemName[j - 1]);
+                List<String> itemNames = reduceTargetMapper.queryItemNames(parentItemName[j - 1]);
                 if (itemNames.size() == 0) {
                     return;
                 }
