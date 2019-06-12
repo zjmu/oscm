@@ -2,6 +2,7 @@ package edu.jmu.oscm.controller;
 
 import edu.jmu.oscm.mapper.IncrementalValueMapper;
 import edu.jmu.oscm.model.BalanceTargetValue;
+import edu.jmu.oscm.model.IncrementalValue;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -36,22 +37,50 @@ public class IncrementalValueController {
      * <p>
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
-     *{"code":0,"message":"查询流动资金占用成本管控增创价值成功","data":[
-     * {"id":null,"reportItemId":1,"year":"2018","month":"03","lastMonthBalance":null,"planMonthTargetValue":null,"planTotalReduceValue":null,"actualMonthTargetValue":1091.00,
-     * "actualTotalReduceValue":1101.00,"monthIncrementalValue":12273.75,"totalIncrementalValue":12386.25,"monthReward":172077.98,"totalReward":173655.23,"createDate":null,
-     * "itemDept":[
-     * {"id":null,"reportItemId":1,"isCharge":1,"deptCode":"C500","department":{"id":null,"deptCode":"C500","deptName":"战略客户部公共","parentDeptCode":null,"level":null,"state":null,"modifyTime":null}},
-     * {"id":null,"reportItemId":1,"isCharge":0,"deptCode":"C500","department":{"id":null,"deptCode":"C500","deptName":"战略客户部公共","parentDeptCode":null,"level":null,"state":null,"modifyTime":null}}],
-     * "itemEmployee":null,
-     * "reportItemInstance":
-     * {"id":null,"reportItemId":null,"reportCode":null,"reportName":null,"objectType":null,"objectId":null,"itemCode":null,"itemName":"货币资金","orderNum":null,"year":null,"month":null,"beginValue":null,"value":null,"endValue":null,"modifyTime":null}}]
-     * }
+     *{
+     *   "code": 0,
+     *   "message": "查询流动资金占用成本管控增创价值成功",
+     *   "data": [
+     *     {
+     *       "actualMonthTargetValue": 476,
+     *       "actualTotalReduceValue": 183963,
+     *       "monthIncrementalValue": 5973.8,
+     *       "totalIncrementalValue": 2308735.65,
+     *       "itemDept": [
+     *         {
+     *           "id": null,
+     *           "itemId": 1001,
+     *           "isCharge": 1,
+     *           "deptCode": "C500",
+     *           "department": {
+     *             "id": null,
+     *             "deptCode": "C500",
+     *             "deptName": "战略客户部公共",
+     *             "parentDeptCode": null,
+     *             "level": null,
+     *             "state": null,
+     *             "modifyTime": null
+     *           }
+     *         }
+     *       ],
+     *       "item": {
+     *         "item_code": "资产",
+     *         "item_name": "资产",
+     *         "calc_expr": "",
+     *         "calc_explain": "",
+     *         "state": "1",
+     *         "modify_date": "2019-04-28T01:54:33.000+0000",
+     *         "id": 1001
+     *       }
+     *     }
+     *     ]
+     *}
      * */
     @GetMapping("/queryIncrementalValue")
-    public BasicResponse<List<BalanceTargetValue>> queryIncrementalValue(@RequestParam(value = "year") String year, @RequestParam(value = "month") String month) {
+    public BasicResponse<List<IncrementalValue>> queryIncrementalValue(@RequestParam(value = "year") String year, @RequestParam(value = "month") String month) {
         return BusinessWrapper.wrap(response -> {
             String message;
-            List<BalanceTargetValue> incrementalValues = incrementalValueMapper.selectByDate(year,month);
+            List<IncrementalValue> incrementalValues = incrementalValueMapper.selectByDate(year,month);
             if(incrementalValues.size()==0){
                 message="请先计算当月的值";
                 incrementalValues=null;

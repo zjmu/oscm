@@ -6,6 +6,7 @@ import edu.jmu.oscm.mapper.ResponsibilityIndicatorMapper;
 import edu.jmu.oscm.model.BalanceTargetValue;
 import edu.jmu.oscm.model.Item;
 import edu.jmu.oscm.model.Order;
+import edu.jmu.oscm.model.ResponsibilityIndicator;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -26,9 +27,6 @@ public class ResponsibilityIndicatorController {
     @Autowired
     private ResponsibilityIndicatorMapper responsibilityIndicatorMapper;
 
-    @Autowired
-    private ItemMapper itemMapper;
-
     /**
      * 查询流动资金占用成本管控责任指标
      * @api {GET} /queryResponsibilityIndicator 查询流动资金占用成本管控责任关键指标
@@ -44,43 +42,90 @@ public class ResponsibilityIndicatorController {
      * <p>
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
-     *{"code":0,"message":"查询流动资金占用成本管控责任指标成功","data":[
-     * {"id":null,"reportItemId":1,"year":"2018","month":"03","lastMonthBalance":20.00,"planMonthTargetValue":33.00,"planTotalReduceValue":null,
-     * "actualMonthTargetValue":null,"actualTotalReduceValue":null,"monthIncrementalValue":null,"totalIncrementalValue":null,"monthReward":null,
-     * "totalReward":null,"createDate":null,
-     * "itemDept":[
-     * {"id":null,"reportItemId":1,"isCharge":1,"deptCode":"C500","
-     * department":
-     * {"id":null,"deptCode":"C500","deptName":"战略客户部公共","parentDeptCode":null,"level":null,"state":null,"modifyTime":null}},
-     * {"id":null,"reportItemId":1,"isCharge":0,"deptCode":"C500",
-     * "department":
-     * {"id":null,"deptCode":"C500","deptName":"战略客户部公共","parentDeptCode":null,"level":null,"state":null,"modifyTime":null}}
-     * ],
-     * "itemEmployee":[
-     * {"id":1,"reportItemId":1,"isCharge":0,"employeeId":449,
-     * "employee":
-     * {"id":449,"employeeCode":null,"simpleCode":null,"employeeName":"-*-","employeeType":null,"deptCode":null,"state":null,"modifyTime":null}},
-     * {"id":5,"reportItemId":1,"isCharge":1,"employeeId":453,
-     * "employee":
-     * {"id":453,"employeeCode":null,"simpleCode":null,"employeeName":"郭*芸","employeeType":null,"deptCode":null,"state":null,"modifyTime":null}}
-     * ],
-     * "reportItemInstance":
-     * {"id":null,"reportItemId":null,"reportCode":null,"reportName":null,"objectType":null,"objectId":null,"itemCode":null,"itemName":"货币资金","orderNum":null,"year":null,"month":null,"beginValue":null,"value":null,"endValue":null,"modifyTime":null}}]
-     * }
+     *{
+     *   "code": 0,
+     *   "message": "查询流动资金占用成本管控责任指标成功",
+     *   "data": [
+     *     {
+     *       "lastMonthBalance": 622549,
+     *       "planMonthTargetValue": 47638.88,
+     *       "itemEmployee": null,
+     *       "itemDepts": [
+     *         {
+     *           "id": null,
+     *           "itemId": 1001,
+     *           "isCharge": 1,
+     *           "deptCode": "C500",
+     *           "department": {
+     *             "id": null,
+     *             "deptCode": "C500",
+     *             "deptName": "战略客户部公共",
+     *             "parentDeptCode": null,
+     *             "level": null,
+     *             "state": null,
+     *             "modifyTime": null
+     *           }
+     *         },
+     *         {
+     *           "id": null,
+     *           "itemId": 1001,
+     *           "isCharge": 0,
+     *           "deptCode": "BIZ06",
+     *           "department": {
+     *             "id": null,
+     *             "deptCode": "BIZ06",
+     *             "deptName": "其他",
+     *             "parentDeptCode": null,
+     *             "level": null,
+     *             "state": null,
+     *             "modifyTime": null
+     *           }
+     *         }
+     *       ],
+     *       "itemEmployees": [
+     *         {
+     *           "id": 1,
+     *           "itemId": 1001,
+     *           "isCharge": 1,
+     *           "employeeId": 449,
+     *           "employee": {
+     *             "id": 449,
+     *             "employeeCode": null,
+     *             "simpleCode": null,
+     *             "employeeName": "-*-",
+     *             "employeeType": null,
+     *             "deptCode": null,
+     *             "state": null,
+     *             "modifyTime": null
+     *           }
+     *         }
+     *       ],
+     *       "item": {
+     *         "item_code": "资产",
+     *         "item_name": "资产",
+     *         "calc_expr": "",
+     *         "calc_explain": "",
+     *         "state": "1",
+     *         "modify_date": "2019-04-28T01:54:33.000+0000",
+     *         "id": 1001
+     *       }
+     *     }
+     *     ]
+     *}
      * */
     @GetMapping("/queryResponsibilityIndicator")
-    public BasicResponse<List<BalanceTargetValue>> queryResponsibilityIndicator(@RequestParam("year")String year,@RequestParam("month")String month) {
+    public BasicResponse<List<ResponsibilityIndicator>> queryResponsibilityIndicator(@RequestParam("year")String year, @RequestParam("month")String month) {
         return BusinessWrapper.wrap(response -> {
             String message;
-            List<BalanceTargetValue> result = responsibilityIndicatorMapper.getResponsibilityIndicator(year,month);
-            if(result.size()==0){
+            List<ResponsibilityIndicator> responsibilityIndicators = responsibilityIndicatorMapper.getResponsibilityIndicator(year,month);
+            if(responsibilityIndicators.size()==0){
                 message="请先计算当月的值";
-                result=null;
+                responsibilityIndicators=null;
             }
             else{
                 message="查询流动资金占用成本管控责任指标成功";
             }
-            ResponseUtil.set(response, 0,message, result);
+            ResponseUtil.set(response, 0,message, responsibilityIndicators);
         }, logger);
     }
 }

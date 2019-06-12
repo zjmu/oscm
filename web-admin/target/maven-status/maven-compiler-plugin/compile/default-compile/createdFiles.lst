@@ -20,8 +20,10 @@ edu\jmu\oscm\model\IncentiveRatio.class
 edu\jmu\oscm\controller\TableController.class
 edu\jmu\oscm\controller\IncentiveRatioController.class
 edu\jmu\oscm\controller\ResponsibilityIndicatorController.class
+edu\jmu\oscm\service\ReduceTargetService$1.class
 edu\jmu\oscm\service\ProportionService.class
 edu\jmu\oscm\model\ItemReduceTarget.class
+edu\jmu\oscm\service\ReduceTargetService$2.class
 edu\jmu\oscm\service\IncentiveRatioService.class
 edu\jmu\oscm\controller\OrderController.class
 edu\jmu\oscm\controller\ProportionController.class

@@ -2,6 +2,7 @@ package edu.jmu.oscm.controller;
 
 import edu.jmu.oscm.mapper.TargetMatchingMapper;
 import edu.jmu.oscm.model.BalanceTargetValue;
+import edu.jmu.oscm.model.TargetMatching;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -35,31 +36,58 @@ public class TargetMatchingController {
      * <p>
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
-     *{"code":0,"message":"查询流动资金占用成本管控责任指标成功","data":[
-     * {"id":null,"reportItemId":1,"year":"2018","month":"03","lastMonthBalance":20.00,"planMonthTargetValue":33.00,"planTotalReduceValue":null,"actualMonthTargetValue":null,
-     * "actualTotalReduceValue":null,"monthIncrementalValue":null,"totalIncrementalValue":null,"monthReward":null,"totalReward":null,"createDate":null,"itemDept":null,
-     * "itemEmployee":[
-     * {"id":1,"reportItemId":1,"isCharge":0,"employeeId":449,"employee":
-     * {"id":449,"employeeCode":null,"simpleCode":null,"employeeName":"-*-","employeeType":null,"deptCode":null,"state":null,"modifyTime":null}},
-     * {"id":5,"reportItemId":1,"isCharge":1,"employeeId":453,"employee":
-     * {"id":453,"employeeCode":null,"simpleCode":null,"employeeName":"郭*芸","employeeType":null,"deptCode":null,"state":null,"modifyTime":null}}],
-     * "reportItemInstance":
-     * {"id":null,"reportItemId":null,"reportCode":null,"reportName":null,"objectType":null,"objectId":null,"itemCode":null,"itemName":"货币资金","orderNum":null,"year":null,"month":null,"beginValue":null,"value":null,"endValue":null,"modifyTime":null}}]
-     * }
+     *{
+     *   "code": 0,
+     *   "message": "查询流动资金占用成本管控责任指标成功",
+     *   "data": [
+     *     {
+     *       "parentItemCode": "流动资产",
+     *       "lastMonthBalance": 622557,
+     *       "planMonthTargetValue": 42875.03,
+     *       "itemEmployee": [
+     *         {
+     *           "id": 5,
+     *           "itemId": 1003,
+     *           "isCharge": 1,
+     *           "employeeId": 453,
+     *           "employee": {
+     *             "id": 453,
+     *             "employeeCode": null,
+     *             "simpleCode": null,
+     *             "employeeName": "郭*芸",
+     *             "employeeType": null,
+     *             "deptCode": null,
+     *             "state": null,
+     *             "modifyTime": null
+     *           }
+     *         }
+     *       ],
+     *       "item": {
+     *         "item_code": "货币资金",
+     *         "item_name": "货币资金",
+     *         "calc_expr": "$1001+$1002+$1009",
+     *         "calc_explain": "现金+银行存款+其他货币资金",
+     *         "state": "1",
+     *         "modify_date": "2019-04-28T01:54:33.000+0000",
+     *         "id": 1003
+     *       }
+     *     }
+     *     ]
+     *}
      * */
     @GetMapping("/queryTargetMatching")
-    public BasicResponse<List<BalanceTargetValue>> queryTargetMatching(@RequestParam("year")String year, @RequestParam("month")String month) {
+    public BasicResponse<List<TargetMatching>> queryTargetMatching(@RequestParam("year")String year, @RequestParam("month")String month) {
         return BusinessWrapper.wrap(response -> {
             String message;
-            List<BalanceTargetValue> result = targetMatchingMapper.getTargetMatching(year,month);
-            if(result.size()==0){
+            List<TargetMatching> targetMatchings = targetMatchingMapper.getTargetMatching(year,month);
+            if(targetMatchings.size()==0){
                 message="请先计算当月的值";
-                result=null;
+                targetMatchings=null;
             }
             else{
                 message="查询流动资金占用成本管控责任指标成功";
             }
-            ResponseUtil.set(response, 0,message, result);
+            ResponseUtil.set(response, 0,message, targetMatchings);
         }, logger);
     }
 }
