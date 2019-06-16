@@ -26,10 +26,9 @@ public class BalanceTargetValueService {
     private ReportItemMapper reportItemMapper;
 
     List<ReportItem> itemReduceTargets;
-    List<BalanceTargetValue> balanceTargetValues = new ArrayList<>();
     public List<BalanceTargetValue> calculate(String year, String month, BigInteger reportId){
         List<ReportItem> thisMonthReportItems = reportItemMapper.getReportItemAndReportItemInstance(reportId,year,month);
-
+        List<BalanceTargetValue> balanceTargetValues = new ArrayList<>();
 //        if(reportItems.size()==0)
 //            return "请先计算当前月的上月余额与目标降低值!";
         itemReduceTargets = reportItemMapper.getReportItemAndItemReduceTarget(reportId,year);
@@ -68,13 +67,15 @@ public class BalanceTargetValueService {
             BigDecimal planMonthTargetValue = calculatePlanMonthTargetValue(itemId,month);
             balanceTargetValue.setPlanMonthTargetValue(planMonthTargetValue);
 
-            calculatePlanTotalReduceValue(balanceTargetValue);
+            calculatePlanTotalReduceValue(balanceTargetValue, itemId);
 
-            BigDecimal actualMonthTargetValue = calculateActualTargetValue(thisMonthReportItems,lastMonthReportItems,itemId);
+            BigDecimal thisMonthEndValue = new BigDecimal(reportItem.getReportItemInstance().getEndValue());
+            BigDecimal actualMonthTargetValue = thisMonthEndValue.subtract(balanceTargetValue.getLastMonthBalance());
             balanceTargetValue.setActualMonthTargetValue(actualMonthTargetValue);
 
-            BigDecimal actualTotalTargetValue = calculateActualTargetValue(thisMonthReportItems,lastYearReportItems,itemId);
-            balanceTargetValue.setActualTotalReduceValue(actualTotalTargetValue);
+            BigDecimal lastYearEndValue = calculateActualTotalTargetValue(lastYearReportItems,balanceTargetValue,itemId);
+            BigDecimal actualTotalReduceValue = thisMonthEndValue.subtract(lastYearEndValue);
+            balanceTargetValue.setActualTotalReduceValue(actualTotalReduceValue);
 
             calculateMonthIncremental(incentiveRatios.get(0),balanceTargetValue);
 
@@ -91,6 +92,7 @@ public class BalanceTargetValueService {
 
             balanceTargetValues.add(balanceTargetValue);
         }
+        balanceTargetValueMapper.deleteByDate(year, month);
         balanceTargetValueMapper.insertMore(balanceTargetValues);
         return balanceTargetValues;
     }
@@ -134,45 +136,39 @@ public class BalanceTargetValueService {
         return BigDecimal.valueOf(0);
     }
 
-    public void calculatePlanTotalReduceValue(BalanceTargetValue balanceTargetValue){
+    public void calculatePlanTotalReduceValue(BalanceTargetValue balanceTargetValue,BigInteger itemId){
         BigDecimal total=BigDecimal.valueOf(0);
         Integer month = Integer.valueOf(balanceTargetValue.getMonth());
         String mon="";
         for(int i=1;i<=month;i++){
-            BigInteger itemId = balanceTargetValue.getItemId();
             if(i<10)
-                mon="0"+String.valueOf(month);
+                mon="0"+String.valueOf(i);
             else
-                mon=String.valueOf(month);
+                mon=String.valueOf(i);
             BigDecimal result = calculatePlanMonthTargetValue(itemId,mon);
             total = total.add(result);
         }
         balanceTargetValue.setPlanTotalReduceValue(total);
     }
 
-    public BigDecimal calculateActualTargetValue(List<ReportItem> reportItems1, List<ReportItem> reportItems2,BigInteger itemId){
-        BigDecimal thisMonthValue=findEndValue(reportItems1,itemId);
-        BigDecimal firstMonthValue=findEndValue(reportItems2,itemId);
-        BigDecimal actualTargetValue;
+    public BigDecimal calculateActualTotalTargetValue(List<ReportItem> lastYearReportItems,BalanceTargetValue balanceTargetValue,BigInteger itemId){
+        BigDecimal lastYearEndValue = new BigDecimal("0");
+        for (ReportItem reportItem: lastYearReportItems){
+            if(reportItem.getItemId().equals(itemId))
+                lastYearEndValue = new BigDecimal(reportItem.getReportItemInstance().getEndValue());
+        }
 
-        actualTargetValue = thisMonthValue.subtract(firstMonthValue);
-        return actualTargetValue;
+        return lastYearEndValue;
     }
 
     public BigDecimal findEndValue(List<ReportItem> reportItems,BigInteger itemId){
         BigDecimal endValue = new BigDecimal("0");
         for(ReportItem reportItem:reportItems){
             if(reportItem.getItemId().equals(itemId)){
-                List<ReportItemInstance> reportItemInstances=reportItem.getReportItemInstances();
-                for(ReportItemInstance reportItemInstance:reportItemInstances){
-                    BigDecimal value;
-                    if(reportItemInstance.getEndValue()!=null)
-                        value = new BigDecimal(reportItemInstance.getEndValue());
-                    else
-                        value = new BigDecimal("0");
-                    endValue = endValue.add(value);
-                }
-                break;
+                if(reportItem.getReportItemInstance().getEndValue()!=null)
+                    endValue = new BigDecimal(reportItem.getReportItemInstance().getEndValue());
+                else
+                    endValue = new BigDecimal("0");
             }
         }
         return endValue;

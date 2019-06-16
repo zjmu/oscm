@@ -3,20 +3,14 @@
 <mapper namespace="edu.jmu.oscm.mapper.ReportItemMapper">
 
     <resultMap id="ReportItemAndReportItemInstanceMapper" type="edu.jmu.oscm.model.ReportItem">
-        <id property="id" column="ID"/>
-        <result property="state" column="year"/>
-        <result property="modifyTime" column="MODIFY_TIME"/>
         <result property="itemId" column="ITEM_ID"/>
-        <result property="orderNum" column="ORDER_NUM"/>
-        <collection property="reportItemInstances" column="{reportItemId=ID,year=year,month=month}" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstance"/>
+        <association property="reportItemInstance" javaType="edu.jmu.oscm.model.ReportItemInstance">
+            <result column="END_VALUE" property="endValue"/>
+        </association>
     </resultMap>
 
     <resultMap id="ReportItemAndItemReduceTargetMapper" type="edu.jmu.oscm.model.ReportItem">
-        <id property="id" column="ID"/>
-        <result property="state" column="STATE"/>
-        <result property="modifyTime" column="MODIFY_TIME"/>
         <result property="itemId" column="ITEM_ID"/>
-        <result property="orderNum" column="ORDER_NUM"/>
         <association property="itemReduceTarget" javaType="edu.jmu.oscm.model.ItemReduceTarget">
             <result property="itemId" column="ITEM_ID"/>
             <result property="year" column="year"/>
@@ -36,13 +30,15 @@
     </resultMap>
 
     <select id="getReportItemAndReportItemInstance" resultMap="ReportItemAndReportItemInstanceMapper">
-        SELECT ID,REPORT_ID,ITEM_ID, '${year}' as year,'${month}' as month
-        FROM report_item
-        WHERE REPORT_ID = #{reportId}
+        SELECT a.ITEM_ID ITEM_ID,YEAR,MONTH,sum(END_VALUE)  `END_VALUE` FROM
+        report_item a LEFT JOIN report_item_instance b
+        ON a.ID = b.REPORT_ITEM_ID
+        WHERE `YEAR`=#{year} AND`MONTH`=#{month} AND REPORT_ID=#{reportId}
+        GROUP BY REPORT_ITEM_ID
     </select>
 
     <select id="getReportItemAndItemReduceTarget" resultMap="ReportItemAndItemReduceTargetMapper">
-        SELECT a.ITEM_ID ITEM_ID,a.REPORT_ID REPORT_ID,year,jun,feb,mar,apr,may,jan,jul,aug,sept,oct,nov,`dec`
+        SELECT a.ITEM_ID ITEM_ID,year,jun,feb,mar,apr,may,jan,jul,aug,sept,oct,nov,`dec`
         FROM report_item a join ad_item_reduce_target b on a.ITEM_ID=b.ITEM_ID
         where year=#{year} and a.REPORT_ID=#{reportId}
     </select>
