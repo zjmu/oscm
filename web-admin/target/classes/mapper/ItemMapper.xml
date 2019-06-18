@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.ItemMapper">
+
+    <resultMap id="itemMapperResult" type="edu.jmu.oscm.model.Item">
+        <id column="ID" property="ID"/>
+        <result column="ITEM_CODE" property="item_code"/>
+        <result column="ITEM_NAME" property="item_name"/>
+        <result column="CALC_EXPR" property="calc_expr"/>
+        <result column="CALC_EXPLAIN" property="calc_explain"/>
+        <result column="STATE" property="state"/>
+        <result column="MODIFY_TIME" property="modify_date"/>
+    </resultMap>
+
+    <insert id="insertItem" parameterType="edu.jmu.oscm.model.Item">
+        INSERT INTO item(ITEM_CODE,ITEM_NAME,CALC_EXPR,CALC_EXPLAIN,STATE)
+        values (#{item_code},#{item_name},#{calc_expr},#{calc_explain},#{state})
+    </insert>
+
+    <delete id="deleteAllItem">
+        DELETE FROM item
+    </delete>
+
+    <delete id="deleteItemByItemId">
+        DELETE FROM item WHERE ID = #{itemId}
+    </delete>
+
+    <select id="getAllItem" resultMap="itemMapperResult">
+        SELECT * FROM item
+    </select>
+
+    <select id="getItemByItemId" resultMap="itemMapperResult">
+        SELECT * FROM item WHERE ID = #{itemId}
+    </select>
+
+</mapper>

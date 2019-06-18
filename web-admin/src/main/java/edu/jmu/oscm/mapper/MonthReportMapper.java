@@ -1,6 +1,8 @@
 package edu.jmu.oscm.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import edu.jmu.oscm.model.MonthReport;
+
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -33,10 +35,9 @@ public interface MonthReportMapper {
 
     /**
      * 根据id查找一条
-     * @param id
      * @return
      */
-    MonthReport selectMonthReportById(int id);
+    List<MonthReport> selectMonthReportByDate(String year,String month);
 
     /**
      * 查找所有记录
@@ -50,4 +51,5 @@ public interface MonthReportMapper {
      */
     Boolean updateMonthReport(MonthReport monthReport);
 
+    MonthReport selectMonthReportByDateAndItemId(BigInteger item_id, String year, String month);
 }

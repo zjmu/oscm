@@ -1,41 +1,182 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.jmu.oscm.mapper.ProportionMapper">
-    <resultMap id="ProportionMapper" type="edu.jmu.oscm.model.Proportion">
+    <resultMap id="ProportionItem" type="edu.jmu.oscm.model.Proportion">
         <id column="id" property="id"/>
-        <result column="REPORT_ITEM_ID" property="report_item_id"/>
+        <result column="ITEM_ID" property="itemId"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+        <result column="ITEM_NAME" property="itemName"/>
         <result column="year" property="year"/>
         <result column="month" property="month"/>
         <result column="proportion" property="proportion"/>
-        <result column="accumulate_proportion" property="accumulate_proportion"/>
-        <result column="asset_or_debt" property="asset_or_debt"/>
-        <result column="create_date" property="date"/>
+        <result column="accumulate_proportion" property="accumulateProportion"/>
+        <result column="asset_or_debt" property="assetOrDebt"/>
+        <result column="create_date" property="createDate"/>
+    </resultMap>
+
+    <resultMap id="ProportionItemAndId" type="edu.jmu.oscm.model.ReportItemInstance">
+        <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+        <result column="YEAR" property="year"/>
+        <result column="MONTH" property="month"/>
+        <result column="sum" property="endValue"/>
+        <result column="ID" property="itemId"/>
+    </resultMap>
+
+    <resultMap id="ProportionItemByYearAndMonthAndReportId" type="edu.jmu.oscm.model.Proportion">
+        <id column="id" property="id"/>
+        <result column="ITEM_ID" property="itemId"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+        <result column="ITEM_NAME" property="itemName"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="proportion" property="proportion"/>
+        <result column="accumulate_proportion" property="accumulateProportion"/>
+        <result column="asset_or_debt" property="assetOrDebt"/>
+        <result column="create_date" property="createDate"/>
+        <collection property="reportItem" ofType="edu.jmu.oscm.model.ReportItem">
+            <result property="id" column="ID"/>
+            <result property="reportId" column="REPORT_ID"/>
+            <result property="itemId" column="ITEM_ID"/>
+            <result property="orderNum" column="ORDER_NUM"/>
+            <result property="state" column="STATE"/>
+            <result property="modifyTime" column="MODIFY_TIME"/>
+            <association property="item" javaType="edu.jmu.oscm.model.Item" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId" column="ITEM_ID"/>
+            <association property="report" javaType="edu.jmu.oscm.model.Report" select="edu.jmu.oscm.mapper.ReportMapper.getReportByReportId" column="REPORT_ID"/>
+        </collection>
+        <collection property="reportItemInstanceList" ofType="edu.jmu.oscm.model.ReportItemInstance">
+            <result property="id" column="ID"/>
+            <result column="REPORT_ITEM_ID" property="reportItemId"/>
+            <result column="REPORT_CODE" property="reportCode"/>
+            <result column="REPORT_NAME" property="reportName"/>
+            <result column="DEPT_CODE" property="deptCode"/>
+            <result column="DEPT_NAME" property="deptName"/>
+            <result column="ITEM_CODE" property="itemCode"/>
+            <result column="ITEM_NAME" property="itemName"/>
+            <result column="LEVEL" property="level"/>
+            <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
+            <result column="ORDER_NUM" property="orderNum"/>
+            <result column="YEAR" property="year"/>
+            <result column="MONTH" property="month"/>
+            <result column="BEGIN_VALUE" property="beginValue"/>
+            <result column="VALUE" property="value"/>
+            <result column="END_VALUE" property="endValue"/>
+            <result column="MODIFY_TIME" property="modifyTime"/>
+        </collection>
+
+        <!--        <association property="reportItem" javaType="edu.jmu.oscm.model.ReportItem">-->
+        <!--            <result property="id" column="ID"/>-->
+        <!--            <result property="reportId" column="REPORT_ID"/>-->
+        <!--            <result property="itemId" column="ITEM_ID"/>-->
+        <!--            <result property="orderNum" column="ORDER_NUM"/>-->
+        <!--            <result property="state" column="STATE"/>-->
+        <!--            <result property="modifyTime" column="MODIFY_TIME"/>-->
+        <!--        </association>-->
+
+        <!--        <collection property="reportItemList" ofType="edu.jmu.oscm.model.ReportItem">-->
+        <!--            <result property="id" column="ID"/>-->
+        <!--            <result property="reportId" column="REPORT_ID"/>-->
+        <!--            <result property="itemId" column="ITEM_ID"/>-->
+        <!--            <result property="orderNum" column="ORDER_NUM"/>-->
+        <!--            <result property="state" column="STATE"/>-->
+        <!--            <result property="modifyTime" column="MODIFY_TIME"/>-->
+        <!--            <association property="report"-->
+        <!--                         select="com.atguigu.mybatis.dao.DepartmentMapper.getDeptById"-->
+        <!--                         column="d_id">-->
+        <!--            </association>-->
+        <!--            <association property="report" javaType="edu.jmu.oscm.model.Report">-->
+        <!--                <id column="id" property="id"/>-->
+        <!--                <result column="REPORT_CODE" property="reportCode"/>-->
+        <!--                <result column="REPORT_NAME" property="reportName"/>-->
+        <!--                <result column="STATE" property="state"/>-->
+        <!--                <result column="MODIFY_TIME" property="modifyTime"/>-->
+        <!--            </association>-->
+        <!--        </collection>-->
     </resultMap>
 
     <insert id="insertProportion" parameterType="edu.jmu.oscm.model.Proportion">
-        INSERT INTO ad_item_proportion(report_item_id,year,month,proportion,accumulate_proportion,asset_or_debt,create_date)
-        values (#{report_item_id},#{year},#{month},#{proportion},#{accumulate_proportion},#{asset_or_debt},#{create_date})
+        INSERT INTO ad_item_proportion(ITEM_ID, year, month, proportion, accumulate_proportion, asset_or_debt,
+                                       create_date)
+        values (#{report_item_id}, #{year}, #{month}, #{proportion}, #{accumulate_proportion}, #{asset_or_debt},
+                #{create_date})
     </insert>
 
+    <insert id="insertProportions" parameterType="java.util.List">
+        INSERT INTO ad_item_proportion(ITEM_ID, ITEM_CODE,ITEM_NAME, year, month, proportion, accumulate_proportion, asset_or_debt,
+                                       create_date)
+        values
+               <foreach collection="list" item="proportion" separator=",">
+                   (#{proportion.itemId}, #{proportion.itemCode},#{proportion.itemName} , #{proportion.year}, #{proportion.month}, #{proportion.proportion},
+                    #{proportion.accumulateProportion}, #{proportion.assetOrDebt}, #{proportion.createDate})
+               </foreach>
+    </insert>
+
+    <delete id="deleteByYearAndMonthAndType">
+        DELETE FROM ad_item_proportion
+        WHERE year = #{year} AND month = #{month} AND asset_or_debt = #{type}
+    </delete>
+
     <delete id="deleteById">
-        delete from ad_item_proportion where id = (#{id})
+        delete
+        from ad_item_proportion
+        where id = (#{id})
     </delete>
 
     <delete id="deleteAll">
-        DELETE FROM ad_item_proportion WHERE id!=0
+        DELETE
+        FROM ad_item_proportion
+        WHERE id != 0
     </delete>
 
-    <select id="getAllProportion" resultMap="ProportionMapper">
-        select * from ad_item_proportion
+    <select id="getAllProportion" resultMap="ProportionItem">
+        select *
+        from ad_item_proportion
     </select>
 
-    <select id="selectProportionById" resultMap="ProportionMapper">
-        select * from ad_item_proportion where id = #{id}
+    <select id="selectProportionById" resultMap="ProportionItem">
+        select *
+        from ad_item_proportion
+        where id = #{id}
     </select>
 
-    <select id="selectProportionByYearAndMonth" resultMap="ProportionMapper">
-        select * from ad_item_proportion where year = #{year} and month = #{month}
+    <select id="selectProportionByYearAndMonthAndType" resultMap="ProportionItem">
+        select *
+        from ad_item_proportion
+        where year = #{year}
+          and month = #{month}
+          and asset_or_debt = #{type}
     </select>
 
+    <select id="selectProportionByYearAndMonthAndReportIdAndType" resultMap="ProportionItemByYearAndMonthAndReportId">
+        SELECT table0.*,table1.*,SUM(table2.END_VALUE) AS END_VALUE FROM ad_item_proportion table0, report_item table1, report_item_instance table2
+        WHERE table1.REPORT_ID = #{reportId} AND table2.REPORT_ITEM_ID = table1.ID AND table0.ITEM_ID = table1.ITEM_ID AND table0.year = #{year} AND table0.month = #{month} AND table0.year = table2.YEAR AND table0.month = table2.MONTH AND table0.asset_or_debt = #{type}
+        GROUP BY table0.id,table1.ID,table2.REPORT_ITEM_ID
+    </select>
+
+    <update id="updateProportion">
+        update ad_item_proportion
+        <set>
+            proportion=#{prop},
+            accumulate_proportion=#{accumProp},
+        </set>
+        where id=#{id}
+    </update>
+
+<!--    SELECT item_code, sum(end_value) from report_item_instance where parent_item_code = #{type} AND year = #{year} AND month = #{month} group by  item_code;-->
+
+    <select id="calculateProportionOfYearAndMonth" resultMap="ProportionItemAndId">
+        SELECT parent_item_code , report_item_instance.ITEM_CODE ,  YEAR , MONTH , sum(end_value) AS sum,item.ID
+        from report_item_instance ,item
+        where parent_item_code = #{type} AND YEAR = #{year} AND MONTH = #{month} AND  report_item_instance.ITEM_CODE=item.ITEM_CODE group by  report_item_instance.item_code,item.ID ORDER BY item.ID;
+
+    </select>
+
+<!--    SELECT *-->
+<!--    FROM ad_item_proportion table1-->
+<!--    JOIN report_item table2 ON table1.ITEM_ID = table2.ITEM_ID-->
+<!--    JOIN report table3 ON table2.REPORT_ID = table3.ID-->
+<!--    JOIN item table4 ON table2.ITEM_ID = table4.ID-->
+<!--    JOIN report_item_instance table5 ON table5.YEAR = table1.year AND table5.MONTH = table1.month AND table5.REPORT_ITEM_ID = table3.ID-->
+<!--    WHERE table1.year = #{year} AND table1.month = #{month} AND table5.REPORT_ITEM_ID = #{reportId}-->
 
 </mapper>

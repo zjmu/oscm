@@ -1,7 +1,10 @@
 package edu.jmu.oscm.controller;
 
+import edu.jmu.oscm.mapper.BalanceTargetValueMapper;
 import edu.jmu.oscm.mapper.ImprovementPlanMapper;
+import edu.jmu.oscm.model.BalanceTargetValue;
 import edu.jmu.oscm.model.ImprovementPlan;
+import edu.jmu.oscm.service.ImprovementPlanService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -18,17 +22,22 @@ public class ImprovementPlanController {
     private static final Logger logger = LoggerFactory.getLogger(ImprovementPlanController.class);
 
     @Autowired
+    private ImprovementPlanService improvementPlanService;
+
+    @Autowired
     private ImprovementPlanMapper improvementPlanMapper;
 
+    @Autowired
+    private BalanceTargetValueMapper balanceTargetValueMapper;
     /**
      * 获取指定提升和改善计划表记录
      *
-     * @api {GET} /selectImprovementPlanById?id=  查询指定提升和改善计划表信息
-     * @apiName selectImprovementPlanById 查询指定提升和改善计划表信息
+     * @api {GET} /improvementPlan?year=&&month=  查询指定提升和改善计划表信息
+     * @apiName selectImprovementPlanByDate 查询指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 指定提升和改善计划表记录id
      * @apiParamExample {json} Request_Example:
-     * GET: /deleteImprovementPlanById?id=
+     * GET: /improvementPlan?year=2018 && month = 2
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -39,30 +48,104 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,
      * "message":"查找指定提升和改善计划表成功",
-     * "data":{"id":1,
-     * "report_item_id":0,
+     * "data":
+     * {
+     * {
+     * "id":1,
+     * "item_id":1,
      * "year":"2019",
      * "month":"5",
      * "ok":1,
      * "plan":"1",
      * "remark":"1",
-     * "create_date":"2019-01-01 00:00:00"}}
+     * "create_date":"2019-01-01 00:00:00"
+     * "item":{
+     *          "id":"1001"
+     *          "item_code"="短期投资"
+     *          "item_name"="短期投资"
+     *          "calc_expr="1101-1102"
+     *          "calc_explain"="短期投资-短期投资跌价准备"
+     *          "state"="1"
+     *          "modify_time"= "2019-04-28 09:59:00"
+     *          }
+     *  "employee":{
+     *          "id":"450"
+     *          "employee_code"="14"
+     *          "simple_code"="G01"
+     *          "employee_name"="林*香"
+     *          "employee_type"=""
+     *          "dept_code"="C301"
+     *           "state"="1"
+     *           "modify_time"="2019-04-11 19:10:00"
+     *  }
+     *  "department":{
+     *      "id":"2"
+     *      dept_code:"BIZ01"
+     *      dept_name:"大客户业务"
+     *      parent_dept_code:"CO001"
+     *      liable_employee:""
+     *      level="2"
+     *      state="1"
+     *      modify_time="2019-04-12 09:06:53"
+     *  }
+     * }
+     * {
+     * "id":2,
+     * "item_id":1,
+     * "year":"2019",
+     * "month":"5",
+     * "ok":1,
+     * "plan":"1",
+     * "remark":"1",
+     * "create_date":"2019-01-01 00:00:00"
+     * "item":{
+     *          "item_code"="短期投资"
+     *          "item_name"="短期投资"
+     *          "calc_expr="1101-1102"
+     *          "calc_explain"="短期投资-短期投资跌价准备"
+     *          "state"="1"
+     *          "modify_time"= "2019-04-28 09:59:00"
+     *          }
+     *  "employee":{
+     *          "id":"450"
+     *          "employee_code"="14"
+     *          "simple_code"="G01"
+     *          "employee_name"="林*香"
+     *          "employee_type"=""
+     *          "dept_code"="C301"
+     *           "state"="1"
+     *           "modify_time"="2019-04-11 19:10:00"
+     *  }
+     *  "department":{
+     *      "id":"2"
+     *      dept_code:"BIZ01"
+     *      dept_name:"大客户业务"
+     *      parent_dept_code:"CO001"
+     *      liable_employee:""
+     *      level="2"
+     *      state="1"
+     *      modify_time="2019-04-12 09:06:53"
+     *  }
+     * }
+     * }
+     *
+     * }
      */
-    @GetMapping("/selectImprovementPlanById")
-    public BasicResponse<ImprovementPlan> selectImprovementPlanById(@RequestParam("id") int id) {
+    @GetMapping("/improvementPlan")
+    public BasicResponse<List<ImprovementPlan>> selectImprovementPlanByDate(@RequestParam("year") String year,@RequestParam("month") String month) {
         return BusinessWrapper.wrap(response -> {
-            ImprovementPlan improvementPlan = improvementPlanMapper.selectImprovementPlanById(id);
-            ResponseUtil.set(response, 0, "查找指定提升和改善计划表成功",improvementPlan);
+            List<ImprovementPlan> improvementPlans = improvementPlanService.selectImprovementPlanByDate(year,month);
+            ResponseUtil.set(response, 0, "查找指定提升和改善计划表成功",improvementPlans);
         }, logger);
     }
 
     /**
      * 查询所有提升和改善计划表记录
-     * @api {GET} /getAllImprovementPlan 查询所有提升和改善计划表信息
-     * @apiName getAllImprovementPlan 查询所有提升和改善计划表信息
+     * @api {GET} /improvementPlans 查询所有提升和改善计划表信息
+     * @apiName queryAllImprovementPlan 查询所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParamExample {json} Request_Example:
-     * GET: /getAllImprovementPlan
+     * GET: /improvementPlans
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -75,26 +158,43 @@ public class ImprovementPlanController {
      * "data":[
      *          {
      *              "id":1,
-     *              "report_item_id":0,
-     *              "year":"2019",
-     *              "month":"5",
-     *              "ok":1,
-     *              "plan":"1",
-     *              "remark":"1",
-     *              "create_date":"2019-01-01 00:00:00"},
-     *          {
-     *              "id":2,
-     *              "report_item_id":0,
+     *              "item_id":1,
      *              "year":"2019",
      *              "month":"5",
      *              "ok":1,
      *              "plan":"1",
      *              "remark":"1",
      *              "create_date":"2019-01-01 00:00:00"
+     *              "item":{
+     *                       "item_code"="短期投资"
+     *                      "item_name"="短期投资"
+     *                      "calc_expr="1101-1102"
+     *                      "calc_explain"="短期投资-短期投资跌价准备"
+     *                      "state"="1"
+     *                      "modify_time"= "2019-04-28 09:59:00"
+     *          }
+     *              },
+     *          {
+     *              "id":2,
+     *              "item_id":1,
+     *              "year":"2019",
+     *              "month":"5",
+     *              "ok":1,
+     *              "plan":"1",
+     *              "remark":"1",
+     *              "create_date":"2019-01-01 00:00:00"
+     *              "item":{
+     *                      "item_code"="短期投资"
+     *                      "item_name"="短期投资"
+     *                      "calc_expr="1101-1102"
+     *                      "calc_explain"="短期投资-短期投资跌价准备"
+     *                      "state"="1"
+     *                      "modify_time"= "2019-04-28 09:59:00"
+     *          }
      *            }
      *       ]}
      */
-    @GetMapping("/getAllImprovementPlan")
+    @GetMapping("/improvementPlans")
     public BasicResponse<List<ImprovementPlan>> getAllImprovementPlan() {
         return BusinessWrapper.wrap(response -> {
             List<ImprovementPlan> improvementPlans = improvementPlanMapper.getAllImprovementPlan();
@@ -107,12 +207,12 @@ public class ImprovementPlanController {
     /**
      * 删除指定提升和改善计划表记录
      *
-     * @api {DELETE} /deleteImprovementPlanById 删除指定提升和改善计划表信息
-     * @apiName deleteImprovementPlanById 删除指定提升和改善计划表信息
+     * @api {DELETE} /improvementPlan 删除指定提升和改善计划表信息
+     * @apiName deleteImprovementPlan 删除指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 指定提升和改善计划表记录id
      * @apiParamExample {json} Request_Example:
-     * DELETE: /deleteImprovementPlanById?id=1
+     * DELETE: /improvementPlan?id=1
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -123,7 +223,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"删除指定提升和改善计划表成功"}
      */
-    @DeleteMapping("/deleteImprovementPlanById")
+    @DeleteMapping("/improvementPlan")
     public BasicResponse<Boolean> deleteImprovementPlanById(@RequestParam("id") int id) {
         return BusinessWrapper.wrap(response -> {
             boolean flag = improvementPlanMapper.deleteById(id);
@@ -131,14 +231,15 @@ public class ImprovementPlanController {
         }, logger);
     }
 
+
     /**
      * 删除所有提升和改善计划表记录
      *
-     * @api {DELETE} /deleteAllImprovementPlan 删除所有提升和改善计划表信息
-     * @apiName deleteAllImprovementPlan 删除所有提升和改善计划表信息
+     * @api {DELETE} /improvementPlans 删除所有提升和改善计划表信息
+     * @apiName deleteAllImprovementPlans删除所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParamExample {json} Request_Example:
-     * DELETE: /deleteAllImprovementPlan
+     * DELETE: /improvementPlans
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -149,7 +250,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"删除所有提升和改善计划表成功"}
      */
-    @DeleteMapping("/deleteAllImprovementPlan")
+    @DeleteMapping("/improvementPlans")
     public BasicResponse<Boolean>  deleteAllImprovementPlan()
     {
         return BusinessWrapper.wrap(response -> {
@@ -161,10 +262,10 @@ public class ImprovementPlanController {
     /**
      * 插入提升和改善计划表记录
      *
-     * @api {POST} /insertImprovementPlan 插入提升和改善计划表信息
+     * @api {POST} /improvementPlan 插入提升和改善计划表信息
      * @apiName insertImprovementPlan 插入所有提升和改善计划表信息
      * @apiGroup ImprovementPlan
-     * @apiParam {bigint} report_item_id 报告条目id
+     * @apiParam {bigint} item_id 报告条目id
      * @apiParam {String} year 年度
      * @apiParam {String} month 月份
      * @apiParam {int} ok 完成情况
@@ -173,7 +274,7 @@ public class ImprovementPlanController {
      * @apiParam {Timestamp} create_date 创建时间
      * @apiParamExample {json} Request_Example:
      * {
-     *  "report_item_id":0,
+     *  "item_id":1,
      *  "year":"2019",
      *  "month":"5",
      *  "ok":1,
@@ -181,7 +282,7 @@ public class ImprovementPlanController {
      *  "remark":"1",
      *  "create_date":"2019-01-01 00:00:00"
      *  }
-     * POST: /insertImprovementPlan
+     * POST: /improvementPlan
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -192,7 +293,7 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"插入提升和改善计划表成功"}
      */
-    @PostMapping("/insertImprovementPlan")
+    @PostMapping("/improvementPlan")
     public BasicResponse<Boolean> insertImprovementPlan(@RequestBody  ImprovementPlan improvementPlan){
         return BusinessWrapper.wrap(response -> {
             System.out.println(improvementPlan.toString());
@@ -201,32 +302,23 @@ public class ImprovementPlanController {
         }, logger);
     }
 
+
     /**
      * 更新指定提升和改善计划表记录
      *
-     * @api {PUT} /updateImprovementPlan 更新指定提升和改善计划表信息
+     * @api {PUT} /improvementPlan 更新指定提升和改善计划表信息
      * @apiName updateImprovementPlan 更新指定提升和改善计划表信息
      * @apiGroup ImprovementPlan
      * @apiParam {int} id 提升和改善计划表id
-     * @apiParam {bigint} report_item_id 报告条目id
-     * @apiParam {String} year 年度
-     * @apiParam {String} month 月份
-     * @apiParam {int} ok 完成情况
      * @apiParam {String} plan 改善计划
      * @apiParam {String} remark 备注
-     * @apiParam {Timestamp} create_date 创建时间
      * @apiParamExample {json} Request_Example:
      * {
      *  "id":1,
-     *  "report_item_id":0,
-     *  "year":"2019",
-     *  "month":"5",
-     *  "ok":1,
      *  "plan":"1",
      *  "remark":"1",
-     *  "create_date":"2019-01-01 00:00:00"
      *  }
-     * POST: /updateImprovementPlan
+     * POST: /improvementPlan
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -237,12 +329,12 @@ public class ImprovementPlanController {
      * <p>
      * {"code":0,"message":"更新提升和改善计划表成功"}
      */
-    @PutMapping("/updateImprovementPlan")
+    @PutMapping("/improvementPlan")
     public BasicResponse<Boolean> updateImprovementPlan(@RequestBody  ImprovementPlan improvementPlan){
         return BusinessWrapper.wrap(response -> {
-            System.out.println(improvementPlan.toString());
             boolean flag = improvementPlanMapper.updateImprovementPlan(improvementPlan);
             ResponseUtil.set(response, 0, "更新提升和改善计划表成功");
         }, logger);
     }
+
 }

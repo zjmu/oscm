@@ -2,7 +2,7 @@ package edu.jmu.oscm.model;
 import lombok.Data;
 
 import java.math.BigInteger;
-
+import java.util.List;
 import java.sql.Timestamp;
 @Data
 public class ImprovementPlan {
@@ -11,7 +11,7 @@ public class ImprovementPlan {
     private int id;
 
     //报告条目id
-    private BigInteger report_item_id;
+    private BigInteger item_id;
 
     //年度
     private String year;
@@ -31,81 +31,11 @@ public class ImprovementPlan {
     //日期
     private Timestamp create_date;
 
-    public int getId() {
-        return id;
-    }
+    //外键对应的Item对象
+    private  Item item;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    private List<Employee> employee;
 
-    public BigInteger getReport_item_id() {
-        return report_item_id;
-    }
+    private List<Department> departments;
 
-    public void setReport_item_id(BigInteger report_item_id) {
-        this.report_item_id = report_item_id;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public int getOk() {
-        return ok;
-    }
-
-    public void setOk(int ok) {
-        this.ok = ok;
-    }
-
-    public String getPlan() {
-        return plan;
-    }
-
-    public void setPlan(String plan) {
-        this.plan = plan;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Timestamp getCreate_date() {
-        return create_date;
-    }
-
-    public void setCreate_date(Timestamp create_date) {
-        this.create_date = create_date;
-    }
-
-    @Override
-    public String toString() {
-        return "ImprovementPlan{" +
-                "id=" + id +
-                ", REPORT_ITEM_ID=" + report_item_id +
-                ", year='" + year + '\'' +
-                ", month='" + month + '\'' +
-                ", ok=" + ok +
-                ", plan='" + plan + '\'' +
-                ", remark='" + remark + '\'' +
-                ", date='" + create_date + '\'' +
-                '}';
-    }
 }

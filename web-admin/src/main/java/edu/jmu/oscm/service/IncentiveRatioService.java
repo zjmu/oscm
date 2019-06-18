@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -25,7 +27,17 @@ public class IncentiveRatioService {
     public Boolean add(IncentiveRatio incentiveRatio){
         //获取系统当前日期时间
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        incentiveRatio.setCreate_date(timestamp);
+        String year = "";
+        DateFormat sdf = new SimpleDateFormat("yyyy");
+        year = sdf.format(timestamp);
+        //判断今年是否已插入
+        IncentiveRatio incentiveRatio1= incentiveRatioMapper.queryByYear(year);
+
+        if(incentiveRatio1 != null){
+            return false;
+        }
+        incentiveRatio.setCreateDate(timestamp);
+        incentiveRatio.setYear(year);
         return incentiveRatioMapper.add(incentiveRatio);
     }
 

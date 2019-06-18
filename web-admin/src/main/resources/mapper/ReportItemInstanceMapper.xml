@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.ReportItemInstanceMapper">
+
+    <resultMap id="ReportItemInstanceMapper" type="edu.jmu.oscm.model.ReportItemInstance">
+        <id column="ID" property="id"/>
+        <result column="REPORT_ITEM_ID" property="reportItemId"/>
+        <result column="REPORT_CODE" property="reportCode"/>
+        <result column="REPORT_NAME" property="reportName"/>
+        <result column="DEPT_CODE" property="deptCode"/>
+        <result column="DEPT_NAME" property="deptName"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+        <result column="ITEM_NAME" property="itemName"/>
+        <result column="LEVEL" property="level"/>
+        <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
+        <result column="ORDER_NUM" property="orderNum"/>
+        <result column="YEAR" property="year"/>
+        <result column="MONTH" property="month"/>
+        <result column="BEGIN_VALUE" property="beginValue"/>
+        <result column="VALUE" property="value"/>
+        <result column="END_VALUE" property="endValue"/>
+        <result column="MODIFY_TIME" property="modifyTime"/>
+    </resultMap>
+
+    <resultMap id="ReportItemInstanceMapper1" type="edu.jmu.oscm.model.ReportItemInstance">
+        <result column="ITEM_NAME" property="itemName"/>
+        <result column="endValueSum" property="endValueSum"/>
+    </resultMap>
+
+    <select id="getAllReportItemInstance" resultMap="ReportItemInstanceMapper">
+        select * from report_item_instance
+    </select>
+
+    <select id="getReportItemInstanceByYearAndMonth" resultMap="ReportItemInstanceMapper">
+        SELECT * FROM report_item_instance WHERE year = #{year} and month = #{month}
+    </select>
+
+    <select id="getReportItemInstanceByReportItemId" resultMap="ReportItemInstanceMapper">
+        SELECT * FROM report_item_instance WHERE REPORT_ITEM_ID = #{reportItemId}
+    </select>
+
+    <select id="getReportItemInstance" resultMap="ReportItemInstanceMapper">
+        SELECT ITEM_ID,YEAR,MONTH,sum(END_VALUE) AS `END_VALUE` FROM report_item_instance
+        WHERE `YEAR`=#{year} AND`MONTH`=#{month} AND REPORT_ITEM_ID=#{reportItemId}
+        GROUP BY REPORT_ITEM_ID
+    </select>
+
+</mapper>

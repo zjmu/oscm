@@ -3,6 +3,7 @@ package edu.jmu.oscm.mapper;
 import edu.jmu.oscm.model.ImprovementPlan;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Mapper
@@ -31,12 +32,12 @@ public interface ImprovementPlanMapper {
     Boolean insertImprovementPlan(ImprovementPlan improvementPlan);
 
     /**
-     * 根据id查找一条
-     * @param id
+     * 根据日期查找一条
      * @return
      */
-    ImprovementPlan selectImprovementPlanById(int id);
+    List<ImprovementPlan> selectImprovementPlanByDate(String year,String month);
 
+    ImprovementPlan selectImprovementPlanByDateAndItemId(BigInteger item_id,String year, String month);
     /**
      * 查找所有记录
      * @return
