@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -232,10 +234,10 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/selectProportionAndReport")
-    public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month,@RequestParam("type") boolean type) {
+    public BasicResponse<List<Proportion>> selectProportionAndReport(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") boolean type) {
         return BusinessWrapper.wrap(response -> {
 
-            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1 , type);
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1, type);
 
             ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
         }, logger);
@@ -265,23 +267,23 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/isCalculateProportion")
-    public BasicResponse<Map<String,Object>> isCalculateProportion(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") boolean type) {
+    public BasicResponse<Map<String, Object>> isCalculateProportion(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") boolean type) {
         return BusinessWrapper.wrap(response -> {
 
             // 得到的数据
-            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1 , type);
+            List<Proportion> proportions = proportionMapper.selectProportionByYearAndMonthAndType(year, month, 1, type);
 
-            if(proportions.size() == 0){
+            if (proportions.size() == 0) {
                 ResponseUtil.set(response, 1, "本月尚未计算，请进行计算", null);
-            }else{
-                Map<String,Object> result = new HashMap<>();
+            } else {
+                Map<String, Object> result = new HashMap<>();
 
                 float[] total = new float[1];
                 String name = null;
                 //type为0 表示流动资产项目 type为1 表示流动负债项目
-                if(!type){
+                if (!type) {
                     name = "流动资产";
-                }else{
+                } else {
                     name = "流动负债";
                 }
 
@@ -289,7 +291,7 @@ public class ProportionController {
                 List<ReportItemInstance> list = proportionMapper.calculateProportionOfYearAndMonth(year, month, name);
 
                 // 查找到每一项的金额
-                for(int i=0;i<list.size();i++){
+                for (int i = 0; i < list.size(); i++) {
                     proportions.get(i).setValue(list.get(i).getEndValue());
                 }
 
@@ -298,8 +300,8 @@ public class ProportionController {
                     total[0] = total[0] + Float.parseFloat(value.getEndValue());
                 }
 
-                result.put("list",proportions);
-                result.put("total",total[0]);
+                result.put("list", proportions);
+                result.put("total", total[0]);
 
                 // 已经计算 直接返回本月的信息
                 ResponseUtil.set(response, 0, "本月已经计算", result);
@@ -312,7 +314,7 @@ public class ProportionController {
     /**
      * 计算项目占比表成功
      *
-     * @api {GET} /calculateProportionAndReport?year=year&&month=month&&type=type  计算指定项目占比
+     * @api {GET} /calculateProportionAndReport?year=year&&month=month&&type=type  计算指定项目占比（旧的，暂时不用）
      * @apiName calculateProportionAndReport 计算项目占比信息
      * @apiGroup Proportion
      * @apiParam {String} year 指定项目占比表年
@@ -333,32 +335,224 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/calculateProportionAndReport")
-    public BasicResponse<Boolean> calculateProportionData(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") int type){
+    public BasicResponse<Boolean> calculateProportionData(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") int type) {
 
         return BusinessWrapper.wrap(response -> {
 
             String name = null;
             //type为0 表示流动资产项目 type为1 表示流动负债项目
-            if(type == 0){
+            if (type == 0) {
                 name = "流动资产";
-            }else{
+            } else {
                 name = "流动负债";
             }
 
             // 先把原有的记录删掉 再重新进行计算
-            Boolean flag1 = proportionMapper.deleteByYearAndMonthAndType(year,month,type);
+            Boolean flag1 = proportionMapper.deleteByYearAndMonthAndType(year, month, type);
 
             // 得到数据
             List<ReportItemInstance> list = proportionMapper.calculateProportionOfYearAndMonth(year, month, name);
 
             // 写入
-            Boolean flag = proportionService.getList(list,true);
+            Boolean flag = proportionService.getList(list, true);
 
-            if(flag){
+            if (flag) {
                 ResponseUtil.set(response, 0, "计算项目占比表成功,请查询", null);
-            }else{
+            } else {
                 ResponseUtil.set(response, 0, "计算项目占比表失败,请检查数据库", null);
             }
+
+        }, logger);
+    }
+
+
+    /**
+     * 获取所有的部门名称接口
+     *
+     * @api {GET} /getAllDepartment  获取所有的部门名称
+     * @apiName getAllDepartment 获取所有的部门名称
+     * @apiGroup Proportion
+     * @apiParamExample {json} Request_Example:
+     * GET: /getAllDepartment
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"获取所有的部门名称成功,请查询",
+     * "data":{}
+     */
+    @GetMapping("/getAllDepartment")
+    public BasicResponse<Map<String, String>> getAllDepartment() {
+        return BusinessWrapper.wrap(response -> {
+
+            List<ReportItemInstance> list = proportionMapper.getAllDepartment();
+
+            Map<String, String> map = new HashMap<>();
+
+            for (ReportItemInstance reportItemInstance : list) {
+                map.put(reportItemInstance.getDeptName(), reportItemInstance.getDeptCode());
+            }
+
+            System.out.println(proportionMapper.getAllDepartment().size());
+
+            ResponseUtil.set(response, 0, "获取部门成功，请查询", map);
+
+        }, logger);
+    }
+
+
+    /**
+     * 生成项目占比表成功（含部门信息）
+     *
+     * @api {GET} /calculateProportion  生成某部门某年月某类型项目占比表
+     * @apiName calculateProportion 生成项目占比表
+     * @apiGroup Proportion
+     * @apiParamExample {json} Request_Example:
+     * GET: /calculateProportion
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"生成项目占比表成功（含部门信息）,请查询",
+     * "data":{}
+     */
+    @GetMapping("/calculateProportion")
+    public BasicResponse<Boolean> calculateProportion(@RequestParam("deptName") String deptName, @RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") int type) {
+        return BusinessWrapper.wrap(response -> {
+
+            // 初始化要用占比List和占比item
+            List<Proportion> proportions = new ArrayList<>();
+            Proportion proportion;
+
+            // 总计、累计、单项
+            float[] total = new float[1];
+            float[] accumProp = new float[1];
+            float[] prop = new float[1];
+
+            // type
+            boolean flagType;
+
+            //获取相应的deptCode
+            List<ReportItemInstance> result = proportionMapper.getAllDepartment();
+
+            Map<String, String> map = new HashMap<>();
+
+            for (ReportItemInstance reportItemInstance : result) {
+                map.put(reportItemInstance.getDeptName(), reportItemInstance.getDeptCode());
+            }
+
+            final String deptCode = map.get(deptName);
+
+            //判断是流动资产 or 流动负债
+            String name = null;
+            //type为0 表示流动资产项目 type为1 表示流动负债项目
+            if (type == 0) {
+                name = "流动资产";
+            } else {
+                name = "流动负债";
+            }
+
+            // 删除原有旧的记录
+            // 先把原有的记录删掉 再重新进行计算
+            proportionMapper.deleteByDeptAndYearAndMonthAndType(deptCode, year, month, type);
+
+            // 找到所有新生成的记录
+            List<ReportItemInstance> list = proportionMapper.selectProportionByDeptAndYearAndMonthAndType(deptCode, year, month, name);
+
+            // 写入数据库中
+
+            // 0.type格式处理
+            flagType = type != 0;
+
+            // 1.获得总计
+            for (ReportItemInstance value : list) {
+                total[0] = total[0] + Float.parseFloat(value.getEndValueSum());
+            }
+
+            System.out.println("总计值为：" + total[0]);
+
+            //2.填充每一项
+            for (ReportItemInstance value : list) {
+                prop[0] = Float.valueOf(value.getEndValueSum()) / total[0];
+                accumProp[0] = accumProp[0] + prop[0];
+
+                proportion = new Proportion();
+
+                proportion.setItemId(new BigInteger(value.getItemId(), 10));
+                proportion.setItemCode(value.getItemCode());
+                proportion.setItemName(value.getItemCode());
+                proportion.setDeptCode(deptCode);
+                proportion.setDeptName(deptName);
+                proportion.setYear(value.getYear());
+                proportion.setMonth(value.getMonth());
+                proportion.setProportion(String.valueOf(prop[0]));
+                proportion.setAccumulateProportion(String.valueOf(accumProp[0]));
+                proportion.setAssetOrDebt(flagType);
+                proportion.setCreateDate(new Timestamp(new java.util.Date().getTime()).toString());
+
+                proportions.add(proportion);
+            }
+
+            System.out.println("总列表为：" + proportions);
+
+            //3. 插入输入库中
+            boolean flag = proportionMapper.insertProportions(proportions);
+
+            ResponseUtil.set(response, 0, "生成" + deptName + "部门" + year + "年" + month + "月" + name + "表成功", flag);
+
+        }, logger);
+    }
+
+    /**
+     * 查询项目占比表成功（含部门信息）
+     *
+     * @api {GET} /selectProportion  查询某部门某年月某类型项目占比表信息
+     * @apiName selectProportion 查询项目占比表
+     * @apiGroup Proportion
+     * @apiParamExample {json} Request_Example:
+     * GET: /selectProportion
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"查询项目占比表成功（含部门信息）",
+     * "data":{}
+     */
+    @GetMapping("/selectProportion")
+    public BasicResponse<List<Proportion>> selectProportion(@RequestParam("deptName") String deptName, @RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") int type) {
+
+        return BusinessWrapper.wrap(response -> {
+
+            //获取相应的deptCode
+            List<ReportItemInstance> result = proportionMapper.getAllDepartment();
+
+            Map<String, String> map = new HashMap<>();
+
+            for (ReportItemInstance reportItemInstance : result) {
+                map.put(reportItemInstance.getDeptName(), reportItemInstance.getDeptCode());
+            }
+
+            final String deptCode = map.get(deptName);
+
+            // type格式处理
+            Boolean flagType = type != 0;
+
+            // 获取所有的proportion
+            List<Proportion> list = proportionMapper.selectProportionByDeptAndYearAndMonthAndTypeFromProportion(deptCode, year, month, flagType);
+
+            ResponseUtil.set(response, 0, "查询" + deptName + "部门" + year + "年" + month + "月占比信息成功", list);
 
         }, logger);
     }

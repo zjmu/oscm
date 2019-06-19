@@ -19,6 +19,8 @@ public class Proportion {
     private BigInteger itemId;
     private String itemCode;
     private String itemName;
+    private String deptCode;
+    private String deptName;
     private String year;
     private String month;
     private String proportion;
@@ -133,5 +135,21 @@ public class Proportion {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
     }
 }

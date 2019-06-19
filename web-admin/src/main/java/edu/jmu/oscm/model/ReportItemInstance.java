@@ -173,4 +173,12 @@ public class ReportItemInstance {
     public void setItemId(String itemId) {
         this.itemId = itemId;
     }
+
+    public String getEndValueSum() {
+        return endValueSum;
+    }
+
+    public void setEndValueSum(String endValueSum) {
+        this.endValueSum = endValueSum;
+    }
 }
