@@ -4,6 +4,8 @@
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.BalanceTargetValue">
         <id column="id" property="id"/>
+        <result column="DEPT_CODE" property="deptCode"/>
+        <result column="DEPT_NAME" property="deptName"/>
         <result column="ITEM_ID" property="itemId"/>
         <result column="year" property="year"/>
         <result column="month" property="month"/>
@@ -20,11 +22,11 @@
     </resultMap>
 
     <insert id="insertMore" parameterType="java.util.List">
-        INSERT INTO ad_balance_target_value(ITEM_ID,year,month,last_month_balance,plan_month_target_value,plan_total_reduce_value,actual_month_target_value,
+        INSERT INTO ad_balance_target_value(ITEM_ID,DEPT_CODE,DEPT_NAME,year,month,last_month_balance,plan_month_target_value,plan_total_reduce_value,actual_month_target_value,
         actual_total_reduce_value,month_incremental_value,total_incremental_value,month_reward,total_reward,create_date)
         VALUES
         <foreach collection="list" item="balanceTargetValue" separator=",">
-            (#{balanceTargetValue.itemId},#{balanceTargetValue.year},#{balanceTargetValue.month},#{balanceTargetValue.lastMonthBalance},#{balanceTargetValue.planMonthTargetValue},#{balanceTargetValue.planTotalReduceValue},#{balanceTargetValue.actualMonthTargetValue},
+            (#{balanceTargetValue.itemId},#{balanceTargetValue.deptCode},#{balanceTargetValue.deptName},#{balanceTargetValue.year},#{balanceTargetValue.month},#{balanceTargetValue.lastMonthBalance},#{balanceTargetValue.planMonthTargetValue},#{balanceTargetValue.planTotalReduceValue},#{balanceTargetValue.actualMonthTargetValue},
              #{balanceTargetValue.actualTotalReduceValue},#{balanceTargetValue.monthIncrementalValue},#{balanceTargetValue.totalIncrementalValue},#{balanceTargetValue.monthReward},#{balanceTargetValue.totalReward},#{balanceTargetValue.createDate})
         </foreach>
     </insert>

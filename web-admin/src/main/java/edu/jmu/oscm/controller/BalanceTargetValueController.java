@@ -2,7 +2,7 @@ package edu.jmu.oscm.controller;
 
 import edu.jmu.oscm.mapper.*;
 import edu.jmu.oscm.model.*;
-//import edu.jmu.oscm.service.BalanceTargetValueService;
+import edu.jmu.oscm.service.BalanceTargetValueService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -22,8 +22,8 @@ public class BalanceTargetValueController {
     @Autowired
     private BalanceTargetValueMapper balanceTargetValueMapper;
 
-//    @Autowired
-//    private BalanceTargetValueService balanceTargetValueService;
+    @Autowired
+    private BalanceTargetValueService balanceTargetValueService;
 
     /**
      * 按年月删除上月余额与目标降低值表
@@ -179,7 +179,7 @@ public class BalanceTargetValueController {
     @GetMapping("/calculateBalanceTargetValue")
     public BasicResponse<String> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month,@RequestParam("reportId")BigInteger reportId) {
         return BusinessWrapper.wrap(response -> {
-//            balanceTargetValueService.calculate(year,month,reportId);
+            balanceTargetValueService.calculate(year,month,reportId);
             String message = "计算完成，可查询";
             ResponseUtil.set(response, 0, "执行计算", message);
         }, logger);

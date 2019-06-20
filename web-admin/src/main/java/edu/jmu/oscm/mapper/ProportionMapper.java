@@ -34,6 +34,18 @@ public interface ProportionMapper {
     Boolean deleteByYearAndMonthAndType(@Param("year") String year, @Param("month") String month, @Param("type") int type);
 
     /**
+     * 重新计算的时候用
+     * 把原有月份的记录删掉
+     * @param deptCode
+     * @param year
+     * @param month
+     * @param theType
+     * @return
+     */
+    Boolean deleteByDeptAndYearAndMonthAndType(@Param("deptCode") String deptCode,@Param("year") String year, @Param("month") String month, @Param("theType") int theType);
+
+
+    /**
      * 增加一条
      * @param proportion
      * @return
@@ -74,6 +86,16 @@ public interface ProportionMapper {
     List<Proportion> selectProportionByYearAndMonthAndType(String year,String month,int reportId,Boolean type);
 
     /**
+     * 查询某年某月某部门某种占比信息
+     * @param deptCode
+     * @param year
+     * @param month
+     * @param theType
+     * @return
+     */
+    List<Proportion> selectProportionByDeptAndYearAndMonthAndTypeFromProportion(@Param("deptCode") String deptCode,@Param("year") String year, @Param("month") String month, @Param("theType") Boolean theType);
+
+    /**
      * 查找所有记录
      * @return
      */
@@ -98,4 +120,20 @@ public interface ProportionMapper {
      * @return
      */
     List<ReportItemInstance> calculateProportionOfYearAndMonth(@Param("year") String year, @Param("month") String month, @Param("type") String type);
+
+    /**
+     * 获取所有的部门
+     * @return
+     */
+    List<ReportItemInstance> getAllDepartment();
+
+    /**
+     * 根据年月 部门 类别 查询所有的信息
+     * @param deptCode
+     * @param year
+     * @param month
+     * @param theType
+     * @return
+     */
+    List<ReportItemInstance> selectProportionByDeptAndYearAndMonthAndType(@Param("deptCode") String deptCode,@Param("year") String year, @Param("month") String month, @Param("theType") String theType);
 }

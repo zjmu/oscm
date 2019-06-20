@@ -10,6 +10,8 @@ public class IncentiveRatio {
 
     private Integer id;
     private String year;
+    private String deptCode;
+    private String deptName;
     private BigDecimal interestRate;
     private BigDecimal incentiveRatio;
     private BigDecimal maxLimit;

@@ -1,8 +1,10 @@
 package edu.jmu.oscm.mapper;
 
+import edu.jmu.oscm.model.ItemReduceTarget;
+import edu.jmu.oscm.model.ReduceTarget;
 import edu.jmu.oscm.model.ReportItem;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -22,7 +24,7 @@ public interface ReportItemMapper {
      * @param month
      * @author zjm
      */
-    List<ReportItem> getReportItemAndReportItemInstance(@RequestParam("reportId")BigInteger reportId,@RequestParam("year")String year,@RequestParam("month")String month);
+    List<ReportItem> getReportItemAndReportItemInstance(@Param("reportId")BigInteger reportId,@Param("year")String year,@Param("month")String month);
 
     /**
      * @description 关联获取ItemReduceTarget
@@ -30,6 +32,14 @@ public interface ReportItemMapper {
      * @param year
      * @author zjm
      */
-    List<ReportItem> getReportItemAndItemReduceTarget(@RequestParam("reportId")BigInteger reportId,@RequestParam("year")String year);
+    List<ReportItem> getReportItemAndItemReduceTarget(@Param("reportId")BigInteger reportId, @Param("year")String year);
+
+    /**
+     * @description 子查询item_reduce_target表
+     * @param itemId
+     * @param year
+     * @author zjm
+     */
+    List<ItemReduceTarget> selectByItemIdAndYear(@Param("itemId")BigInteger itemId, @Param("year")String year);
 
 }

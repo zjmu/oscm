@@ -1311,7 +1311,7 @@
   {
     "type": "GET",
     "url": "/calculateProportionAndReport?year=year&&month=month&&type=type",
-    "title": "计算指定项目占比",
+    "title": "计算指定项目占比（旧的，暂时不用）",
     "name": "calculateProportionAndReport_________",
     "group": "Proportion",
     "parameter": {
@@ -1363,6 +1363,72 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/calculateProportionAndReport?year=year&&month=month&&type=type"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/calculateProportion",
+    "title": "生成某部门某年月某类型项目占比表",
+    "name": "calculateProportion________",
+    "group": "Proportion",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /calculateProportion\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"生成项目占比表成功（含部门信息）,请查询\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/calculateProportion"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/getAllDepartment",
+    "title": "获取所有的部门名称",
+    "name": "getAllDepartment__________",
+    "group": "Proportion",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /getAllDepartment\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"获取所有的部门名称成功,请查询\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/getAllDepartment"
       }
     ]
   },
@@ -1530,6 +1596,39 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/selectProportionById?id="
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/selectProportion",
+    "title": "查询某部门某年月某类型项目占比表信息",
+    "name": "selectProportion________",
+    "group": "Proportion",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /selectProportion\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询项目占比表成功（含部门信息）\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ProportionController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/selectProportion"
       }
     ]
   },

@@ -4,38 +4,48 @@
 
     <resultMap id="ReportItemAndReportItemInstanceMapper" type="edu.jmu.oscm.model.ReportItem">
         <result property="itemId" column="ITEM_ID"/>
-        <collection property="reportItemInstances" column="{reportItemId=ID,year=year,month=month}" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstance"/>
+        <collection property="reportItemInstances" column="{reportItemId=ID,year=YEAR,month=MONTH}" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstance"/>
     </resultMap>
 
     <resultMap id="ReportItemAndItemReduceTargetMapper" type="edu.jmu.oscm.model.ReportItem">
         <result property="itemId" column="ITEM_ID"/>
-        <association property="itemReduceTarget" javaType="edu.jmu.oscm.model.ItemReduceTarget">
-            <result property="itemId" column="ITEM_ID"/>
-            <result property="year" column="year"/>
-            <result property="jun" column="jun"/>
-            <result property="feb" column="feb"/>
-            <result property="mar" column="mar"/>
-            <result property="apr" column="apr"/>
-            <result property="may" column="may"/>
-            <result property="jan" column="jan"/>
-            <result property="jul" column="jul"/>
-            <result property="aug" column="aug"/>
-            <result property="sept" column="sept"/>
-            <result property="oct" column="oct"/>
-            <result property="nov" column="nov"/>
-            <result property="dec" column="dec"/>
-        </association>
+        <collection property="itemReduceTargets" column="{itemId=ITEM_ID,year=YEAR}" select="edu.jmu.oscm.mapper.ReportItemMapper.selectByItemIdAndYear"/>
+    </resultMap>
+
+    <resultMap id = "itemReduceTargetMapper" type="edu.jmu.oscm.model.ItemReduceTarget">
+        <result column="ITEM_ID" property="itemId"/>
+        <result column="DEPT_CODE" property="deptCode"/>
+        <result column="last_year_value" property="lastYearValue"/>
+        <result column="jan" property="jan"/>
+        <result column="feb" property="feb"/>
+        <result column="mar" property="mar"/>
+        <result column="apr" property="apr"/>
+        <result column="may" property="may"/>
+        <result column="jun" property="jun"/>
+        <result column="jul" property="jul"/>
+        <result column="aug" property="aug"/>
+        <result column="sept" property="sept"/>
+        <result column="oct" property="oct"/>
+        <result column="nov" property="nov"/>
+        <result column="dec" property="dec"/>
     </resultMap>
 
     <select id="getReportItemAndReportItemInstance" resultMap="ReportItemAndReportItemInstanceMapper">
         SELECT ITEM_ID, ID,'${year}' YEAR, '${month}' MONTH
-        FROM `report_item` WHERE REPORT_ID=1
+        FROM `report_item`
+        WHERE REPORT_ID=#{reportId}
     </select>
 
     <select id="getReportItemAndItemReduceTarget" resultMap="ReportItemAndItemReduceTargetMapper">
-        SELECT a.ITEM_ID ITEM_ID,year,jun,feb,mar,apr,may,jan,jul,aug,sept,oct,nov,`dec`
-        FROM report_item a join ad_item_reduce_target b on a.ITEM_ID=b.ITEM_ID
-        where year=#{year} and a.REPORT_ID=#{reportId}
+        SELECT ITEM_ID,'${year}' YEAR
+        FROM report_item
+        WHERE REPORT_ID=#{reportId}
+    </select>
+
+    <select id="selectByItemIdAndYear" resultMap="itemReduceTargetMapper">
+        SELECT DEPT_CODE,ITEM_ID, jan,feb,mar,apr,may,jun,jul,aug,sept,oct,nov,`dec`
+        FROM ad_item_reduce_target
+        WHERE ITEM_ID=#{itemId} AND `year`=#{year}
     </select>
 
 </mapper>

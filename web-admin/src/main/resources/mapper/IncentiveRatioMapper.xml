@@ -5,6 +5,8 @@
     <resultMap id="mapper" type="edu.jmu.oscm.model.IncentiveRatio">
         <id property="id" column="id"/>
         <result property="year" column="year"/>
+        <result property="deptCode" column="DEPT_CODE"/>
+        <result property="deptName" column="DEPT_NAME"/>
         <result property="interestRate" column="interest_rate"/>
         <result property="incentiveRatio" column="incentive_ratio"/>
         <result property="maxLimit" column="max_limit"/>

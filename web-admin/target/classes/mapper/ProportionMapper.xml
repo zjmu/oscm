@@ -13,6 +13,11 @@
         <result column="asset_or_debt" property="assetOrDebt"/>
         <result column="create_date" property="createDate"/>
     </resultMap>
+    
+    <resultMap id="departmentItem" type="edu.jmu.oscm.model.ReportItemInstance">
+        <result column="DEPT_CODE" property="deptCode"/>
+        <result column="DEPT_NAME" property="deptName"/>
+    </resultMap>
 
     <resultMap id="ProportionItemAndId" type="edu.jmu.oscm.model.ReportItemInstance">
         <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
@@ -20,6 +25,15 @@
         <result column="YEAR" property="year"/>
         <result column="MONTH" property="month"/>
         <result column="sum" property="endValue"/>
+        <result column="ID" property="itemId"/>
+    </resultMap>
+
+    <resultMap id="ProportionItemAndIdAndDept" type="edu.jmu.oscm.model.ReportItemInstance">
+        <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+        <result column="YEAR" property="year"/>
+        <result column="MONTH" property="month"/>
+        <result column="sum" property="endValueSum"/>
         <result column="ID" property="itemId"/>
     </resultMap>
 
@@ -102,18 +116,23 @@
     </insert>
 
     <insert id="insertProportions" parameterType="java.util.List">
-        INSERT INTO ad_item_proportion(ITEM_ID, ITEM_CODE,ITEM_NAME, year, month, proportion, accumulate_proportion, asset_or_debt,
+        INSERT INTO ad_item_proportion(ITEM_ID, ITEM_CODE,ITEM_NAME, DEPT_CODE, DEPT_NAME , year, month, proportion, accumulate_proportion, asset_or_debt,
                                        create_date)
         values
                <foreach collection="list" item="proportion" separator=",">
-                   (#{proportion.itemId}, #{proportion.itemCode},#{proportion.itemName} , #{proportion.year}, #{proportion.month}, #{proportion.proportion},
+                   (#{proportion.itemId}, #{proportion.itemCode},#{proportion.itemName} , #{proportion.deptCode},#{proportion.deptName}, #{proportion.year}, #{proportion.month}, #{proportion.proportion},
                     #{proportion.accumulateProportion}, #{proportion.assetOrDebt}, #{proportion.createDate})
                </foreach>
     </insert>
 
     <delete id="deleteByYearAndMonthAndType">
         DELETE FROM ad_item_proportion
-        WHERE year = #{year} AND month = #{month} AND asset_or_debt = #{type}
+        WHERE year = #{year} AND month = #{month} AND asset_or_debt = #{type};
+    </delete>
+
+    <delete id="deleteByDeptAndYearAndMonthAndType">
+        DELETE FROM ad_item_proportion
+        WHERE DEPT_CODE = #{deptCode} AND year = #{year} AND month = #{month} AND asset_or_debt = #{theType};
     </delete>
 
     <delete id="deleteById">
@@ -147,6 +166,11 @@
           and asset_or_debt = #{type}
     </select>
 
+    <select id="selectProportionByDeptAndYearAndMonthAndTypeFromProportion" resultType="edu.jmu.oscm.model.Proportion">
+        SELECT * FROM ad_item_proportion
+        WHERE asset_or_debt = #{theType} AND month = #{month} AND year = #{year} AND DEPT_CODE = #{deptCode};
+    </select>
+
     <select id="selectProportionByYearAndMonthAndReportIdAndType" resultMap="ProportionItemByYearAndMonthAndReportId">
         SELECT table0.*,table1.*,SUM(table2.END_VALUE) AS END_VALUE FROM ad_item_proportion table0, report_item table1, report_item_instance table2
         WHERE table1.REPORT_ID = #{reportId} AND table2.REPORT_ITEM_ID = table1.ID AND table0.ITEM_ID = table1.ITEM_ID AND table0.year = #{year} AND table0.month = #{month} AND table0.year = table2.YEAR AND table0.month = table2.MONTH AND table0.asset_or_debt = #{type}
@@ -165,10 +189,20 @@
 <!--    SELECT item_code, sum(end_value) from report_item_instance where parent_item_code = #{type} AND year = #{year} AND month = #{month} group by  item_code;-->
 
     <select id="calculateProportionOfYearAndMonth" resultMap="ProportionItemAndId">
-        SELECT parent_item_code , report_item_instance.ITEM_CODE ,  YEAR , MONTH , sum(end_value) AS sum,item.ID
+        SELECT report_item_instance.PARENT_ITEM_CODE , report_item_instance.ITEM_CODE ,  YEAR , MONTH , sum(end_value) AS sum,item.ID
         from report_item_instance ,item
-        where parent_item_code = #{type} AND YEAR = #{year} AND MONTH = #{month} AND  report_item_instance.ITEM_CODE=item.ITEM_CODE group by  report_item_instance.item_code,item.ID ORDER BY item.ID;
+        where PARENT_ITEM_CODE = #{type} AND YEAR = #{year} AND MONTH = #{month} AND  report_item_instance.ITEM_CODE=item.ITEM_CODE group by  report_item_instance.item_code,item.ID ORDER BY item.ID;
+    </select>
 
+    <select id="getAllDepartment" resultMap="departmentItem">
+        SELECT DISTINCT DEPT_CODE,DEPT_NAME
+        FROM report_item_instance
+    </select>
+
+    <select id="selectProportionByDeptAndYearAndMonthAndType"  resultMap="ProportionItemAndIdAndDept">
+        SELECT report_item_instance.PARENT_ITEM_CODE , report_item_instance.ITEM_CODE ,  YEAR , MONTH , end_value AS sum,item.ID
+        from report_item_instance ,item
+        where report_item_instance.DEPT_CODE = #{deptCode} AND report_item_instance.PARENT_ITEM_CODE = #{theType} AND report_item_instance.YEAR = #{year} AND report_item_instance.MONTH = #{month}  AND  report_item_instance.ITEM_CODE=item.ITEM_CODE ;
     </select>
 
 <!--    SELECT *-->
