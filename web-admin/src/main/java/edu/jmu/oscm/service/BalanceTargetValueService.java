@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @description 先按ItemId对各个表格进行划分，再在相同的ItemId下取相应部门进行计算，返回泛型数组，再取下一个ItemId继续计算
+ * @author zjm
+ */
 @Service
 public class BalanceTargetValueService {
 
@@ -25,13 +29,10 @@ public class BalanceTargetValueService {
     @Autowired
     private ReportItemMapper reportItemMapper;
 
-    List<ReportItem> itemReduceTargets;
     public List<BalanceTargetValue> calculate(String year, String month, BigInteger reportId){
+        List<ReportItem> reportItemAndItemReduceTargets = reportItemMapper.getReportItemAndItemReduceTarget(reportId,year);
         List<ReportItem> thisMonthReportItems = reportItemMapper.getReportItemAndReportItemInstance(reportId,year,month);
         List<BalanceTargetValue> balanceTargetValues = new ArrayList<>();
-//        if(reportItems.size()==0)
-//            return "请先计算当前月的上月余额与目标降低值!";
-        itemReduceTargets = reportItemMapper.getReportItemAndItemReduceTarget(reportId,year);
 
         String lastYear;
         String lastMonth;
@@ -51,31 +52,63 @@ public class BalanceTargetValueService {
         List<ReportItem> lastYearReportItems = reportItemMapper.getReportItemAndReportItemInstance(reportId,String.valueOf(Integer.parseInt(year) - 1),"12");
 
         List<IncentiveRatio> incentiveRatios = incentiveRatioMapper.select(year);
-//        if(incentiveRatios.size()>1)
-//            return "您设置了多条当年的奖励比例";
 
-        for(ReportItem reportItem:thisMonthReportItems){
+        for(ReportItem thisMonthReportItem:thisMonthReportItems){
+            List<ReportItemInstance> thisMonthReportItemInstances = thisMonthReportItem.getReportItemInstances();
+            List<ReportItemInstance> lastMonthReportItemInstances = new ArrayList<>();
+            List<ReportItemInstance> lastYearReportItemInstances = new ArrayList<>();
+            List<ItemReduceTarget> itemReduceTargets = new ArrayList<>();
+
+            //先对ItemId进行筛选
+            for(ReportItem lastMonthReportItem:lastMonthReportItems){
+                if(lastMonthReportItem.getItemId().equals(thisMonthReportItem.getItemId()))
+                     lastMonthReportItemInstances = lastMonthReportItem.getReportItemInstances();
+            }
+            for(ReportItem lastYearReportItem:lastYearReportItems){
+                if(lastYearReportItem.getItemId().equals(thisMonthReportItem.getItemId()))
+                    lastYearReportItemInstances = lastYearReportItem.getReportItemInstances();
+            }
+
+            for(ReportItem reportItem:reportItemAndItemReduceTargets){
+                if(reportItem.getItemId().equals(thisMonthReportItem.getItemId()))
+                    itemReduceTarget = reportItem.getItemReduceTarget();
+            }
+
+            calculateByItemId(thisMonthReportItemInstances,lastMonthReportItemInstances,lastYearReportItemInstances,
+                    itemReduceTarget,incentiveRatios,thisMonthReportItem.getItemId(),year,month);
+
+        }
+        balanceTargetValueMapper.deleteByDate(year, month);
+        balanceTargetValueMapper.insertMore(balanceTargetValues);
+        return balanceTargetValues;
+    }
+
+    public List<BalanceTargetValue> calculateByItemId(List<ReportItemInstance> thisMonthReportItemInstances, List<ReportItemInstance> lastMonthReportItemInstances
+            , List<ReportItemInstance> lastYearReportItemInstances,List<ItemReduceTarget> itemReduceTargets,List<IncentiveRatio> incentiveRatios,
+            BigInteger itemId,String year,String month){
+
+        List<BalanceTargetValue> balanceTargetValues;
+        for(ReportItemInstance thisMonthReportItemInstance: thisMonthReportItemInstances){
             BalanceTargetValue balanceTargetValue = new BalanceTargetValue();
-            balanceTargetValue.setItemId(reportItem.getItemId());
+            balanceTargetValue.setItemId(itemId);
             balanceTargetValue.setYear(year);
             balanceTargetValue.setMonth(month);
+            balanceTargetValue.setDeptCode(thisMonthReportItemInstance.getDeptCode());
+            balanceTargetValue.setDeptName(thisMonthReportItemInstance.getDeptName());
 
-            BigInteger itemId = balanceTargetValue.getItemId();
+            //计算上月期末余额值
+            calculateLastMonthBalance(lastMonthReportItemInstances,balanceTargetValue);
 
-            calculateLastMonthBalance(lastMonthReportItems,balanceTargetValue);
+            //计算当月及总的计划降低值
+            calculatePlanTargetValue(balanceTargetValue,itemReduceTargets);
 
-            BigDecimal planMonthTargetValue = calculatePlanMonthTargetValue(itemId,month);
-            balanceTargetValue.setPlanMonthTargetValue(planMonthTargetValue);
-
-            calculatePlanTotalReduceValue(balanceTargetValue, itemId);
-
-            BigDecimal thisMonthEndValue = new BigDecimal(reportItem.getReportItemInstance().getEndValue());
+            //计算本月实际降低值,获取本月期末余额减去上月期末余额
+            BigDecimal thisMonthEndValue = new BigDecimal(thisMonthReportItemInstance.getEndValue());
             BigDecimal actualMonthTargetValue = thisMonthEndValue.subtract(balanceTargetValue.getLastMonthBalance());
             balanceTargetValue.setActualMonthTargetValue(actualMonthTargetValue);
 
-            BigDecimal lastYearEndValue = calculateActualTotalTargetValue(lastYearReportItems,balanceTargetValue,itemId);
-            BigDecimal actualTotalReduceValue = thisMonthEndValue.subtract(lastYearEndValue);
-            balanceTargetValue.setActualTotalReduceValue(actualTotalReduceValue);
+            //计算累计实际降低值，本月期末余额减去上一年12月份期末余额
+            calculateActualTotalTargetValue(lastYearReportItemInstances,balanceTargetValue,new BigDecimal(thisMonthReportItemInstance.getEndValue()));
 
             calculateMonthIncremental(incentiveRatios.get(0),balanceTargetValue);
 
@@ -92,73 +125,54 @@ public class BalanceTargetValueService {
 
             balanceTargetValues.add(balanceTargetValue);
         }
-        balanceTargetValueMapper.deleteByDate(year, month);
-        balanceTargetValueMapper.insertMore(balanceTargetValues);
-        return balanceTargetValues;
     }
 
-    public void calculateLastMonthBalance(List<ReportItem> reportItems,BalanceTargetValue balanceTargetValue){
-        BigDecimal lastEndValue;
-        lastEndValue = findEndValue(reportItems,balanceTargetValue.getItemId());
-        balanceTargetValue.setLastMonthBalance(lastEndValue);
+    public void calculateLastMonthBalance(List<ReportItemInstance> reportItemInstances,BalanceTargetValue balanceTargetValue){
+        for(ReportItemInstance reportItemInstance:reportItemInstances){
+            if(reportItemInstance.getDeptCode().equals(balanceTargetValue.getDeptCode()))
+                balanceTargetValue.setLastMonthBalance(new BigDecimal(reportItemInstance.getEndValue()));
+        }
     }
 
-    public BigDecimal calculatePlanMonthTargetValue(BigInteger itemId, String month){
-        for(ReportItem reportItem:itemReduceTargets ) {
-            if(reportItem.getItemId().equals(itemId))
-            switch (month) {
-                case "01":
-                    return reportItem.getItemReduceTarget().getJan();
-                case "02":
-                    return reportItem.getItemReduceTarget().getFeb();
-                case "03":
-                    return reportItem.getItemReduceTarget().getMar();
-                case "04":
-                    return reportItem.getItemReduceTarget().getApr();
-                case "05":
-                    return reportItem.getItemReduceTarget().getMay();
-                case "06":
-                    return reportItem.getItemReduceTarget().getJun();
-                case "07":
-                    return reportItem.getItemReduceTarget().getJul();
-                case "08":
-                    return reportItem.getItemReduceTarget().getAug();
-                case "09":
-                    return reportItem.getItemReduceTarget().getSept();
-                case "10":
-                    return reportItem.getItemReduceTarget().getOct();
-                case "11":
-                    return reportItem.getItemReduceTarget().getNov();
-                case "12":
-                    return reportItem.getItemReduceTarget().getDec();
+    public void calculatePlanTargetValue(BalanceTargetValue balanceTargetValue, List<ItemReduceTarget> itemReduceTargets){
+        BigDecimal planMonthTargetValue = new BigDecimal("0");
+        BigDecimal planTotalReduceValue = new BigDecimal("0");
+        for(ItemReduceTarget itemReduceTarget:itemReduceTargets) {
+            //找到对应部门后同时获取当月和总的计划余额
+            if(itemReduceTarget.getDeptCode().equals(balanceTargetValue.getDeptCode())) {
+                planMonthTargetValue=findPlanTargetValue(itemReduceTarget,balanceTargetValue.getMonth());
+
+                //获取总的计划余额
+                Integer month = Integer.valueOf(balanceTargetValue.getMonth());
+                for(int i=1;i<=month;i++){
+                    String mon="";
+                    if(i<10)
+                        mon="0"+String.valueOf(i);
+                    else
+                        mon=String.valueOf(i);
+                    planTotalReduceValue.add(findPlanTargetValue(itemReduceTarget, mon));
+                }
             }
         }
-        return BigDecimal.valueOf(0);
+
+        balanceTargetValue.setPlanMonthTargetValue(planMonthTargetValue);
+        balanceTargetValue.setPlanTotalReduceValue(planTotalReduceValue);
     }
 
     public void calculatePlanTotalReduceValue(BalanceTargetValue balanceTargetValue,BigInteger itemId){
-        BigDecimal total=BigDecimal.valueOf(0);
-        Integer month = Integer.valueOf(balanceTargetValue.getMonth());
-        String mon="";
-        for(int i=1;i<=month;i++){
-            if(i<10)
-                mon="0"+String.valueOf(i);
-            else
-                mon=String.valueOf(i);
-            BigDecimal result = calculatePlanMonthTargetValue(itemId,mon);
-            total = total.add(result);
-        }
-        balanceTargetValue.setPlanTotalReduceValue(total);
+
     }
 
-    public BigDecimal calculateActualTotalTargetValue(List<ReportItem> lastYearReportItems,BalanceTargetValue balanceTargetValue,BigInteger itemId){
+    public void calculateActualTotalTargetValue(List<ReportItemInstance> lastYearReportItemInstances,BalanceTargetValue balanceTargetValue,BigDecimal thisMonthEndValue){
         BigDecimal lastYearEndValue = new BigDecimal("0");
-        for (ReportItem reportItem: lastYearReportItems){
-            if(reportItem.getItemId().equals(itemId))
-                lastYearEndValue = new BigDecimal(reportItem.getReportItemInstance().getEndValue());
+        //按部门获得要计算数值
+        for (ReportItemInstance reportItemInstance: lastYearReportItemInstances){
+            if(reportItemInstance.getDeptCode().equals(balanceTargetValue.getDeptCode()))
+                lastYearEndValue = new BigDecimal(reportItemInstance.getEndValue());
         }
 
-        return lastYearEndValue;
+        BigDecimal actualTotalReduceValue = thisMonthEndValue.subtract(lastYearEndValue);
+        balanceTargetValue.setActualTotalReduceValue(actualTotalReduceValue);
     }
 
     public BigDecimal findEndValue(List<ReportItem> reportItems,BigInteger itemId){
@@ -208,6 +222,36 @@ public class BalanceTargetValueService {
         BigDecimal totalReward = totalIncrementalValue.multiply(ratio);
 
         balanceTargetValue.setTotalReward(totalReward);
+    }
+
+    public BigDecimal findPlanTargetValue(ItemReduceTarget itemReduceTarget, String month){
+        switch (month) {
+            case "01":
+                return itemReduceTarget.getJan();
+            case "02":
+                return itemReduceTarget.getFeb();
+            case "03":
+                return itemReduceTarget.getMar();
+            case "04":
+                return itemReduceTarget.getApr();
+            case "05":
+                return itemReduceTarget.getMay();
+            case "06":
+                return itemReduceTarget.getJun();
+            case "07":
+                return itemReduceTarget.getJul();
+            case "08":
+                return itemReduceTarget.getAug();
+            case "09":
+                return itemReduceTarget.getSept();
+            case "10":
+                return itemReduceTarget.getOct();
+            case "11":
+                return itemReduceTarget.getNov();
+            case "12":
+                return itemReduceTarget.getDec();
+        }
+        return new BigDecimal("0");
     }
 
 }

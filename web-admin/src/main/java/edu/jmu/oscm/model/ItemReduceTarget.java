@@ -11,6 +11,8 @@ public class ItemReduceTarget {
     private int id;
     private BigInteger itemId;
     private String year;
+    private String DeptCode;
+    private String DeptName;
     private Double yearPercent;
     private BigDecimal yearValue;
     private BigDecimal lastYearValue;

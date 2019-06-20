@@ -12,6 +12,8 @@ public class BalanceTargetValue {
 
     private Integer id;
     private BigInteger itemId;
+    private String DeptCode;
+    private String DeptName;
     private String year;
     private String month;
     private BigDecimal lastMonthBalance;

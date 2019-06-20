@@ -2,7 +2,7 @@ package edu.jmu.oscm.controller;
 
 import edu.jmu.oscm.mapper.*;
 import edu.jmu.oscm.model.*;
-import edu.jmu.oscm.service.BalanceTargetValueService;
+//import edu.jmu.oscm.service.BalanceTargetValueService;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -22,8 +22,8 @@ public class BalanceTargetValueController {
     @Autowired
     private BalanceTargetValueMapper balanceTargetValueMapper;
 
-    @Autowired
-    private BalanceTargetValueService balanceTargetValueService;
+//    @Autowired
+//    private BalanceTargetValueService balanceTargetValueService;
 
     /**
      * 按年月删除上月余额与目标降低值表
@@ -80,8 +80,9 @@ public class BalanceTargetValueController {
      * @api {GET} /queryBalanceTargetValue 根据年月查询上月余额与目标降低值表
      * @apiName queryByDate 根据年月查询上月余额与目标降低值表
      * @apiGroup BalanceTargetValue
-     * @apiParam {String} year 指定上月余额与目标降低值表year值
-     * @apiParam {String} month 指定上月余额与目标降低值表reportId值
+     * @apiParam {String} year 指定上月余额与目标降低值表year
+     * @apiParam {String} month 指定上月余额与目标降低值表month
+     * @apiParam {String} reportId 指定上月余额与目标降低值表reportId
      * @apiParamExample {json} Request_Example:
      * GET: /queryBalanceTargetValue?year= & month=
      * <p>
@@ -178,7 +179,7 @@ public class BalanceTargetValueController {
     @GetMapping("/calculateBalanceTargetValue")
     public BasicResponse<String> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month,@RequestParam("reportId")BigInteger reportId) {
         return BusinessWrapper.wrap(response -> {
-            balanceTargetValueService.calculate(year,month,reportId);
+//            balanceTargetValueService.calculate(year,month,reportId);
             String message = "计算完成，可查询";
             ResponseUtil.set(response, 0, "执行计算", message);
         }, logger);

@@ -4,9 +4,7 @@
 
     <resultMap id="ReportItemAndReportItemInstanceMapper" type="edu.jmu.oscm.model.ReportItem">
         <result property="itemId" column="ITEM_ID"/>
-        <association property="reportItemInstance" javaType="edu.jmu.oscm.model.ReportItemInstance">
-            <result column="END_VALUE" property="endValue"/>
-        </association>
+        <collection property="reportItemInstances" column="{reportItemId=ID,year=year,month=month}" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstance"/>
     </resultMap>
 
     <resultMap id="ReportItemAndItemReduceTargetMapper" type="edu.jmu.oscm.model.ReportItem">
@@ -30,11 +28,8 @@
     </resultMap>
 
     <select id="getReportItemAndReportItemInstance" resultMap="ReportItemAndReportItemInstanceMapper">
-        SELECT a.ITEM_ID ITEM_ID,YEAR,MONTH,sum(END_VALUE)  `END_VALUE` FROM
-        report_item a LEFT JOIN report_item_instance b
-        ON a.ID = b.REPORT_ITEM_ID
-        WHERE `YEAR`=#{year} AND`MONTH`=#{month} AND REPORT_ID=#{reportId}
-        GROUP BY REPORT_ITEM_ID
+        SELECT ITEM_ID, ID,'${year}' YEAR, '${month}' MONTH
+        FROM `report_item` WHERE REPORT_ID=1
     </select>
 
     <select id="getReportItemAndItemReduceTarget" resultMap="ReportItemAndItemReduceTargetMapper">

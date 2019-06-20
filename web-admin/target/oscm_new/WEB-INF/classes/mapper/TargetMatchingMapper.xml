@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.jmu.oscm.mapper.TargetMatchingMapper">
+
+    <resultMap id="mapper" type="edu.jmu.oscm.model.TargetMatching">
+        <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
+        <result column="last_month_balance" property="lastMonthBalance"/>
+        <result column="plan_month_target_value" property="planMonthTargetValue"/>
+        <association property="item" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId"/>
+        <collection property="itemEmployee" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
+    </resultMap>
+
+    <select id="getTargetMatching" resultMap="mapper">
+        SELECT a.*, c.PARENT_ITEM_CODE PARENT_ITEM_CODE, a.ITEM_ID ITEM_ID
+        FROM ad_balance_target_value a
+        LEFT JOIN report_item b
+        ON  a.ITEM_ID = b.ITEM_ID
+        LEFT JOIN
+        (select PARENT_ITEM_CODE, REPORT_ITEM_ID FROM
+        report_item_instance
+        WHERE `YEAR`=#{year} AND `MONTH`=#{month}
+        GROUP BY REPORT_ITEM_ID) c
+        ON b.ID = c.REPORT_ITEM_ID
+        WHERE a.year=#{year} AND a.month=#{month}
+        AND c.PARENT_ITEM_CODE='流动资产'
+        OR a.year=#{year} AND a.month=#{month}
+        AND c.PARENT_ITEM_CODE='流动负债'
+    </select>
+</mapper>

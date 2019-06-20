@@ -40,9 +40,8 @@
     </select>
 
     <select id="getReportItemInstance" resultMap="ReportItemInstanceMapper">
-        SELECT ITEM_ID,YEAR,MONTH,sum(END_VALUE) AS `END_VALUE` FROM report_item_instance
+        SELECT DEPT_CODE, DEPT_NAME, YEAR, MONTH, `END_VALUE` FROM report_item_instance
         WHERE `YEAR`=#{year} AND`MONTH`=#{month} AND REPORT_ITEM_ID=#{reportItemId}
-        GROUP BY REPORT_ITEM_ID
     </select>
 
 </mapper>

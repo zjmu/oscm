@@ -22,7 +22,7 @@ public class ReportItem {
     private Date modifyTime;
     private Item item;
     private Report report;
-    private ReportItemInstance reportItemInstance;
-    private ItemReduceTarget itemReduceTarget;
+    private List<ReportItemInstance> reportItemInstances;
+    private List<ItemReduceTarget> itemReduceTargets;
 
 }
