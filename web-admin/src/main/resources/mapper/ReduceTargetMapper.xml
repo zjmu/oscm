@@ -5,6 +5,8 @@
     <resultMap id = "reduceTargetMapper" type="edu.jmu.oscm.model.ReduceTarget">
         <id column="id" property="id"/>
         <result column="ITEM_ID" property="item_id"/>
+        <result property="dept_code" column="DEPT_CODE"/>
+        <result property="dept_name" column="DEPT_NAME"/>
         <result column="year" property="year"/>
         <result column="year_percent" property="year_percent"/>
         <result column="year_value" property="year_value"/>
@@ -35,13 +37,31 @@
         </association>
     </resultMap>
 
+    <resultMap id="departmentMapperReduce" type="edu.jmu.oscm.model.Department">
+        <id column="id" property="id"/>
+        <result property="deptCode" column="DEPT_CODE"/>
+        <result property="deptName" column="DEPT_NAME"/>
+        <result property="parentDeptCode" column="PARENT_DEPT_CODE"/>
+        <result property="level" column="LEVEL"/>
+        <result property="state" column="STATE"/>
+        <result property="modifyTime" column="MODIFY_TIME"/>
+    </resultMap>
+
+    <resultMap id="reportItemInstanceReduce" type="edu.jmu.oscm.model.ReportItemInstance">
+        <result property="endValueSum" column="endValueSum"/>
+        <result property="itemCode" column="ITEM_CODE"/>
+        <result property="itemName" column="ITEM_NAME"/>
+    </resultMap>
+
    <insert id="add" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO ad_item_reduce_target (ITEM_ID, year, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt, create_date)
+        INSERT INTO ad_item_reduce_target (ITEM_ID, year, DEPT_CODE, DEPT_NAME, year_percent, year_value, last_year_value, jan, feb, mar, apr, may, jun, jul, aug, sept, oct, nov, `dec`, asset_or_debt, create_date)
         VALUE
             <foreach collection="list" item="reduceTarget" index="index" separator=",">
             (
                 #{reduceTarget.item_id},
                 #{reduceTarget.year},
+                #{reduceTarget.dept_code},
+                #{reduceTarget.dept_name},
                 #{reduceTarget.year_percent},
                 #{reduceTarget.year_value},
                 #{reduceTarget.last_year_value},
@@ -190,6 +210,13 @@
         </trim>
         <include refid="sql_where"/>
     </update>
+    <update id="updateMonthValue">
+        UPDATE ad_item_reduce_target
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="sql_foreach"/>
+        </trim>
+        <include refid="sql_where"/>
+    </update>
 
     <delete id="deleteByID" parameterType="integer" >
         DELETE FROM ad_item_reduce_target
@@ -262,17 +289,43 @@
         SELECT id from item where item_name = #{item_name}
     </select>
 
-    <select id="queryEndValue" resultMap="edu.jmu.oscm.mapper.ReportItemInstanceMapper.ReportItemInstanceMapper1">
-        SELECT SUM(END_VALUE) as endValueSum,item_name from report_item_instance WHERE year = #{year} and ITEM_NAME in
-        <foreach collection="itemNames" index="index" item="itemName" open="(" separator="," close=")">
-            #{itemName}
-        </foreach>
-        GROUP BY ITEM_NAME
-    </select>
+
 
     <select id="queryFirstYear" resultType="java.lang.String">
         SELECT MIN(`year`) from report_item_instance
     </select>
+    <select id="queryDepartment" resultMap="departmentMapperReduce">
+        SELECT  * FROM department
+        WHERE PARENT_DEPT_CODE = #{parentDeptCode}
+    </select>
+    <select id="queryParentDeptCode" resultType="java.lang.String">
+        SELECT DISTINCT PARENT_DEPT_CODE from department
+    </select>
+    <select id="queryReduceTargetsByDepartment" resultMap="reduceTargetMapper">
+        SELECT reduce.*, item.*
+        from ad_item_reduce_target reduce
+        left join item
+        on reduce.item_id = item.id
+        where `year` = #{year} and DEPT_CODE = #{deptCode} and item_name in
+        <foreach collection="itemNames" index="index" item="itemName" open="(" separator="," close=")">
+            #{itemName}
+        </foreach>
+    </select>
+    <select id="queryEndValue" resultMap="reportItemInstanceReduce">
+        SELECT SUM(END_VALUE) as endValueSum,item_name from report_item_instance
+        WHERE year = #{year} and DEPT_CODE = #{deptCode} and PARENT_ITEM_CODE = #{parentItemCode}
+        GROUP BY ITEM_NAME
+    </select>
+    <select id="queryParentDeptCodeByDeptCode" resultType="java.lang.String">
+        select PARENT_DEPT_CODE FROM department where DEPT_CODE = #{deptCode}
+    </select>
+    <select id="queryReduceTargetByDepartmentAndItem" resultMap="reduceTargetMapper">
+        select * from ad_item_reduce_target
+        where ITEM_ID = #{item_id}
+            and year = #{year}
+            and DEPT_CODE in (select DEPT_CODE from department where PARENT_DEPT_CODE = #{dept_code})
+    </select>
+
 
     <!--    使用了druid数据源，则配置的时候要注意：
         不能配置wall拦截器，否则批量更新不成功。

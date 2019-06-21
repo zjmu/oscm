@@ -12,6 +12,10 @@ public class ReduceTarget {
     private int id;
     //报告条目id
     private BigInteger item_id;
+    //部门编码
+    private String dept_code;
+    //部门名称
+    private String dept_name;
     //年份
     private String year;
     //年度百分比，单位%

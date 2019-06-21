@@ -1,9 +1,6 @@
 package edu.jmu.oscm.mapper;
 
-import edu.jmu.oscm.model.Item;
-import edu.jmu.oscm.model.ReduceTarget;
-import edu.jmu.oscm.model.Report;
-import edu.jmu.oscm.model.ReportItemInstance;
+import edu.jmu.oscm.model.*;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -136,10 +133,24 @@ public interface ReduceTargetMapper {
      */
     List<String> queryItemNames(@Param("type") String type);
 
-    List<ReportItemInstance> queryEndValue(@Param("year") String year, @Param("itemNames") List<String> itemNames);
+
+
+    List<ReportItemInstance> queryEndValue(@Param("year") String year,@Param("deptCode") String deptCode, @Param("parentItemCode") String parentItemCode);
 
     String queryItemIDByName(@Param("item_name") String item_name);
 
     String queryFirstYear();
+
+    List<Department> queryDepartment(@Param("parentDeptCode") String parentDeptCode);
+
+    List<String> queryParentDeptCode();
+
+    String queryParentDeptCodeByDeptCode(@Param("deptCode") String deptCode);
+
+    List<ReduceTarget> queryReduceTargetsByDepartment(@Param("year") String year, @Param("deptCode") String deptCode, @Param("itemNames") List<String> itemNames);
+
+    List<ReduceTarget> queryReduceTargetByDepartmentAndItem(@Param("item_id") BigInteger item_id, @Param("year") String year,@Param("dept_code") String dept_code );
+
+    Boolean updateMonthValue(List<ReduceTarget> reduceTargets);
 
 }

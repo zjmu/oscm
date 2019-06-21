@@ -2095,9 +2095,9 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/reduceTarget?id=",
-    "title": "查——查询指定项目降低目标设置",
-    "name": "queryReduceTarget________________",
+    "url": "/reduceTargets_child?id=id",
+    "title": "查——查询子部门月降低目标（新）",
+    "name": "queryReduceTargetByDepartmentAndItem______________",
     "group": "ReduceTarget",
     "parameter": {
       "fields": {
@@ -2114,7 +2114,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /reduceTarget?id=208\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /reduceTargets_child?19268\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -2123,7 +2123,21 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询指定项目降低目标设置\",\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       }",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"查询成功，返回父部门及子部门记录\",\"data\":[\n        {\"id\":19268,\n         \"item_id\":1004,\n         \"year\":\"2019\",\n         \"dept_code\":\"CO001\",\n         \"dept_name\":\"四美达\"\n         \"year_percent\":50,\n         \"year_value\":75310.4,\n         \"last_year_value\":188276,\n         \"jan\":3.3333，\n         \"feb\":3.3333，\n         \"mar\":3.3333，\n         \"apr\":3.3333，\n         \"may\":3.3333，\n         \"jun\":3.3333，\n         \"jul\":3.3333，\n         \"aug\":3.3333，\n         \"sept\":3.3333，\n         \"oct\":3.3333，\n         \"nov\":3.3333，\n         \"dec\":3.3337，\n         \"cnaModify\"=False    false表示不可修改    true可修改\n         \"asset_or_debt\":0,\n         \"create_date\":2019-06-21T12:16:52.000+0000\n         \"item_name\"=\"短期投资\",\n         \"item\":{\n             \"item_code\"=\"短期投资\",\n             \"item_name\"=\"短期投资\",\n             \"calc_expr\"=\"$1101-$1102\",\n             \"calc_explain\"=\"短期投资-短期投资跌价准备\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:59:55.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":19424,\n         \"item_id\":1004,\n         \"year\":\"2019\",\n         \"dept_code\":\"BIZ01\",\n         \"dept_name\":\"其他\"\n         \"year_percent\":0,\n         \"year_value\":0,\n         \"last_year_value\":188962,\n         \"jan\":0.5555，\n         \"feb\":0.5555，\n         \"mar\":0.5555，\n         \"apr\":0.5555，\n         \"may\":0.5555，\n         \"jun\":0.5555，\n         \"jul\":0.5555，\n         \"aug\":0.5555，\n         \"sept\":0.5555，\n         \"oct\":0.5555，\n         \"nov\":0.5555，\n         \"dec\":0.5556，\n         \"asset_or_debt\":0\n         \"create_date\":2019-06-21T12:16:53.000+0000\n       }\n}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"没有下级部门记录\",\"data\":null}\n<p>",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"输入id有误\",\"data\":{}}",
           "type": "json"
         }
       ]
@@ -2133,13 +2147,13 @@ define({ "api": [
     "groupTitle": "ReduceTarget",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/reduceTarget?id="
+        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets_child?id=id"
       }
     ]
   },
   {
     "type": "GET",
-    "url": "/reduceTargets_year_type?year=&type=",
+    "url": "/reduceTargets_year_type?year=year&type=type",
     "title": "查——根据年份查询项目降低目标（流动资产或流动负债）",
     "name": "reduceTargets_year_type___________________________",
     "group": "ReduceTarget",
@@ -2165,7 +2179,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /reduceTargets_year_type?year=2018&type=1\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "GET: /reduceTargets_year_type?year=2019&type=1\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -2174,7 +2188,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"根据年份查询项目降低目标成功\",\"data\":[\n        {\"id\":208,\n         \"item_id\":1003,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"cnaModify\"=False    false表示不可修改    true可修改\n         \"asset_or_debt\":true,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":220,\n         \"item_id\":1015,\n         \"year\":\"2018\",\n         \"year_percent\":60,\n         \"year_value\":72.0000,\n         \"last_year_value\":120,\n         \"jan\":5,\n         \"feb\":5,\n         \"mar\":5,\n         \"apr\":5,\n         \"may\":5,\n         \"jun\":5,\n         \"jul\":5,\n         \"aug\":5,\n         \"sept\":5,\n         \"oct\":5,\n         \"nov\":5,\n         \"dec\":5,\n         \"asset_or_debt\":true\n         \"create_date\":2019-05-06T02:43:09.000+0000\n         \"item_name\"=\"待摊费用\",\n         \"item\":{\n             \"item_code\"=\"待摊费用\",\n             \"item_name\"=\"待摊费用\",\n             \"calc_expr=\"$1301\",\n             \"calc_explain\"=\"待摊费用\",\n             \"state\"=\"1\",\n             \"modify_time\"=2019-05-06T02:43:09.000+0000\n         }\n       }\n}\n<p>",
+          "content": "HTTP/1.1 200 OK\n{\"code\":0,\"message\":\"根据年份查询项目降低目标成功\",\"data\":[\n        {\"id\":19267,\n         \"item_id\":1003,\n         \"year\":\"2019\",\n         \"dept_code\":\"CO001\",\n         \"dept_name\":\"四美达\"\n         \"year_percent\":0,\n         \"year_value\":0,\n         \"last_year_value\":188274,\n         \"jan\":0,\n         \"feb\":0,\n         \"mar\":0,\n         \"apr\":0,\n         \"may\":0,\n         \"jun\":0,\n         \"jul\":0,\n         \"aug\":0,\n         \"sept\":0,\n         \"oct\":0,\n         \"nov\":0,\n         \"dec\":0,\n         \"cnaModify\"=False    false表示不可修改    true可修改\n         \"asset_or_debt\":0,\n         \"create_date\":2019-06-01T05:13:02.000+0000\n         \"item_name\"=\"货币资金\",\n         \"item\":{\n             \"item_code\"=\"货币资金\",\n             \"item_name\"=\"货币资金\",\n             \"calc_expr\"=\"$1001+$1002+$1009\",\n             \"calc_explain\"=\"现金+银行存款+其他货币资金\",\n             \"state\"=\"1\",\n             \"modify_time\"= 2019-04-28T01:54:33.000+0000\n         }\n       },\n       .\n       .\n       .\n{\"id\":19279,\n         \"item_id\":1015,\n         \"year\":\"2019\",\n         \"dept_code\":\"CO001\",\n         \"dept_name\":\"四美达\"\n         \"year_percent\":0,\n         \"year_value\":0,\n         \"last_year_value\":188298,\n         \"jan\":0，\n         \"feb\":0，\n         \"mar\":0，\n         \"apr\":0，\n         \"may\":0，\n         \"jun\":0，\n         \"jul\":0，\n         \"aug\":0，\n         \"sept\":0，\n         \"oct\":0，\n         \"nov\":0，\n         \"dec\":0，\n         \"asset_or_debt\":0,\n         \"create_date\":2019-05-06T02:43:09.000+0000\n         \"item_name\"=\"待摊费用\",\n         \"item\":{\n             \"item_code\"=\"待摊费用\",\n             \"item_name\"=\"待摊费用\",\n             \"calc_expr=\"$1301\",\n             \"calc_explain\"=\"待摊费用\",\n             \"state\"=\"1\",\n             \"modify_time\"=2019-05-06T02:43:09.000+0000\n         }\n       }\n}\n<p>",
           "type": "json"
         }
       ]
@@ -2198,7 +2212,154 @@ define({ "api": [
     "groupTitle": "ReduceTarget",
     "sampleRequest": [
       {
-        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets_year_type?year=&type="
+        "url": "http://oscm.xmiss.top/oscm_new/reduceTargets_year_type?year=year&type=type"
+      }
+    ]
+  },
+  {
+    "type": "PUT",
+    "url": "/reduceTarget_child",
+    "title": "改——更改子部门月降低目标（新）",
+    "name": "updateMonthByDepartmentAndItem______________",
+    "group": "ReduceTarget",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>指定项目降低目标设置id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "jan",
+            "description": "<p>一月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "feb",
+            "description": "<p>二月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "mar",
+            "description": "<p>三月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "apr",
+            "description": "<p>四月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "may",
+            "description": "<p>五月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "jun",
+            "description": "<p>六月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "jul",
+            "description": "<p>七月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "aug",
+            "description": "<p>八月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "sept",
+            "description": "<p>九月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "oct",
+            "description": "<p>十月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "nov",
+            "description": "<p>十一月份</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigDecimal",
+            "optional": false,
+            "field": "dec",
+            "description": "<p>十二月份</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "[\n         {\n\t            \"id\":19268\n         },\n         {\n\t          \"id\":19294,\n\t          \"jan\":0.5559,\n           \"feb\":0.5559,\n            \"mar\":0.5559,\n            \"apr\":0.5559,\n            \"may\":0.5559,\n            \"jun\":0.5559,\n            \"jul\":0.5559,\n            \"aug\":0.5559,\n            \"sept\":0.5559,\n            \"oct\":0.5559,\n            \"nov\":0.5559,\n            \"dec\":0.5558\n     },\n     {\n\t            \"id\":19320,\n\t            \"jan\":0.5554,\n            \"feb\":0.5554,\n            \"mar\":0.5554,\n            \"apr\":0.5554,\n            \"may\":0.5554,\n            \"jun\":0.5554,\n            \"jul\":0.5554,\n            \"aug\":0.5554,\n            \"sept\":0.5554,\n            \"oct\":0.5554,\n            \"nov\":0.5554,\n            \"dec\":0.5555\n     },\n     {\n\t            \"id\":19346,\n\t            \"jan\":0.5556,\n            \"feb\":0.5556,\n            \"mar\":0.5556,\n            \"apr\":0.5556,\n            \"may\":0.5556,\n            \"jun\":0.5556,\n            \"jul\":0.5556,\n            \"aug\":0.5556,\n            \"sept\":0.5556,\n            \"oct\":0.5556,\n            \"nov\":0.5556,\n            \"dec\":0.5557\n     },\n     {\n         \t\"id\":19372,\n\t            \"jan\":0.5554,\n            \"feb\":0.5554,\n            \"mar\":0.5554,\n            \"apr\":0.5554,\n            \"may\":0.5554,\n            \"jun\":0.5554,\n            \"jul\":0.5554,\n            \"aug\":0.5554,\n            \"sept\":0.5554,\n            \"oct\":0.5554,\n            \"nov\":0.5554,\n            \"dec\":0.5555\n     },\n     {\n\t            \"id\":19398,\n\t            \"jan\":0.5556,\n            \"feb\":0.5556,\n            \"mar\":0.5556,\n            \"apr\":0.5556,\n            \"may\":0.5556,\n            \"jun\":0.5556,\n            \"jul\":0.5556,\n            \"aug\":0.5556,\n            \"sept\":0.5556,\n            \"oct\":0.5556,\n            \"nov\":0.5556,\n            \"dec\":0.5557\n     },\n     {\n         \t\"id\":19424,\n\t            \"jan\":0.5554,\n            \"feb\":0.5554,\n            \"mar\":0.5554,\n            \"apr\":0.5554,\n            \"may\":0.5554,\n            \"jun\":0.5554,\n            \"jul\":0.5554,\n            \"aug\":0.5554,\n            \"sept\":0.5554,\n            \"oct\":0.5554,\n            \"nov\":0.5554,\n            \"dec\":0.5555\n     }\n]\nPUT: /reduceTargets_yearPercent\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改子部门月降低目标成功\",\"data\":1}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"不存在\",\"data\":-2}\n<p>",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"修改失败,总和不相等\",\"data\":-1}\n<p>",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"更改子部门月降低目标成功\",\"data\":0}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ReduceTargetController.java",
+    "groupTitle": "ReduceTarget",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/reduceTarget_child"
       }
     ]
   },
@@ -2307,7 +2468,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "[\n     {\n      \"id\":208,\n      \"jan\":5.0001,\n      \"feb\":4.9999,\n      \"mar\":5,\n      \"apr\":5,\n      \"may\":5,\n      \"jun\":5,\n      \"jul\":5,\n      \"aug\":5,\n      \"sept\":5,\n      \"oct\":5,\n      \"nov\":5,\n      \"dec\":5\n      },\n     {\n      \"id\":209,\n      \"jan\":5.0002,\n      \"feb\":4.9998,\n      \"mar\":5,\n      \"apr\":5,\n      \"may\":5,\n      \"jun\":5,\n      \"jul\":5,\n      \"aug\":5,\n      \"sept\":5,\n      \"oct\":5,\n      \"nov\":5,\n      \"dec\":5\n      }\n]\nPUT: /reduceTargets_monthValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "[\n           {\n            \"id\":19268,\n            \"jan\":3.3330,\n            \"feb\":3.3331,\n            \"mar\":3.3332,\n            \"apr\":3.3333,\n            \"may\":3.3334,\n            \"jun\":3.3335,\n            \"jul\":3.3336,\n            \"aug\":3.3337,\n            \"sept\":3.3338,\n            \"oct\":3.3339,\n            \"nov\":3.3330,\n            \"dec\":3.3325\n            },\n           {\n            \"id\":19269,\n            \"jan\":3.3331,\n            \"feb\":3.3330,\n            \"mar\":3.3332,\n            \"apr\":3.3333,\n            \"may\":3.3334,\n            \"jun\":3.3335,\n            \"jul\":3.3336,\n            \"aug\":3.3337,\n            \"sept\":3.3338,\n            \"oct\":3.3339,\n            \"nov\":3.3330,\n            \"dec\":3.3325\n            }\n      ]\nPUT: /reduceTargets_monthValue\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
@@ -2372,7 +2533,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "[\n     {\"id\":218,\"year_percent\":99},\n     {\"id\":219,\"year_percent\":98},\n     {\"id\":220,\"year_percent\":97},\n     {\"id\":221,\"year_percent\":99},\n     {\"id\":222,\"year_percent\":98},\n     {\"id\":223,\"year_percent\":97},\n     {\"id\":224,\"year_percent\":99},\n     {\"id\":225,\"year_percent\":98},\n     {\"id\":226,\"year_percent\":97},\n     {\"id\":227,\"year_percent\":99},\n     {\"id\":228,\"year_percent\":98},\n     {\"id\":229,\"year_percent\":97},\n     {\"id\":230,\"year_percent\":99},\n     {\"id\":231,\"year_percent\":98},\n     {\"id\":232,\"year_percent\":97},\n     {\"id\":233,\"year_percent\":97}\n]\nPUT: /reduceTargets_yearPercent\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "content": "      [\n           {\"id\":19267,\"year_percent\":50},\n           {\"id\":19268,\"year_percent\":40},\n           {\"id\":19269,\"year_percent\":40},\n           {\"id\":19270,\"year_percent\":40},\n           {\"id\":19271,\"year_percent\":40},\n           {\"id\":19272,\"year_percent\":40},\n           {\"id\":19273,\"year_percent\":40},\n           {\"id\":19274,\"year_percent\":40},\n           {\"id\":19275,\"year_percent\":40},\n           {\"id\":19276,\"year_percent\":40},\n           {\"id\":19277,\"year_percent\":40},\n           {\"id\":19278,\"year_percent\":40},\n           {\"id\":19279,\"year_percent\":40}\n      ]\nPUT: /reduceTargets_yearPercent\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
           "type": "json"
         }
       ]
