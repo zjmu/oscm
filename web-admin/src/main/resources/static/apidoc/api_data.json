@@ -154,14 +154,21 @@
             "type": "String",
             "optional": false,
             "field": "year",
-            "description": "<p>指定上月余额与目标降低值表year值</p>"
+            "description": "<p>指定上月余额与目标降低值表year</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "month",
-            "description": "<p>指定上月余额与目标降低值表reportId值</p>"
+            "description": "<p>指定上月余额与目标降低值表month</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定上月余额与目标降低值表reportId</p>"
           }
         ]
       },
@@ -193,6 +200,71 @@
   },
   {
     "type": "GET",
+    "url": "/queryCompletionByDept",
+    "title": "根据部门查询流动资金占用成本管控目标完成情况分析",
+    "name": "queryCompletionByDept_________________________",
+    "group": "Completion",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定流动资金占用成本管控目标完成情况分析year值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定流动资金占用成本管控目标完成情况分析month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定流动资金占用成本管控目标完成情况分析reportId值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deptCode",
+            "description": "<p>指定流动资金占用成本管控目标完成情况分析deptCode值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryCompletionByDept?year= &month= &reportId= &deptCode=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 0,\n  \"message\": \"根据部门查询流动资金占用成本管控目标完成情况成功\",\n  \"data\": [\n    {\n      \"planMonthTargetValue\": 47638.88,\n      \"planTotalReduceValue\": 142916.63,\n      \"actualMonthTargetValue\": 233,\n      \"actualTotalReduceValue\": 6161,\n      \"totalDifference\": -136755.63,\n      \"item\": {\n        \"item_code\": \"资产\",\n        \"item_name\": \"资产\",\n        \"calc_expr\": \"\",\n        \"calc_explain\": \"\",\n        \"state\": \"1\",\n        \"modify_date\": \"2019-04-28T01:54:33.000+0000\",\n        \"id\": 1001\n      },\n      \"itemDept\": [\n        {\n          \"id\": null,\n          \"itemId\": 1001,\n          \"isCharge\": 1,\n          \"deptCode\": \"C500\",\n          \"department\": {\n            \"id\": null,\n            \"deptCode\": \"C500\",\n            \"deptName\": \"战略客户部公共\",\n            \"parentDeptCode\": null,\n            \"level\": null,\n            \"state\": null,\n            \"modifyTime\": null\n          }\n        }\n      ]\n    }\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/CompletionController.java",
+    "groupTitle": "Completion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryCompletionByDept"
+      }
+    ]
+  },
+  {
+    "type": "GET",
     "url": "/queryCompletion",
     "title": "查询流动资金占用成本管控目标完成情况分析",
     "name": "queryCompletion_____________________",
@@ -213,13 +285,20 @@
             "optional": false,
             "field": "month",
             "description": "<p>指定流动资金占用成本管控目标完成情况分析month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定流动资金占用成本管控目标完成情况分析reportId值</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /queryCompletion?year= &month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /queryCompletion?year= &month= &reportId=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -905,6 +984,71 @@
   },
   {
     "type": "GET",
+    "url": "/queryIncrementalValueByDept",
+    "title": "根据部门查询流动资金占用成本管控增创价值表",
+    "name": "queryIncrementalValueByDept______________________",
+    "group": "IncrementalValue",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定流动资金占用成本管控增创价值表year值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定流动资金占用成本管控增创价值表month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定流动资金占用成本管控增创价值表reportId值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deptCode",
+            "description": "<p>指定流动资金占用成本管控增创价值表deptCode值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryIncrementalValueByDept?year= &month= &reportId= &deptCode=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 0,\n  \"message\": \"根据部门查询流动资金占用成本管控增创价值成功\",\n  \"data\": [\n    {\n      \"actualMonthTargetValue\": 233,\n      \"actualTotalReduceValue\": 6161,\n      \"monthIncrementalValue\": 0,\n      \"totalIncrementalValue\": 0,\n      \"itemDept\": [\n        {\n          \"id\": null,\n          \"itemId\": 1001,\n          \"isCharge\": 1,\n          \"deptCode\": \"C500\",\n          \"department\": {\n            \"id\": null,\n            \"deptCode\": \"C500\",\n            \"deptName\": \"战略客户部公共\",\n            \"parentDeptCode\": null,\n            \"level\": null,\n            \"state\": null,\n            \"modifyTime\": null\n          }\n        }\n      ],\n      \"item\": {\n        \"item_code\": \"资产\",\n        \"item_name\": \"资产\",\n        \"calc_expr\": \"\",\n        \"calc_explain\": \"\",\n        \"state\": \"1\",\n        \"modify_date\": \"2019-04-28T01:54:33.000+0000\",\n        \"id\": 1001\n      }\n    }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/IncrementalValueController.java",
+    "groupTitle": "IncrementalValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryIncrementalValueByDept"
+      }
+    ]
+  },
+  {
+    "type": "GET",
     "url": "/queryIncrementalValue",
     "title": "查询流动资金占用成本管控增创价值表",
     "name": "queryIncrementalValue__________________",
@@ -925,13 +1069,20 @@
             "optional": false,
             "field": "month",
             "description": "<p>指定流动资金占用成本管控增创价值表month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定流动资金占用成本管控增创价值表reportId值</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /queryIncrementalValue?year= &month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /queryIncrementalValue?year= &month= &reportId=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -1396,6 +1547,39 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/calculateProportion"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryDepartment",
+    "title": "获取所有的部门",
+    "name": "getAllDepartment________",
+    "group": "Proportion",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryDepartment\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"获取部门成功，请查询\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "Proportion",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryDepartment"
       }
     ]
   },
@@ -2281,6 +2465,71 @@
   },
   {
     "type": "GET",
+    "url": "/queryResponsibilityIndicatorByDept",
+    "title": "根据部门查询流动资金占用成本管控责任关键指标",
+    "name": "queryResponsibilityIndicatorByDept_______________________",
+    "group": "ResponsibilityIndicator",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定动资金占用成本管控责任关键指标表year值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定动资金占用成本管控责任关键指标表month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定动资金占用成本管控责任关键指标表reportId值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deptCode",
+            "description": "<p>指定动资金占用成本管控责任关键指标表deptCode值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryResponsibilityIndicatorByDept?year= &month= &reportId= &deptCode=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 0,\n  \"message\": \"根据部门查询流动资金占用成本管控责任指标成功\",\n  \"data\": [\n    {\n      \"lastMonthBalance\": 15742,\n      \"planMonthTargetValue\": 47638.88,\n      \"itemEmployee\": null,\n      \"itemDepts\": [\n        {\n          \"id\": null,\n          \"itemId\": 1001,\n          \"isCharge\": 1,\n          \"deptCode\": \"C500\",\n          \"department\": {\n            \"id\": null,\n            \"deptCode\": \"C500\",\n            \"deptName\": \"战略客户部公共\",\n            \"parentDeptCode\": null,\n            \"level\": null,\n            \"state\": null,\n            \"modifyTime\": null\n          }\n        },\n        {\n          \"id\": null,\n          \"itemId\": 1001,\n          \"isCharge\": 0,\n          \"deptCode\": \"B101\",\n          \"department\": {\n            \"id\": null,\n            \"deptCode\": \"B101\",\n            \"deptName\": \"桌面产品营销处\",\n            \"parentDeptCode\": null,\n            \"level\": null,\n            \"state\": null,\n            \"modifyTime\": null\n          }\n        }\n      ],\n      \"itemEmployees\": [\n        {\n          \"id\": 1,\n          \"itemId\": 1001,\n          \"isCharge\": 1,\n          \"employeeId\": 456,\n          \"employee\": {\n            \"id\": 456,\n            \"employeeCode\": null,\n            \"simpleCode\": null,\n            \"employeeName\": \"陈*坤\",\n            \"employeeType\": null,\n            \"deptCode\": null,\n            \"state\": null,\n            \"modifyTime\": null\n          }\n        }\n      ],\n      \"item\": {\n        \"item_code\": \"资产\",\n        \"item_name\": \"资产\",\n        \"calc_expr\": \"\",\n        \"calc_explain\": \"\",\n        \"state\": \"1\",\n        \"modify_date\": \"2019-04-28T01:54:33.000+0000\",\n        \"id\": 1001\n      }\n    }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/ResponsibilityIndicatorController.java",
+    "groupTitle": "ResponsibilityIndicator",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryResponsibilityIndicatorByDept"
+      }
+    ]
+  },
+  {
+    "type": "GET",
     "url": "/queryResponsibilityIndicator",
     "title": "查询流动资金占用成本管控责任关键指标",
     "name": "queryResponsibilityIndicator___________________",
@@ -2301,13 +2550,20 @@
             "optional": false,
             "field": "month",
             "description": "<p>指定动资金占用成本管控责任关键指标表month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定动资金占用成本管控责任关键指标表reportId值</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /queryResponsibilityIndicator？year= &month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /queryResponsibilityIndicator？year= &month= &reportId=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -2327,6 +2583,71 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/queryResponsibilityIndicator"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryTargetMatchingByDept",
+    "title": "根据部门查询流动资产与流动负债目标匹配表",
+    "name": "queryTargetMatchingByDept_____________________",
+    "group": "TargetMatching",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "year",
+            "description": "<p>指定流动资产与流动负债目标匹配表year值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "month",
+            "description": "<p>指定流动资产与流动负债目标匹配表month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定流动资产与流动负债目标匹配表reportId值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deptCode",
+            "description": "<p>指定流动资产与流动负债目标匹配表deptCode值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryTargetMatchingByDept?year= &month= &reportId= &deptCode=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{{\n  \"code\": 0,\n  \"message\": \"根据部门查询流动资金占用成本管控责任指标成功\",\n  \"data\": [\n    {\n      \"parentItemCode\": \"流动资产\",\n      \"lastMonthBalance\": 15744,\n      \"planMonthTargetValue\": 42875.03,\n      \"itemEmployee\": [\n        {\n          \"id\": 5,\n          \"itemId\": 1003,\n          \"isCharge\": 1,\n          \"employeeId\": 453,\n          \"employee\": {\n            \"id\": 453,\n            \"employeeCode\": null,\n            \"simpleCode\": null,\n            \"employeeName\": \"郭*芸\",\n            \"employeeType\": null,\n            \"deptCode\": null,\n            \"state\": null,\n            \"modifyTime\": null\n          }\n        }\n      ],\n      \"item\": {\n        \"item_code\": \"货币资金\",\n        \"item_name\": \"货币资金\",\n        \"calc_expr\": \"$1001+$1002+$1009\",\n        \"calc_explain\": \"现金+银行存款+其他货币资金\",\n        \"state\": \"1\",\n        \"modify_date\": \"2019-04-28T01:54:33.000+0000\",\n        \"id\": 1003\n      }\n    }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/TargetMatchingController.java",
+    "groupTitle": "TargetMatching",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryTargetMatchingByDept"
       }
     ]
   },
@@ -2352,13 +2673,20 @@
             "optional": false,
             "field": "month",
             "description": "<p>指定流动资产与流动负债目标匹配表month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "BigInteger",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定流动资产与流动负债目标匹配表reportId值</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request_Example:",
-          "content": "GET: /queryTargetMatching?year= &month=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
+          "content": "GET: /queryTargetMatching?year= &month= &reportId=\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\n<p>",
           "type": "json"
         }
       ]
@@ -2367,7 +2695,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 0,\n  \"message\": \"查询流动资金占用成本管控责任指标成功\",\n  \"data\": [\n    {\n      \"parentItemCode\": \"流动资产\",\n      \"lastMonthBalance\": 622557,\n      \"planMonthTargetValue\": 42875.03,\n      \"itemEmployee\": [\n        {\n          \"id\": 5,\n          \"itemId\": 1003,\n          \"isCharge\": 1,\n          \"employeeId\": 453,\n          \"employee\": {\n            \"id\": 453,\n            \"employeeCode\": null,\n            \"simpleCode\": null,\n            \"employeeName\": \"郭*芸\",\n            \"employeeType\": null,\n            \"deptCode\": null,\n            \"state\": null,\n            \"modifyTime\": null\n          }\n        }\n      ],\n      \"item\": {\n        \"item_code\": \"货币资金\",\n        \"item_name\": \"货币资金\",\n        \"calc_expr\": \"$1001+$1002+$1009\",\n        \"calc_explain\": \"现金+银行存款+其他货币资金\",\n        \"state\": \"1\",\n        \"modify_date\": \"2019-04-28T01:54:33.000+0000\",\n        \"id\": 1003\n      }\n    }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 0,\n  \"message\": \"查询流动资金占用成本管控责任指标成功\",\n  \"data\": [\n    {\n      \"parentItemCode\": \"流动资产\",\n      \"lastMonthBalance\": 15744,\n      \"planMonthTargetValue\": 42875.03,\n      \"itemEmployee\": [\n        {\n          \"id\": 5,\n          \"itemId\": 1003,\n          \"isCharge\": 1,\n          \"employeeId\": 453,\n          \"employee\": {\n            \"id\": 453,\n            \"employeeCode\": null,\n            \"simpleCode\": null,\n            \"employeeName\": \"郭*芸\",\n            \"employeeType\": null,\n            \"deptCode\": null,\n            \"state\": null,\n            \"modifyTime\": null\n          }\n        }\n      ],\n      \"item\": {\n        \"item_code\": \"货币资金\",\n        \"item_name\": \"货币资金\",\n        \"calc_expr\": \"$1001+$1002+$1009\",\n        \"calc_explain\": \"现金+银行存款+其他货币资金\",\n        \"state\": \"1\",\n        \"modify_date\": \"2019-04-28T01:54:33.000+0000\",\n        \"id\": 1003\n      }\n    ]\n}",
           "type": "json"
         }
       ]

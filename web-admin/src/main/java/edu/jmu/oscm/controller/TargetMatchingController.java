@@ -100,7 +100,7 @@ public class TargetMatchingController {
      * @apiParam {String} year 指定流动资产与流动负债目标匹配表year值
      * @apiParam {String} month 指定流动资产与流动负债目标匹配表month值
      * @apiParam {BigInteger} reportId 指定流动资产与流动负债目标匹配表reportId值
-     * @paiParam {String} deptCode 指定流动资产与流动负债目标匹配表deptCode值
+     * @apiParam {String} deptCode 指定流动资产与流动负债目标匹配表deptCode值
      * @apiParamExample {json} Request_Example:
      * GET: /queryTargetMatchingByDept?year= &month= &reportId= &deptCode=
      * <p>
