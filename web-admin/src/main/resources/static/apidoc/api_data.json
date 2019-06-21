@@ -21,6 +21,13 @@
             "optional": false,
             "field": "month",
             "description": "<p>指定计算上月余额与目标降低值表month值</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "reportId",
+            "description": "<p>指定上月余额与目标降低值表reportId值</p>"
           }
         ]
       },
@@ -104,6 +111,39 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/deleteBalanceTargetValue"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/queryDepartment",
+    "title": "获取所有的部门",
+    "name": "getAllDepartment________",
+    "group": "BalanceTargetValue",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request_Example:",
+          "content": "GET: /queryDepartment\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"获取部门成功，请查询\",\n\"data\":{}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
+    "groupTitle": "BalanceTargetValue",
+    "sampleRequest": [
+      {
+        "url": "http://oscm.xmiss.top/oscm_new/queryDepartment"
       }
     ]
   },
@@ -1547,39 +1587,6 @@
     "sampleRequest": [
       {
         "url": "http://oscm.xmiss.top/oscm_new/calculateProportion"
-      }
-    ]
-  },
-  {
-    "type": "GET",
-    "url": "/queryDepartment",
-    "title": "获取所有的部门",
-    "name": "getAllDepartment________",
-    "group": "Proportion",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request_Example:",
-          "content": "GET: /queryDepartment\n<p>\nRequest Header 如下\nContent-Type:application/json;charset=utf-8\nAuthorization:Bearer {jwt}\n<p>",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"获取部门成功，请查询\",\n\"data\":{}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "java/edu/jmu/oscm/controller/BalanceTargetValueController.java",
-    "groupTitle": "Proportion",
-    "sampleRequest": [
-      {
-        "url": "http://oscm.xmiss.top/oscm_new/queryDepartment"
       }
     ]
   },

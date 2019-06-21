@@ -174,7 +174,7 @@ public class BalanceTargetValueController {
      * @apiGroup BalanceTargetValue
      * @apiParam {String} year 指定计算上月余额与目标降低值表year值
      * @apiParam {String} month 指定计算上月余额与目标降低值表month值
-     * @apiParam {String} month 指定上月余额与目标降低值表month值
+     * @apiParam {String} reportId 指定上月余额与目标降低值表reportId值
      * @apiParamExample {json} Request_Example:
      * GET: /calculateBalanceTargetValue?year= &month= &reportId=
      * <p>
@@ -194,7 +194,7 @@ public class BalanceTargetValueController {
      * 获取所有的部门
      * @api {GET} /queryDepartment  获取所有的部门
      * @apiName getAllDepartment 获取所有的部门
-     * @apiGroup Proportion
+     * @apiGroup BalanceTargetValue
      * @apiParamExample {json} Request_Example:
      * GET: /queryDepartment
      * <p>
