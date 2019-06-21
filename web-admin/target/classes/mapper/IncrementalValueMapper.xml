@@ -12,8 +12,27 @@
     </resultMap>
 
     <select id="selectByDate" resultMap="mapper">
-        SELECT actual_month_target_value, actual_total_reduce_value,month_incremental_value, total_incremental_value, ITEM_ID
-        FROM ad_balance_target_value WHERE year=#{year} and month=#{month}
+        SELECT actual_month_target_value,
+        actual_total_reduce_value,
+        month_incremental_value,
+        total_incremental_value,
+        a.ITEM_ID
+        FROM report_item a
+        LEFT JOIN ad_balance_target_value b
+        ON a.ITEM_ID = b.ITEM_ID
+        WHERE year=#{year} AND month=#{month} AND a.REPORT_ID=#{reportId}
+    </select>
+
+    <select id="selectByDateAndDeptCode" resultMap="mapper">
+        SELECT actual_month_target_value,
+        actual_total_reduce_value,
+        month_incremental_value,
+        total_incremental_value,
+        a.ITEM_ID
+        FROM report_item a
+        LEFT JOIN ad_balance_target_value b
+        ON a.ITEM_ID = b.ITEM_ID
+        WHERE year=#{year} AND month=#{month} AND a.REPORT_ID=#{reportId} AND DEPT_CODE=#{deptCode}
     </select>
 
 </mapper>

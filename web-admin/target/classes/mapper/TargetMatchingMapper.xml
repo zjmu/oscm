@@ -6,25 +6,45 @@
         <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
         <result column="last_month_balance" property="lastMonthBalance"/>
         <result column="plan_month_target_value" property="planMonthTargetValue"/>
-
         <association property="item" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId"/>
         <collection property="itemEmployee" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
     </resultMap>
 
     <select id="getTargetMatching" resultMap="mapper">
-        SELECT a.*, c.PARENT_ITEM_CODE PARENT_ITEM_CODE, a.ITEM_ID ITEM_ID
-        FROM ad_balance_target_value a
-        LEFT JOIN report_item b
+        SELECT a.last_month_balance AS last_month_balance,
+        a.plan_month_target_value AS plan_month_target_value,
+        c.PARENT_ITEM_CODE AS PARENT_ITEM_CODE,
+        a.ITEM_ID AS ITEM_ID
+        FROM report_item b
+        LEFT JOIN ad_balance_target_value a
         ON  a.ITEM_ID = b.ITEM_ID
         LEFT JOIN
-        (select PARENT_ITEM_CODE, REPORT_ITEM_ID FROM
-        report_item_instance
-        WHERE `YEAR`=#{year} AND `MONTH`=#{month}
-        GROUP BY REPORT_ITEM_ID) c
-        ON b.ID = c.REPORT_ITEM_ID
-        WHERE a.year=#{year} AND a.month=#{month}
+        (SELECT PARENT_ITEM_CODE, REPORT_ITEM_ID,DEPT_CODE
+        FROM report_item_instance
+        WHERE `YEAR`=#{year} AND `MONTH`=#{month}) c
+        ON b.ID = c.REPORT_ITEM_ID AND a.DEPT_CODE=c.DEPT_CODE
+        WHERE a.year=#{year} AND a.month=#{month} AND b.REPORT_ID=#{reportId}
         AND c.PARENT_ITEM_CODE='流动资产'
-        OR a.year=#{year} AND a.month=#{month}
+        OR a.year=#{year} AND a.month=#{month} AND b.REPORT_ID=#{reportId}
+        AND c.PARENT_ITEM_CODE='流动负债'
+    </select>
+
+    <select id="getTargetMatchingByDeptCode" resultMap="mapper">
+        SELECT a.last_month_balance AS last_month_balance,
+        a.plan_month_target_value AS plan_month_target_value,
+        c.PARENT_ITEM_CODE AS PARENT_ITEM_CODE,
+        a.ITEM_ID AS ITEM_ID
+        FROM report_item b
+        LEFT JOIN ad_balance_target_value a
+        ON  a.ITEM_ID = b.ITEM_ID
+        LEFT JOIN
+        (SELECT PARENT_ITEM_CODE, REPORT_ITEM_ID,DEPT_CODE
+        FROM report_item_instance
+        WHERE `YEAR`=#{year} AND `MONTH`=#{month}) c
+        ON b.ID = c.REPORT_ITEM_ID AND a.DEPT_CODE=c.DEPT_CODE
+        WHERE a.year=#{year} AND a.month=#{month} AND b.REPORT_ID=#{reportId} AND a.DEPT_CODE=#{deptCode}
+        AND c.PARENT_ITEM_CODE='流动资产'
+        OR a.year=#{year} AND a.month=#{month} AND b.REPORT_ID=#{reportId} AND a.DEPT_CODE=#{deptCode}
         AND c.PARENT_ITEM_CODE='流动负债'
     </select>
 </mapper>

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.RequestWrapper;
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -27,8 +29,9 @@ public class TargetMatchingController {
      * @apiGroup TargetMatching
      * @apiParam {String} year 指定流动资产与流动负债目标匹配表year值
      * @apiParam {String} month 指定流动资产与流动负债目标匹配表month值
+     * @apiParam {BigInteger} reportId 指定流动资产与流动负债目标匹配表reportId值
      * @apiParamExample {json} Request_Example:
-     * GET: /queryTargetMatching?year= &month=
+     * GET: /queryTargetMatching?year= &month= &reportId=
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -41,7 +44,78 @@ public class TargetMatchingController {
      *   "data": [
      *     {
      *       "parentItemCode": "流动资产",
-     *       "lastMonthBalance": 622557,
+     *       "lastMonthBalance": 15744,
+     *       "planMonthTargetValue": 42875.03,
+     *       "itemEmployee": [
+     *         {
+     *           "id": 5,
+     *           "itemId": 1003,
+     *           "isCharge": 1,
+     *           "employeeId": 453,
+     *           "employee": {
+     *             "id": 453,
+     *             "employeeCode": null,
+     *             "simpleCode": null,
+     *             "employeeName": "郭*芸",
+     *             "employeeType": null,
+     *             "deptCode": null,
+     *             "state": null,
+     *             "modifyTime": null
+     *           }
+     *         }
+     *       ],
+     *       "item": {
+     *         "item_code": "货币资金",
+     *         "item_name": "货币资金",
+     *         "calc_expr": "$1001+$1002+$1009",
+     *         "calc_explain": "现金+银行存款+其他货币资金",
+     *         "state": "1",
+     *         "modify_date": "2019-04-28T01:54:33.000+0000",
+     *         "id": 1003
+     *       }
+     *     ]
+     *}
+     * */
+    @GetMapping("/queryTargetMatching")
+    public BasicResponse<List<TargetMatching>> queryTargetMatching(@RequestParam("year")String year, @RequestParam("reportId") BigInteger reportId, @RequestParam("month")String month) {
+        return BusinessWrapper.wrap(response -> {
+            String message;
+            List<TargetMatching> targetMatchings = targetMatchingMapper.getTargetMatching(year,month,reportId);
+            if(targetMatchings.size()==0){
+                message="请先计算当月的值";
+                targetMatchings=null;
+            }
+            else{
+                message="查询流动资金占用成本管控责任指标成功";
+            }
+            ResponseUtil.set(response, 0,message, targetMatchings);
+        }, logger);
+    }
+
+    /**
+     * 根据部门查询流动资产与流动负债目标匹配表
+     * @api {GET} /queryTargetMatchingByDept 根据部门查询流动资产与流动负债目标匹配表
+     * @apiName queryTargetMatchingByDept 根据部门查询流动资产与流动负债目标匹配表
+     * @apiGroup TargetMatching
+     * @apiParam {String} year 指定流动资产与流动负债目标匹配表year值
+     * @apiParam {String} month 指定流动资产与流动负债目标匹配表month值
+     * @apiParam {BigInteger} reportId 指定流动资产与流动负债目标匹配表reportId值
+     * @paiParam {String} deptCode 指定流动资产与流动负债目标匹配表deptCode值
+     * @apiParamExample {json} Request_Example:
+     * GET: /queryTargetMatchingByDept?year= &month= &reportId= &deptCode=
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     *{{
+     *   "code": 0,
+     *   "message": "根据部门查询流动资金占用成本管控责任指标成功",
+     *   "data": [
+     *     {
+     *       "parentItemCode": "流动资产",
+     *       "lastMonthBalance": 15744,
      *       "planMonthTargetValue": 42875.03,
      *       "itemEmployee": [
      *         {
@@ -74,17 +148,17 @@ public class TargetMatchingController {
      *     ]
      *}
      * */
-    @GetMapping("/queryTargetMatching")
-    public BasicResponse<List<TargetMatching>> queryTargetMatching(@RequestParam("year")String year, @RequestParam("month")String month) {
+    @GetMapping("/queryTargetMatchingByDept")
+    public BasicResponse<List<TargetMatching>> queryTargetMatchingByDeptCode(@RequestParam("year")String year, @RequestParam("month")String month, @RequestParam("reportId")BigInteger reportTd,@RequestParam("deptCode")String deptCode) {
         return BusinessWrapper.wrap(response -> {
             String message;
-            List<TargetMatching> targetMatchings = targetMatchingMapper.getTargetMatching(year,month);
+            List<TargetMatching> targetMatchings = targetMatchingMapper.getTargetMatchingByDeptCode(year,month,reportTd,deptCode);
             if(targetMatchings.size()==0){
                 message="请先计算当月的值";
                 targetMatchings=null;
             }
             else{
-                message="查询流动资金占用成本管控责任指标成功";
+                message="根据部门查询流动资金占用成本管控责任指标成功";
             }
             ResponseUtil.set(response, 0,message, targetMatchings);
         }, logger);

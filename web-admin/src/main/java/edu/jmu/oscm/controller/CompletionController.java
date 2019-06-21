@@ -2,8 +2,10 @@ package edu.jmu.oscm.controller;
 
 import edu.jmu.oscm.mapper.CompletionMapper;
 
+import edu.jmu.oscm.mapper.ProportionMapper;
 import edu.jmu.oscm.model.BalanceTargetValue;
 import edu.jmu.oscm.model.Completion;
+import edu.jmu.oscm.model.ReportItemInstance;
 import edu.jmu.util.BasicResponse;
 import edu.jmu.util.BusinessWrapper;
 import edu.jmu.util.ResponseUtil;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +37,9 @@ public class CompletionController {
      * @apiGroup Completion
      * @apiParam {String} year 指定流动资金占用成本管控目标完成情况分析year值
      * @apiParam {String} month 指定流动资金占用成本管控目标完成情况分析month值
+     * @apiParam {BigInteger} reportId 指定流动资金占用成本管控目标完成情况分析reportId值
      * @apiParamExample {json} Request_Example:
-     * GET: /queryCompletion?year= &month=
+     * GET: /queryCompletion?year= &month= &reportId=
      * <p>
      * Request Header 如下
      * Content-Type:application/json;charset=utf-8
@@ -83,11 +87,11 @@ public class CompletionController {
      *}
      * */
     @GetMapping("/queryCompletion")
-    public BasicResponse<List<Completion>> queryCompletion(@RequestParam(value = "year") String year, @RequestParam(value = "month") String month) {
+    public BasicResponse<List<Completion>> queryCompletion(@RequestParam(value = "year") String year, @RequestParam(value = "month") String month,@RequestParam("reportId") BigInteger reportId) {
 
         return BusinessWrapper.wrap(response -> {
             String message;
-            List<Completion> completions = completionMapper.selectByDate(year,month);
+            List<Completion> completions = completionMapper.selectByDate(year,month,reportId);
             if(completions.size()==0){
                 message="请先计算当月的值";
             }
@@ -100,6 +104,86 @@ public class CompletionController {
                     completions.get(i).setTotalDifference(actualTotal.subtract(planTotal));
                 }
                 message = "查询流动资金占用成本管控目标完成情况成功";
+            }
+            ResponseUtil.set(response, 0,message,completions);
+        }, logger);
+    }
+
+    /**
+     * 根据部门查询流动资金占用成本管控目标完成情况分析
+     * @api {GET} /queryCompletionByDept 根据部门查询流动资金占用成本管控目标完成情况分析
+     * @apiName queryCompletionByDept 根据部门查询流动资金占用成本管控目标完成情况分析
+     * @apiGroup Completion
+     * @apiParam {String} year 指定流动资金占用成本管控目标完成情况分析year值
+     * @apiParam {String} month 指定流动资金占用成本管控目标完成情况分析month值
+     * @apiParam {BigInteger} reportId 指定流动资金占用成本管控目标完成情况分析reportId值
+     * @apiParam {String} deptCode 指定流动资金占用成本管控目标完成情况分析deptCode值
+     * @apiParamExample {json} Request_Example:
+     * GET: /queryCompletionByDept?year= &month= &reportId= &deptCode=
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     *{
+     *   "code": 0,
+     *   "message": "根据部门查询流动资金占用成本管控目标完成情况成功",
+     *   "data": [
+     *     {
+     *       "planMonthTargetValue": 47638.88,
+     *       "planTotalReduceValue": 142916.63,
+     *       "actualMonthTargetValue": 233,
+     *       "actualTotalReduceValue": 6161,
+     *       "totalDifference": -136755.63,
+     *       "item": {
+     *         "item_code": "资产",
+     *         "item_name": "资产",
+     *         "calc_expr": "",
+     *         "calc_explain": "",
+     *         "state": "1",
+     *         "modify_date": "2019-04-28T01:54:33.000+0000",
+     *         "id": 1001
+     *       },
+     *       "itemDept": [
+     *         {
+     *           "id": null,
+     *           "itemId": 1001,
+     *           "isCharge": 1,
+     *           "deptCode": "C500",
+     *           "department": {
+     *             "id": null,
+     *             "deptCode": "C500",
+     *             "deptName": "战略客户部公共",
+     *             "parentDeptCode": null,
+     *             "level": null,
+     *             "state": null,
+     *             "modifyTime": null
+     *           }
+     *         }
+     *       ]
+     *     }
+     *    ]
+     *}
+     * */
+    @GetMapping("/queryCompletionByDept")
+    public BasicResponse<List<Completion>> queryCompletionByDept(@RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("reportId")BigInteger reportId,@RequestParam("deptCode")String deptCode) {
+
+        return BusinessWrapper.wrap(response -> {
+            String message;
+            List<Completion> completions = completionMapper.selectByDateAndDeptCode(year,month,reportId,deptCode);
+            if(completions.size()==0){
+                message="请先计算当月的值";
+            }
+            else{
+                BigDecimal actualTotal;
+                BigDecimal planTotal;
+                for(int i=0;i<completions.size();i++){
+                    actualTotal = completions.get(i).getActualTotalReduceValue();
+                    planTotal = completions.get(i).getPlanTotalReduceValue();
+                    completions.get(i).setTotalDifference(actualTotal.subtract(planTotal));
+                }
+                message = "根据部门查询流动资金占用成本管控目标完成情况成功";
             }
             ResponseUtil.set(response, 0,message,completions);
         }, logger);

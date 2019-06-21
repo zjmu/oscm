@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BalanceTargetValueController {
@@ -24,6 +26,9 @@ public class BalanceTargetValueController {
 
     @Autowired
     private BalanceTargetValueService balanceTargetValueService;
+
+    @Autowired
+    private ProportionMapper proportionMapper;
 
     /**
      * 按年月删除上月余额与目标降低值表
@@ -182,6 +187,38 @@ public class BalanceTargetValueController {
             balanceTargetValueService.calculate(year,month,reportId);
             String message = "计算完成，可查询";
             ResponseUtil.set(response, 0, "执行计算", message);
+        }, logger);
+    }
+
+    /**
+     * 获取所有的部门
+     * @api {GET} /queryDepartment  获取所有的部门
+     * @apiName getAllDepartment 获取所有的部门
+     * @apiGroup Proportion
+     * @apiParamExample {json} Request_Example:
+     * GET: /queryDepartment
+     * <p>
+     * Request Header 如下
+     * Content-Type:application/json;charset=utf-8
+     * Authorization:Bearer {jwt}
+     * <p>
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 200 OK
+     * <p>
+     * {"code":0,"message":"获取部门成功，请查询",
+     * "data":{}
+     */
+    @GetMapping("/queryDepartment")
+    public BasicResponse<Map<String, String>> getAllDepartment() {
+        return BusinessWrapper.wrap(response -> {
+
+            List<ReportItemInstance> list = proportionMapper.getAllDepartment();
+            Map<String, String> map = new HashMap<>();
+            for (ReportItemInstance reportItemInstance : list) {
+                map.put(reportItemInstance.getDeptName(), reportItemInstance.getDeptCode());
+            }
+
+            ResponseUtil.set(response, 0, "获取部门成功，请查询", map);
         }, logger);
     }
 }
