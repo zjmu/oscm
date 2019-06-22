@@ -1,6 +1,5 @@
 package edu.jmu.oscm.service;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.jmu.oscm.mapper.ReduceTargetMapper;
 import edu.jmu.oscm.model.*;
 import io.swagger.models.auth.In;

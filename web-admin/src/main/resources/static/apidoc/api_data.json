@@ -1560,7 +1560,7 @@
   {
     "type": "GET",
     "url": "/calculateProportion",
-    "title": "生成某部门某年月某类型项目占比表",
+    "title": "计算某部门某年月某类型项目占比信息并且返回",
     "name": "calculateProportion________",
     "group": "Proportion",
     "parameter": {
@@ -1576,7 +1576,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"生成项目占比表成功（含部门信息）,请查询\",\n\"data\":{}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"生成项目占比表成功（含部门信息）并返回\",\n\"data\":{}",
           "type": "json"
         }
       ]
@@ -1793,8 +1793,8 @@
   {
     "type": "GET",
     "url": "/selectProportion",
-    "title": "查询某部门某年月某类型项目占比表信息",
-    "name": "selectProportion________",
+    "title": "探测项目占比表是否计算",
+    "name": "selectProportion____________",
     "group": "Proportion",
     "parameter": {
       "examples": [
@@ -1809,7 +1809,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"查询项目占比表成功（含部门信息）\",\n\"data\":{}",
+          "content": "HTTP/1.1 200 OK\n<p>\n{\"code\":0,\"message\":\"探测项目占比表是否计算成功（含部门信息）\",\n\"data\":{}",
           "type": "json"
         }
       ]

@@ -106,9 +106,13 @@ public class ProportionController {
     @GetMapping("/getAllProportion")
     public BasicResponse<List<Proportion>> getAllProportion() {
         return BusinessWrapper.wrap(response -> {
+
+
             List<Proportion> proportions = proportionMapper.getAllProportion();
             ResponseUtil.set(response, 0, "查找项目占比表成功", proportions);
-        }, logger);
+
+
+            }, logger);
     }
 
     /**
@@ -406,9 +410,9 @@ public class ProportionController {
 
 
     /**
-     * 生成项目占比表成功（含部门信息）
+     * 计算项目占比成功（含部门信息），并且返回占比信息
      *
-     * @api {GET} /calculateProportion  生成某部门某年月某类型项目占比表
+     * @api {GET} /calculateProportion  计算某部门某年月某类型项目占比信息并且返回
      * @apiName calculateProportion 生成项目占比表
      * @apiGroup Proportion
      * @apiParamExample {json} Request_Example:
@@ -421,11 +425,11 @@ public class ProportionController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"生成项目占比表成功（含部门信息）,请查询",
+     * {"code":0,"message":"生成项目占比表成功（含部门信息）并返回",
      * "data":{}
      */
     @GetMapping("/calculateProportion")
-    public BasicResponse<Boolean> calculateProportion(@RequestParam("deptName") String deptName, @RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") int type) {
+    public BasicResponse<List<Proportion>> calculateProportion(@RequestParam("deptName") String deptName, @RequestParam("year") String year, @RequestParam("month") String month, @RequestParam("type") int type) {
         return BusinessWrapper.wrap(response -> {
 
             // 初始化要用占比List和占比item
@@ -506,16 +510,18 @@ public class ProportionController {
             //3. 插入输入库中
             boolean flag = proportionMapper.insertProportions(proportions);
 
-            ResponseUtil.set(response, 0, "生成" + deptName + "部门" + year + "年" + month + "月" + name + "表成功", flag);
+            List<Proportion> returnList = proportionMapper.selectProportionByDeptAndYearAndMonthAndTypeFromProportion(deptCode, year, month, flagType);
+
+            ResponseUtil.set(response, 0, "生成" + deptName + "部门" + year + "年" + month + "月" + name + "表成功", returnList);
 
         }, logger);
     }
 
     /**
-     * 查询项目占比表成功（含部门信息）
+     * 探测项目占比表是否计算（含部门信息）
      *
-     * @api {GET} /selectProportion  查询某部门某年月某类型项目占比表信息
-     * @apiName selectProportion 查询项目占比表
+     * @api {GET} /selectProportion  探测项目占比表是否计算
+     * @apiName selectProportion 探测项目占比表是否计算
      * @apiGroup Proportion
      * @apiParamExample {json} Request_Example:
      * GET: /selectProportion
@@ -527,7 +533,7 @@ public class ProportionController {
      * @apiSuccessExample {json} Success-Response:
      * HTTP/1.1 200 OK
      * <p>
-     * {"code":0,"message":"查询项目占比表成功（含部门信息）",
+     * {"code":0,"message":"探测项目占比表是否计算成功（含部门信息）",
      * "data":{}
      */
     @GetMapping("/selectProportion")
@@ -552,7 +558,13 @@ public class ProportionController {
             // 获取所有的proportion
             List<Proportion> list = proportionMapper.selectProportionByDeptAndYearAndMonthAndTypeFromProportion(deptCode, year, month, flagType);
 
-            ResponseUtil.set(response, 0, "查询" + deptName + "部门" + year + "年" + month + "月占比信息成功", list);
+            if (list.size()==0){
+                //本月还未计算
+                ResponseUtil.set(response, -1, "请先进行计算" , list);
+            }else{
+                //本月已经计算
+                ResponseUtil.set(response, 0, "查询" + deptName + "部门" + year + "年" + month + "月信息成功" , list);
+            }
 
         }, logger);
     }
