@@ -390,20 +390,12 @@ public class ProportionController {
      * "data":{}
      */
     @GetMapping("/getAllDepartment")
-    public BasicResponse<Map<String, String>> getAllDepartment() {
+    public BasicResponse<List<ReportItemInstance>> getAllDepartment() {
         return BusinessWrapper.wrap(response -> {
 
             List<ReportItemInstance> list = proportionMapper.getAllDepartment();
 
-            Map<String, String> map = new HashMap<>();
-
-            for (ReportItemInstance reportItemInstance : list) {
-                map.put(reportItemInstance.getDeptName(), reportItemInstance.getDeptCode());
-            }
-
-            System.out.println(proportionMapper.getAllDepartment().size());
-
-            ResponseUtil.set(response, 0, "获取部门成功，请查询", map);
+            ResponseUtil.set(response, 0, "获取部门成功，请查询", list);
 
         }, logger);
     }
