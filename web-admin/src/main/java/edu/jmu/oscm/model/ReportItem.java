@@ -17,12 +17,11 @@ public class ReportItem {
     private BigInteger id;
     private BigInteger reportId;
     private BigInteger itemId;
-    private int orderNum;
+    private Integer orderNum;
     private String state;
     private Date modifyTime;
     private Item item;
     private Report report;
-    private List<ReportItemInstance> reportItemInstances;
-    private List<ItemReduceTarget> itemReduceTargets;
+    private ReportItemInstance reportItemInstance;
 
 }

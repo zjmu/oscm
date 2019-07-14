@@ -3,31 +3,66 @@
 <mapper namespace="edu.jmu.oscm.mapper.ResponsibilityIndicatorMapper">
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.ResponsibilityIndicator">
-        <result column="last_month_balance" property="lastMonthBalance"/>
-        <result column="plan_month_target_value" property="planMonthTargetValue"/>
+        <result column="lastQuarterEndValue" property="lastQuarterEndValue"/>
+        <result column="quarterTargetValue" property="quarterTargetValue"/>
         <association property="item" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId"/>
         <collection property="itemDepts" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemDeptMapper.selectItemDept"/>
         <collection property="itemEmployees" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
     </resultMap>
 
-    <select id="getResponsibilityIndicator" resultMap="mapper">
-        SELECT last_month_balance,
-        plan_month_target_value,
-        a.ITEM_ID
-        FROM report_item a
-        LEFT JOIN ad_balance_target_value b
-        ON a.ITEM_ID = b.ITEM_ID
-        WHERE year=#{year} AND month=#{month} AND a.REPORT_ID=#{reportId}
+    <select id="getResponsibilityIndicatorForSameYear" resultMap="mapper">
+        SELECT m.ITEM_ID AS ITEM_ID,
+        m.END_VALUE-n.END_VALUE AS lastQuarterEndValue,
+        c.plan_total_reduce_value-d.plan_total_reduce_value AS quarterTargetValue
+        FROM
+        (SELECT PARENT_ITEM_CODE,`YEAR`,`MONTH`,END_VALUE,DEPT_CODE,DEPT_NAME,REPORT_ITEM_ID,ITEM_ID,REPORT_ID
+        FROM report_item a, report_item_instance b
+        WHERE `YEAR`=#{lastQuarterEndYear} AND `MONTH`=#{lastQuarterEndMonth} AND DEPT_CODE=#{deptCode} AND a.ID=b.REPORT_ITEM_ID AND a.REPORT_ID=#{reportId}) m
+        LEFT JOIN
+        (SELECT PARENT_ITEM_CODE,`YEAR`,`MONTH`,END_VALUE,DEPT_CODE,DEPT_NAME,REPORT_ITEM_ID
+        FROM report_item_instance
+        WHERE `YEAR`=#{lastQuarterBeginYear} AND `MONTH`=#{lastQuarterBeginMonth} AND DEPT_CODE=#{deptCode}) n
+        ON m.REPORT_ITEM_ID=n.REPORT_ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID,DEPT_NAME
+        FROM ad_balance_target_value
+        WHERE year=#{thisQuarterEndYear} AND month=#{thisQuarterEndMonth} AND DEPT_CODE=#{deptCode}) c
+        ON m.ITEM_ID=c.ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID,DEPT_NAME
+        FROM ad_balance_target_value
+        WHERE year=#{lastQuarterEndYear} AND month=#{lastQuarterEndMonth} AND DEPT_CODE=#{deptCode}) d
+        ON m.ITEM_ID=d.ITEM_ID
+
     </select>
 
-    <select id="getResponsibilityIndicatorByDeptCode" resultMap="mapper">
-        SELECT last_month_balance,
-        plan_month_target_value,
-        a.ITEM_ID
-        FROM report_item a
-        LEFT JOIN ad_balance_target_value b
-        ON a.ITEM_ID = b.ITEM_ID
-        WHERE year=#{year} AND month=#{month} AND a.REPORT_ID=#{reportId} AND DEPT_CODE=#{deptCode}
+    <select id="getResponsibilityIndicatorForDifferentYear" resultMap="mapper">
+        SELECT m.ITEM_ID AS ITEM_ID,
+        m.END_VALUE-n.END_VALUE AS lastQuarterEndValue,
+        c.plan_total_reduce_value-d.plan_total_reduce_value+e.plan_total_reduce_value AS quarterTargetValue
+        FROM
+        (SELECT PARENT_ITEM_CODE,`YEAR`,`MONTH`,END_VALUE,DEPT_CODE,DEPT_NAME,REPORT_ITEM_ID,ITEM_ID,REPORT_ID
+        FROM report_item a, report_item_instance b
+        WHERE `YEAR`=#{lastQuarterEndYear} AND `MONTH`=#{lastQuarterEndMonth} AND DEPT_CODE=#{deptCode} AND a.ID=b.REPORT_ITEM_ID AND a.REPORT_ID=#{reportId}) m
+        LEFT JOIN
+        (SELECT PARENT_ITEM_CODE,`YEAR`,`MONTH`,END_VALUE,DEPT_CODE,DEPT_NAME,REPORT_ITEM_ID
+        FROM report_item_instance
+        WHERE `YEAR`=#{lastQuarterBeginYear} AND `MONTH`=#{lastQuarterBeginMonth} AND DEPT_CODE=#{deptCode}) n
+        ON m.REPORT_ITEM_ID=n.REPORT_ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID,DEPT_NAME
+        FROM ad_balance_target_value
+        WHERE year=#{thisQuarterEndYear} AND month=#{thisQuarterEndMonth} AND DEPT_CODE=#{deptCode}) c
+        ON m.ITEM_ID=c.ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID,DEPT_NAME
+        FROM ad_balance_target_value
+        WHERE year=#{lastQuarterEndYear} AND month='12' AND DEPT_CODE=#{deptCode}) d
+        ON m.ITEM_ID=d.ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID,DEPT_NAME
+        FROM ad_balance_target_value
+        WHERE year=#{lastQuarterEndYear} AND month=#{lastQuarterEndMonth} AND DEPT_CODE=#{deptCode}) e
+        ON m.ITEM_ID=d.ITEM_ID
     </select>
-
 </mapper>

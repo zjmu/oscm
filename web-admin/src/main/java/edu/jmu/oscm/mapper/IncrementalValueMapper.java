@@ -18,7 +18,8 @@ public interface IncrementalValueMapper {
      * @param reportId
      * @author zjm
      */
-    List<IncrementalValue> selectByDate(@Param(value = "year") String year, @Param(value = "month") String month, @Param("reportId")BigInteger reportId);
+    List<IncrementalValue> selectBySameYear(@Param("year")String year, @Param("beginMonth")String beginMonth,@Param("endMonth")String endMonth,
+                                        @Param("reportId") BigInteger reportId, @Param("deptCode")String deptCode);
 
     /**
      * @description 根据日期和部门查询增创价值表
@@ -28,5 +29,6 @@ public interface IncrementalValueMapper {
      * @param reportId
      * @author zjm
      */
-    List<IncrementalValue> selectByDateAndDeptCode(@Param(value = "year") String year, @Param(value = "month") String month,@Param("reportId")BigInteger reportId, @Param("deptCode")String deptCode);
+    List<IncrementalValue> selectByDifferentYear(@Param("beginYear")String beginYear, @Param("beginMonth")String beginMonth,@Param("endYear")String endYear,
+                                                   @Param("endMonth")String endMonth,@Param("reportId") BigInteger reportId, @Param("deptCode")String deptCode);
 }

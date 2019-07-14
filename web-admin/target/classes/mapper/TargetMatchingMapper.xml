@@ -4,47 +4,70 @@
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.TargetMatching">
         <result column="PARENT_ITEM_CODE" property="parentItemCode"/>
-        <result column="last_month_balance" property="lastMonthBalance"/>
-        <result column="plan_month_target_value" property="planMonthTargetValue"/>
+        <result column="lastQuarterEndValue" property="lastQuarterEndValue"/>
+        <result column="quarterTargetValue" property="quarterTargetValue"/>
         <association property="item" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId"/>
         <collection property="itemEmployee" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemEmployeeMapper.selectItemEmployee"/>
     </resultMap>
 
-    <select id="getTargetMatching" resultMap="mapper">
-        SELECT a.last_month_balance AS last_month_balance,
-        a.plan_month_target_value AS plan_month_target_value,
-        c.PARENT_ITEM_CODE AS PARENT_ITEM_CODE,
-        a.ITEM_ID AS ITEM_ID
-        FROM report_item b
-        LEFT JOIN ad_balance_target_value a
-        ON  a.ITEM_ID = b.ITEM_ID
+    <select id="getTargetMatchingForSameYear" resultMap="mapper">
+        SELECT a.ITEM_ID AS ITEM_ID,
+        a.PARENT_ITEM_CODE AS PARENT_ITEM_CODE,
+        a.END_VALUE-b.END_VALUE AS lastQuarterEndValue,
+        c.plan_total_reduce_value-d.plan_total_reduce_value AS quarterTargetValue
+        FROM
+        (SELECT PARENT_ITEM_CODE,`YEAR`,`MONTH`,END_VALUE,DEPT_CODE,DEPT_NAME,REPORT_ITEM_ID,ITEM_ID
+        FROM report_item a, report_item_instance b
+        WHERE `YEAR`=#{lastQuarterEndYear} AND `MONTH`=#{lastQuarterEndMonth} AND PARENT_ITEM_CODE='流动资产' AND DEPT_CODE=#{deptCode} AND a.ID=b.REPORT_ITEM_ID
+        OR `YEAR`=#{lastQuarterEndYear} AND `MONTH`=#{lastQuarterEndMonth} AND PARENT_ITEM_CODE='流动负债' AND DEPT_CODE=#{deptCode} AND a.ID=b.REPORT_ITEM_ID) a
         LEFT JOIN
-        (SELECT PARENT_ITEM_CODE, REPORT_ITEM_ID,DEPT_CODE
+        (SELECT PARENT_ITEM_CODE,`YEAR`,`MONTH`,END_VALUE,DEPT_CODE,DEPT_NAME,REPORT_ITEM_ID
         FROM report_item_instance
-        WHERE `YEAR`=#{year} AND `MONTH`=#{month}) c
-        ON b.ID = c.REPORT_ITEM_ID AND a.DEPT_CODE=c.DEPT_CODE
-        WHERE a.year=#{year} AND a.month=#{month} AND b.REPORT_ID=#{reportId}
-        AND c.PARENT_ITEM_CODE='流动资产'
-        OR a.year=#{year} AND a.month=#{month} AND b.REPORT_ID=#{reportId}
-        AND c.PARENT_ITEM_CODE='流动负债'
+        WHERE `YEAR`=#{lastQuarterBeginYear} AND `MONTH`=#{lastQuarterBeginMonth} AND PARENT_ITEM_CODE='流动资产' AND DEPT_CODE=#{deptCode} AND REPORT_ID=#{reportId}
+        OR `YEAR`=#{lastQuarterBeginYear} AND `MONTH`=#{lastQuarterBeginMonth} AND PARENT_ITEM_CODE='流动负债' AND DEPT_CODE=#{deptCode} AND REPORT_ID=#{reportId}) b
+        ON a.REPORT_ITEM_ID=b.REPORT_ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID
+        FROM ad_balance_target_value
+        WHERE year=#{thisQuarterEndYear} AND month=#{thisQuarterEndMonth} AND DEPT_CODE=#{deptCode}) c
+        ON a.ITEM_ID=c.ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID
+        FROM ad_balance_target_value
+        WHERE year=#{lastQuarterEndYear} AND month=#{lastQuarterEndMonth} AND DEPT_CODE=#{deptCode}) d
+        ON a.ITEM_ID=d.ITEM_ID
     </select>
 
-    <select id="getTargetMatchingByDeptCode" resultMap="mapper">
-        SELECT a.last_month_balance AS last_month_balance,
-        a.plan_month_target_value AS plan_month_target_value,
-        c.PARENT_ITEM_CODE AS PARENT_ITEM_CODE,
-        a.ITEM_ID AS ITEM_ID
-        FROM report_item b
-        LEFT JOIN ad_balance_target_value a
-        ON  a.ITEM_ID = b.ITEM_ID
+    <select id="getTargetMatchingForDifferentYear" resultMap="mapper">
+        SELECT a.ITEM_ID AS ITEM_ID,
+        a.PARENT_ITEM_CODE AS PARENT_ITEM_CODE,
+        a.END_VALUE-b.END_VALUE AS lastQuarterEndValue,
+        c.plan_total_reduce_value+d.plan_total_reduce_value-e.plan_total_reduce_value AS quarterTargetValue
+        FROM
+        (SELECT PARENT_ITEM_CODE,`YEAR`,`MONTH`,END_VALUE,DEPT_CODE,DEPT_NAME,REPORT_ITEM_ID,ITEM_ID
+        FROM report_item a, report_item_instance b
+        WHERE `YEAR`=#{lastQuarterEndYear} AND `MONTH`=#{lastQuarterEndMonth} AND PARENT_ITEM_CODE='流动资产' AND DEPT_CODE=#{deptCode} AND a.ID=b.REPORT_ITEM_ID  AND REPORT_ID=#{reportId}
+        OR `YEAR`=#{lastQuarterEndYear} AND `MONTH`=#{lastQuarterEndMonth} AND PARENT_ITEM_CODE='流动负债' AND DEPT_CODE=#{deptCode} AND a.ID=b.REPORT_ITEM_ID  AND REPORT_ID=#{reportId}) a
         LEFT JOIN
-        (SELECT PARENT_ITEM_CODE, REPORT_ITEM_ID,DEPT_CODE
+        (SELECT PARENT_ITEM_CODE,`YEAR`,`MONTH`,END_VALUE,DEPT_CODE,DEPT_NAME,REPORT_ITEM_ID
         FROM report_item_instance
-        WHERE `YEAR`=#{year} AND `MONTH`=#{month}) c
-        ON b.ID = c.REPORT_ITEM_ID AND a.DEPT_CODE=c.DEPT_CODE
-        WHERE a.year=#{year} AND a.month=#{month} AND b.REPORT_ID=#{reportId} AND a.DEPT_CODE=#{deptCode}
-        AND c.PARENT_ITEM_CODE='流动资产'
-        OR a.year=#{year} AND a.month=#{month} AND b.REPORT_ID=#{reportId} AND a.DEPT_CODE=#{deptCode}
-        AND c.PARENT_ITEM_CODE='流动负债'
+        WHERE `YEAR`=#{lastQuarterBeginYear} AND `MONTH`=#{lastQuarterBeginMonth} AND PARENT_ITEM_CODE='流动资产' AND DEPT_CODE=#{deptCode}
+        OR `YEAR`=#{lastQuarterBeginYear} AND `MONTH`=#{lastQuarterBeginMonth} AND PARENT_ITEM_CODE='流动负债' AND DEPT_CODE=#{deptCode}) b
+        ON a.REPORT_ITEM_ID=b.REPORT_ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID
+        FROM ad_balance_target_value
+        WHERE year=#{thisQuarterEndYear} AND month=#{thisQuarterEndMonth} AND DEPT_CODE=#{deptCode}) c
+        ON a.ITEM_ID=c.ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID,DEPT_NAME
+        FROM ad_balance_target_value
+        WHERE year=#{lastQuarterEndYear} AND month='12' AND DEPT_CODE=#{deptCode}) d
+        ON a.ITEM_ID=d.ITEM_ID
+        LEFT JOIN
+        (SELECT plan_total_reduce_value,ITEM_ID
+        FROM ad_balance_target_value
+        WHERE year=#{lastQuarterEndYear} AND month=#{lastQuarterEndMonth} AND DEPT_CODE=#{deptCode}) e
+        ON a.ITEM_ID=e.ITEM_ID
     </select>
 </mapper>

@@ -11,15 +11,6 @@ import java.util.List;
 public interface ResponsibilityIndicatorMapper {
 
     /**
-     * @description 根据日期查询流动资金占用成本管控责任指标
-     * @param year
-     * @param month
-     * @param reportId
-     * @author zjm
-     */
-    List<ResponsibilityIndicator> getResponsibilityIndicator(@Param("year")String year, @Param("month")String month, @Param("reportId")BigInteger reportId);
-
-    /**
      * @description 根据日期和部门询流动资金占用成本管控责任指标
      * @param year
      * @param month
@@ -27,5 +18,14 @@ public interface ResponsibilityIndicatorMapper {
      * @param reportId
      * @author zjm
      */
-    List<ResponsibilityIndicator> getResponsibilityIndicatorByDeptCode(@Param("year")String year, @Param("month")String month,@Param("reportId")BigInteger reportId,@Param("deptCode")String deptCode);
+    List<ResponsibilityIndicator> getResponsibilityIndicatorForSameYear(@Param("lastQuarterEndYear")String lastQuarterEndYear,@Param("lastQuarterEndMonth")String lastQuarterEndMonth,
+                                                                        @Param("lastQuarterBeginYear")String lastQuarterBeginYear,@Param("lastQuarterBeginMonth")String lastQuarterBeginMonth,
+                                                                        @Param("thisQuarterEndYear")String thisQuarterEndYear,@Param("thisQuarterEndMonth")String thisQuarterEndMonth,
+                                                                        @Param("reportId")BigInteger reportId,@Param("deptCode")String deptCode);
+
+
+    List<ResponsibilityIndicator> getResponsibilityIndicatorForDifferentYear(@Param("lastQuarterEndYear")String lastQuarterEndYear,@Param("lastQuarterEndMonth")String lastQuarterEndMonth,
+                                                                        @Param("lastQuarterBeginYear")String lastQuarterBeginYear,@Param("lastQuarterBeginMonth")String lastQuarterBeginMonth,
+                                                                        @Param("thisQuarterEndYear")String thisQuarterEndYear,@Param("thisQuarterEndMonth")String thisQuarterEndMonth,
+                                                                        @Param("reportId")BigInteger reportId,@Param("deptCode")String deptCode);
 }

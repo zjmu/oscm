@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface IncentiveRatioMapper {
 
-    List<IncentiveRatio> select(String year);
+    IncentiveRatio select(String year,String deptCode);
     /**
      * 查询所有部门奖励比例
      * @return 所有部门奖励比例

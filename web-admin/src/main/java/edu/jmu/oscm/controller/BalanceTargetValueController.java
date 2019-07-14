@@ -182,9 +182,9 @@ public class BalanceTargetValueController {
      * Content-Type:application/json;charset=utf-8
      * */
     @GetMapping("/calculateBalanceTargetValue")
-    public BasicResponse<String> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month,@RequestParam("reportId")BigInteger reportId) {
+    public BasicResponse<String> calculateBalanceTargetValue(@RequestParam("year")String year, @RequestParam("month")String month,@RequestParam("reportId")BigInteger reportId,@RequestParam("deptCode")String deptCode) {
         return BusinessWrapper.wrap(response -> {
-            balanceTargetValueService.calculate(year,month,reportId);
+            balanceTargetValueService.calculate(year,month,reportId,deptCode);
             String message = "计算完成，可查询";
             ResponseUtil.set(response, 0, "执行计算", message);
         }, logger);

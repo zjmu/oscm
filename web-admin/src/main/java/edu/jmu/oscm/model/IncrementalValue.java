@@ -13,9 +13,9 @@ import java.util.List;
 @Data
 public class IncrementalValue {
 
-    private BigDecimal actualMonthTargetValue;
+    private BigDecimal quarterActualTargetValue;
     private BigDecimal actualTotalReduceValue;
-    private BigDecimal monthIncrementalValue;
+    private BigDecimal quarterIncrementalValue;
     private BigDecimal totalIncrementalValue;
     private List<ItemDept> itemDept;
     private Item item;

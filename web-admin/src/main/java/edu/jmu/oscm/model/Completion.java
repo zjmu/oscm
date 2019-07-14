@@ -13,9 +13,10 @@ import java.util.List;
 @Data
 public class Completion {
 
-    private BigDecimal planMonthTargetValue;
+    private String itemId;
+    private BigDecimal quarterPlanValue;
     private BigDecimal planTotalReduceValue;
-    private BigDecimal actualMonthTargetValue;
+    private BigDecimal quarterActualValue;
     private BigDecimal actualTotalReduceValue;
     private BigDecimal totalDifference;
     private Item item;

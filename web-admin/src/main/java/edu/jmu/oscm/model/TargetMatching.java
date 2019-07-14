@@ -14,8 +14,8 @@ import java.util.List;
 public class TargetMatching {
 
     private String parentItemCode;
-    private BigDecimal lastMonthBalance;
-    private BigDecimal planMonthTargetValue;
+    private BigDecimal lastQuarterEndValue;
+    private BigDecimal quarterTargetValue;
     private List<ItemEmployee> itemEmployee;
     private Item item;
 }

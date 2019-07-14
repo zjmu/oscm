@@ -2,14 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.jmu.oscm.mapper.ReportItemMapper">
 
-    <resultMap id="ReportItemAndReportItemInstanceMapper" type="edu.jmu.oscm.model.ReportItem">
+    <resultMap id="reportItemAndReportItemInstanceMapper" type="edu.jmu.oscm.model.ReportItem">
+        <id property="id" column="ID"/>
         <result property="itemId" column="ITEM_ID"/>
-        <collection property="reportItemInstances" column="{reportItemId=ID,year=YEAR,month=MONTH}" select="edu.jmu.oscm.mapper.ReportItemInstanceMapper.getReportItemInstance"/>
-    </resultMap>
-
-    <resultMap id="ReportItemAndItemReduceTargetMapper" type="edu.jmu.oscm.model.ReportItem">
-        <result property="itemId" column="ITEM_ID"/>
-        <collection property="itemReduceTargets" column="{itemId=ITEM_ID,year=YEAR}" select="edu.jmu.oscm.mapper.ReportItemMapper.selectByItemIdAndYear"/>
+        <association property="reportItemInstance"  javaType="edu.jmu.oscm.model.ReportItemInstance">
+            <result column="REPORT_ITEM_ID" property="reportItemId"/>
+            <result column="DEPT_CODE" property="deptCode"/>
+            <result column="DEPT_NAME" property="deptName"/>
+            <result column="YEAR" property="year"/>
+            <result column="MONTH" property="month"/>
+            <result column="END_VALUE" property="endValue"/>
+        </association>
     </resultMap>
 
     <resultMap id = "itemReduceTargetMapper" type="edu.jmu.oscm.model.ItemReduceTarget">
@@ -30,22 +33,64 @@
         <result column="dec" property="dec"/>
     </resultMap>
 
-    <select id="getReportItemAndReportItemInstance" resultMap="ReportItemAndReportItemInstanceMapper">
-        SELECT ITEM_ID, ID,'${year}' YEAR, '${month}' MONTH
-        FROM `report_item`
-        WHERE REPORT_ID=#{reportId}
+    <resultMap id="planTotalReduceValueMapper" type="edu.jmu.oscm.model.PlanTotalReduceValue">
+        <result property="itemId" column="ITEM_ID"/>
+        <result property="planTotalReduceValue" column="planTotalReduceValue"/>
+    </resultMap>
+
+    <select id="getReportItemAndReportItemInstance" resultMap="reportItemAndReportItemInstanceMapper">
+        SELECT a.ITEM_ID AS ITEM_ID,
+        a.ID AS ID,
+        b.REPORT_ITEM_ID AS REPOR_ITEM_ID,
+        b.`YEAR` AS `YEAR`,
+        b.`MONTH` AS `MONTH`,
+        b.DEPT_CODE AS DEPT_CODE,
+        b.DEPT_NAME AS DEPT_NAME,
+        b.END_VALUE AS END_VALUE
+        FROM `report_item` a,
+        report_item_instance b
+        WHERE REPORT_ID=#{reportId} AND a.ID=b.REPORT_ITEM_ID
+        AND YEAR=#{year} AND `MONTH`=#{month} AND DEPT_CODE=#{deptCode}
     </select>
 
-    <select id="getReportItemAndItemReduceTarget" resultMap="ReportItemAndItemReduceTargetMapper">
-        SELECT ITEM_ID,'${year}' YEAR
-        FROM report_item
-        WHERE REPORT_ID=#{reportId}
+    <select id="getItemReduceTarget" resultMap="itemReduceTargetMapper">
+        SELECT DEPT_CODE,b.ITEM_ID,
+        jan,feb,mar,apr,may,jun,jul,aug,sept,oct,nov,`dec`
+        FROM report_item a, ad_item_reduce_target b
+        WHERE a.ITEM_ID=b.ITEM_ID
+        AND a.REPORT_ID=#{reportId}
+        AND b.DEPT_CODE=#{deptCode}
+        AND b.`year`=#{year}
     </select>
 
-    <select id="selectByItemIdAndYear" resultMap="itemReduceTargetMapper">
-        SELECT DEPT_CODE,ITEM_ID, jan,feb,mar,apr,may,jun,jul,aug,sept,oct,nov,`dec`
+    <select id="getSameYearPlanTotalTargetValue" resultMap="planTotalReduceValueMapper">
+        SELECT b.ITEM_ID,
+        mar*#{monthValue} AS planTotalReduceValue
+        FROM report_item a, ad_item_reduce_target b
+        WHERE a.ITEM_ID=b.ITEM_ID
+        AND a.REPORT_ID=#{reportId}
+        AND `year`=#{year}
+        AND DEPT_CODE=#{deptCode}
+    </select>
+
+    <select id="getDifferentYearPlanTotalTargetValue" resultMap="planTotalReduceValueMapper">
+        SELECT n.ITEM_ID,
+        n.planTotalReduceValue+m.planTotalReduceValue AS planTotalReduceValue
+        FROM
+        (SELECT b.ITEM_ID,
+        mar*#{monthValue} AS  planTotalReduceValue
+        FROM report_item a, ad_item_reduce_target b
+        WHERE a.ITEM_ID=b.ITEM_ID
+        AND a.REPORT_ID=#{reportId}
+        AND `year`=#{year}
+        AND DEPT_CODE=#{deptCode}) n
+        LEFT JOIN
+        (SELECT ITEM_ID,
+        mar*10 AS  planTotalReduceValue
         FROM ad_item_reduce_target
-        WHERE ITEM_ID=#{itemId} AND `year`=#{year}
+        WHERE `year`=#{lastYear}
+        AND DEPT_CODE=#{deptCode}) m
+        ON n.ITEM_ID=m.ITEM_ID
     </select>
 
 </mapper>

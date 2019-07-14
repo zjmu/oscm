@@ -3,36 +3,64 @@
 <mapper namespace="edu.jmu.oscm.mapper.IncrementalValueMapper">
 
     <resultMap id="mapper" type="edu.jmu.oscm.model.IncrementalValue">
-        <result column="actual_month_target_value" property="actualMonthTargetValue"/>
+        <result column="quarterActualValue" property="quarterActualTargetValue"/>
         <result column="actual_total_reduce_value" property="actualTotalReduceValue"/>
-        <result column="month_incremental_value" property="monthIncrementalValue"/>
+        <result column="quarterIncrementalValue" property="quarterIncrementalValue"/>
         <result column="total_incremental_value" property="totalIncrementalValue"/>
         <association property="item" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemMapper.getItemByItemId"/>
         <collection property="itemDept" column="ITEM_ID" select="edu.jmu.oscm.mapper.ItemDeptMapper.getResponsibleItemDept"/>
     </resultMap>
 
-    <select id="selectByDate" resultMap="mapper">
-        SELECT actual_month_target_value,
-        actual_total_reduce_value,
-        month_incremental_value,
-        total_incremental_value,
-        a.ITEM_ID
-        FROM report_item a
-        LEFT JOIN ad_balance_target_value b
-        ON a.ITEM_ID = b.ITEM_ID
-        WHERE year=#{year} AND month=#{month} AND a.REPORT_ID=#{reportId}
+    <select id="selectBySameYear" resultMap="mapper">
+        SELECT m.ITEM_ID AS ITEM_ID,
+        m.quarterIncrementalValue AS quarterIncrementalValue,
+        m.quarterActualValue AS quarterActualValue,
+        n.actual_total_reduce_value AS actual_total_reduce_value,
+        n.total_incremental_value AS total_incremental_value
+        FROM
+        (SELECT b.ITEM_ID AS ITEM_ID,
+        SUM(actual_month_target_value) AS quarterActualValue,
+        SUM(month_incremental_value) AS quarterIncrementalValue
+        FROM report_item a,
+        ad_balance_target_value b
+        WHERE a.ITEM_ID = b.ITEM_ID AND
+        `year`=#{year} AND `month` >= #{beginMonth} AND `month`<![CDATA[ <= ]]>#{endMonth}
+        AND a.REPORT_ID=#{reportId} AND DEPT_CODE=#{deptCode}
+        GROUP BY ITEM_ID) m
+        LEFT JOIN
+        (SELECT ITEM_ID,
+        actual_total_reduce_value AS actual_total_reduce_value,
+        total_incremental_value AS total_incremental_value
+        FROM ad_balance_target_value
+         WHERE `year`=#{year} AND `month`=#{endMonth} AND DEPT_CODE=#{deptCode}) n
+        ON m.ITEM_ID=n.ITEM_ID
     </select>
 
-    <select id="selectByDateAndDeptCode" resultMap="mapper">
-        SELECT actual_month_target_value,
-        actual_total_reduce_value,
-        month_incremental_value,
-        total_incremental_value,
-        a.ITEM_ID
-        FROM report_item a
-        LEFT JOIN ad_balance_target_value b
-        ON a.ITEM_ID = b.ITEM_ID
-        WHERE year=#{year} AND month=#{month} AND a.REPORT_ID=#{reportId} AND DEPT_CODE=#{deptCode}
+    <select id="selectByDifferentYear" resultMap="mapper">
+        SELECT m.ITEM_ID AS ITEM_ID,
+        m.quarterIncrementalValue AS quarterIncrementalValue,
+        m.quarterActualValue AS quarterActualValue,
+        n.actual_total_reduce_value AS actual_total_reduce_value,
+        n.total_incremental_value AS total_incremental_value
+        FROM
+        (SELECT b.ITEM_ID AS ITEM_ID,
+        SUM(actual_month_target_value) AS quarterActualValue,
+        SUM(month_incremental_value) AS quarterIncrementalValue
+        FROM report_item a,
+        ad_balance_target_value b
+        WHERE a.ITEM_ID = b.ITEM_ID AND
+         `year`=#{beginYear} AND `month`>=#{beginMonth} AND `month` <![CDATA[ <= ]]> '12'
+        AND a.REPORT_ID=#{reportId} AND DEPT_CODE=#{deptCode}
+        OR a.ITEM_ID = b.ITEM_ID AND
+        `year`=#{endYear} AND `month`>='01' AND `month` <![CDATA[ <= ]]> #{endMonth}
+        GROUP BY ITEM_ID) m
+        LEFT JOIN
+        (SELECT ITEM_ID,
+        actual_total_reduce_value AS actual_total_reduce_value,
+        total_incremental_value AS total_incremental_value
+         FROM ad_balance_target_value
+         WHERE `year`=#{endYear} AND `month`=#{endMonth} AND DEPT_CODE=#{deptCode}) n
+        ON m.ITEM_ID=n.ITEM_ID
     </select>
 
 </mapper>

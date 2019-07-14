@@ -13,8 +13,8 @@ import java.util.List;
 @Data
 public class ResponsibilityIndicator {
 
-    private BigDecimal lastMonthBalance;
-    private BigDecimal planMonthTargetValue;
+    private BigDecimal lastQuarterEndValue;
+    private BigDecimal quarterTargetValue;
     private ItemEmployee itemEmployee;
     private List<ItemDept> itemDepts;
     private List<ItemEmployee> itemEmployees;
